@@ -1,0 +1,4134 @@
+{
+ "builtin_count": 688,
+ "note": "global index = first-seen lowercased name; .dump props append after",
+ "table": [
+  {
+   "index": 0,
+   "name": "id",
+   "type": "tINTEGER",
+   "source": "Entity"
+  },
+  {
+   "index": 1,
+   "name": "script_priority",
+   "type": "tINTEGER",
+   "source": "Entity"
+  },
+  {
+   "index": 2,
+   "name": "block_id",
+   "type": "integer",
+   "source": "InitEntitiesDatabase"
+  },
+  {
+   "index": 3,
+   "name": "typename",
+   "type": "tSTRING",
+   "source": "Node"
+  },
+  {
+   "index": 4,
+   "name": "script",
+   "type": "tSTRING",
+   "source": "Node"
+  },
+  {
+   "index": 5,
+   "name": "order",
+   "type": "tINTEGER",
+   "source": "Node"
+  },
+  {
+   "index": 6,
+   "name": "renderordergroup",
+   "type": "tINTEGER",
+   "source": "Node"
+  },
+  {
+   "index": 7,
+   "name": "parent",
+   "type": "tEntity",
+   "source": "Node"
+  },
+  {
+   "index": 8,
+   "name": "disable_on_cutscene",
+   "type": "tTRUTH",
+   "source": "Node"
+  },
+  {
+   "index": 9,
+   "name": "fragment",
+   "type": "tSTRING",
+   "source": "Node"
+  },
+  {
+   "index": 10,
+   "name": "flags",
+   "type": "tINTEGER",
+   "source": "Node"
+  },
+  {
+   "index": 11,
+   "name": "representation",
+   "type": "tINTEGER",
+   "source": "Node"
+  },
+  {
+   "index": 12,
+   "name": "pos",
+   "type": "tVECTOR",
+   "source": "Node"
+  },
+  {
+   "index": 13,
+   "name": "orient",
+   "type": "tQUATERNION",
+   "source": "Node"
+  },
+  {
+   "index": 14,
+   "name": "use_aux_quadtree",
+   "type": "tTRUTH",
+   "source": "Node"
+  },
+  {
+   "index": 15,
+   "name": "name",
+   "type": "tSTRING",
+   "source": "Node"
+  },
+  {
+   "index": 16,
+   "name": "lod_threshold",
+   "type": "tNUMBER",
+   "source": "Node"
+  },
+  {
+   "index": 17,
+   "name": "fade_threshold",
+   "type": "tNUMBER",
+   "source": "Node"
+  },
+  {
+   "index": 18,
+   "name": "slow_fade",
+   "type": "tTRUTH",
+   "source": "Node"
+  },
+  {
+   "index": 19,
+   "name": "traverse_distance",
+   "type": "tNUMBER",
+   "source": "Node"
+  },
+  {
+   "index": 20,
+   "name": "scene",
+   "type": "tEntity",
+   "source": "Node"
+  },
+  {
+   "index": 21,
+   "name": "firstchild",
+   "type": "tEntity",
+   "source": "Node"
+  },
+  {
+   "index": 22,
+   "name": "nextsibling",
+   "type": "tEntity",
+   "source": "Node"
+  },
+  {
+   "index": 23,
+   "name": "lod_distance",
+   "type": "tNUMBER",
+   "source": "Node"
+  },
+  {
+   "index": 24,
+   "name": "lod_fade",
+   "type": "tNUMBER",
+   "source": "Node"
+  },
+  {
+   "index": 25,
+   "name": "lod",
+   "type": "tINTEGER",
+   "source": "Node"
+  },
+  {
+   "index": 26,
+   "name": "is_tagged_for_unload",
+   "type": "tTRUTH",
+   "source": "Node"
+  },
+  {
+   "index": 27,
+   "name": "unique_id0",
+   "type": "tINTEGER",
+   "source": "Node"
+  },
+  {
+   "index": 28,
+   "name": "unique_id1",
+   "type": "tINTEGER",
+   "source": "Node"
+  },
+  {
+   "index": 29,
+   "name": "UserType",
+   "type": "tINTEGER",
+   "source": "Node"
+  },
+  {
+   "index": 30,
+   "name": "IgnoreList",
+   "type": "tSTRING",
+   "source": "Node"
+  },
+  {
+   "index": 31,
+   "name": "boundradius",
+   "type": "tNUMBER",
+   "source": "NodeSpatial"
+  },
+  {
+   "index": 32,
+   "name": "offset",
+   "type": "tNUMBER",
+   "source": "Camera"
+  },
+  {
+   "index": 33,
+   "name": "nearclip",
+   "type": "tNUMBER",
+   "source": "Camera"
+  },
+  {
+   "index": 34,
+   "name": "farclip",
+   "type": "tNUMBER",
+   "source": "Camera"
+  },
+  {
+   "index": 35,
+   "name": "fov",
+   "type": "tNUMBER",
+   "source": "Camera"
+  },
+  {
+   "index": 36,
+   "name": "dynlightcullrange",
+   "type": "tNUMBER",
+   "source": "Camera"
+  },
+  {
+   "index": 37,
+   "name": "msep1",
+   "type": "tTRUTH",
+   "source": "Model"
+  },
+  {
+   "index": 38,
+   "name": "modelres",
+   "type": "tSTRING",
+   "source": "Model"
+  },
+  {
+   "index": 39,
+   "name": "msep2",
+   "type": "tTRUTH",
+   "source": "Model"
+  },
+  {
+   "index": 40,
+   "name": "opacity",
+   "type": "tNUMBER",
+   "source": "Model"
+  },
+  {
+   "index": 41,
+   "name": "addblend",
+   "type": "tTRUTH",
+   "source": "Model"
+  },
+  {
+   "index": 42,
+   "name": "disablezwrite",
+   "type": "tTRUTH",
+   "source": "Model"
+  },
+  {
+   "index": 43,
+   "name": "use_hard_alpha_factor",
+   "type": "tTRUTH",
+   "source": "Model"
+  },
+  {
+   "index": 44,
+   "name": "hard_alpha_factor",
+   "type": "tNUMBER",
+   "source": "Model"
+  },
+  {
+   "index": 45,
+   "name": "active_texture_set",
+   "type": "tINTEGER",
+   "source": "Model"
+  },
+  {
+   "index": 46,
+   "name": "number_of_textures_sets",
+   "type": "tINTEGER",
+   "source": "Model"
+  },
+  {
+   "index": 47,
+   "name": "solo_pivot",
+   "type": "tINTEGER",
+   "source": "Model"
+  },
+  {
+   "index": 48,
+   "name": "place_in_hud",
+   "type": "tTRUTH",
+   "source": "Model"
+  },
+  {
+   "index": 49,
+   "name": "use_virtual_hud",
+   "type": "tTRUTH",
+   "source": "Model"
+  },
+  {
+   "index": 50,
+   "name": "msep3",
+   "type": "tTRUTH",
+   "source": "Model"
+  },
+  {
+   "index": 51,
+   "name": "dynamically_lit",
+   "type": "tTRUTH",
+   "source": "Model"
+  },
+  {
+   "index": 52,
+   "name": "statically_lit",
+   "type": "tTRUTH",
+   "source": "Model"
+  },
+  {
+   "index": 53,
+   "name": "backside_transparent",
+   "type": "tTRUTH",
+   "source": "Model"
+  },
+  {
+   "index": 54,
+   "name": "single_color_mode",
+   "type": "tTRUTH",
+   "source": "Model"
+  },
+  {
+   "index": 55,
+   "name": "blocks_static_light",
+   "type": "tTRUTH",
+   "source": "Model"
+  },
+  {
+   "index": 56,
+   "name": "depth_sorted",
+   "type": "tTRUTH",
+   "source": "Model"
+  },
+  {
+   "index": 57,
+   "name": "timemultiplier",
+   "type": "tNUMBER",
+   "source": "Scene"
+  },
+  {
+   "index": 58,
+   "name": "rewindtimemultiplier",
+   "type": "tNUMBER",
+   "source": "Scene"
+  },
+  {
+   "index": 59,
+   "name": "initmode",
+   "type": "tTRUTH",
+   "source": "Scene"
+  },
+  {
+   "index": 60,
+   "name": "windsize",
+   "type": "tNUMBER",
+   "source": "Scene"
+  },
+  {
+   "index": 61,
+   "name": "playmode",
+   "type": "tINTEGER",
+   "source": "Scene"
+  },
+  {
+   "index": 62,
+   "name": "rewindresumetime",
+   "type": "tNUMBER",
+   "source": "Scene"
+  },
+  {
+   "index": 63,
+   "name": "rewindresumetime_ms",
+   "type": "tINTEGER",
+   "source": "Scene"
+  },
+  {
+   "index": 64,
+   "name": "left",
+   "type": "tNUMBER",
+   "source": "MockupBox"
+  },
+  {
+   "index": 65,
+   "name": "right",
+   "type": "tNUMBER",
+   "source": "MockupBox"
+  },
+  {
+   "index": 66,
+   "name": "front",
+   "type": "tNUMBER",
+   "source": "MockupBox"
+  },
+  {
+   "index": 67,
+   "name": "back",
+   "type": "tNUMBER",
+   "source": "MockupBox"
+  },
+  {
+   "index": 68,
+   "name": "height",
+   "type": "tNUMBER",
+   "source": "MockupBox"
+  },
+  {
+   "index": 69,
+   "name": "texture",
+   "type": "tSTRING",
+   "source": "MockupBox"
+  },
+  {
+   "index": 70,
+   "name": "CollisionFlags",
+   "type": "tINTEGER",
+   "source": "MockupBox"
+  },
+  {
+   "index": 71,
+   "name": "metrictexturemode",
+   "type": "tTRUTH",
+   "source": "MockupBox"
+  },
+  {
+   "index": 72,
+   "name": "metrictexturemultiplier",
+   "type": "tNUMBER",
+   "source": "MockupBox"
+  },
+  {
+   "index": 73,
+   "name": "freeze",
+   "type": "tTRUTH",
+   "source": "Character"
+  },
+  {
+   "index": 74,
+   "name": "bonecontrol",
+   "type": "tTRUTH",
+   "source": "Character"
+  },
+  {
+   "index": 75,
+   "name": "draw_phys_data",
+   "type": "tTRUTH",
+   "source": "Character"
+  },
+  {
+   "index": 76,
+   "name": "attachment",
+   "type": "tSTRING",
+   "source": "Character"
+  },
+  {
+   "index": 77,
+   "name": "is_player_character",
+   "type": "tTRUTH",
+   "source": "Character"
+  },
+  {
+   "index": 78,
+   "name": "physics_on",
+   "type": "tTRUTH",
+   "source": "Character"
+  },
+  {
+   "index": 79,
+   "name": "phys_world_gravity_vec",
+   "type": "tVECTOR",
+   "source": "Character"
+  },
+  {
+   "index": 80,
+   "name": "character_sep1",
+   "type": "tTRUTH",
+   "source": "Character"
+  },
+  {
+   "index": 81,
+   "name": "phys_Pony_damping",
+   "type": "tNUMBER",
+   "source": "Character"
+  },
+  {
+   "index": 82,
+   "name": "phys_Pony_weight",
+   "type": "tNUMBER",
+   "source": "Character"
+  },
+  {
+   "index": 83,
+   "name": "phys_Pony_restlength",
+   "type": "tNUMBER",
+   "source": "Character"
+  },
+  {
+   "index": 84,
+   "name": "phys_Pony_num_iterations",
+   "type": "tINTEGER",
+   "source": "Character"
+  },
+  {
+   "index": 85,
+   "name": "phys_Pony_z_axislimit_on",
+   "type": "tTRUTH",
+   "source": "Character"
+  },
+  {
+   "index": 86,
+   "name": "phys_Pony_z_axis_end",
+   "type": "tNUMBER",
+   "source": "Character"
+  },
+  {
+   "index": 87,
+   "name": "character_sep2",
+   "type": "tTRUTH",
+   "source": "Character"
+  },
+  {
+   "index": 88,
+   "name": "phys_BreastL_damping",
+   "type": "tNUMBER",
+   "source": "Character"
+  },
+  {
+   "index": 89,
+   "name": "phys_BreastL_weight",
+   "type": "tNUMBER",
+   "source": "Character"
+  },
+  {
+   "index": 90,
+   "name": "phys_BreastL_restlength",
+   "type": "tNUMBER",
+   "source": "Character"
+  },
+  {
+   "index": 91,
+   "name": "phys_BreastL_num_iterations",
+   "type": "tINTEGER",
+   "source": "Character"
+  },
+  {
+   "index": 92,
+   "name": "character_sep3",
+   "type": "tTRUTH",
+   "source": "Character"
+  },
+  {
+   "index": 93,
+   "name": "phys_BreastR_damping",
+   "type": "tNUMBER",
+   "source": "Character"
+  },
+  {
+   "index": 94,
+   "name": "phys_BreastR_weight",
+   "type": "tNUMBER",
+   "source": "Character"
+  },
+  {
+   "index": 95,
+   "name": "phys_BreastR_restlength",
+   "type": "tNUMBER",
+   "source": "Character"
+  },
+  {
+   "index": 96,
+   "name": "phys_BreastR_num_iterations",
+   "type": "tINTEGER",
+   "source": "Character"
+  },
+  {
+   "index": 97,
+   "name": "character_sep4",
+   "type": "tTRUTH",
+   "source": "Character"
+  },
+  {
+   "index": 98,
+   "name": "phys_Belly_damping",
+   "type": "tNUMBER",
+   "source": "Character"
+  },
+  {
+   "index": 99,
+   "name": "phys_Belly_weight",
+   "type": "tNUMBER",
+   "source": "Character"
+  },
+  {
+   "index": 100,
+   "name": "phys_Belly_restlength",
+   "type": "tNUMBER",
+   "source": "Character"
+  },
+  {
+   "index": 101,
+   "name": "phys_Belly_num_iterations",
+   "type": "tINTEGER",
+   "source": "Character"
+  },
+  {
+   "index": 102,
+   "name": "character_sep5",
+   "type": "tTRUTH",
+   "source": "Character"
+  },
+  {
+   "index": 103,
+   "name": "phys_TrouserL_damping",
+   "type": "tNUMBER",
+   "source": "Character"
+  },
+  {
+   "index": 104,
+   "name": "phys_TrouserL_weight",
+   "type": "tNUMBER",
+   "source": "Character"
+  },
+  {
+   "index": 105,
+   "name": "phys_TrouserL_restlength",
+   "type": "tNUMBER",
+   "source": "Character"
+  },
+  {
+   "index": 106,
+   "name": "phys_TrouserL_XLimit",
+   "type": "tNUMBER",
+   "source": "Character"
+  },
+  {
+   "index": 107,
+   "name": "phys_TrouserL_num_iterations",
+   "type": "tINTEGER",
+   "source": "Character"
+  },
+  {
+   "index": 108,
+   "name": "character_sep6",
+   "type": "tTRUTH",
+   "source": "Character"
+  },
+  {
+   "index": 109,
+   "name": "phys_TrouserR_damping",
+   "type": "tNUMBER",
+   "source": "Character"
+  },
+  {
+   "index": 110,
+   "name": "phys_TrouserR_weight",
+   "type": "tNUMBER",
+   "source": "Character"
+  },
+  {
+   "index": 111,
+   "name": "phys_TrouserR_restlength",
+   "type": "tNUMBER",
+   "source": "Character"
+  },
+  {
+   "index": 112,
+   "name": "phys_TrouserR_XLimit",
+   "type": "tNUMBER",
+   "source": "Character"
+  },
+  {
+   "index": 113,
+   "name": "phys_TrouserR_num_iterations",
+   "type": "tINTEGER",
+   "source": "Character"
+  },
+  {
+   "index": 114,
+   "name": "character_sep7",
+   "type": "tTRUTH",
+   "source": "Character"
+  },
+  {
+   "index": 115,
+   "name": "phys_TrouserSideWayTolerance",
+   "type": "tNUMBER",
+   "source": "Character"
+  },
+  {
+   "index": 116,
+   "name": "phys_TrouserWideness",
+   "type": "tNUMBER",
+   "source": "Character"
+  },
+  {
+   "index": 117,
+   "name": "target1",
+   "type": "tSTRING",
+   "source": "AnimSlot"
+  },
+  {
+   "index": 118,
+   "name": "loopmode1",
+   "type": "tINTEGER",
+   "source": "AnimSlot"
+  },
+  {
+   "index": 119,
+   "name": "speed",
+   "type": "tNUMBER",
+   "source": "AnimSlot"
+  },
+  {
+   "index": 120,
+   "name": "crossblendspeed",
+   "type": "tNUMBER",
+   "source": "AnimSlot"
+  },
+  {
+   "index": 121,
+   "name": "crossblendframes",
+   "type": "tNUMBER",
+   "source": "AnimSlot"
+  },
+  {
+   "index": 122,
+   "name": "stallfirstframe",
+   "type": "tTRUTH",
+   "source": "AnimSlot"
+  },
+  {
+   "index": 123,
+   "name": "override_average_x",
+   "type": "tNUMBER",
+   "source": "AnimSlot"
+  },
+  {
+   "index": 124,
+   "name": "override_average_y",
+   "type": "tNUMBER",
+   "source": "AnimSlot"
+  },
+  {
+   "index": 125,
+   "name": "override_average_z",
+   "type": "tNUMBER",
+   "source": "AnimSlot"
+  },
+  {
+   "index": 126,
+   "name": "override_escape_x",
+   "type": "tNUMBER",
+   "source": "AnimSlot"
+  },
+  {
+   "index": 127,
+   "name": "override_escape_y",
+   "type": "tNUMBER",
+   "source": "AnimSlot"
+  },
+  {
+   "index": 128,
+   "name": "override_escape_z",
+   "type": "tNUMBER",
+   "source": "AnimSlot"
+  },
+  {
+   "index": 129,
+   "name": "anim_flags",
+   "type": "tINTEGER",
+   "source": "AnimSlot"
+  },
+  {
+   "index": 130,
+   "name": "dummy0",
+   "type": "tTRUTH",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 131,
+   "name": "M_PassiveAnimType",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 132,
+   "name": "M_AimAnimType",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 133,
+   "name": "M_ShootAnimType",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 134,
+   "name": "M_DefaultAnimDict",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 135,
+   "name": "M_ShootAndAimDict",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 136,
+   "name": "M_AimAllowed",
+   "type": "tTRUTH",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 137,
+   "name": "M_AimHighLow",
+   "type": "tTRUTH",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 138,
+   "name": "dummy1",
+   "type": "tTRUTH",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 139,
+   "name": "G_PassiveAnimType",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 140,
+   "name": "G_AimAnimType",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 141,
+   "name": "G_ShootAnimType",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 142,
+   "name": "G_DefaultAnimDict",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 143,
+   "name": "G_ShootAndAimDict",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 144,
+   "name": "G_AimAllowed",
+   "type": "tTRUTH",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 145,
+   "name": "G_AimHighLow",
+   "type": "tTRUTH",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 146,
+   "name": "dummy2",
+   "type": "tTRUTH",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 147,
+   "name": "AL_PassiveAnimType",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 148,
+   "name": "AL_AimAnimType",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 149,
+   "name": "AL_ShootAnimType",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 150,
+   "name": "AL_DefaultAnimDict",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 151,
+   "name": "AL_ShootAndAimDict",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 152,
+   "name": "AL_AimAllowed",
+   "type": "tTRUTH",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 153,
+   "name": "AL_AimHighLow",
+   "type": "tTRUTH",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 154,
+   "name": "dummy3",
+   "type": "tTRUTH",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 155,
+   "name": "D_PassiveAnimType",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 156,
+   "name": "D_AimAnimType",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 157,
+   "name": "D_ShootAnimType",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 158,
+   "name": "D_DefaultAnimDict",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 159,
+   "name": "D_ShootAndAimDict",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 160,
+   "name": "D_AimAllowed",
+   "type": "tTRUTH",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 161,
+   "name": "D_AimHighLow",
+   "type": "tTRUTH",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 162,
+   "name": "dummy4",
+   "type": "tTRUTH",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 163,
+   "name": "HG_PassiveAnimType",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 164,
+   "name": "HG_AimAnimType",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 165,
+   "name": "HG_ShootAnimType",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 166,
+   "name": "HG_DefaultAnimDict",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 167,
+   "name": "HG_ShootAndAimDict",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 168,
+   "name": "HG_AimAllowed",
+   "type": "tTRUTH",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 169,
+   "name": "HG_AimHighLow",
+   "type": "tTRUTH",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 170,
+   "name": "dummy5",
+   "type": "tTRUTH",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 171,
+   "name": "SH_PassiveAnimType",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 172,
+   "name": "SH_AimAnimType",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 173,
+   "name": "SH_ShootAnimType",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 174,
+   "name": "SH_DefaultAnimDict",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 175,
+   "name": "SH_ShootAndAimDict",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 176,
+   "name": "SH_AimAllowed",
+   "type": "tTRUTH",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 177,
+   "name": "SH_AimHighLow",
+   "type": "tTRUTH",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 178,
+   "name": "dummy6",
+   "type": "tTRUTH",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 179,
+   "name": "MG_PassiveAnimType",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 180,
+   "name": "MG_AimAnimType",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 181,
+   "name": "MG_ShootAnimType",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 182,
+   "name": "MG_DefaultAnimDict",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 183,
+   "name": "MG_ShootAndAimDict",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 184,
+   "name": "MG_AimAllowed",
+   "type": "tTRUTH",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 185,
+   "name": "MG_AimHighLow",
+   "type": "tTRUTH",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 186,
+   "name": "CurrAnimInfoListIndex",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 187,
+   "name": "CurrAnimListIndex",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 188,
+   "name": "ActionAnimInfoList_PassiveAnimType",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 189,
+   "name": "ActionAnimInfoList_AimAnimType",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 190,
+   "name": "ActionAnimInfoList_ShootAnimType",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 191,
+   "name": "ActionAnimInfoList_DefaultAnimDict",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 192,
+   "name": "ActionAnimInfoList_ShootAndAimDict",
+   "type": "tINTEGER",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 193,
+   "name": "ActionAnimInfoList_AimAllowed",
+   "type": "tTRUTH",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 194,
+   "name": "ActionAnimInfoList_AimHighLow",
+   "type": "tTRUTH",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 195,
+   "name": "ActionAnimList_WeaponClass",
+   "type": "tSTRING",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 196,
+   "name": "ActionAnimList_Passive",
+   "type": "tEntity",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 197,
+   "name": "ActionAnimList_AimLow",
+   "type": "tEntity",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 198,
+   "name": "ActionAnimList_AimHigh",
+   "type": "tEntity",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 199,
+   "name": "ActionAnimList_ShootLow",
+   "type": "tEntity",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 200,
+   "name": "ActionAnimList_ShootHigh",
+   "type": "tEntity",
+   "source": "MotionAnimSlot"
+  },
+  {
+   "index": 201,
+   "name": "playing",
+   "type": "tTRUTH",
+   "source": "AnimLayer"
+  },
+  {
+   "index": 202,
+   "name": "looping",
+   "type": "tTRUTH",
+   "source": "AnimLayer"
+  },
+  {
+   "index": 203,
+   "name": "target_anim",
+   "type": "tINTEGER",
+   "source": "AnimLayer"
+  },
+  {
+   "index": 204,
+   "name": "weight",
+   "type": "tNUMBER",
+   "source": "AnimLayer"
+  },
+  {
+   "index": 205,
+   "name": "crosstarget1",
+   "type": "tEntity",
+   "source": "AnimLayer"
+  },
+  {
+   "index": 206,
+   "name": "crosstarget2",
+   "type": "tEntity",
+   "source": "AnimLayer"
+  },
+  {
+   "index": 207,
+   "name": "playpos1",
+   "type": "tNUMBER",
+   "source": "AnimLayer"
+  },
+  {
+   "index": 208,
+   "name": "playpos2",
+   "type": "tNUMBER",
+   "source": "AnimLayer"
+  },
+  {
+   "index": 209,
+   "name": "crossblendfactor",
+   "type": "tNUMBER",
+   "source": "AnimLayer"
+  },
+  {
+   "index": 210,
+   "name": "targetcrossblendfactor",
+   "type": "tNUMBER",
+   "source": "AnimLayer"
+  },
+  {
+   "index": 211,
+   "name": "event",
+   "type": "tINTEGER",
+   "source": "AnimLayer"
+  },
+  {
+   "index": 212,
+   "name": "blendfinishedevent",
+   "type": "tINTEGER",
+   "source": "AnimLayer"
+  },
+  {
+   "index": 213,
+   "name": "targetanim",
+   "type": "tEntity",
+   "source": "AnimLayer"
+  },
+  {
+   "index": 214,
+   "name": "blendinanim",
+   "type": "tEntity",
+   "source": "AnimLayer"
+  },
+  {
+   "index": 215,
+   "name": "blendoutanim",
+   "type": "tEntity",
+   "source": "AnimLayer"
+  },
+  {
+   "index": 216,
+   "name": "motionlayer",
+   "type": "tEntity",
+   "source": "AnimLayer"
+  },
+  {
+   "index": 217,
+   "name": "overridetarget1",
+   "type": "tTRUTH",
+   "source": "AnimLayer"
+  },
+  {
+   "index": 218,
+   "name": "overridetarget2",
+   "type": "tTRUTH",
+   "source": "AnimLayer"
+  },
+  {
+   "index": 219,
+   "name": "overridegamepivotpos1",
+   "type": "tVECTOR",
+   "source": "AnimLayer"
+  },
+  {
+   "index": 220,
+   "name": "overridegamepivotpos2",
+   "type": "tVECTOR",
+   "source": "AnimLayer"
+  },
+  {
+   "index": 221,
+   "name": "getclearoverridetarget1onblendfinished",
+   "type": "tTRUTH",
+   "source": "AnimLayer"
+  },
+  {
+   "index": 222,
+   "name": "getclearoverridetarget2onblendfinished",
+   "type": "tTRUTH",
+   "source": "AnimLayer"
+  },
+  {
+   "index": 223,
+   "name": "speedmultiplier",
+   "type": "tNUMBER",
+   "source": "AnimLayer"
+  },
+  {
+   "index": 224,
+   "name": "cutscene",
+   "type": "tSTRING",
+   "source": "CutscenePlayer"
+  },
+  {
+   "index": 225,
+   "name": "looped",
+   "type": "tTRUTH",
+   "source": "CutscenePlayer"
+  },
+  {
+   "index": 226,
+   "name": "timepos",
+   "type": "tNUMBER",
+   "source": "CutscenePlayer"
+  },
+  {
+   "index": 227,
+   "name": "framepos",
+   "type": "tINTEGER",
+   "source": "CutscenePlayer"
+  },
+  {
+   "index": 228,
+   "name": "cam_nearclip",
+   "type": "tNUMBER",
+   "source": "CutscenePlayer"
+  },
+  {
+   "index": 229,
+   "name": "cam_dynlights_cullrange",
+   "type": "tNUMBER",
+   "source": "CutscenePlayer"
+  },
+  {
+   "index": 230,
+   "name": "override_current_camera",
+   "type": "tTRUTH",
+   "source": "CutscenePlayer"
+  },
+  {
+   "index": 231,
+   "name": "active_camera_anim",
+   "type": "tSTRING",
+   "source": "CutscenePlayer"
+  },
+  {
+   "index": 232,
+   "name": "before_start_event",
+   "type": "tSTRING",
+   "source": "CutscenePlayer"
+  },
+  {
+   "index": 233,
+   "name": "after_stop_event",
+   "type": "tSTRING",
+   "source": "CutscenePlayer"
+  },
+  {
+   "index": 234,
+   "name": "default_inherit",
+   "type": "tTRUTH",
+   "source": "CutscenePlayer"
+  },
+  {
+   "index": 235,
+   "name": "worldstartpos",
+   "type": "tVECTOR",
+   "source": "MotionLayer"
+  },
+  {
+   "index": 236,
+   "name": "worldstartorient",
+   "type": "tQUATERNION",
+   "source": "MotionLayer"
+  },
+  {
+   "index": 237,
+   "name": "worldendpos",
+   "type": "tVECTOR",
+   "source": "MotionLayer"
+  },
+  {
+   "index": 238,
+   "name": "worldendorient",
+   "type": "tQUATERNION",
+   "source": "MotionLayer"
+  },
+  {
+   "index": 239,
+   "name": "updateabsolute",
+   "type": "tTRUTH",
+   "source": "MotionLayer"
+  },
+  {
+   "index": 240,
+   "name": "width",
+   "type": "tNUMBER",
+   "source": "CollisionBox"
+  },
+  {
+   "index": 241,
+   "name": "length",
+   "type": "tNUMBER",
+   "source": "CollisionBox"
+  },
+  {
+   "index": 242,
+   "name": "radius",
+   "type": "tNUMBER",
+   "source": "CollisionSphere"
+  },
+  {
+   "index": 243,
+   "name": "extrusion",
+   "type": "tNUMBER",
+   "source": "CollisionSphere"
+  },
+  {
+   "index": 244,
+   "name": "movectrl",
+   "type": "tEntity",
+   "source": "Navigator"
+  },
+  {
+   "index": 245,
+   "name": "active",
+   "type": "tTRUTH",
+   "source": "Navigator"
+  },
+  {
+   "index": 246,
+   "name": "maxlookahead",
+   "type": "tNUMBER",
+   "source": "Navigator"
+  },
+  {
+   "index": 247,
+   "name": "movectrlcommand",
+   "type": "tINTEGER",
+   "source": "Navigator"
+  },
+  {
+   "index": 248,
+   "name": "obstaclecheckinterval",
+   "type": "tNUMBER",
+   "source": "Navigator"
+  },
+  {
+   "index": 249,
+   "name": "TargetPoint",
+   "type": "tVECTOR",
+   "source": "Navigator"
+  },
+  {
+   "index": 250,
+   "name": "NextTargetPoint",
+   "type": "tVECTOR",
+   "source": "Navigator"
+  },
+  {
+   "index": 251,
+   "name": "Path2",
+   "type": "VectorList",
+   "source": "Navigator"
+  },
+  {
+   "index": 252,
+   "name": "PathPoint",
+   "type": "tINTEGER",
+   "source": "Navigator"
+  },
+  {
+   "index": 253,
+   "name": "PathFraction",
+   "type": "tNUMBER",
+   "source": "Navigator"
+  },
+  {
+   "index": 254,
+   "name": "PathFinishedEvent",
+   "type": "tINTEGER",
+   "source": "Navigator"
+  },
+  {
+   "index": 255,
+   "name": "NextObstacleCheckTime",
+   "type": "tINTEGER",
+   "source": "Navigator"
+  },
+  {
+   "index": 256,
+   "name": "ObstacleFound",
+   "type": "tTRUTH",
+   "source": "Navigator"
+  },
+  {
+   "index": 257,
+   "name": "ObstacleNormal",
+   "type": "tVECTOR",
+   "source": "Navigator"
+  },
+  {
+   "index": 258,
+   "name": "ObstacleDist",
+   "type": "tNUMBER",
+   "source": "Navigator"
+  },
+  {
+   "index": 259,
+   "name": "framerate",
+   "type": "tNUMBER",
+   "source": "Track"
+  },
+  {
+   "index": 260,
+   "name": "pingpong",
+   "type": "tTRUTH",
+   "source": "Track"
+  },
+  {
+   "index": 261,
+   "name": "reverse",
+   "type": "tTRUTH",
+   "source": "Track"
+  },
+  {
+   "index": 262,
+   "name": "connectends",
+   "type": "tTRUTH",
+   "source": "Track"
+  },
+  {
+   "index": 263,
+   "name": "spline",
+   "type": "tTRUTH",
+   "source": "Track"
+  },
+  {
+   "index": 264,
+   "name": "customspeed",
+   "type": "tTRUTH",
+   "source": "Track"
+  },
+  {
+   "index": 265,
+   "name": "showexample",
+   "type": "tTRUTH",
+   "source": "Track"
+  },
+  {
+   "index": 266,
+   "name": "key",
+   "type": "tINTEGER",
+   "source": "Control"
+  },
+  {
+   "index": 267,
+   "name": "keystr",
+   "type": "tSTRING",
+   "source": "Control"
+  },
+  {
+   "index": 268,
+   "name": "angle",
+   "type": "tNUMBER",
+   "source": "CollisionProbe"
+  },
+  {
+   "index": 269,
+   "name": "dynamicmask",
+   "type": "tINTEGER",
+   "source": "CollisionProbe"
+  },
+  {
+   "index": 270,
+   "name": "usermask",
+   "type": "tINTEGER",
+   "source": "CollisionProbe"
+  },
+  {
+   "index": 271,
+   "name": "nodes",
+   "type": "listEntity",
+   "source": "CollisionProbe"
+  },
+  {
+   "index": 272,
+   "name": "touchingnodes",
+   "type": "listEntity",
+   "source": "CollisionProbe"
+  },
+  {
+   "index": 273,
+   "name": "ClosestNode",
+   "type": "tEntity",
+   "source": "CollisionProbe"
+  },
+  {
+   "index": 274,
+   "name": "ClosestCollisionVolume",
+   "type": "tINTEGER",
+   "source": "CollisionProbe"
+  },
+  {
+   "index": 275,
+   "name": "RealNode",
+   "type": "tEntity",
+   "source": "CollisionProbe"
+  },
+  {
+   "index": 276,
+   "name": "ClosestNormal",
+   "type": "tVECTOR",
+   "source": "CollisionProbe"
+  },
+  {
+   "index": 277,
+   "name": "ResolvedPos",
+   "type": "tVECTOR",
+   "source": "CollisionProbe"
+  },
+  {
+   "index": 278,
+   "name": "ContactPos",
+   "type": "tVECTOR",
+   "source": "CollisionProbe"
+  },
+  {
+   "index": 279,
+   "name": "MinDistance",
+   "type": "tNUMBER",
+   "source": "CollisionProbe"
+  },
+  {
+   "index": 280,
+   "name": "SurfaceID",
+   "type": "tINTEGER",
+   "source": "CollisionProbe"
+  },
+  {
+   "index": 281,
+   "name": "MaterialID",
+   "type": "tINTEGER",
+   "source": "CollisionProbe"
+  },
+  {
+   "index": 282,
+   "name": "HintNode",
+   "type": "tEntity",
+   "source": "CollisionProbe"
+  },
+  {
+   "index": 283,
+   "name": "HintCollisionVolume",
+   "type": "tINTEGER",
+   "source": "CollisionProbe"
+  },
+  {
+   "index": 284,
+   "name": "OptimisticMode",
+   "type": "tTRUTH",
+   "source": "CollisionProbe"
+  },
+  {
+   "index": 285,
+   "name": "coll_mass",
+   "type": "tNUMBER",
+   "source": "RigidBody"
+  },
+  {
+   "index": 286,
+   "name": "Elasticity",
+   "type": "tNUMBER",
+   "source": "RigidBody"
+  },
+  {
+   "index": 287,
+   "name": "Grounded",
+   "type": "tTRUTH",
+   "source": "RigidBody"
+  },
+  {
+   "index": 288,
+   "name": "angularmomentum",
+   "type": "tVECTOR",
+   "source": "RigidBody"
+  },
+  {
+   "index": 289,
+   "name": "coll_linear_speed",
+   "type": "tVECTOR",
+   "source": "RigidBody"
+  },
+  {
+   "index": 290,
+   "name": "coll_angular_speed",
+   "type": "tVECTOR",
+   "source": "RigidBody"
+  },
+  {
+   "index": 291,
+   "name": "Orientation_t",
+   "type": "tQUATERNION",
+   "source": "RigidBody"
+  },
+  {
+   "index": 292,
+   "name": "Position_t",
+   "type": "tVECTOR",
+   "source": "RigidBody"
+  },
+  {
+   "index": 293,
+   "name": "current_velocity",
+   "type": "tVECTOR",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 294,
+   "name": "spring_k",
+   "type": "tNUMBER",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 295,
+   "name": "spring_damping",
+   "type": "tNUMBER",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 296,
+   "name": "stiffness",
+   "type": "tNUMBER",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 297,
+   "name": "realmainbody_default_y",
+   "type": "tNUMBER",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 298,
+   "name": "LF_spring",
+   "type": "tNUMBER",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 299,
+   "name": "RF_spring",
+   "type": "tNUMBER",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 300,
+   "name": "RR_spring",
+   "type": "tNUMBER",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 301,
+   "name": "LR_spring",
+   "type": "tNUMBER",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 302,
+   "name": "LeftRearWheelMaterial",
+   "type": "tINTEGER",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 303,
+   "name": "RightRearWheelMaterial",
+   "type": "tINTEGER",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 304,
+   "name": "front_point_velocity",
+   "type": "tVECTOR",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 305,
+   "name": "rear_point_velocity",
+   "type": "tVECTOR",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 306,
+   "name": "bike",
+   "type": "tTRUTH",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 307,
+   "name": "RealWheel_LF",
+   "type": "tEntity",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 308,
+   "name": "RealWheel_RF",
+   "type": "tEntity",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 309,
+   "name": "RealWheel_RR",
+   "type": "tEntity",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 310,
+   "name": "RealWheel_LR",
+   "type": "tEntity",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 311,
+   "name": "realmainbody",
+   "type": "tEntity",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 312,
+   "name": "damagectrl",
+   "type": "tEntity",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 313,
+   "name": "normal_List",
+   "type": "VectorListType",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 314,
+   "name": "LastNormal_list",
+   "type": "VectorListType",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 315,
+   "name": "Groundprobe",
+   "type": "tEntity",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 316,
+   "name": "wheel_radius",
+   "type": "tNUMBER",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 317,
+   "name": "tilt",
+   "type": "tNUMBER",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 318,
+   "name": "is_out_of_bounds",
+   "type": "tTRUTH",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 319,
+   "name": "driveable_ground",
+   "type": "tTRUTH",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 320,
+   "name": "front_point_t",
+   "type": "tVECTOR",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 321,
+   "name": "rear_point_t",
+   "type": "tVECTOR",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 322,
+   "name": "roll_angle_t",
+   "type": "tNUMBER",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 323,
+   "name": "tilt_angle_speed",
+   "type": "tNUMBER",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 324,
+   "name": "axle_height",
+   "type": "tNUMBER",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 325,
+   "name": "cpppropertiesinited",
+   "type": "tTRUTH",
+   "source": "OverdoseVehicle"
+  },
+  {
+   "index": 326,
+   "name": "scale",
+   "type": "tVECTOR",
+   "source": "StretchModel"
+  },
+  {
+   "index": 327,
+   "name": "fog_type",
+   "type": "tINTEGER",
+   "source": "Fog"
+  },
+  {
+   "index": 328,
+   "name": "start",
+   "type": "tNUMBER",
+   "source": "Fog"
+  },
+  {
+   "index": 329,
+   "name": "end",
+   "type": "tNUMBER",
+   "source": "Fog"
+  },
+  {
+   "index": 330,
+   "name": "density",
+   "type": "tNUMBER",
+   "source": "Fog"
+  },
+  {
+   "index": 331,
+   "name": "color_rgb",
+   "type": "tVECTOR",
+   "source": "Fog"
+  },
+  {
+   "index": 332,
+   "name": "WindSpeed",
+   "type": "tNUMBER",
+   "source": "Wind"
+  },
+  {
+   "index": 333,
+   "name": "WindFlux",
+   "type": "tNUMBER",
+   "source": "Wind"
+  },
+  {
+   "index": 334,
+   "name": "WindFrenzy",
+   "type": "tNUMBER",
+   "source": "Wind"
+  },
+  {
+   "index": 335,
+   "name": "FrenzyAngle",
+   "type": "tNUMBER",
+   "source": "Wind"
+  },
+  {
+   "index": 336,
+   "name": "VariationSpeed",
+   "type": "tNUMBER",
+   "source": "Wind"
+  },
+  {
+   "index": 337,
+   "name": "WindInfluence",
+   "type": "tNUMBER",
+   "source": "Cloth"
+  },
+  {
+   "index": 338,
+   "name": "Damping",
+   "type": "tNUMBER",
+   "source": "Cloth"
+  },
+  {
+   "index": 339,
+   "name": "Iterations",
+   "type": "tINTEGER",
+   "source": "Cloth"
+  },
+  {
+   "index": 340,
+   "name": "BoundingRadius",
+   "type": "tNUMBER",
+   "source": "Cloth"
+  },
+  {
+   "index": 341,
+   "name": "AllwaysUpdate",
+   "type": "tTRUTH",
+   "source": "Cloth"
+  },
+  {
+   "index": 342,
+   "name": "MotionBlur",
+   "type": "tNUMBER",
+   "source": "GFXEffect"
+  },
+  {
+   "index": 343,
+   "name": "Brightness",
+   "type": "tNUMBER",
+   "source": "GFXEffect"
+  },
+  {
+   "index": 344,
+   "name": "Saturation",
+   "type": "tNUMBER",
+   "source": "GFXEffect"
+  },
+  {
+   "index": 345,
+   "name": "LightBleeding",
+   "type": "tNUMBER",
+   "source": "GFXEffect"
+  },
+  {
+   "index": 346,
+   "name": "VignetteIntensity",
+   "type": "tNUMBER",
+   "source": "GFXEffect"
+  },
+  {
+   "index": 347,
+   "name": "VignetteColor",
+   "type": "tVECTOR",
+   "source": "GFXEffect"
+  },
+  {
+   "index": 348,
+   "name": "VignetteShape",
+   "type": "tNUMBER",
+   "source": "GFXEffect"
+  },
+  {
+   "index": 349,
+   "name": "VignetteSize",
+   "type": "tNUMBER",
+   "source": "GFXEffect"
+  },
+  {
+   "index": 350,
+   "name": "VignetteTexture",
+   "type": "tSTRING",
+   "source": "GFXEffect"
+  },
+  {
+   "index": 351,
+   "name": "NoiseIntensity",
+   "type": "tNUMBER",
+   "source": "GFXEffect"
+  },
+  {
+   "index": 352,
+   "name": "NoiseBlendMode",
+   "type": "tINTEGER",
+   "source": "GFXEffect"
+  },
+  {
+   "index": 353,
+   "name": "NoiseTexture",
+   "type": "tSTRING",
+   "source": "GFXEffect"
+  },
+  {
+   "index": 354,
+   "name": "Shadowradius",
+   "type": "tNUMBER",
+   "source": "Shadow"
+  },
+  {
+   "index": 355,
+   "name": "ShadowradiusX",
+   "type": "tNUMBER",
+   "source": "Shadow"
+  },
+  {
+   "index": 356,
+   "name": "ShadowradiusY",
+   "type": "tNUMBER",
+   "source": "Shadow"
+  },
+  {
+   "index": 357,
+   "name": "Bonename",
+   "type": "tSTRING",
+   "source": "Shadow"
+  },
+  {
+   "index": 358,
+   "name": "Complexity",
+   "type": "tINTEGER",
+   "source": "Shadow"
+  },
+  {
+   "index": 359,
+   "name": "AlignRotation",
+   "type": "tTRUTH",
+   "source": "Shadow"
+  },
+  {
+   "index": 360,
+   "name": "BlendMode",
+   "type": "tINTEGER",
+   "source": "LensFlare"
+  },
+  {
+   "index": 361,
+   "name": "Size",
+   "type": "tNUMBER",
+   "source": "LensFlare"
+  },
+  {
+   "index": 362,
+   "name": "FadeCameraAngle1",
+   "type": "tNUMBER",
+   "source": "LensFlare"
+  },
+  {
+   "index": 363,
+   "name": "FadeCameraAngle2",
+   "type": "tNUMBER",
+   "source": "LensFlare"
+  },
+  {
+   "index": 364,
+   "name": "FadeCamBlindDiming",
+   "type": "tNUMBER",
+   "source": "LensFlare"
+  },
+  {
+   "index": 365,
+   "name": "FadeFlareAngle",
+   "type": "tNUMBER",
+   "source": "LensFlare"
+  },
+  {
+   "index": 366,
+   "name": "InverseFlareAngle",
+   "type": "tTRUTH",
+   "source": "LensFlare"
+  },
+  {
+   "index": 367,
+   "name": "SizeReduction",
+   "type": "tNUMBER",
+   "source": "LensFlareManager"
+  },
+  {
+   "index": 368,
+   "name": "FadeDistance",
+   "type": "tNUMBER",
+   "source": "LensFlareManager"
+  },
+  {
+   "index": 369,
+   "name": "EmitterSize",
+   "type": "tNUMBER",
+   "source": "LensFlareManager"
+  },
+  {
+   "index": 370,
+   "name": "OcclusionFactor",
+   "type": "tNUMBER",
+   "source": "LensFlareManager"
+  },
+  {
+   "index": 371,
+   "name": "LineCheckLength",
+   "type": "tNUMBER",
+   "source": "LensFlareManager"
+  },
+  {
+   "index": 372,
+   "name": "BufferSize",
+   "type": "tINTEGER",
+   "source": "DecalManager"
+  },
+  {
+   "index": 373,
+   "name": "PerFrameFillSize",
+   "type": "tINTEGER",
+   "source": "DecalManager"
+  },
+  {
+   "index": 374,
+   "name": "Category",
+   "type": "tINTEGER",
+   "source": "SurroundGeometry"
+  },
+  {
+   "index": 375,
+   "name": "FarDistance",
+   "type": "tNUMBER",
+   "source": "SurroundGeometry"
+  },
+  {
+   "index": 376,
+   "name": "CloseDistance",
+   "type": "tNUMBER",
+   "source": "SurroundGeometry"
+  },
+  {
+   "index": 377,
+   "name": "MaxCount",
+   "type": "tINTEGER",
+   "source": "SurroundGeometry"
+  },
+  {
+   "index": 378,
+   "name": "Variation",
+   "type": "tNUMBER",
+   "source": "SurroundGeometry"
+  },
+  {
+   "index": 379,
+   "name": "Model1",
+   "type": "tSTRING",
+   "source": "SurroundGeometry"
+  },
+  {
+   "index": 380,
+   "name": "Properbility1",
+   "type": "tNUMBER",
+   "source": "SurroundGeometry"
+  },
+  {
+   "index": 381,
+   "name": "Model2",
+   "type": "tSTRING",
+   "source": "SurroundGeometry"
+  },
+  {
+   "index": 382,
+   "name": "Properbility2",
+   "type": "tNUMBER",
+   "source": "SurroundGeometry"
+  },
+  {
+   "index": 383,
+   "name": "Model3",
+   "type": "tSTRING",
+   "source": "SurroundGeometry"
+  },
+  {
+   "index": 384,
+   "name": "Properbility3",
+   "type": "tNUMBER",
+   "source": "SurroundGeometry"
+  },
+  {
+   "index": 385,
+   "name": "Model4",
+   "type": "tSTRING",
+   "source": "SurroundGeometry"
+  },
+  {
+   "index": 386,
+   "name": "Properbility4",
+   "type": "tNUMBER",
+   "source": "SurroundGeometry"
+  },
+  {
+   "index": 387,
+   "name": "RandomSeed",
+   "type": "tNUMBER",
+   "source": "SurroundGeometry"
+  },
+  {
+   "index": 388,
+   "name": "ObjectDensity",
+   "type": "tNUMBER",
+   "source": "DynamicSurroundGeometry"
+  },
+  {
+   "index": 389,
+   "name": "SpawnRate",
+   "type": "tNUMBER",
+   "source": "DynamicSurroundGeometry"
+  },
+  {
+   "index": 390,
+   "name": "Texture1",
+   "type": "tSTRING",
+   "source": "DynamicSurroundGeometry"
+  },
+  {
+   "index": 391,
+   "name": "Texture2",
+   "type": "tSTRING",
+   "source": "DynamicSurroundGeometry"
+  },
+  {
+   "index": 392,
+   "name": "Texture3",
+   "type": "tSTRING",
+   "source": "DynamicSurroundGeometry"
+  },
+  {
+   "index": 393,
+   "name": "Texture4",
+   "type": "tSTRING",
+   "source": "DynamicSurroundGeometry"
+  },
+  {
+   "index": 394,
+   "name": "InitialHeight",
+   "type": "tNUMBER",
+   "source": "DynamicSurroundGeometry"
+  },
+  {
+   "index": 395,
+   "name": "Mass",
+   "type": "tNUMBER",
+   "source": "DynamicSurroundGeometry"
+  },
+  {
+   "index": 396,
+   "name": "MassSize",
+   "type": "tNUMBER",
+   "source": "DynamicSurroundGeometry"
+  },
+  {
+   "index": 397,
+   "name": "WindFactor",
+   "type": "tNUMBER",
+   "source": "DynamicSurroundGeometry"
+  },
+  {
+   "index": 398,
+   "name": "WindLift",
+   "type": "tNUMBER",
+   "source": "DynamicSurroundGeometry"
+  },
+  {
+   "index": 399,
+   "name": "WindLiftHeight",
+   "type": "tNUMBER",
+   "source": "DynamicSurroundGeometry"
+  },
+  {
+   "index": 400,
+   "name": "AirResistanceY",
+   "type": "tNUMBER",
+   "source": "DynamicSurroundGeometry"
+  },
+  {
+   "index": 401,
+   "name": "AirResistanceXZ",
+   "type": "tNUMBER",
+   "source": "DynamicSurroundGeometry"
+  },
+  {
+   "index": 402,
+   "name": "RotResistanceY",
+   "type": "tNUMBER",
+   "source": "DynamicSurroundGeometry"
+  },
+  {
+   "index": 403,
+   "name": "RotResistanceXZ",
+   "type": "tNUMBER",
+   "source": "DynamicSurroundGeometry"
+  },
+  {
+   "index": 404,
+   "name": "ForceOffset",
+   "type": "tNUMBER",
+   "source": "DynamicSurroundGeometry"
+  },
+  {
+   "index": 405,
+   "name": "ForceRotate",
+   "type": "tNUMBER",
+   "source": "DynamicSurroundGeometry"
+  },
+  {
+   "index": 406,
+   "name": "dynamic_emission",
+   "type": "tTRUTH",
+   "source": "Light"
+  },
+  {
+   "index": 407,
+   "name": "static_emission",
+   "type": "tTRUTH",
+   "source": "Light"
+  },
+  {
+   "index": 408,
+   "name": "light_type",
+   "type": "tINTEGER",
+   "source": "Light"
+  },
+  {
+   "index": 409,
+   "name": "light_color_rgb",
+   "type": "tVECTOR",
+   "source": "Light"
+  },
+  {
+   "index": 410,
+   "name": "static_color_rgb",
+   "type": "tVECTOR",
+   "source": "Light"
+  },
+  {
+   "index": 411,
+   "name": "range",
+   "type": "tNUMBER",
+   "source": "Light"
+  },
+  {
+   "index": 412,
+   "name": "is_negative_light",
+   "type": "tTRUTH",
+   "source": "Light"
+  },
+  {
+   "index": 413,
+   "name": "sprite_size",
+   "type": "tVECTOR",
+   "source": "Sprite"
+  },
+  {
+   "index": 414,
+   "name": "is_3d",
+   "type": "tTRUTH",
+   "source": "Sprite"
+  },
+  {
+   "index": 415,
+   "name": "is_screen_relative",
+   "type": "tTRUTH",
+   "source": "Sprite"
+  },
+  {
+   "index": 416,
+   "name": "cullmode",
+   "type": "tINTEGER",
+   "source": "Sprite"
+  },
+  {
+   "index": 417,
+   "name": "prioritylayer",
+   "type": "tINTEGER",
+   "source": "Sprite"
+  },
+  {
+   "index": 418,
+   "name": "infinite_distance",
+   "type": "tTRUTH",
+   "source": "Sprite"
+  },
+  {
+   "index": 419,
+   "name": "constant_size_mode",
+   "type": "tINTEGER",
+   "source": "Sprite"
+  },
+  {
+   "index": 420,
+   "name": "const_size_near",
+   "type": "tNUMBER",
+   "source": "Sprite"
+  },
+  {
+   "index": 421,
+   "name": "const_size_far",
+   "type": "tNUMBER",
+   "source": "Sprite"
+  },
+  {
+   "index": 422,
+   "name": "const_size_far_shrink",
+   "type": "tNUMBER",
+   "source": "Sprite"
+  },
+  {
+   "index": 423,
+   "name": "AxisAlign3d",
+   "type": "tINTEGER",
+   "source": "Sprite"
+  },
+  {
+   "index": 424,
+   "name": "v1u",
+   "type": "tNUMBER",
+   "source": "Sprite"
+  },
+  {
+   "index": 425,
+   "name": "v1v",
+   "type": "tNUMBER",
+   "source": "Sprite"
+  },
+  {
+   "index": 426,
+   "name": "v2u",
+   "type": "tNUMBER",
+   "source": "Sprite"
+  },
+  {
+   "index": 427,
+   "name": "v2v",
+   "type": "tNUMBER",
+   "source": "Sprite"
+  },
+  {
+   "index": 428,
+   "name": "v3u",
+   "type": "tNUMBER",
+   "source": "Sprite"
+  },
+  {
+   "index": 429,
+   "name": "v3v",
+   "type": "tNUMBER",
+   "source": "Sprite"
+  },
+  {
+   "index": 430,
+   "name": "v4u",
+   "type": "tNUMBER",
+   "source": "Sprite"
+  },
+  {
+   "index": 431,
+   "name": "v4v",
+   "type": "tNUMBER",
+   "source": "Sprite"
+  },
+  {
+   "index": 432,
+   "name": "color_rgb1",
+   "type": "tVECTOR",
+   "source": "Sprite"
+  },
+  {
+   "index": 433,
+   "name": "color_a1",
+   "type": "tNUMBER",
+   "source": "Sprite"
+  },
+  {
+   "index": 434,
+   "name": "color_rgb2",
+   "type": "tVECTOR",
+   "source": "Sprite"
+  },
+  {
+   "index": 435,
+   "name": "color_a2",
+   "type": "tNUMBER",
+   "source": "Sprite"
+  },
+  {
+   "index": 436,
+   "name": "color_rgb3",
+   "type": "tVECTOR",
+   "source": "Sprite"
+  },
+  {
+   "index": 437,
+   "name": "color_a3",
+   "type": "tNUMBER",
+   "source": "Sprite"
+  },
+  {
+   "index": 438,
+   "name": "color_rgb4",
+   "type": "tVECTOR",
+   "source": "Sprite"
+  },
+  {
+   "index": 439,
+   "name": "color_a4",
+   "type": "tNUMBER",
+   "source": "Sprite"
+  },
+  {
+   "index": 440,
+   "name": "enable_mouse_input",
+   "type": "tTRUTH",
+   "source": "Sprite"
+  },
+  {
+   "index": 441,
+   "name": "textres_mode",
+   "type": "tTRUTH",
+   "source": "TextBox"
+  },
+  {
+   "index": 442,
+   "name": "font",
+   "type": "tSTRING",
+   "source": "TextBox"
+  },
+  {
+   "index": 443,
+   "name": "text",
+   "type": "tSTRING",
+   "source": "TextBox"
+  },
+  {
+   "index": 444,
+   "name": "textslot_by_name",
+   "type": "tSTRING",
+   "source": "TextBox"
+  },
+  {
+   "index": 445,
+   "name": "use_slot_index",
+   "type": "tTRUTH",
+   "source": "TextBox"
+  },
+  {
+   "index": 446,
+   "name": "view_all_slot_indices",
+   "type": "tTRUTH",
+   "source": "TextBox"
+  },
+  {
+   "index": 447,
+   "name": "textslot_index",
+   "type": "tINTEGER",
+   "source": "TextBox"
+  },
+  {
+   "index": 448,
+   "name": "text_color",
+   "type": "tVECTOR",
+   "source": "TextBox"
+  },
+  {
+   "index": 449,
+   "name": "text_color2",
+   "type": "tVECTOR",
+   "source": "TextBox"
+  },
+  {
+   "index": 450,
+   "name": "use_glyph_ignore_color",
+   "type": "tTRUTH",
+   "source": "TextBox"
+  },
+  {
+   "index": 451,
+   "name": "scale_if_widescreen",
+   "type": "tTRUTH",
+   "source": "TextBox"
+  },
+  {
+   "index": 452,
+   "name": "text_scale",
+   "type": "tVECTOR",
+   "source": "TextBox"
+  },
+  {
+   "index": 453,
+   "name": "horizontal_spacing",
+   "type": "tNUMBER",
+   "source": "TextBox"
+  },
+  {
+   "index": 454,
+   "name": "vertical_spacing",
+   "type": "tNUMBER",
+   "source": "TextBox"
+  },
+  {
+   "index": 455,
+   "name": "asciioffset",
+   "type": "tINTEGER",
+   "source": "TextBox"
+  },
+  {
+   "index": 456,
+   "name": "horizontal_alignment",
+   "type": "tINTEGER",
+   "source": "TextBox"
+  },
+  {
+   "index": 457,
+   "name": "vertical_alignment",
+   "type": "tINTEGER",
+   "source": "TextBox"
+  },
+  {
+   "index": 458,
+   "name": "actualboxsize",
+   "type": "tVECTOR",
+   "source": "TextBox"
+  },
+  {
+   "index": 459,
+   "name": "stringwidth",
+   "type": "tINTEGER",
+   "source": "TextBox"
+  },
+  {
+   "index": 460,
+   "name": "vertical_scroll",
+   "type": "tNUMBER",
+   "source": "TextBox"
+  },
+  {
+   "index": 461,
+   "name": "vertical_clip",
+   "type": "tTRUTH",
+   "source": "TextBox"
+  },
+  {
+   "index": 462,
+   "name": "textres",
+   "type": "tSTRING",
+   "source": "TextSlot"
+  },
+  {
+   "index": 463,
+   "name": "current_index",
+   "type": "tINTEGER",
+   "source": "TextSlot"
+  },
+  {
+   "index": 464,
+   "name": "text_string_identifier",
+   "type": "tSTRING",
+   "source": "TextSlot"
+  },
+  {
+   "index": 465,
+   "name": "number_of_text_indices",
+   "type": "tINTEGER",
+   "source": "TextSlot"
+  },
+  {
+   "index": 466,
+   "name": "current_text_content",
+   "type": "tSTRING",
+   "source": "TextSlot"
+  },
+  {
+   "index": 467,
+   "name": "damage_type",
+   "type": "tINTEGER",
+   "source": "Bullet"
+  },
+  {
+   "index": 468,
+   "name": "impulse_multiplier",
+   "type": "tNUMBER",
+   "source": "Bullet"
+  },
+  {
+   "index": 469,
+   "name": "sound",
+   "type": "tSTRING",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 470,
+   "name": "minrange",
+   "type": "tNUMBER",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 471,
+   "name": "maxrange",
+   "type": "tNUMBER",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 472,
+   "name": "rolloff",
+   "type": "tNUMBER",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 473,
+   "name": "doppler_effect_on",
+   "type": "tTRUTH",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 474,
+   "name": "doppler_factor",
+   "type": "tNUMBER",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 475,
+   "name": "cut_at_maxrange",
+   "type": "tTRUTH",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 476,
+   "name": "volume",
+   "type": "tNUMBER",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 477,
+   "name": "lfe_level",
+   "type": "tNUMBER",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 478,
+   "name": "center_channel_only",
+   "type": "tTRUTH",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 479,
+   "name": "back_channels",
+   "type": "tTRUTH",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 480,
+   "name": "pitch",
+   "type": "tNUMBER",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 481,
+   "name": "hard_pause",
+   "type": "tTRUTH",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 482,
+   "name": "follow_camera",
+   "type": "tTRUTH",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 483,
+   "name": "randompitch_mode",
+   "type": "tTRUTH",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 484,
+   "name": "randompitch_length",
+   "type": "tNUMBER",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 485,
+   "name": "randomvolume_mode",
+   "type": "tTRUTH",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 486,
+   "name": "randomvolume_length",
+   "type": "tNUMBER",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 487,
+   "name": "static_mode",
+   "type": "tTRUTH",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 488,
+   "name": "streaming_sound",
+   "type": "tSTRING",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 489,
+   "name": "enable3d",
+   "type": "tTRUTH",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 490,
+   "name": "priority",
+   "type": "tINTEGER",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 491,
+   "name": "solomode",
+   "type": "tTRUTH",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 492,
+   "name": "isplaying",
+   "type": "tTRUTH",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 493,
+   "name": "streaming_sound_fullpath_direct",
+   "type": "tSTRING",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 494,
+   "name": "group",
+   "type": "tINTEGER",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 495,
+   "name": "global_time_pitchfactor",
+   "type": "tNUMBER",
+   "source": "SoundSlot"
+  },
+  {
+   "index": 496,
+   "name": "stopmessage",
+   "type": "tINTEGER",
+   "source": "SoundEmitter"
+  },
+  {
+   "index": 497,
+   "name": "lfe_channel",
+   "type": "tTRUTH",
+   "source": "SoundEmitter"
+  },
+  {
+   "index": 498,
+   "name": "no_update_pos",
+   "type": "tTRUTH",
+   "source": "SoundEmitter"
+  },
+  {
+   "index": 499,
+   "name": "send_message_to_parent",
+   "type": "tTRUTH",
+   "source": "SoundEmitter"
+  },
+  {
+   "index": 500,
+   "name": "follow_cam_offset",
+   "type": "tVECTOR",
+   "source": "SoundEmitter"
+  },
+  {
+   "index": 501,
+   "name": "end_block_delay_time",
+   "type": "tNUMBER",
+   "source": "SoundEmitter"
+  },
+  {
+   "index": 502,
+   "name": "current_soundslot",
+   "type": "tEntity",
+   "source": "SoundEmitter"
+  },
+  {
+   "index": 503,
+   "name": "next_play_as_2d",
+   "type": "tTRUTH",
+   "source": "SoundEmitter"
+  },
+  {
+   "index": 504,
+   "name": "is_curr_soundslot_streamed_and_alloc",
+   "type": "tTRUTH",
+   "source": "SoundEmitter"
+  },
+  {
+   "index": 505,
+   "name": "lsep1",
+   "type": "tTRUTH",
+   "source": "StaticLighting"
+  },
+  {
+   "index": 506,
+   "name": "lightingfile",
+   "type": "tSTRING",
+   "source": "StaticLighting"
+  },
+  {
+   "index": 507,
+   "name": "target_block_id",
+   "type": "tINTEGER",
+   "source": "StaticLighting"
+  },
+  {
+   "index": 508,
+   "name": "lighting_method",
+   "type": "tINTEGER",
+   "source": "StaticLighting"
+  },
+  {
+   "index": 509,
+   "name": "lsep2",
+   "type": "tTRUTH",
+   "source": "StaticLighting"
+  },
+  {
+   "index": 510,
+   "name": "num_photons",
+   "type": "tINTEGER",
+   "source": "StaticLighting"
+  },
+  {
+   "index": 511,
+   "name": "chance_of_reflection",
+   "type": "tNUMBER",
+   "source": "StaticLighting"
+  },
+  {
+   "index": 512,
+   "name": "gamma_correction",
+   "type": "tNUMBER",
+   "source": "StaticLighting"
+  },
+  {
+   "index": 513,
+   "name": "singlecolormultiplier",
+   "type": "tNUMBER",
+   "source": "StaticLighting"
+  },
+  {
+   "index": 514,
+   "name": "lsep3",
+   "type": "tTRUTH",
+   "source": "StaticLighting"
+  },
+  {
+   "index": 515,
+   "name": "max_sample_radius",
+   "type": "tNUMBER",
+   "source": "StaticLighting"
+  },
+  {
+   "index": 516,
+   "name": "samples_per_vert",
+   "type": "tINTEGER",
+   "source": "StaticLighting"
+  },
+  {
+   "index": 517,
+   "name": "min_sample_photons",
+   "type": "tINTEGER",
+   "source": "StaticLighting"
+  },
+  {
+   "index": 518,
+   "name": "max_lod_sample_radius",
+   "type": "tNUMBER",
+   "source": "StaticLighting"
+  },
+  {
+   "index": 519,
+   "name": "lsep4",
+   "type": "tTRUTH",
+   "source": "StaticLighting"
+  },
+  {
+   "index": 520,
+   "name": "cutoff_area",
+   "type": "tNUMBER",
+   "source": "StaticLighting"
+  },
+  {
+   "index": 521,
+   "name": "lsep5",
+   "type": "tTRUTH",
+   "source": "StaticLighting"
+  },
+  {
+   "index": 522,
+   "name": "movie",
+   "type": "tSTRING",
+   "source": "MoviePlayer"
+  },
+  {
+   "index": 523,
+   "name": "scaleX",
+   "type": "tNUMBER",
+   "source": "MoviePlayer"
+  },
+  {
+   "index": 524,
+   "name": "scaleY",
+   "type": "tNUMBER",
+   "source": "MoviePlayer"
+  },
+  {
+   "index": 525,
+   "name": "displacementX",
+   "type": "tINTEGER",
+   "source": "MoviePlayer"
+  },
+  {
+   "index": 526,
+   "name": "displacementY",
+   "type": "tINTEGER",
+   "source": "MoviePlayer"
+  },
+  {
+   "index": 527,
+   "name": "EmitterFadeThreshold",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 528,
+   "name": "EmitterRadius",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 529,
+   "name": "UseRealTime",
+   "type": "tTRUTH",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 530,
+   "name": "sep6",
+   "type": "tTRUTH",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 531,
+   "name": "MaxParticles",
+   "type": "tINTEGER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 532,
+   "name": "EmitterLifeTime",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 533,
+   "name": "EmitterDelay",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 534,
+   "name": "LinkNext",
+   "type": "tTRUTH",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 535,
+   "name": "InitialTrigger",
+   "type": "tTRUTH",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 536,
+   "name": "sep1",
+   "type": "tTRUTH",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 537,
+   "name": "OpacityVariation",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 538,
+   "name": "ColorVector",
+   "type": "tVECTOR",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 539,
+   "name": "sep2",
+   "type": "tTRUTH",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 540,
+   "name": "LifeTime",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 541,
+   "name": "LifeTimeVariation",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 542,
+   "name": "ExplicitBirthOnly",
+   "type": "tTRUTH",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 543,
+   "name": "BirthRate",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 544,
+   "name": "BirthRateVariation",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 545,
+   "name": "BirthDistance",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 546,
+   "name": "BirthDistFade",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 547,
+   "name": "FadeInTime",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 548,
+   "name": "FadeOutTime",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 549,
+   "name": "sep5",
+   "type": "tTRUTH",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 550,
+   "name": "SizeVariation",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 551,
+   "name": "GrowthFactor",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 552,
+   "name": "GrowthFade",
+   "type": "tTRUTH",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 553,
+   "name": "sep4",
+   "type": "tTRUTH",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 554,
+   "name": "RandomOffsetX",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 555,
+   "name": "RandomOffsetY",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 556,
+   "name": "RandomOffsetZ",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 557,
+   "name": "DirVariation",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 558,
+   "name": "DirScaleX",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 559,
+   "name": "DirScaleY",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 560,
+   "name": "DirScaleZ",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 561,
+   "name": "DirScaleZRing",
+   "type": "tTRUTH",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 562,
+   "name": "SpeedVariation",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 563,
+   "name": "InheritEmitterSpeed",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 564,
+   "name": "RotationX",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 565,
+   "name": "RotationY",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 566,
+   "name": "RotationZ",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 567,
+   "name": "RotationVariation",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 568,
+   "name": "Has2DEmitter",
+   "type": "tTRUTH",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 569,
+   "name": "AxisAlign",
+   "type": "tINTEGER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 570,
+   "name": "TumbleSpeed",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 571,
+   "name": "TumbleAmp",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 572,
+   "name": "Turbulence",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 573,
+   "name": "sep3",
+   "type": "tTRUTH",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 574,
+   "name": "ParticleGravity",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 575,
+   "name": "GlobalWindFactor",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 576,
+   "name": "Friction",
+   "type": "tNUMBER",
+   "source": "ParticleSystem"
+  },
+  {
+   "index": 577,
+   "name": "KeyTime",
+   "type": "tNUMBER",
+   "source": "GEKeyFrame"
+  },
+  {
+   "index": 578,
+   "name": "KeyTranslationX",
+   "type": "tNUMBER",
+   "source": "GEKeyFrame"
+  },
+  {
+   "index": 579,
+   "name": "KeyTranslationY",
+   "type": "tNUMBER",
+   "source": "GEKeyFrame"
+  },
+  {
+   "index": 580,
+   "name": "KeyTranslationZ",
+   "type": "tNUMBER",
+   "source": "GEKeyFrame"
+  },
+  {
+   "index": 581,
+   "name": "KeyScaleX",
+   "type": "tNUMBER",
+   "source": "GEKeyFrame"
+  },
+  {
+   "index": 582,
+   "name": "KeyScaleY",
+   "type": "tNUMBER",
+   "source": "GEKeyFrame"
+  },
+  {
+   "index": 583,
+   "name": "KeyScaleZ",
+   "type": "tNUMBER",
+   "source": "GEKeyFrame"
+  },
+  {
+   "index": 584,
+   "name": "KeyRotationX",
+   "type": "tNUMBER",
+   "source": "GEKeyFrame"
+  },
+  {
+   "index": 585,
+   "name": "KeyRotationY",
+   "type": "tNUMBER",
+   "source": "GEKeyFrame"
+  },
+  {
+   "index": 586,
+   "name": "KeyRotationZ",
+   "type": "tNUMBER",
+   "source": "GEKeyFrame"
+  },
+  {
+   "index": 587,
+   "name": "KeyOpacity",
+   "type": "tNUMBER",
+   "source": "GEKeyFrame"
+  },
+  {
+   "index": 588,
+   "name": "KeyTextureScroll",
+   "type": "tNUMBER",
+   "source": "GEKeyFrame"
+  },
+  {
+   "index": 589,
+   "name": "EffectFadeThreshold",
+   "type": "tNUMBER",
+   "source": "GeometryEffect"
+  },
+  {
+   "index": 590,
+   "name": "EffectRadius",
+   "type": "tNUMBER",
+   "source": "GeometryEffect"
+  },
+  {
+   "index": 591,
+   "name": "gesep0",
+   "type": "tTRUTH",
+   "source": "GeometryEffect"
+  },
+  {
+   "index": 592,
+   "name": "EffectLifeTime",
+   "type": "tNUMBER",
+   "source": "GeometryEffect"
+  },
+  {
+   "index": 593,
+   "name": "TriggerAtStart",
+   "type": "tTRUTH",
+   "source": "GeometryEffect"
+  },
+  {
+   "index": 594,
+   "name": "is_target_bracket",
+   "type": "tTRUTH",
+   "source": "GeometryEffect"
+  },
+  {
+   "index": 595,
+   "name": "psep1",
+   "type": "tTRUTH",
+   "source": "ProfilerInput"
+  },
+  {
+   "index": 596,
+   "name": "profiletype",
+   "type": "tINTEGER",
+   "source": "ProfilerInput"
+  },
+  {
+   "index": 597,
+   "name": "currentpage",
+   "type": "tINTEGER",
+   "source": "ProfilerInput"
+  },
+  {
+   "index": 598,
+   "name": "linesperpage",
+   "type": "tINTEGER",
+   "source": "ProfilerInput"
+  },
+  {
+   "index": 599,
+   "name": "sortbycolumn",
+   "type": "tINTEGER",
+   "source": "ProfilerInput"
+  },
+  {
+   "index": 600,
+   "name": "sortascending",
+   "type": "tTRUTH",
+   "source": "ProfilerInput"
+  },
+  {
+   "index": 601,
+   "name": "psep6",
+   "type": "tTRUTH",
+   "source": "ProfilerInput"
+  },
+  {
+   "index": 602,
+   "name": "enableoutput",
+   "type": "tTRUTH",
+   "source": "ProfilerInput"
+  },
+  {
+   "index": 603,
+   "name": "profopacity",
+   "type": "tNUMBER",
+   "source": "ProfilerInput"
+  },
+  {
+   "index": 604,
+   "name": "psep2",
+   "type": "tTRUTH",
+   "source": "ProfilerInput"
+  },
+  {
+   "index": 605,
+   "name": "codeprofilemode",
+   "type": "tINTEGER",
+   "source": "ProfilerInput"
+  },
+  {
+   "index": 606,
+   "name": "psep3",
+   "type": "tTRUTH",
+   "source": "ProfilerInput"
+  },
+  {
+   "index": 607,
+   "name": "traverseprofilemode",
+   "type": "tINTEGER",
+   "source": "ProfilerInput"
+  },
+  {
+   "index": 608,
+   "name": "psep4",
+   "type": "tTRUTH",
+   "source": "ProfilerInput"
+  },
+  {
+   "index": 609,
+   "name": "scriptprofilemode",
+   "type": "tINTEGER",
+   "source": "ProfilerInput"
+  },
+  {
+   "index": 610,
+   "name": "profilescript",
+   "type": "tSTRING",
+   "source": "ProfilerInput"
+  },
+  {
+   "index": 611,
+   "name": "psep5",
+   "type": "tTRUTH",
+   "source": "ProfilerInput"
+  },
+  {
+   "index": 612,
+   "name": "command",
+   "type": "tSTRING",
+   "source": "ProfilerInput"
+  },
+  {
+   "index": 613,
+   "name": "usemodelbound",
+   "type": "tTRUTH",
+   "source": "PlaceHolder"
+  },
+  {
+   "index": 614,
+   "name": "createcollisionnode",
+   "type": "tTRUTH",
+   "source": "PlaceHolder"
+  },
+  {
+   "index": 615,
+   "name": "collisionpivot",
+   "type": "tINTEGER",
+   "source": "PlaceHolder"
+  },
+  {
+   "index": 616,
+   "name": "ResourceType",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 617,
+   "name": "Status",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 618,
+   "name": "PopSensitiveType",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 619,
+   "name": "Locked",
+   "type": "tTRUTH",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 620,
+   "name": "IsVIP",
+   "type": "tTRUTH",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 621,
+   "name": "VIPTimer",
+   "type": "tNUMBER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 622,
+   "name": "Model",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 623,
+   "name": "Real_Active_Texture_Set",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 624,
+   "name": "StoredDamage",
+   "type": "tNUMBER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 625,
+   "name": "OrgHealth",
+   "type": "tNUMBER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 626,
+   "name": "CallBackNode",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 627,
+   "name": "PhysicModel",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 628,
+   "name": "ForceDynamicNodeName",
+   "type": "tSTRING",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 629,
+   "name": "MissionObjectiveKill",
+   "type": "tTRUTH",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 630,
+   "name": "Use_AISubType_Data",
+   "type": "tTRUTH",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 631,
+   "name": "AISubType",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 632,
+   "name": "Morale",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 633,
+   "name": "Wait_until_Aggressive",
+   "type": "tNUMBER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 634,
+   "name": "DesiredRange",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 635,
+   "name": "CustomDesiredRange",
+   "type": "tNUMBER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 636,
+   "name": "DontHunt",
+   "type": "tTRUTH",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 637,
+   "name": "When_Shot",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 638,
+   "name": "IgnoreActionBreaks",
+   "type": "tTRUTH",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 639,
+   "name": "IgnoreWeaponDrop",
+   "type": "tTRUTH",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 640,
+   "name": "IgnoreMagnet",
+   "type": "tTRUTH",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 641,
+   "name": "Ignore_Hit_Anim",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 642,
+   "name": "Goto_Movement",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 643,
+   "name": "Always_Complete_Goto",
+   "type": "tTRUTH",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 644,
+   "name": "Ignore_5M_rule",
+   "type": "tTRUTH",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 645,
+   "name": "BackUpWeapon",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 646,
+   "name": "Is_ConeHead",
+   "type": "tTRUTH",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 647,
+   "name": "Is_Buddy",
+   "type": "tTRUTH",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 648,
+   "name": "GotopointDamage_mod",
+   "type": "tNUMBER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 649,
+   "name": "Health_modify",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 650,
+   "name": "Damage_modify",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 651,
+   "name": "HeadShot_Damage",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 652,
+   "name": "Health_mod",
+   "type": "tNUMBER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 653,
+   "name": "Damage_mod",
+   "type": "tNUMBER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 654,
+   "name": "Marco_sqr_dist",
+   "type": "tNUMBER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 655,
+   "name": "PointValue_mod",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 656,
+   "name": "InflictorValue_mod",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 657,
+   "name": "FactionID",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 658,
+   "name": "UsingModifiedFaction",
+   "type": "tTRUTH",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 659,
+   "name": "UsingSecretFaction",
+   "type": "tTRUTH",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 660,
+   "name": "SecretFaction",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 661,
+   "name": "PedestrianGroup",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 662,
+   "name": "LockedType",
+   "type": "tTRUTH",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 663,
+   "name": "FallbackModel",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 664,
+   "name": "CurrentModel",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 665,
+   "name": "PreviousModel",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 666,
+   "name": "StoreTrig",
+   "type": "tTRUTH",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 667,
+   "name": "StoreAlarm",
+   "type": "tTRUTH",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 668,
+   "name": "StorePriority",
+   "type": "tTRUTH",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 669,
+   "name": "StoreTrigType",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 670,
+   "name": "passenger_seat",
+   "type": "tINTEGER",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 671,
+   "name": "was_passenger",
+   "type": "tTRUTH",
+   "source": "CharacterPlaceHolder"
+  },
+  {
+   "index": 672,
+   "name": "ObjectSubType",
+   "type": "tINTEGER",
+   "source": "HavocPlaceHolder"
+  },
+  {
+   "index": 673,
+   "name": "Default_particle_effect",
+   "type": "tINTEGER",
+   "source": "HavocPlaceHolder"
+  },
+  {
+   "index": 674,
+   "name": "Replace_pivot_ID",
+   "type": "tINTEGER",
+   "source": "HavocPlaceHolder"
+  },
+  {
+   "index": 675,
+   "name": "com_ID",
+   "type": "tINTEGER",
+   "source": "HavocPlaceHolder"
+  },
+  {
+   "index": 676,
+   "name": "Broken",
+   "type": "tTRUTH",
+   "source": "HavocPlaceHolder"
+  },
+  {
+   "index": 677,
+   "name": "GoodieSubType",
+   "type": "tINTEGER",
+   "source": "GoodiePlaceHolder"
+  },
+  {
+   "index": 678,
+   "name": "Respawnable",
+   "type": "tTRUTH",
+   "source": "GoodiePlaceHolder"
+  },
+  {
+   "index": 679,
+   "name": "RespawnTime",
+   "type": "tNUMBER",
+   "source": "GoodiePlaceHolder"
+  },
+  {
+   "index": 680,
+   "name": "WeaponSubType",
+   "type": "tINTEGER",
+   "source": "WeaponPlaceHolder"
+  },
+  {
+   "index": 681,
+   "name": "MeleeWeaponSubType",
+   "type": "tINTEGER",
+   "source": "WeaponPlaceHolder"
+  },
+  {
+   "index": 682,
+   "name": "BulletDrop",
+   "type": "tINTEGER",
+   "source": "WeaponPlaceHolder"
+  },
+  {
+   "index": 683,
+   "name": "gamename",
+   "type": "tSTRING",
+   "source": "MemoryCards"
+  },
+  {
+   "index": 684,
+   "name": "ps2sleslicense",
+   "type": "tSTRING",
+   "source": "MemoryCards"
+  },
+  {
+   "index": 685,
+   "name": "ps2sluslicense",
+   "type": "tSTRING",
+   "source": "MemoryCards"
+  },
+  {
+   "index": 686,
+   "name": "savefilesize",
+   "type": "tINTEGER",
+   "source": "MemoryCards"
+  },
+  {
+   "index": 687,
+   "name": "imagefile",
+   "type": "tSTRING",
+   "source": "LoadScreenNode"
+  }
+ ]
+}

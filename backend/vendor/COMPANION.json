@@ -1,0 +1,23 @@
+{
+ "source": "the TODLevelEditor Unreal plugin's Backend/todct",
+ "copied": "2026-10-20 22:08:26",
+ "files": {
+  "__init__.py": "c0de28df888107be4fd74ac3937c81597b015a53c014c3d91e76f3a753e46baa",
+  "assets.py": "ac76da77f116119517438c256c22847524fe9687dd2f70f06115dfaa1005b28d",
+  "blockedit.py": "4018b534f7b6dd56ff9a16c3ae021683edd7091a903bc8605ba2d2ced096c07d",
+  "collision.py": "36d9a2e9360a1587add4cafcd3b2a049be59d37d693c6c35b8383e3c578cfcc7",
+  "decomp.py": "c0dc61e78755114d444ab7bed3971633150b661ec81c71bad557729c731f6b5d",
+  "edits.py": "76fc5932bc9107e2d6250a38b0110ea261ee3669a30327230f687229c45b33d3",
+  "geom.py": "910851dd8351fd87d68bd649f815c6ec5ae7c4d7e77877cc9bac47a7542d9d81",
+  "meshio.py": "87ae1a225bb3a550b594b203180288cc8223d15105c646ba76e183ed8a6c1825",
+  "missions.py": "0097e32c1b495f13787bcdab6919db84f29037e06462c50b262fda91e2ac7c86",
+  "nav.py": "5297aed6b29eae2d4f0f139d1be53440f902bef416b737fa5c48481920d38b45",
+  "sections.py": "bf3c2328118b19e050587b6fd22baaad8d1c274d0874faaa35637fea5b90b795",
+  "surfaces.py": "c0119f4d71a0debfd286c7fc8f0e74f7042efad5908fe2dae99d81ced08335bd",
+  "todmod.py": "39027020ad32ab654dde3f1f081d830c150bf35043b7c025f1dfb1e9c4a2e72d",
+  "tools.py": "6a5d9fb8a108046775d1180bcb9d07a9ef36e3e0d40cb031fc96b37c221390ad"
+ },
+ "extra_tools": {
+  "seamless/transitions.py": "c6c2ae01b69c0a092e2e3eb726654b1bebb932f1b7814d0c1414732d14371cc4"
+ }
+}

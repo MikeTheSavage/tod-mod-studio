@@ -1,0 +1,4 @@
+{"model": "/data/Models/Addons/Map09_Jungle/Jungle_MilitaryGarage.model",
+ "remove": [2],
+ "add_boxes": [{"min": [-1.0, 0.0, -1.0], "max": [1.0, 1.2, 1.0], "space": "model", "surf": "0x02007C00", "facemat": 255,
+                "name": "Jungle_MilitaryGarage.model"}]}

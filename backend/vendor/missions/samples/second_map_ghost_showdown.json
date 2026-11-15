@@ -1,0 +1,126 @@
+{
+ "format": 1,
+ "package": "second_map_test",
+ "new_map_path": "second_map_params.json",
+ "hosts": [
+  {
+   "id": "yard",
+   "kind": "new_map",
+   "map_index": 0,
+   "area": [
+    1371.0,
+    1371.0,
+    1429.0,
+    1429.0
+   ],
+   "ground_y": 20.0
+  }
+ ],
+ "missions": [
+  {
+   "id": "yard_showdown",
+   "type": "showdown",
+   "host": "yard",
+   "index": 71,
+   "params": {
+    "giver_pos": [
+     1388.0,
+     null,
+     1384.0
+    ],
+    "giver_size": 8.0,
+    "bandits": [
+     [
+      1400.0,
+      null,
+      1408.0
+     ],
+     [
+      1406.0,
+      null,
+      1411.0
+     ],
+     [
+      1394.0,
+      null,
+      1411.0
+     ]
+    ],
+    "go_zone": [
+     1400.0,
+     null,
+     1387.0
+    ],
+    "go_width": 14.0,
+    "go_length": 4.0,
+    "return_zone": [
+     1405.0,
+     null,
+     1374.0
+    ],
+    "return_width": 50.0,
+    "return_length": 16.0,
+    "prop_pos": [
+     1405.0,
+     null,
+     1375.0
+    ],
+    "name": "YARD SHOWDOWN",
+    "description": "A gang has taken the far corner of the scrapyard. Go in, take them out and come back to the gate."
+   }
+  },
+  {
+   "id": "yard_ghost",
+   "type": "ghost",
+   "host": "yard",
+   "index": 79,
+   "params": {
+    "giver_pos": [
+     1412.0,
+     null,
+     1384.0
+    ],
+    "giver_size": 6.0,
+    "goal": [
+     1405.0,
+     null,
+     1421.0
+    ],
+    "goal_width": 40.0,
+    "goal_length": 16.0,
+    "guards": [
+     [
+      1390.0,
+      null,
+      1392.0
+     ],
+     [
+      1410.0,
+      null,
+      1396.0
+     ],
+     [
+      1396.0,
+      null,
+      1405.0
+     ],
+     [
+      1388.0,
+      null,
+      1414.0
+     ],
+     [
+      1412.0,
+      null,
+      1412.0
+     ]
+    ],
+    "name": "YARD GHOST",
+    "description": "Armed men patrol the yard. Slip through to the far wall without killing anyone."
+   }
+  }
+ ],
+ "options": {
+  "zip_name": "second_map_missions.zip"
+ }
+}

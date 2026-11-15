@@ -1,0 +1,6 @@
+{
+ "description": "test V2: Sedan type only: drag_coeff 7 -> 3.5. Sedan top speed 108 -> 135 km/h, ModernSedan/Taxi/Police unchanged (model).",
+ "set": {
+  "type.Sedan.drag_coeff": 3.5
+ }
+}

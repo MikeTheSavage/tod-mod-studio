@@ -1,0 +1,2354 @@
+{
+ "source": "scan3f0.py + sitemap.py over the GOG TOD.exe: every load of DB_PARTICLEDICT_LIST (global cache +0x3F0) followed by a constant element index; class = owning script class (registration FUN_0048A530), cmd = the command whose handler it sits in",
+ "sites": [
+  {
+   "site": "004918C1",
+   "func": "00490B30",
+   "class": "AA_chain_gun",
+   "cmd": "main",
+   "handler": "00490BC0",
+   "index": 37,
+   "name": "Shell_Default"
+  },
+  {
+   "site": "00491934",
+   "func": "00490B30",
+   "class": "AA_chain_gun",
+   "cmd": "main",
+   "handler": "00490BC0",
+   "index": 39,
+   "name": "Nuzzle_Smoke"
+  },
+  {
+   "site": "004920E6",
+   "func": "00490B30",
+   "class": "AA_chain_gun",
+   "cmd": "main",
+   "handler": "00490BC0",
+   "index": 37,
+   "name": "Shell_Default"
+  },
+  {
+   "site": "00492159",
+   "func": "00490B30",
+   "class": "AA_chain_gun",
+   "cmd": "main",
+   "handler": "00490BC0",
+   "index": 39,
+   "name": "Nuzzle_Smoke"
+  },
+  {
+   "site": "004925B4",
+   "func": "00492450",
+   "class": "AA_chain_gun",
+   "cmd": "command_stop_firing",
+   "handler": "00492420",
+   "index": 27,
+   "name": "Explosion_Big_Trigger"
+  },
+  {
+   "site": "0049269B",
+   "func": "00492450",
+   "class": "AA_chain_gun",
+   "cmd": "command_stop_firing",
+   "handler": "00492420",
+   "index": 11,
+   "name": "Fire_Big_Trigger"
+  },
+  {
+   "site": "00492E1F",
+   "func": "004928D0",
+   "class": "AA_chain_gun",
+   "cmd": "command_stop_firing",
+   "handler": "00492420",
+   "index": 37,
+   "name": "Shell_Default"
+  },
+  {
+   "site": "00492E73",
+   "func": "004928D0",
+   "class": "AA_chain_gun",
+   "cmd": "command_stop_firing",
+   "handler": "00492420",
+   "index": 37,
+   "name": "Shell_Default"
+  },
+  {
+   "site": "00492ECD",
+   "func": "004928D0",
+   "class": "AA_chain_gun",
+   "cmd": "command_stop_firing",
+   "handler": "00492420",
+   "index": 39,
+   "name": "Nuzzle_Smoke"
+  },
+  {
+   "site": "00492F27",
+   "func": "004928D0",
+   "class": "AA_chain_gun",
+   "cmd": "command_stop_firing",
+   "handler": "00492420",
+   "index": 39,
+   "name": "Nuzzle_Smoke"
+  },
+  {
+   "site": "00498882",
+   "func": "00498680",
+   "class": "bird_aictrl",
+   "cmd": "TakeAHit",
+   "handler": "00498680",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "00498919",
+   "func": "00498680",
+   "class": "bird_aictrl",
+   "cmd": "TakeAHit",
+   "handler": "00498680",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "004989B0",
+   "func": "00498680",
+   "class": "bird_aictrl",
+   "cmd": "TakeAHit",
+   "handler": "00498680",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "0049EC63",
+   "func": "0049EA50",
+   "class": "bird_aictrl",
+   "cmd": "main",
+   "handler": "0049EA50",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "0049ED1E",
+   "func": "0049EA50",
+   "class": "bird_aictrl",
+   "cmd": "main",
+   "handler": "0049EA50",
+   "index": 73,
+   "name": "Chicken_Eeg"
+  },
+  {
+   "site": "004A6E55",
+   "func": "004A6D00",
+   "class": "Bullet_Manager",
+   "cmd": "command_goto_realtime",
+   "handler": "004A6CC0",
+   "index": 191,
+   "name": "Glass_Trigger_Window"
+  },
+  {
+   "site": "004A6F79",
+   "func": "004A6D00",
+   "class": "Bullet_Manager",
+   "cmd": "command_goto_realtime",
+   "handler": "004A6CC0",
+   "index": 163,
+   "name": "WallDebris_BIG"
+  },
+  {
+   "site": "004A70BA",
+   "func": "004A7070",
+   "class": "Bullet_Manager",
+   "cmd": "command_goto_realtime",
+   "handler": "004A6CC0",
+   "index": 28,
+   "name": "Freon"
+  },
+  {
+   "site": "004A7171",
+   "func": "004A7070",
+   "class": "Bullet_Manager",
+   "cmd": "command_goto_realtime",
+   "handler": "004A6CC0",
+   "index": 163,
+   "name": "WallDebris_BIG"
+  },
+  {
+   "site": "004A72F4",
+   "func": "004A7210",
+   "class": "Bullet_Manager",
+   "cmd": "command_goto_realtime",
+   "handler": "004A6CC0",
+   "index": 163,
+   "name": "WallDebris_BIG"
+  },
+  {
+   "site": "004A75A6",
+   "func": "004A7210",
+   "class": "Bullet_Manager",
+   "cmd": "command_goto_realtime",
+   "handler": "004A6CC0",
+   "index": 163,
+   "name": "WallDebris_BIG"
+  },
+  {
+   "site": "004A75E2",
+   "func": "004A7210",
+   "class": "Bullet_Manager",
+   "cmd": "command_goto_realtime",
+   "handler": "004A6CC0",
+   "index": 164,
+   "name": "WallSmoke_BIG"
+  },
+  {
+   "site": "004A7AFD",
+   "func": "004A77C0",
+   "class": "Bullet_Manager",
+   "cmd": "command_goto_realtime",
+   "handler": "004A6CC0",
+   "index": 186,
+   "name": "BrokenWindow_Virgillo"
+  },
+  {
+   "site": "004A7B3F",
+   "func": "004A77C0",
+   "class": "Bullet_Manager",
+   "cmd": "command_goto_realtime",
+   "handler": "004A6CC0",
+   "index": 187,
+   "name": "BrokenWindow_ShoppingMall"
+  },
+  {
+   "site": "004A7B81",
+   "func": "004A77C0",
+   "class": "Bullet_Manager",
+   "cmd": "command_goto_realtime",
+   "handler": "004A6CC0",
+   "index": 185,
+   "name": "BrokenWindow_BurgerBar"
+  },
+  {
+   "site": "004A7BC3",
+   "func": "004A77C0",
+   "class": "Bullet_Manager",
+   "cmd": "command_goto_realtime",
+   "handler": "004A6CC0",
+   "index": 184,
+   "name": "BrokenWindow_Elvez"
+  },
+  {
+   "site": "004A7C05",
+   "func": "004A77C0",
+   "class": "Bullet_Manager",
+   "cmd": "command_goto_realtime",
+   "handler": "004A6CC0",
+   "index": 191,
+   "name": "Glass_Trigger_Window"
+  },
+  {
+   "site": "004A7D2C",
+   "func": "004A77C0",
+   "class": "Bullet_Manager",
+   "cmd": "command_goto_realtime",
+   "handler": "004A6CC0",
+   "index": 163,
+   "name": "WallDebris_BIG"
+  },
+  {
+   "site": "004A7D69",
+   "func": "004A77C0",
+   "class": "Bullet_Manager",
+   "cmd": "command_goto_realtime",
+   "handler": "004A6CC0",
+   "index": 164,
+   "name": "WallSmoke_BIG"
+  },
+  {
+   "site": "004A7F3E",
+   "func": "004A77C0",
+   "class": "Bullet_Manager",
+   "cmd": "command_goto_realtime",
+   "handler": "004A6CC0",
+   "index": 193,
+   "name": "Bulletimpact_dirt"
+  },
+  {
+   "site": "004A7FDE",
+   "func": "004A77C0",
+   "class": "Bullet_Manager",
+   "cmd": "command_goto_realtime",
+   "handler": "004A6CC0",
+   "index": 194,
+   "name": "Bulletimpact_Grass"
+  },
+  {
+   "site": "004A8C0C",
+   "func": "004A8AD0",
+   "class": "Bullet_Manager",
+   "cmd": "command_goto_realtime",
+   "handler": "004A6CC0",
+   "index": 13,
+   "name": "Bloodspray_Small_Trigger"
+  },
+  {
+   "site": "004A8CAD",
+   "func": "004A8AD0",
+   "class": "Bullet_Manager",
+   "cmd": "command_goto_realtime",
+   "handler": "004A6CC0",
+   "index": 15,
+   "name": "Bloodspray_Big_Trigger"
+  },
+  {
+   "site": "004A8D50",
+   "func": "004A8AD0",
+   "class": "Bullet_Manager",
+   "cmd": "command_goto_realtime",
+   "handler": "004A6CC0",
+   "index": 15,
+   "name": "Bloodspray_Big_Trigger"
+  },
+  {
+   "site": "004A9219",
+   "func": "004A9180",
+   "class": "Bullet_Manager",
+   "cmd": "command_goto_realtime",
+   "handler": "004A6CC0",
+   "index": 15,
+   "name": "Bloodspray_Big_Trigger"
+  },
+  {
+   "site": "004DD827",
+   "func": "004DD4D0",
+   "class": "car_move_ctrl",
+   "cmd": "command_toggle_effect(truth)",
+   "handler": "004DD4D0",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "004DD881",
+   "func": "004DD4D0",
+   "class": "car_move_ctrl",
+   "cmd": "command_toggle_effect(truth)",
+   "handler": "004DD4D0",
+   "index": 125,
+   "name": "Sirene_RED_Left"
+  },
+  {
+   "site": "004DD9C1",
+   "func": "004DD4D0",
+   "class": "car_move_ctrl",
+   "cmd": "command_toggle_effect(truth)",
+   "handler": "004DD4D0",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "004DDA1D",
+   "func": "004DD4D0",
+   "class": "car_move_ctrl",
+   "cmd": "command_toggle_effect(truth)",
+   "handler": "004DD4D0",
+   "index": 125,
+   "name": "Sirene_RED_Left"
+  },
+  {
+   "site": "0050EC0D",
+   "func": "0050EC00",
+   "class": "character_animation_ctrl",
+   "cmd": "command_new_block_loaded",
+   "handler": "0050EC00",
+   "index": 173,
+   "name": "cold_breath_ingame"
+  },
+  {
+   "site": "0050ECF4",
+   "func": "0050EC00",
+   "class": "character_animation_ctrl",
+   "cmd": "command_stop_breathing",
+   "handler": "0050ECE0",
+   "index": 173,
+   "name": "cold_breath_ingame"
+  },
+  {
+   "site": "005B7666",
+   "func": "005B6B50",
+   "class": "character_player_ai",
+   "cmd": "take_a_hit",
+   "handler": "005B70B0",
+   "index": 177,
+   "name": "Blood_Dripping"
+  },
+  {
+   "site": "005B76B4",
+   "func": "005B6B50",
+   "class": "character_player_ai",
+   "cmd": "take_a_hit",
+   "handler": "005B70B0",
+   "index": 177,
+   "name": "Blood_Dripping"
+  },
+  {
+   "site": "005D8627",
+   "func": "005D6B50",
+   "class": "character_sentry_ai",
+   "cmd": "main",
+   "handler": "005D6B70",
+   "index": 177,
+   "name": "Blood_Dripping"
+  },
+  {
+   "site": "005E4D7E",
+   "func": "005E3430",
+   "class": "character_sentry_ai",
+   "cmd": "take_a_hit",
+   "handler": "005E3580",
+   "index": 177,
+   "name": "Blood_Dripping"
+  },
+  {
+   "site": "005E4DCB",
+   "func": "005E3430",
+   "class": "character_sentry_ai",
+   "cmd": "take_a_hit",
+   "handler": "005E3580",
+   "index": 177,
+   "name": "Blood_Dripping"
+  },
+  {
+   "site": "005EAC72",
+   "func": "005EA800",
+   "class": "character_sound_ctrl",
+   "cmd": "command_leave_water",
+   "handler": "005EAC60",
+   "index": 98,
+   "name": "Water_Dripping_CHARACTER"
+  },
+  {
+   "site": "005EB95A",
+   "func": "005EB840",
+   "class": "character_sound_ctrl",
+   "cmd": "main",
+   "handler": "005EB860",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "005EBC91",
+   "func": "005EB840",
+   "class": "character_sound_ctrl",
+   "cmd": "main",
+   "handler": "005EB860",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "005ED444",
+   "func": "005ED430",
+   "class": "character_sound_ctrl",
+   "cmd": "command_play_splash_at_player_pos",
+   "handler": "005ED430",
+   "index": 97,
+   "name": "Water_Splash_CHARACTER"
+  },
+  {
+   "site": "005ED609",
+   "func": "005ED500",
+   "class": "character_sound_ctrl",
+   "cmd": "command_in_water(truth)",
+   "handler": "005ED500",
+   "index": 97,
+   "name": "Water_Splash_CHARACTER"
+  },
+  {
+   "site": "005FF725",
+   "func": "005FF660",
+   "class": "character_Take_A_Hit_Move_ctrl",
+   "cmd": "main",
+   "handler": "005FF660",
+   "index": 177,
+   "name": "Blood_Dripping"
+  },
+  {
+   "site": "00607808",
+   "func": "00607790",
+   "class": "character_Take_A_Hit_Move_ctrl",
+   "cmd": "main",
+   "handler": "00607790",
+   "index": 177,
+   "name": "Blood_Dripping"
+  },
+  {
+   "site": "00611A7C",
+   "func": "00611900",
+   "class": "character_weapon_ctrl",
+   "cmd": "main",
+   "handler": "00611900",
+   "index": 74,
+   "name": "Golden_Gun_Streaks"
+  },
+  {
+   "site": "0061C3BF",
+   "func": "0061C350",
+   "class": "character_weapon_ctrl",
+   "cmd": "command_seize_golden_bullet(truth)",
+   "handler": "0061C350",
+   "index": 74,
+   "name": "Golden_Gun_Streaks"
+  },
+  {
+   "site": "0061DC5D",
+   "func": "0061DBF0",
+   "class": "civilian_enemies_parent",
+   "cmd": "main",
+   "handler": "0061DB80",
+   "index": 227,
+   "name": "Day_of_the_dead_fire"
+  },
+  {
+   "site": "00628807",
+   "func": "006287E0",
+   "class": "Combo_Score_Field_Ctrl",
+   "cmd": "main",
+   "handler": "00627FB0",
+   "index": 22,
+   "name": "Combo_Number_v01"
+  },
+  {
+   "site": "0062887F",
+   "func": "006287E0",
+   "class": "Combo_Score_Field_Ctrl",
+   "cmd": "main",
+   "handler": "00627FB0",
+   "index": 23,
+   "name": "Combo_Number_v02"
+  },
+  {
+   "site": "0062897C",
+   "func": "006287E0",
+   "class": "Combo_Score_Field_Ctrl",
+   "cmd": "main",
+   "handler": "00627FB0",
+   "index": 25,
+   "name": "Combo_Number_v04"
+  },
+  {
+   "site": "006289F9",
+   "func": "006287E0",
+   "class": "Combo_Score_Field_Ctrl",
+   "cmd": "main",
+   "handler": "00627FB0",
+   "index": 26,
+   "name": "Combo_Number_v05"
+  },
+  {
+   "site": "00628A76",
+   "func": "006287E0",
+   "class": "Combo_Score_Field_Ctrl",
+   "cmd": "main",
+   "handler": "00627FB0",
+   "index": 22,
+   "name": "Combo_Number_v01"
+  },
+  {
+   "site": "00628AF3",
+   "func": "006287E0",
+   "class": "Combo_Score_Field_Ctrl",
+   "cmd": "main",
+   "handler": "00627FB0",
+   "index": 23,
+   "name": "Combo_Number_v02"
+  },
+  {
+   "site": "00628BF0",
+   "func": "006287E0",
+   "class": "Combo_Score_Field_Ctrl",
+   "cmd": "main",
+   "handler": "00627FB0",
+   "index": 25,
+   "name": "Combo_Number_v04"
+  },
+  {
+   "site": "00628C6D",
+   "func": "006287E0",
+   "class": "Combo_Score_Field_Ctrl",
+   "cmd": "main",
+   "handler": "00627FB0",
+   "index": 26,
+   "name": "Combo_Number_v05"
+  },
+  {
+   "site": "00628CEA",
+   "func": "006287E0",
+   "class": "Combo_Score_Field_Ctrl",
+   "cmd": "main",
+   "handler": "00627FB0",
+   "index": 22,
+   "name": "Combo_Number_v01"
+  },
+  {
+   "site": "00628D67",
+   "func": "006287E0",
+   "class": "Combo_Score_Field_Ctrl",
+   "cmd": "main",
+   "handler": "00627FB0",
+   "index": 23,
+   "name": "Combo_Number_v02"
+  },
+  {
+   "site": "00628E64",
+   "func": "006287E0",
+   "class": "Combo_Score_Field_Ctrl",
+   "cmd": "main",
+   "handler": "00627FB0",
+   "index": 25,
+   "name": "Combo_Number_v04"
+  },
+  {
+   "site": "00628EE1",
+   "func": "006287E0",
+   "class": "Combo_Score_Field_Ctrl",
+   "cmd": "main",
+   "handler": "00627FB0",
+   "index": 26,
+   "name": "Combo_Number_v05"
+  },
+  {
+   "site": "00628F5E",
+   "func": "006287E0",
+   "class": "Combo_Score_Field_Ctrl",
+   "cmd": "main",
+   "handler": "00627FB0",
+   "index": 22,
+   "name": "Combo_Number_v01"
+  },
+  {
+   "site": "00628FDB",
+   "func": "006287E0",
+   "class": "Combo_Score_Field_Ctrl",
+   "cmd": "main",
+   "handler": "00627FB0",
+   "index": 23,
+   "name": "Combo_Number_v02"
+  },
+  {
+   "site": "006290D8",
+   "func": "006287E0",
+   "class": "Combo_Score_Field_Ctrl",
+   "cmd": "main",
+   "handler": "00627FB0",
+   "index": 25,
+   "name": "Combo_Number_v04"
+  },
+  {
+   "site": "00629151",
+   "func": "006287E0",
+   "class": "Combo_Score_Field_Ctrl",
+   "cmd": "main",
+   "handler": "00627FB0",
+   "index": 26,
+   "name": "Combo_Number_v05"
+  },
+  {
+   "site": "00637015",
+   "func": "00636FB0",
+   "class": "cutscene_default_weapon",
+   "cmd": "command_cutscene_stop_firing",
+   "handler": "00636FE0",
+   "index": 37,
+   "name": "Shell_Default"
+  },
+  {
+   "site": "00637079",
+   "func": "00636FB0",
+   "class": "cutscene_default_weapon",
+   "cmd": "command_cutscene_stop_firing",
+   "handler": "00636FE0",
+   "index": 38,
+   "name": "Shell_Smoke"
+  },
+  {
+   "site": "006370D8",
+   "func": "00636FB0",
+   "class": "cutscene_default_weapon",
+   "cmd": "command_cutscene_stop_firing",
+   "handler": "00636FE0",
+   "index": 39,
+   "name": "Nuzzle_Smoke"
+  },
+  {
+   "site": "0066C62B",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 17,
+   "name": "Explosion_Barrel_Trigger"
+  },
+  {
+   "site": "0066C71A",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 29,
+   "name": "Explosion_Barrel_STICKY_Trigger"
+  },
+  {
+   "site": "0066C7D6",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 27,
+   "name": "Explosion_Big_Trigger"
+  },
+  {
+   "site": "0066C894",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 11,
+   "name": "Fire_Big_Trigger"
+  },
+  {
+   "site": "0066CA15",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 27,
+   "name": "Explosion_Big_Trigger"
+  },
+  {
+   "site": "0066CAE2",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 83,
+   "name": "Cactus_Big_FX"
+  },
+  {
+   "site": "0066CD89",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 109,
+   "name": "Trash_FX"
+  },
+  {
+   "site": "0066CECD",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 195,
+   "name": "Explosion_Bench"
+  },
+  {
+   "site": "0066CF3B",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 197,
+   "name": "Exploding_PC"
+  },
+  {
+   "site": "0066D05A",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 138,
+   "name": "JunkYard_PILE_FX_Trigger"
+  },
+  {
+   "site": "0066D120",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 141,
+   "name": "TelePole_FX_Trigger"
+  },
+  {
+   "site": "0066D3EC",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 21,
+   "name": null
+  },
+  {
+   "site": "0066D86B",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 139,
+   "name": "JunkYard_SUPPORTER_FX_Trigger"
+  },
+  {
+   "site": "0066DA2D",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 216,
+   "name": "JunkYardHorizontal_SUPPORTER_FX_Trigger"
+  },
+  {
+   "site": "0066DAC1",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 215,
+   "name": "JunkYard_SUPPORTER_FX_Trigger_02"
+  },
+  {
+   "site": "0066DB55",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 199,
+   "name": "Exploding_Phone"
+  },
+  {
+   "site": "0066DBE9",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 139,
+   "name": "JunkYard_SUPPORTER_FX_Trigger"
+  },
+  {
+   "site": "0066DC7D",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 88,
+   "name": "Roadblock_FX"
+  },
+  {
+   "site": "0066DD80",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 44,
+   "name": "Brown_Bottle_Trigger"
+  },
+  {
+   "site": "0066DE83",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 207,
+   "name": "Explosion_MexolComercialSign_02"
+  },
+  {
+   "site": "0066DF17",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 206,
+   "name": "Explosion_MexolComercialSign_01"
+  },
+  {
+   "site": "0066DFAB",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 46,
+   "name": "White_Bottle_Trigger"
+  },
+  {
+   "site": "0066E0AE",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 45,
+   "name": "Green_Bottle_Trigger"
+  },
+  {
+   "site": "0066E1B1",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 203,
+   "name": "Meat_explosion"
+  },
+  {
+   "site": "0066E1FE",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 204,
+   "name": "Exploding_Sofa"
+  },
+  {
+   "site": "0066E24B",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 205,
+   "name": "Explosion_Haybale"
+  },
+  {
+   "site": "0066E298",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 198,
+   "name": "Explosion_OfficeFolderRow"
+  },
+  {
+   "site": "0066E32C",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 199,
+   "name": "Exploding_Phone"
+  },
+  {
+   "site": "0066E42F",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 119,
+   "name": "Explosion_TV_Trigger"
+  },
+  {
+   "site": "0066E532",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 208,
+   "name": "Explosion_ScienceFlask"
+  },
+  {
+   "site": "0066E5C6",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 132,
+   "name": null
+  },
+  {
+   "site": "0066E68B",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 222,
+   "name": "Shitty_Pipe_Holder"
+  },
+  {
+   "site": "0066E726",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 27,
+   "name": "Explosion_Big_Trigger"
+  },
+  {
+   "site": "0066E7E5",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 143,
+   "name": "Eksplotion_GasPump_Trigger"
+  },
+  {
+   "site": "0066E954",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 202,
+   "name": "Explosion_Publicphone01"
+  },
+  {
+   "site": "0066E9EF",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 27,
+   "name": "Explosion_Big_Trigger"
+  },
+  {
+   "site": "0066EAD2",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "main",
+   "handler": "0066C1C0",
+   "index": 11,
+   "name": "Fire_Big_Trigger"
+  },
+  {
+   "site": "0066F07C",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "fire_dying_effects",
+   "handler": "0066EEA0",
+   "index": 92,
+   "name": "BridgePlank_Left"
+  },
+  {
+   "site": "0066F1C2",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "fire_dying_effects",
+   "handler": "0066EEA0",
+   "index": 93,
+   "name": "BridgePlank_Right"
+  },
+  {
+   "site": "0066F2F3",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "fire_dying_effects",
+   "handler": "0066EEA0",
+   "index": 94,
+   "name": "BridgePlank_FX"
+  },
+  {
+   "site": "0066F402",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "fire_dying_effects",
+   "handler": "0066EEA0",
+   "index": 217,
+   "name": "Explosion_Coke"
+  },
+  {
+   "site": "0066F44E",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "fire_dying_effects",
+   "handler": "0066EEA0",
+   "index": 86,
+   "name": "Hamp_Leavs"
+  },
+  {
+   "site": "0066F49B",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "fire_dying_effects",
+   "handler": "0066EEA0",
+   "index": 155,
+   "name": "SmallCardboardCrate_FX"
+  },
+  {
+   "site": "0066F4D2",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "fire_dying_effects",
+   "handler": "0066EEA0",
+   "index": 157,
+   "name": "VerySmallWoodCrate_Explo"
+  },
+  {
+   "site": "0066F50C",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "fire_dying_effects",
+   "handler": "0066EEA0",
+   "index": 158,
+   "name": "SmallWoodCrate_Explo"
+  },
+  {
+   "site": "0066F546",
+   "func": "0066BE40",
+   "class": "Destroyable_Object",
+   "cmd": "fire_dying_effects",
+   "handler": "0066EEA0",
+   "index": 87,
+   "name": "Chicken_Cage_FX"
+  },
+  {
+   "site": "0066F722",
+   "func": "0066F700",
+   "class": "Destroyable_Object",
+   "cmd": "fire_dying_effects",
+   "handler": "0066EEA0",
+   "index": 84,
+   "name": "Bathtub_FX"
+  },
+  {
+   "site": "00670AA2",
+   "func": "00670A00",
+   "class": "Destroyable_Object",
+   "cmd": "fire_dying_effects",
+   "handler": "0066EEA0",
+   "index": 29,
+   "name": "Explosion_Barrel_STICKY_Trigger"
+  },
+  {
+   "site": "00677975",
+   "func": "00676E30",
+   "class": "Destroyable_Objects_AI_Ctrl",
+   "cmd": "command_fire_hit_effects",
+   "handler": "006777A0",
+   "index": 118,
+   "name": "Trash_FX_Small"
+  },
+  {
+   "site": "00677AF6",
+   "func": "00676E30",
+   "class": "Destroyable_Objects_AI_Ctrl",
+   "cmd": "command_fire_hit_effects",
+   "handler": "006777A0",
+   "index": 118,
+   "name": "Trash_FX_Small"
+  },
+  {
+   "site": "00677DF4",
+   "func": "00676E30",
+   "class": "Destroyable_Objects_AI_Ctrl",
+   "cmd": "command_fire_hit_effects",
+   "handler": "006777A0",
+   "index": 212,
+   "name": "Partical_Hit_Bench"
+  },
+  {
+   "site": "00677E21",
+   "func": "00676E30",
+   "class": "Destroyable_Objects_AI_Ctrl",
+   "cmd": "command_fire_hit_effects",
+   "handler": "006777A0",
+   "index": 117,
+   "name": "Trash_FX_Medium"
+  },
+  {
+   "site": "00677F2C",
+   "func": "00676E30",
+   "class": "Destroyable_Objects_AI_Ctrl",
+   "cmd": "command_fire_hit_effects",
+   "handler": "006777A0",
+   "index": 214,
+   "name": "Partical_Hit_Haybale"
+  },
+  {
+   "site": "00677F56",
+   "func": "00676E30",
+   "class": "Destroyable_Objects_AI_Ctrl",
+   "cmd": "command_fire_hit_effects",
+   "handler": "006777A0",
+   "index": 211,
+   "name": "Partical_Hit_Sofa"
+  },
+  {
+   "site": "00679287",
+   "func": "00678C00",
+   "class": "Destroyable_Objects_AI_Ctrl",
+   "cmd": "command_fire_state_change_effects",
+   "handler": "00678D40",
+   "index": 141,
+   "name": "TelePole_FX_Trigger"
+  },
+  {
+   "site": "00679316",
+   "func": "00678C00",
+   "class": "Destroyable_Objects_AI_Ctrl",
+   "cmd": "command_fire_state_change_effects",
+   "handler": "00678D40",
+   "index": 209,
+   "name": "Glass_Trigger_OfficeArt"
+  },
+  {
+   "site": "0067948F",
+   "func": "00678C00",
+   "class": "Destroyable_Objects_AI_Ctrl",
+   "cmd": "command_fire_state_change_effects",
+   "handler": "00678D40",
+   "index": 196,
+   "name": "Explosion_Orb_Bust"
+  },
+  {
+   "site": "006795BE",
+   "func": "00678C00",
+   "class": "Destroyable_Objects_AI_Ctrl",
+   "cmd": "command_fire_state_change_effects",
+   "handler": "00678D40",
+   "index": 27,
+   "name": "Explosion_Big_Trigger"
+  },
+  {
+   "site": "006796CD",
+   "func": "00678C00",
+   "class": "Destroyable_Objects_AI_Ctrl",
+   "cmd": "command_fire_state_change_effects",
+   "handler": "00678D40",
+   "index": 11,
+   "name": "Fire_Big_Trigger"
+  },
+  {
+   "site": "006798F0",
+   "func": "00678C00",
+   "class": "Destroyable_Objects_AI_Ctrl",
+   "cmd": "command_fire_state_change_effects",
+   "handler": "00678D40",
+   "index": 210,
+   "name": "Explosion_SodaMachine"
+  },
+  {
+   "site": "006799F5",
+   "func": "00678C00",
+   "class": "Destroyable_Objects_AI_Ctrl",
+   "cmd": "command_fire_state_change_effects",
+   "handler": "00678D40",
+   "index": 201,
+   "name": "Exploding_Plant_Pot"
+  },
+  {
+   "site": "00679A36",
+   "func": "00678C00",
+   "class": "Destroyable_Objects_AI_Ctrl",
+   "cmd": "command_fire_state_change_effects",
+   "handler": "00678D40",
+   "index": 156,
+   "name": "BigCardboardCrate_FX"
+  },
+  {
+   "site": "00679BF3",
+   "func": "00678C00",
+   "class": "Destroyable_Objects_AI_Ctrl",
+   "cmd": "command_fire_state_change_effects",
+   "handler": "00678D40",
+   "index": 85,
+   "name": "Toilet_FX"
+  },
+  {
+   "site": "00679DB1",
+   "func": "00678C00",
+   "class": "Destroyable_Objects_AI_Ctrl",
+   "cmd": "command_fire_state_change_effects",
+   "handler": "00678D40",
+   "index": 226,
+   "name": "Explosion_TargetDummy"
+  },
+  {
+   "site": "00679EB6",
+   "func": "00678C00",
+   "class": "Destroyable_Objects_AI_Ctrl",
+   "cmd": "command_fire_state_change_effects",
+   "handler": "00678D40",
+   "index": 200,
+   "name": "Water_Stand_expolsion"
+  },
+  {
+   "site": "00679EF7",
+   "func": "00678C00",
+   "class": "Destroyable_Objects_AI_Ctrl",
+   "cmd": "command_fire_state_change_effects",
+   "handler": "00678D40",
+   "index": 50,
+   "name": "FireHydrant_Trigger"
+  },
+  {
+   "site": "0067C013",
+   "func": "0067BE40",
+   "class": "destructable_object_placeholder",
+   "cmd": "take_a_hit(number,entity,entity,entity,vector,vector,integer)",
+   "handler": "0067BEB0",
+   "index": 17,
+   "name": "Explosion_Barrel_Trigger"
+  },
+  {
+   "site": "0067C0D9",
+   "func": "0067BE40",
+   "class": "destructable_object_placeholder",
+   "cmd": "take_a_hit(number,entity,entity,entity,vector,vector,integer)",
+   "handler": "0067BEB0",
+   "index": 29,
+   "name": "Explosion_Barrel_STICKY_Trigger"
+  },
+  {
+   "site": "0067D49B",
+   "func": "0067BE40",
+   "class": "destructable_object_placeholder",
+   "cmd": "command_start_default_particle_effect",
+   "handler": "0067D420",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "0067D596",
+   "func": "0067BE40",
+   "class": "destructable_object_placeholder",
+   "cmd": "command_stop_default_particle_effect",
+   "handler": "0067D520",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "00686A6D",
+   "func": "006869F0",
+   "class": "generic_particle_emitter",
+   "cmd": "initial_frame",
+   "handler": "00686A60",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "00686AB3",
+   "func": "006869F0",
+   "class": "generic_particle_emitter",
+   "cmd": "initial_frame",
+   "handler": "00686A60",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "00686B00",
+   "func": "006869F0",
+   "class": "generic_particle_emitter",
+   "cmd": "initial_frame",
+   "handler": "00686A60",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "00686B64",
+   "func": "006869F0",
+   "class": "generic_particle_emitter",
+   "cmd": "initial_frame",
+   "handler": "00686A60",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "00689A48",
+   "func": "00689910",
+   "class": "Goodie_Default",
+   "cmd": "initialize_local",
+   "handler": "00689970",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "00689A8E",
+   "func": "00689910",
+   "class": "Goodie_Default",
+   "cmd": "initialize_local",
+   "handler": "00689970",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "00689AEB",
+   "func": "00689910",
+   "class": "Goodie_Default",
+   "cmd": "command_reset_to_default",
+   "handler": "00689AE0",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "00689E0E",
+   "func": "00689910",
+   "class": "Goodie_Default",
+   "cmd": "command_get_picked",
+   "handler": "00689B40",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "0068A2C0",
+   "func": "00689F50",
+   "class": "Goodie_Default",
+   "cmd": "command_get_picked",
+   "handler": "00689B40",
+   "index": 31,
+   "name": "PickupPowerups_Trigger_Orange"
+  },
+  {
+   "site": "0068A8E3",
+   "func": "00689F50",
+   "class": "Goodie_Default",
+   "cmd": "command_get_picked",
+   "handler": "00689B40",
+   "index": 30,
+   "name": "PickupPowerups_Trigger_Red"
+  },
+  {
+   "site": "0068A992",
+   "func": "00689F50",
+   "class": "Goodie_Default",
+   "cmd": "command_get_picked",
+   "handler": "00689B40",
+   "index": 34,
+   "name": "PickupPowerups_Trigger_Blue"
+  },
+  {
+   "site": "0068AA44",
+   "func": "00689F50",
+   "class": "Goodie_Default",
+   "cmd": "command_get_picked",
+   "handler": "00689B40",
+   "index": 34,
+   "name": "PickupPowerups_Trigger_Blue"
+  },
+  {
+   "site": "0068AAF6",
+   "func": "00689F50",
+   "class": "Goodie_Default",
+   "cmd": "command_get_picked",
+   "handler": "00689B40",
+   "index": 34,
+   "name": "PickupPowerups_Trigger_Blue"
+  },
+  {
+   "site": "0068AC5A",
+   "func": "00689F50",
+   "class": "Goodie_Default",
+   "cmd": "command_get_picked",
+   "handler": "00689B40",
+   "index": 31,
+   "name": "PickupPowerups_Trigger_Orange"
+  },
+  {
+   "site": "0068ADAB",
+   "func": "0068AD80",
+   "class": "Goodie_Default",
+   "cmd": "command_get_picked",
+   "handler": "00689B40",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "0068AE44",
+   "func": "0068ADF0",
+   "class": "Goodie_Default",
+   "cmd": "command_get_picked",
+   "handler": "00689B40",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "00737435",
+   "func": "007352C0",
+   "class": "master_control_collision_ctrl",
+   "cmd": "command_collision_logic(integer,Entity,Entity):integer",
+   "handler": "00735420",
+   "index": 218,
+   "name": "Car_Impact_small"
+  },
+  {
+   "site": "0073748F",
+   "func": "007352C0",
+   "class": "master_control_collision_ctrl",
+   "cmd": "command_collision_logic(integer,Entity,Entity):integer",
+   "handler": "00735420",
+   "index": 219,
+   "name": "Car_Impact_Medium"
+  },
+  {
+   "site": "007374DB",
+   "func": "007352C0",
+   "class": "master_control_collision_ctrl",
+   "cmd": "command_collision_logic(integer,Entity,Entity):integer",
+   "handler": "00735420",
+   "index": 220,
+   "name": "Car_Impact_Big"
+  },
+  {
+   "site": "00750685",
+   "func": "0074EFE0",
+   "class": "master_control_particle_damage_ctrl",
+   "cmd": "main",
+   "handler": "0074EFE0",
+   "index": 134,
+   "name": "Explosion_Molotov_Trigger"
+  },
+  {
+   "site": "0079464B",
+   "func": "00794620",
+   "class": "particle_loop",
+   "cmd": "initial_frame",
+   "handler": "00794620",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "00794D73",
+   "func": "00794BB0",
+   "class": "Particle_on_Hit",
+   "cmd": "initialize_local",
+   "handler": "00794B90",
+   "index": 65,
+   "name": "tumble_weed"
+  },
+  {
+   "site": "00794EC8",
+   "func": "00794BB0",
+   "class": "Particle_on_Hit",
+   "cmd": "initialize_local",
+   "handler": "00794B90",
+   "index": 63,
+   "name": "fertilizer_pool"
+  },
+  {
+   "site": "00794F5B",
+   "func": "00794BB0",
+   "class": "Particle_on_Hit",
+   "cmd": "initialize_local",
+   "handler": "00794B90",
+   "index": 62,
+   "name": "fertilizer_dripping_splush"
+  },
+  {
+   "site": "00794FEF",
+   "func": "00794BB0",
+   "class": "Particle_on_Hit",
+   "cmd": "initialize_local",
+   "handler": "00794B90",
+   "index": 61,
+   "name": "fertilizer_dripping_small"
+  },
+  {
+   "site": "00795082",
+   "func": "00794BB0",
+   "class": "Particle_on_Hit",
+   "cmd": "initialize_local",
+   "handler": "00794B90",
+   "index": 60,
+   "name": "fertilizer_dripping"
+  },
+  {
+   "site": "00795116",
+   "func": "00794BB0",
+   "class": "Particle_on_Hit",
+   "cmd": "initialize_local",
+   "handler": "00794B90",
+   "index": 51,
+   "name": "fake birds flock"
+  },
+  {
+   "site": "007951A9",
+   "func": "00794BB0",
+   "class": "Particle_on_Hit",
+   "cmd": "initialize_local",
+   "handler": "00794B90",
+   "index": 50,
+   "name": "FireHydrant_Trigger"
+  },
+  {
+   "site": "0079523D",
+   "func": "00794BB0",
+   "class": "Particle_on_Hit",
+   "cmd": "initialize_local",
+   "handler": "00794B90",
+   "index": 49,
+   "name": "Rats"
+  },
+  {
+   "site": "007953DC",
+   "func": "00794BB0",
+   "class": "Particle_on_Hit",
+   "cmd": "initialize_local",
+   "handler": "00794B90",
+   "index": 47,
+   "name": "Flies"
+  },
+  {
+   "site": "007B33C9",
+   "func": "007B3370",
+   "class": "target_dummy_aictrl",
+   "cmd": "initial_frame",
+   "handler": "007B32A0",
+   "index": 226,
+   "name": "Explosion_TargetDummy"
+  },
+  {
+   "site": "007DA048",
+   "func": "007D9F80",
+   "class": "trailer_ctrl",
+   "cmd": "update_trailer_wheels(quaternion,quaternion)",
+   "handler": "007D9F10",
+   "index": 27,
+   "name": "Explosion_Big_Trigger"
+  },
+  {
+   "site": "007DA135",
+   "func": "007D9F80",
+   "class": "trailer_ctrl",
+   "cmd": "update_trailer_wheels(quaternion,quaternion)",
+   "handler": "007D9F10",
+   "index": 11,
+   "name": "Fire_Big_Trigger"
+  },
+  {
+   "site": "007DA1C3",
+   "func": "007D9F80",
+   "class": "trailer_ctrl",
+   "cmd": "update_trailer_wheels(quaternion,quaternion)",
+   "handler": "007D9F10",
+   "index": 11,
+   "name": "Fire_Big_Trigger"
+  },
+  {
+   "site": "007EA4C7",
+   "func": "007EA4A0",
+   "class": "Trigger_Activate_Particle",
+   "cmd": "command_delayed_message(integer)",
+   "handler": "007EA450",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "00809CDB",
+   "func": "00809910",
+   "class": "vehicle_ai",
+   "cmd": "main",
+   "handler": "00809910",
+   "index": 27,
+   "name": "Explosion_Big_Trigger"
+  },
+  {
+   "site": "0081A276",
+   "func": "00816D40",
+   "class": "vehicle_placeholder",
+   "cmd": "command_stop_burned_out",
+   "handler": "0081A260",
+   "index": 35,
+   "name": "Fire_Medium_Trigger"
+  },
+  {
+   "site": "0081E5EB",
+   "func": "0081E120",
+   "class": "vehicle_placeholder",
+   "cmd": "main",
+   "handler": "0081E120",
+   "index": 35,
+   "name": "Fire_Medium_Trigger"
+  },
+  {
+   "site": "0081EB56",
+   "func": "0081EA20",
+   "class": "vehicle_placeholder",
+   "cmd": "main",
+   "handler": "0081EA20",
+   "index": 35,
+   "name": "Fire_Medium_Trigger"
+  },
+  {
+   "site": "008214CD",
+   "func": "008214C0",
+   "class": "vehicle_placeholder",
+   "cmd": "command_reset",
+   "handler": "008214C0",
+   "index": 35,
+   "name": "Fire_Medium_Trigger"
+  },
+  {
+   "site": "0082197C",
+   "func": "00821780",
+   "class": "vehicle_placeholder",
+   "cmd": "main",
+   "handler": "00821780",
+   "index": 35,
+   "name": "Fire_Medium_Trigger"
+  },
+  {
+   "site": "008219E2",
+   "func": "00821780",
+   "class": "vehicle_placeholder",
+   "cmd": "main",
+   "handler": "00821780",
+   "index": 35,
+   "name": "Fire_Medium_Trigger"
+  },
+  {
+   "site": "00821A98",
+   "func": "00821780",
+   "class": "vehicle_placeholder",
+   "cmd": "main",
+   "handler": "00821780",
+   "index": 35,
+   "name": "Fire_Medium_Trigger"
+  },
+  {
+   "site": "00821B52",
+   "func": "00821780",
+   "class": "vehicle_placeholder",
+   "cmd": "main",
+   "handler": "00821780",
+   "index": 35,
+   "name": "Fire_Medium_Trigger"
+  },
+  {
+   "site": "00821E14",
+   "func": "00821780",
+   "class": "vehicle_placeholder",
+   "cmd": "main",
+   "handler": "00821780",
+   "index": 35,
+   "name": "Fire_Medium_Trigger"
+  },
+  {
+   "site": "00822676",
+   "func": "008224F0",
+   "class": "vehicle_placeholder",
+   "cmd": "command_giveup_resource",
+   "handler": "008224F0",
+   "index": 35,
+   "name": "Fire_Medium_Trigger"
+  },
+  {
+   "site": "008226C5",
+   "func": "008224F0",
+   "class": "vehicle_placeholder",
+   "cmd": "command_giveup_resource",
+   "handler": "008224F0",
+   "index": 35,
+   "name": "Fire_Medium_Trigger"
+  },
+  {
+   "site": "00822764",
+   "func": "008224F0",
+   "class": "vehicle_placeholder",
+   "cmd": "command_giveup_resource",
+   "handler": "008224F0",
+   "index": 35,
+   "name": "Fire_Medium_Trigger"
+  },
+  {
+   "site": "00822807",
+   "func": "008224F0",
+   "class": "vehicle_placeholder",
+   "cmd": "command_giveup_resource",
+   "handler": "008224F0",
+   "index": 35,
+   "name": "Fire_Medium_Trigger"
+  },
+  {
+   "site": "00823609",
+   "func": "00823420",
+   "class": "vehicle_placeholder",
+   "cmd": "command_kill",
+   "handler": "00822930",
+   "index": 35,
+   "name": "Fire_Medium_Trigger"
+  },
+  {
+   "site": "008267E1",
+   "func": "008266A0",
+   "class": "Vehicle_sound_ctrl",
+   "cmd": "initialize_external",
+   "handler": "008266A0",
+   "index": 41,
+   "name": "Burnout_Tires_Left"
+  },
+  {
+   "site": "00826828",
+   "func": "008266A0",
+   "class": "Vehicle_sound_ctrl",
+   "cmd": "initialize_external",
+   "handler": "008266A0",
+   "index": 42,
+   "name": "Burnout_Tires_Right"
+  },
+  {
+   "site": "00827883",
+   "func": "00827860",
+   "class": "Vehicle_sound_ctrl",
+   "cmd": "command_Burn",
+   "handler": "00827860",
+   "index": 35,
+   "name": "Fire_Medium_Trigger"
+  },
+  {
+   "site": "008278EF",
+   "func": "00827860",
+   "class": "Vehicle_sound_ctrl",
+   "cmd": "command_Burn",
+   "handler": "00827860",
+   "index": 35,
+   "name": "Fire_Medium_Trigger"
+  },
+  {
+   "site": "00828F8E",
+   "func": "00828E00",
+   "class": "Vehicle_sound_ctrl",
+   "cmd": "command_do_accel_sound",
+   "handler": "00828D90",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "0082900A",
+   "func": "00828E00",
+   "class": "Vehicle_sound_ctrl",
+   "cmd": "command_do_accel_sound",
+   "handler": "00828D90",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "00829E70",
+   "func": "00829DE0",
+   "class": "Vehicle_sound_ctrl",
+   "cmd": "command_hit_something",
+   "handler": "00829390",
+   "index": 41,
+   "name": "Burnout_Tires_Left"
+  },
+  {
+   "site": "00829F3D",
+   "func": "00829DE0",
+   "class": "Vehicle_sound_ctrl",
+   "cmd": "command_hit_something",
+   "handler": "00829390",
+   "index": 42,
+   "name": "Burnout_Tires_Right"
+  },
+  {
+   "site": "0082A10A",
+   "func": "00829FC0",
+   "class": "Vehicle_sound_ctrl",
+   "cmd": "command_hit_something",
+   "handler": "00829390",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "0082A16D",
+   "func": "00829FC0",
+   "class": "Vehicle_sound_ctrl",
+   "cmd": "command_hit_something",
+   "handler": "00829390",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "0082A22B",
+   "func": "00829FC0",
+   "class": "Vehicle_sound_ctrl",
+   "cmd": "command_hit_something",
+   "handler": "00829390",
+   "index": 35,
+   "name": "Fire_Medium_Trigger"
+  },
+  {
+   "site": "0082AA11",
+   "func": "0082A9A0",
+   "class": "Vehicle_sound_ctrl",
+   "cmd": "command_start_traffic_sound",
+   "handler": "0082A9F0",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "0082AA70",
+   "func": "0082A9A0",
+   "class": "Vehicle_sound_ctrl",
+   "cmd": "command_start_traffic_sound",
+   "handler": "0082A9F0",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "0082C959",
+   "func": "0082C800",
+   "class": "Vehicle_sound_ctrl",
+   "cmd": "main",
+   "handler": "0082C800",
+   "index": 124,
+   "name": "Truck_Exhaustion_Accelerate"
+  },
+  {
+   "site": "0082C9E7",
+   "func": "0082C800",
+   "class": "Vehicle_sound_ctrl",
+   "cmd": "main",
+   "handler": "0082C800",
+   "index": 124,
+   "name": "Truck_Exhaustion_Accelerate"
+  },
+  {
+   "site": "008307B4",
+   "func": "008305E0",
+   "class": "Vehicle_sound_ctrl",
+   "cmd": "goto_drive_flying",
+   "handler": "008300C0",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "00830837",
+   "func": "008305E0",
+   "class": "Vehicle_sound_ctrl",
+   "cmd": "goto_drive_flying",
+   "handler": "008300C0",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "0083112E",
+   "func": "008305E0",
+   "class": "Vehicle_sound_ctrl",
+   "cmd": "command_enter_car",
+   "handler": "00830ED0",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "00831194",
+   "func": "008305E0",
+   "class": "Vehicle_sound_ctrl",
+   "cmd": "command_enter_car",
+   "handler": "00830ED0",
+   "index": "var",
+   "name": null
+  },
+  {
+   "site": "00838173",
+   "func": "00837CF0",
+   "class": "weapon_effects_ctrl",
+   "cmd": "command_trigger_event(Entity)",
+   "handler": "00837CA0",
+   "index": 37,
+   "name": "Shell_Default"
+  },
+  {
+   "site": "008381E6",
+   "func": "00837CF0",
+   "class": "weapon_effects_ctrl",
+   "cmd": "command_trigger_event(Entity)",
+   "handler": "00837CA0",
+   "index": 38,
+   "name": "Shell_Smoke"
+  },
+  {
+   "site": "00838258",
+   "func": "00837CF0",
+   "class": "weapon_effects_ctrl",
+   "cmd": "command_trigger_event(Entity)",
+   "handler": "00837CA0",
+   "index": 39,
+   "name": "Nuzzle_Smoke"
+  },
+  {
+   "site": "008387E0",
+   "func": "00837CF0",
+   "class": "weapon_effects_ctrl",
+   "cmd": "command_trigger_event(Entity)",
+   "handler": "00837CA0",
+   "index": 37,
+   "name": "Shell_Default"
+  },
+  {
+   "site": "00838853",
+   "func": "00837CF0",
+   "class": "weapon_effects_ctrl",
+   "cmd": "command_trigger_event(Entity)",
+   "handler": "00837CA0",
+   "index": 38,
+   "name": "Shell_Smoke"
+  },
+  {
+   "site": "008388C5",
+   "func": "00837CF0",
+   "class": "weapon_effects_ctrl",
+   "cmd": "command_trigger_event(Entity)",
+   "handler": "00837CA0",
+   "index": 39,
+   "name": "Nuzzle_Smoke"
+  },
+  {
+   "site": "00839CF1",
+   "func": "00839AD0",
+   "class": "weapon_effects_ctrl",
+   "cmd": "command_trigger_event(Entity)",
+   "handler": "00837CA0",
+   "index": 56,
+   "name": "M3_Trigger"
+  },
+  {
+   "site": "00839D30",
+   "func": "00839AD0",
+   "class": "weapon_effects_ctrl",
+   "cmd": "command_trigger_event(Entity)",
+   "handler": "00837CA0",
+   "index": 135,
+   "name": "Dynamity_Trigger"
+  },
+  {
+   "site": "00839D81",
+   "func": "00839AD0",
+   "class": "weapon_effects_ctrl",
+   "cmd": "command_trigger_event(Entity)",
+   "handler": "00837CA0",
+   "index": 133,
+   "name": "Molotov_Trigger"
+  },
+  {
+   "site": "00839DD2",
+   "func": "00839AD0",
+   "class": "weapon_effects_ctrl",
+   "cmd": "command_trigger_event(Entity)",
+   "handler": "00837CA0",
+   "index": 130,
+   "name": "Pinata_FX"
+  },
+  {
+   "site": "00839FE2",
+   "func": "00839E90",
+   "class": "weapon_effects_ctrl",
+   "cmd": "command_trigger_event(Entity)",
+   "handler": "00837CA0",
+   "index": 37,
+   "name": "Shell_Default"
+  },
+  {
+   "site": "0083A034",
+   "func": "00839E90",
+   "class": "weapon_effects_ctrl",
+   "cmd": "command_trigger_event(Entity)",
+   "handler": "00837CA0",
+   "index": 38,
+   "name": "Shell_Smoke"
+  },
+  {
+   "site": "0083A085",
+   "func": "00839E90",
+   "class": "weapon_effects_ctrl",
+   "cmd": "command_trigger_event(Entity)",
+   "handler": "00837CA0",
+   "index": 39,
+   "name": "Nuzzle_Smoke"
+  },
+  {
+   "site": "0083A0D7",
+   "func": "00839E90",
+   "class": "weapon_effects_ctrl",
+   "cmd": "command_trigger_event(Entity)",
+   "handler": "00837CA0",
+   "index": 146,
+   "name": "Smoke_El_Mariachi_Trigger"
+  },
+  {
+   "site": "0083A21E",
+   "func": "0083A1C0",
+   "class": "weapon_effects_ctrl",
+   "cmd": "command_trigger_event(Entity)",
+   "handler": "00837CA0",
+   "index": 135,
+   "name": "Dynamity_Trigger"
+  },
+  {
+   "site": "0083A273",
+   "func": "0083A1C0",
+   "class": "weapon_effects_ctrl",
+   "cmd": "command_trigger_event(Entity)",
+   "handler": "00837CA0",
+   "index": 133,
+   "name": "Molotov_Trigger"
+  },
+  {
+   "site": "0083A2C0",
+   "func": "0083A1C0",
+   "class": "weapon_effects_ctrl",
+   "cmd": "command_trigger_event(Entity)",
+   "handler": "00837CA0",
+   "index": 130,
+   "name": "Pinata_FX"
+  },
+  {
+   "site": "0083A344",
+   "func": "0083A310",
+   "class": "weapon_effects_ctrl",
+   "cmd": "command_trigger_event(Entity)",
+   "handler": "00837CA0",
+   "index": 39,
+   "name": "Nuzzle_Smoke"
+  },
+  {
+   "site": "0083A3A3",
+   "func": "0083A310",
+   "class": "weapon_effects_ctrl",
+   "cmd": "command_trigger_event(Entity)",
+   "handler": "00837CA0",
+   "index": 37,
+   "name": "Shell_Default"
+  },
+  {
+   "site": "0083A3F6",
+   "func": "0083A310",
+   "class": "weapon_effects_ctrl",
+   "cmd": "command_trigger_event(Entity)",
+   "handler": "00837CA0",
+   "index": 38,
+   "name": "Shell_Smoke"
+  },
+  {
+   "site": "0083A446",
+   "func": "0083A310",
+   "class": "weapon_effects_ctrl",
+   "cmd": "command_trigger_event(Entity)",
+   "handler": "00837CA0",
+   "index": 146,
+   "name": "Smoke_El_Mariachi_Trigger"
+  },
+  {
+   "site": "0083BCFF",
+   "func": "0083A840",
+   "class": "weapon_effects_ctrl",
+   "cmd": "main",
+   "handler": "0083A9C0",
+   "index": 37,
+   "name": "Shell_Default"
+  },
+  {
+   "site": "0083BDA9",
+   "func": "0083A840",
+   "class": "weapon_effects_ctrl",
+   "cmd": "main",
+   "handler": "0083A9C0",
+   "index": 38,
+   "name": "Shell_Smoke"
+  },
+  {
+   "site": "0083BE1B",
+   "func": "0083A840",
+   "class": "weapon_effects_ctrl",
+   "cmd": "main",
+   "handler": "0083A9C0",
+   "index": 38,
+   "name": "Shell_Smoke"
+  },
+  {
+   "site": "0083BE89",
+   "func": "0083A840",
+   "class": "weapon_effects_ctrl",
+   "cmd": "main",
+   "handler": "0083A9C0",
+   "index": 39,
+   "name": "Nuzzle_Smoke"
+  },
+  {
+   "site": "0083F6C0",
+   "func": "0083D560",
+   "class": "weapon_effects_ctrl",
+   "cmd": "main",
+   "handler": "0083D670",
+   "index": 39,
+   "name": "Nuzzle_Smoke"
+  },
+  {
+   "site": "00840524",
+   "func": "0083D560",
+   "class": "weapon_effects_ctrl",
+   "cmd": "main",
+   "handler": "0083FAF0",
+   "index": 37,
+   "name": "Shell_Default"
+  },
+  {
+   "site": "00840596",
+   "func": "0083D560",
+   "class": "weapon_effects_ctrl",
+   "cmd": "main",
+   "handler": "0083FAF0",
+   "index": 38,
+   "name": "Shell_Smoke"
+  },
+  {
+   "site": "00840609",
+   "func": "0083D560",
+   "class": "weapon_effects_ctrl",
+   "cmd": "main",
+   "handler": "0083FAF0",
+   "index": 39,
+   "name": "Nuzzle_Smoke"
+  },
+  {
+   "site": "00841690",
+   "func": "008412B0",
+   "class": "weapon_effects_ctrl",
+   "cmd": "main",
+   "handler": "008412B0",
+   "index": 39,
+   "name": "Nuzzle_Smoke"
+  },
+  {
+   "site": "00841750",
+   "func": "008412B0",
+   "class": "weapon_effects_ctrl",
+   "cmd": "main",
+   "handler": "008412B0",
+   "index": 37,
+   "name": "Shell_Default"
+  },
+  {
+   "site": "008417C3",
+   "func": "008412B0",
+   "class": "weapon_effects_ctrl",
+   "cmd": "main",
+   "handler": "008412B0",
+   "index": 38,
+   "name": "Shell_Smoke"
+  },
+  {
+   "site": "008461B7",
+   "func": "008460B0",
+   "class": "weapon_shell",
+   "cmd": "take_a_hit(number,entity,entity,entity,vector,vector,integer)",
+   "handler": "00845FD0",
+   "index": 44,
+   "name": "Brown_Bottle_Trigger"
+  },
+  {
+   "site": "00846230",
+   "func": "008460B0",
+   "class": "weapon_shell",
+   "cmd": "take_a_hit(number,entity,entity,entity,vector,vector,integer)",
+   "handler": "00845FD0",
+   "index": 188,
+   "name": "Explosion_Standard_Small"
+  },
+  {
+   "site": "008462AF",
+   "func": "008460B0",
+   "class": "weapon_shell",
+   "cmd": "take_a_hit(number,entity,entity,entity,vector,vector,integer)",
+   "handler": "00845FD0",
+   "index": 44,
+   "name": "Brown_Bottle_Trigger"
+  },
+  {
+   "site": "008464BB",
+   "func": "008460B0",
+   "class": "weapon_shell",
+   "cmd": "take_a_hit(number,entity,entity,entity,vector,vector,integer)",
+   "handler": "00845FD0",
+   "index": 44,
+   "name": "Brown_Bottle_Trigger"
+  },
+  {
+   "site": "008480DE",
+   "func": "00847F20",
+   "class": "weapon_shell",
+   "cmd": "take_a_hit(number,entity,entity,entity,vector,vector,integer)",
+   "handler": "00845FD0",
+   "index": 130,
+   "name": "Pinata_FX"
+  },
+  {
+   "site": "008481EE",
+   "func": "00847F20",
+   "class": "weapon_shell",
+   "cmd": "take_a_hit(number,entity,entity,entity,vector,vector,integer)",
+   "handler": "00845FD0",
+   "index": 134,
+   "name": "Explosion_Molotov_Trigger"
+  },
+  {
+   "site": "00848237",
+   "func": "00847F20",
+   "class": "weapon_shell",
+   "cmd": "take_a_hit(number,entity,entity,entity,vector,vector,integer)",
+   "handler": "00845FD0",
+   "index": 133,
+   "name": "Molotov_Trigger"
+  },
+  {
+   "site": "00848333",
+   "func": "00847F20",
+   "class": "weapon_shell",
+   "cmd": "take_a_hit(number,entity,entity,entity,vector,vector,integer)",
+   "handler": "00845FD0",
+   "index": 189,
+   "name": "Explosion_Standard_Medium"
+  },
+  {
+   "site": "0084837C",
+   "func": "00847F20",
+   "class": "weapon_shell",
+   "cmd": "take_a_hit(number,entity,entity,entity,vector,vector,integer)",
+   "handler": "00845FD0",
+   "index": 135,
+   "name": "Dynamity_Trigger"
+  },
+  {
+   "site": "00848475",
+   "func": "00847F20",
+   "class": "weapon_shell",
+   "cmd": "take_a_hit(number,entity,entity,entity,vector,vector,integer)",
+   "handler": "00845FD0",
+   "index": 188,
+   "name": "Explosion_Standard_Small"
+  },
+  {
+   "site": "00848546",
+   "func": "00847F20",
+   "class": "weapon_shell",
+   "cmd": "take_a_hit(number,entity,entity,entity,vector,vector,integer)",
+   "handler": "00845FD0",
+   "index": 189,
+   "name": "Explosion_Standard_Medium"
+  },
+  {
+   "site": "00848582",
+   "func": "00847F20",
+   "class": "weapon_shell",
+   "cmd": "take_a_hit(number,entity,entity,entity,vector,vector,integer)",
+   "handler": "00845FD0",
+   "index": 57,
+   "name": "Smoke_Trail_Grenade"
+  },
+  {
+   "site": "0084863E",
+   "func": "00847F20",
+   "class": "weapon_shell",
+   "cmd": "take_a_hit(number,entity,entity,entity,vector,vector,integer)",
+   "handler": "00845FD0",
+   "index": 190,
+   "name": "Explosion_Standard_Large"
+  },
+  {
+   "site": "0084867B",
+   "func": "00847F20",
+   "class": "weapon_shell",
+   "cmd": "take_a_hit(number,entity,entity,entity,vector,vector,integer)",
+   "handler": "00845FD0",
+   "index": 57,
+   "name": "Smoke_Trail_Grenade"
+  },
+  {
+   "site": "0084AE5E",
+   "func": "0084AD90",
+   "class": "weapon_shell_move_ctrl",
+   "cmd": "initial_frame",
+   "handler": "00849B60",
+   "index": 99,
+   "name": "Water_Splash_BULLET_impact"
+  }
+ ]
+}

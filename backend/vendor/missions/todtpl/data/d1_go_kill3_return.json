@@ -1,0 +1,192 @@
+{
+ "description": "D1 draft mission 'go to a point, kill three enemies, return', built by rewriting sub-mission 33 (SubM_04_Down_SomSal_Kill, Map02 SUBMAP02, the sombrero seller). Start: Ram at TELEPORTPOINT_SubM_04 (143.36, 0.03, 248.62). Objective 1 'Go to the enemy' with a radar blip on the go-to trigger Close_door_A_TRIGGER (157.0, 0.41, 343.7). Crossing it spawns/aggroes the first enemy team reduced to three (Peter, Peter01, Brian); objective 2 counts '%0 out of %1 Banditos killed' to 3. When the three are dead the return trigger (moved to (141.0, 1.2, 258.0), disabled at load) is enabled and blipped, objective 3 'Find the sombrero seller' shows. Entering it completes objective 3, and the shipped Sombrero_Picked_Up root (AND of that and objective 2 completed) ends the mission with success after 6 s. overdose.main: objective texts, MaxCounter 3, pass score 0. First_Enemy_team_KILL_Completed is a count trigger (TriggerOn 2): ConditionsNeeded raised from 2 to 3. The two pickup feedback texts ('You picked up the sombrero', 'Now kill the rest!') are removed. The dormant 14-kill root All_Enemies_Kill_Completed and the action that disabled its text are removed. The entrance door SM04_DoorA (closed behind Ram at the go-to trigger) is opened again 1.5 s after the third kill so the way back is free.",
+ "blocks": [
+  {
+   "block": "subm_04_down_somsal_kill.mission",
+   "ops": [
+    {
+     "op": "set",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x004018CE",
+     "prop": "TargetName",
+     "value": "Close_door_A_TRIGGER"
+    },
+    {
+     "op": "clone",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x004018E4",
+     "deep": false,
+     "parent": "0x004018ED",
+     "name": "ACT_D1_Return_OBJ",
+     "set": {
+      "Delay": 1.0
+     }
+    },
+    {
+     "op": "clone",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x0040190A",
+     "deep": false,
+     "parent": "0x004018ED",
+     "name": "ACT_D1_Kill_OBJ_COMPLETE",
+     "set": {
+      "Delay": 0.5
+     }
+    },
+    {
+     "op": "clone",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x004018CF",
+     "deep": false,
+     "parent": "0x004018ED",
+     "name": "ACT_D1_Open_DoorA",
+     "set": {
+      "Delay": 1.5
+     }
+    },
+    {
+     "op": "remove",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x004018DD"
+    },
+    {
+     "op": "remove",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x004018E4"
+    },
+    {
+     "op": "remove",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x004018E7"
+    },
+    {
+     "op": "set",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x004018E8",
+     "prop": "ActionType",
+     "value": 27
+    },
+    {
+     "op": "set",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x004018E8",
+     "prop": "TargetName",
+     "value": "Close_door_A_TRIGGER"
+    },
+    {
+     "op": "remove",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x004018E9"
+    },
+    {
+     "op": "remove",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x004017F9",
+     "deep": true
+    },
+    {
+     "op": "remove",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x004018F1"
+    },
+    {
+     "op": "set",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x004018ED",
+     "prop": "ConditionsNeeded",
+     "value": 3.0
+    },
+    {
+     "op": "set",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x004018F2",
+     "prop": "TargetName",
+     "value": "SubM_04_Down_SomSal_Kill_SOMPickup_TRIGGER"
+    },
+    {
+     "op": "remove",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x004018F3"
+    },
+    {
+     "op": "remove",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x004018F4"
+    },
+    {
+     "op": "remove",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x004018F5"
+    },
+    {
+     "op": "remove",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x004018F6"
+    },
+    {
+     "op": "set",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x004018F7",
+     "prop": "TargetName",
+     "value": "SubM_04_Down_SomSal_Kill_SOMPickup_TRIGGER"
+    },
+    {
+     "op": "remove",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x004018F8"
+    },
+    {
+     "op": "remove",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x004018F9"
+    },
+    {
+     "op": "move",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x0040190F",
+     "pos": [
+      141.0,
+      1.2,
+      258.0
+     ],
+     "space": "world"
+    },
+    {
+     "op": "set",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x0040190F",
+     "prop": "flags",
+     "value": 257
+    },
+    {
+     "op": "set",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x00401916",
+     "prop": "TargetName",
+     "value": "SubM_04_Down_SomSal_Kill_SOMPickup_TRIGGER"
+    },
+    {
+     "op": "remove",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x00401914"
+    },
+    {
+     "op": "remove",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x00401915"
+    },
+    {
+     "op": "remove",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x004018FA",
+     "deep": true
+    },
+    {
+     "op": "remove",
+     "fragment": "SubMissions/SubM_04_Down_SomSal_Kill.fragment",
+     "entity": "0x00401912"
+    }
+   ]
+  }
+ ]
+}

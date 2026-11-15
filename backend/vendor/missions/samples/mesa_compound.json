@@ -1,0 +1,245 @@
+{
+ "format": 1,
+ "package": "mesa_compound",
+ "new_map_path": "../../../maps/params/N11_final.json",
+ "hosts": [
+  {
+   "id": "mesa",
+   "kind": "new_map",
+   "map_index": 0,
+   "area": [
+    761.0,
+    761.0,
+    839.0,
+    839.0
+   ],
+   "ground_y": 20.0,
+   "unit": 39.0
+  }
+ ],
+ "missions": [
+  {
+   "id": "showdown",
+   "type": "showdown",
+   "host": "mesa",
+   "index": 71,
+   "params": {}
+  },
+  {
+   "id": "stunt",
+   "type": "stunt",
+   "host": "mesa",
+   "index": 72,
+   "params": {}
+  },
+  {
+   "id": "race",
+   "type": "race",
+   "host": "mesa",
+   "index": 73,
+   "params": {
+    "gates": [
+     [
+      835.0,
+      20.9,
+      765.0
+     ],
+     [
+      835.0,
+      23.9,
+      782.0
+     ],
+     [
+      835.0,
+      23.9,
+      822.0
+     ],
+     [
+      835.0,
+      23.9,
+      790.0
+     ],
+     [
+      834.0,
+      20.9,
+      764.0
+     ],
+     [
+      768.0,
+      20.5,
+      767.0
+     ],
+     [
+      767.0,
+      20.5,
+      832.0
+     ],
+     [
+      794.0,
+      20.5,
+      832.0
+     ],
+     [
+      794.0,
+      20.5,
+      778.0
+     ]
+    ],
+    "gate_radii": [
+     6.0,
+     4.5,
+     4.5,
+     4.5,
+     6.0,
+     6.0,
+     6.0,
+     6.0,
+     6.0
+    ]
+   }
+  },
+  {
+   "id": "frenzy",
+   "type": "frenzy",
+   "host": "mesa",
+   "index": 74,
+   "params": {}
+  },
+  {
+   "id": "destroy",
+   "type": "destroy",
+   "host": "mesa",
+   "index": 75,
+   "params": {}
+  },
+  {
+   "id": "rescue",
+   "type": "rescue",
+   "host": "mesa",
+   "index": 76,
+   "params": {}
+  },
+  {
+   "id": "chase",
+   "type": "chase",
+   "host": "mesa",
+   "index": 77,
+   "params": {}
+  },
+  {
+   "id": "hold",
+   "type": "hold",
+   "host": "mesa",
+   "index": 78,
+   "params": {}
+  },
+  {
+   "id": "ghost",
+   "type": "ghost",
+   "host": "mesa",
+   "index": 79,
+   "params": {"legacy_goal_rotation": true}
+  },
+  {
+   "id": "defuse",
+   "type": "defuse",
+   "host": "mesa",
+   "index": 15,
+   "params": {}
+  },
+  {
+   "id": "arena",
+   "type": "arena",
+   "host": "mesa",
+   "index": 29,
+   "params": {}
+  },
+  {
+   "id": "combo",
+   "type": "combo",
+   "host": "mesa",
+   "index": 43,
+   "params": {}
+  },
+  {
+   "id": "lava",
+   "type": "lava",
+   "host": "mesa",
+   "index": 51,
+   "params": {
+    "start_zone": [
+     811.5,
+     21.5,
+     764.0
+    ],
+    "goal_zone": [
+     835.0,
+     23.0,
+     825.0
+    ],
+    "goal_prop": [
+     835.0,
+     23.0,
+     827.0
+    ],
+    "lava_boxes": [
+     [
+      760.5,
+      760.5,
+      833.0,
+      839.5
+     ],
+     [
+      837.0,
+      760.5,
+      839.5,
+      839.5
+     ],
+     [
+      833.0,
+      760.5,
+      837.0,
+      764.0
+     ],
+     [
+      833.0,
+      776.0,
+      837.0,
+      839.5
+     ]
+    ]
+   }
+  },
+  {
+   "id": "marked",
+   "type": "marked",
+   "host": "mesa",
+   "index": 52,
+   "params": {}
+  },
+  {
+   "id": "capture",
+   "type": "capture",
+   "host": "mesa",
+   "index": 53,
+   "params": {}
+  },
+  {
+   "id": "endurance",
+   "type": "endurance",
+   "host": "mesa",
+   "index": 57,
+   "params": {}
+  },
+  {
+   "id": "style",
+   "type": "style",
+   "host": "mesa",
+   "index": 61,
+   "params": {}
+  }
+ ],
+ "options": {
+  "zip_name": "mesa_missions.zip"
+ }
+}

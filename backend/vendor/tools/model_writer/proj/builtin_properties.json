@@ -1,0 +1,1062 @@
+[
+ {
+  "index": 0,
+  "name": "RecievingEntity",
+  "type": "Entity"
+ },
+ {
+  "index": 1,
+  "name": "Damage",
+  "type": "number"
+ },
+ {
+  "index": 2,
+  "name": "Owner",
+  "type": "Entity"
+ },
+ {
+  "index": 3,
+  "name": "inflictor_node",
+  "type": "Entity"
+ },
+ {
+  "index": 4,
+  "name": "RecievingCollVolume",
+  "type": "Entity"
+ },
+ {
+  "index": 5,
+  "name": "CollisionImpulse",
+  "type": "vector"
+ },
+ {
+  "index": 6,
+  "name": "Peercontactpoint",
+  "type": "vector"
+ },
+ {
+  "index": 7,
+  "name": "Damage_type",
+  "type": "integer"
+ },
+ {
+  "index": 8,
+  "name": "pBlock",
+  "type": "Entity"
+ },
+ {
+  "index": 9,
+  "name": "sTeleportName",
+  "type": "string"
+ },
+ {
+  "index": 10,
+  "name": "pResource",
+  "type": "Entity"
+ },
+ {
+  "index": 11,
+  "name": "pPlaceholder",
+  "type": "Entity"
+ },
+ {
+  "index": 12,
+  "name": "pPlaceholder",
+  "type": "Entity"
+ },
+ {
+  "index": 13,
+  "name": "RangeSqr",
+  "type": "number"
+ },
+ {
+  "index": 14,
+  "name": "bInView",
+  "type": "truth"
+ },
+ {
+  "index": 15,
+  "name": "bIsVisible",
+  "type": "truth"
+ },
+ {
+  "index": 16,
+  "name": "RightHandGunList",
+  "type": "list(truth)"
+ },
+ {
+  "index": 17,
+  "name": "LeftHandGunList",
+  "type": "list(truth)"
+ },
+ {
+  "index": 18,
+  "name": "AmmoList",
+  "type": "list(integer)"
+ },
+ {
+  "index": 19,
+  "name": "MaxAmmoList",
+  "type": "list(integer)"
+ },
+ {
+  "index": 20,
+  "name": "AmmoInPrimWeapon",
+  "type": "list(integer)"
+ },
+ {
+  "index": 21,
+  "name": "AmmoInSecWeapon",
+  "type": "list(integer)"
+ },
+ {
+  "index": 22,
+  "name": "pPlaceHolder",
+  "type": "Entity"
+ },
+ {
+  "index": 23,
+  "name": "vLocalPosition",
+  "type": "vector"
+ },
+ {
+  "index": 24,
+  "name": "PowerUpList",
+  "type": "list(integer)"
+ },
+ {
+  "index": 25,
+  "name": "MaxPowerUpList",
+  "type": "list(integer)"
+ },
+ {
+  "index": 26,
+  "name": "Type",
+  "type": "integer"
+ },
+ {
+  "index": 27,
+  "name": "Sprite",
+  "type": "Entity"
+ },
+ {
+  "index": 28,
+  "name": "BGSprite",
+  "type": "Entity"
+ },
+ {
+  "index": 29,
+  "name": "OrgSize",
+  "type": "vector"
+ },
+ {
+  "index": 30,
+  "name": "NormalSize",
+  "type": "vector"
+ },
+ {
+  "index": 31,
+  "name": "NormalPos",
+  "type": "vector"
+ },
+ {
+  "index": 32,
+  "name": "SelectedSize",
+  "type": "vector"
+ },
+ {
+  "index": 33,
+  "name": "SelectedPos",
+  "type": "vector"
+ },
+ {
+  "index": 34,
+  "name": "AmountTB",
+  "type": "Entity"
+ },
+ {
+  "index": 35,
+  "name": "AmountTB_BG",
+  "type": "Entity"
+ },
+ {
+  "index": 36,
+  "name": "BlipSprite",
+  "type": "Entity"
+ },
+ {
+  "index": 37,
+  "name": "LocationSprite",
+  "type": "Entity"
+ },
+ {
+  "index": 38,
+  "name": "WatchedEntity",
+  "type": "Entity"
+ },
+ {
+  "index": 39,
+  "name": "EntityType",
+  "type": "integer"
+ },
+ {
+  "index": 40,
+  "name": "SubMapIndex",
+  "type": "integer"
+ },
+ {
+  "index": 41,
+  "name": "OptionName",
+  "type": "integer"
+ },
+ {
+  "index": 42,
+  "name": "TextField",
+  "type": "Entity"
+ },
+ {
+  "index": 43,
+  "name": "TextFieldBG",
+  "type": "Entity"
+ },
+ {
+  "index": 44,
+  "name": "OptionAction",
+  "type": "integer"
+ },
+ {
+  "index": 45,
+  "name": "TaxiZapEntry",
+  "type": "Entity"
+ },
+ {
+  "index": 46,
+  "name": "EntryIcon",
+  "type": "Entity"
+ },
+ {
+  "index": 47,
+  "name": "ShowIcon",
+  "type": "truth"
+ },
+ {
+  "index": 48,
+  "name": "EntryText",
+  "type": "integer"
+ },
+ {
+  "index": 49,
+  "name": "EntryType",
+  "type": "integer"
+ },
+ {
+  "index": 50,
+  "name": "EntryDetailTextType",
+  "type": "integer"
+ },
+ {
+  "index": 51,
+  "name": "EntryDetailTextIndex",
+  "type": "integer"
+ },
+ {
+  "index": 52,
+  "name": "EntrySpacing",
+  "type": "truth"
+ },
+ {
+  "index": 53,
+  "name": "IsActiveEntry",
+  "type": "truth"
+ },
+ {
+  "index": 54,
+  "name": "IsAchieved",
+  "type": "truth"
+ },
+ {
+  "index": 55,
+  "name": "NameTextField",
+  "type": "Entity"
+ },
+ {
+  "index": 56,
+  "name": "NameTextFieldBG",
+  "type": "Entity"
+ },
+ {
+  "index": 57,
+  "name": "ScoreTextField",
+  "type": "Entity"
+ },
+ {
+  "index": 58,
+  "name": "Stroke3",
+  "type": "Entity"
+ },
+ {
+  "index": 59,
+  "name": "Stroke4",
+  "type": "Entity"
+ },
+ {
+  "index": 60,
+  "name": "FlashEffect",
+  "type": "Entity"
+ },
+ {
+  "index": 61,
+  "name": "AwardType",
+  "type": "integer"
+ },
+ {
+  "index": 62,
+  "name": "AwardAP",
+  "type": "integer"
+ },
+ {
+  "index": 63,
+  "name": "AwardModelList",
+  "type": "list(Entity)"
+ },
+ {
+  "index": 64,
+  "name": "AwardModelListBg",
+  "type": "list(Entity)"
+ },
+ {
+  "index": 65,
+  "name": "NumOfAwards",
+  "type": "integer"
+ },
+ {
+  "index": 66,
+  "name": "TextBox",
+  "type": "Entity"
+ },
+ {
+  "index": 67,
+  "name": "TextBoxBG",
+  "type": "Entity"
+ },
+ {
+  "index": 68,
+  "name": "BounceSpeed",
+  "type": "number"
+ },
+ {
+  "index": 69,
+  "name": "OrgScale",
+  "type": "number"
+ },
+ {
+  "index": 70,
+  "name": "MaxScale",
+  "type": "number"
+ },
+ {
+  "index": 71,
+  "name": "Expand",
+  "type": "truth"
+ },
+ {
+  "index": 72,
+  "name": "Placeholder",
+  "type": "Entity"
+ },
+ {
+  "index": 73,
+  "name": "StartPoint",
+  "type": "vector"
+ },
+ {
+  "index": 74,
+  "name": "NewPoint",
+  "type": "Entity"
+ },
+ {
+  "index": 75,
+  "name": "LastPoint",
+  "type": "Entity"
+ },
+ {
+  "index": 76,
+  "name": "currenttime",
+  "type": "number"
+ },
+ {
+  "index": 77,
+  "name": "at_pos",
+  "type": "truth"
+ },
+ {
+  "index": 78,
+  "name": "pBone",
+  "type": "Entity"
+ },
+ {
+  "index": 79,
+  "name": "vCurrentAngle",
+  "type": "vector"
+ },
+ {
+  "index": 80,
+  "name": "vTargetAngle",
+  "type": "vector"
+ },
+ {
+  "index": 81,
+  "name": "Speed",
+  "type": "number"
+ },
+ {
+  "index": 82,
+  "name": "eRotateSpace",
+  "type": "integer"
+ },
+ {
+  "index": 83,
+  "name": "bActive",
+  "type": "truth"
+ },
+ {
+  "index": 84,
+  "name": "Objective",
+  "type": "Entity"
+ },
+ {
+  "index": 85,
+  "name": "Show",
+  "type": "truth"
+ },
+ {
+  "index": 86,
+  "name": "Status",
+  "type": "integer"
+ },
+ {
+  "index": 87,
+  "name": "Mission_Valid",
+  "type": "truth"
+ },
+ {
+  "index": 88,
+  "name": "Mission",
+  "type": "integer"
+ },
+ {
+  "index": 89,
+  "name": "Mission_type",
+  "type": "integer"
+ },
+ {
+  "index": 90,
+  "name": "Award_achived",
+  "type": "integer"
+ },
+ {
+  "index": 91,
+  "name": "Mission_Entity",
+  "type": "Entity"
+ },
+ {
+  "index": 92,
+  "name": "Mission_complete",
+  "type": "truth"
+ },
+ {
+  "index": 93,
+  "name": "Mission_open",
+  "type": "truth"
+ },
+ {
+  "index": 94,
+  "name": "Mission_name",
+  "type": "integer"
+ },
+ {
+  "index": 95,
+  "name": "Mission_start_submap",
+  "type": "integer"
+ },
+ {
+  "index": 96,
+  "name": "Highest_Score",
+  "type": "integer"
+ },
+ {
+  "index": 97,
+  "name": "Current_Score",
+  "type": "integer"
+ },
+ {
+  "index": 98,
+  "name": "L_Combo",
+  "type": "number"
+ },
+ {
+  "index": 99,
+  "name": "Best_Move_string",
+  "type": "string"
+ },
+ {
+  "index": 100,
+  "name": "Best_Move",
+  "type": "integer"
+ },
+ {
+  "index": 101,
+  "name": "FollowUpMission",
+  "type": "integer"
+ },
+ {
+  "index": 102,
+  "name": "MissionConditions",
+  "type": "list(Entity)"
+ },
+ {
+  "index": 103,
+  "name": "ObjectiveList",
+  "type": "list(Entity)"
+ },
+ {
+  "index": 104,
+  "name": "TextBox",
+  "type": "Entity"
+ },
+ {
+  "index": 105,
+  "name": "TextBox_BG",
+  "type": "Entity"
+ },
+ {
+  "index": 106,
+  "name": "SlideUpTime",
+  "type": "number"
+ },
+ {
+  "index": 107,
+  "name": "StartSlideTime",
+  "type": "number"
+ },
+ {
+  "index": 108,
+  "name": "SlideX",
+  "type": "number"
+ },
+ {
+  "index": 109,
+  "name": "SlideY",
+  "type": "number"
+ },
+ {
+  "index": 110,
+  "name": "FromPos",
+  "type": "vector"
+ },
+ {
+  "index": 111,
+  "name": "TargetPos",
+  "type": "vector"
+ },
+ {
+  "index": 112,
+  "name": "FromOpacity",
+  "type": "number"
+ },
+ {
+  "index": 113,
+  "name": "TargetOpacity",
+  "type": "number"
+ },
+ {
+  "index": 114,
+  "name": "StayTime",
+  "type": "number"
+ },
+ {
+  "index": 115,
+  "name": "InUse",
+  "type": "truth"
+ },
+ {
+  "index": 116,
+  "name": "MoveName",
+  "type": "integer"
+ },
+ {
+  "index": 117,
+  "name": "Bonus",
+  "type": "integer"
+ },
+ {
+  "index": 118,
+  "name": "GoodieAward",
+  "type": "integer"
+ },
+ {
+  "index": 119,
+  "name": "MoveBitName",
+  "type": "integer"
+ },
+ {
+  "index": 120,
+  "name": "SoundIndex",
+  "type": "integer"
+ },
+ {
+  "index": 121,
+  "name": "SoundFrequency",
+  "type": "number"
+ },
+ {
+  "index": 122,
+  "name": "CCmove",
+  "type": "integer"
+ },
+ {
+  "index": 123,
+  "name": "KillsNeeded",
+  "type": "integer"
+ },
+ {
+  "index": 124,
+  "name": "ComboBonus",
+  "type": "integer"
+ },
+ {
+  "index": 125,
+  "name": "GoodieAwards",
+  "type": "list(integer)"
+ },
+ {
+  "index": 126,
+  "name": "AwardString",
+  "type": "integer"
+ },
+ {
+  "index": 127,
+  "name": "Position",
+  "type": "vector"
+ },
+ {
+  "index": 128,
+  "name": "CurrentHealth",
+  "type": "number"
+ },
+ {
+  "index": 129,
+  "name": "CurrentWeapons",
+  "type": "list(string)"
+ },
+ {
+  "index": 130,
+  "name": "AmmoActiveWeapon",
+  "type": "number"
+ },
+ {
+  "index": 131,
+  "name": "ActionsPoints",
+  "type": "integer"
+ },
+ {
+  "index": 132,
+  "name": "EnemyKills",
+  "type": "integer"
+ },
+ {
+  "index": 133,
+  "name": "NeutralKills",
+  "type": "integer"
+ },
+ {
+  "index": 134,
+  "name": "BarrelsKilled",
+  "type": "integer"
+ },
+ {
+  "index": 135,
+  "name": "AvarageHealth",
+  "type": "number"
+ },
+ {
+  "index": 136,
+  "name": "UsedKillTypes",
+  "type": "list(string)"
+ },
+ {
+  "index": 137,
+  "name": "MostOftenKill",
+  "type": "list(integer)"
+ },
+ {
+  "index": 138,
+  "name": "LargestCombo",
+  "type": "string"
+ },
+ {
+  "index": 139,
+  "name": "DrivingCar",
+  "type": "integer"
+ },
+ {
+  "index": 140,
+  "name": "MenuOpened",
+  "type": "integer"
+ },
+ {
+  "index": 141,
+  "name": "MaxNumOfWeapon",
+  "type": "integer"
+ },
+ {
+  "index": 142,
+  "name": "MostUsedWeapon",
+  "type": "integer"
+ },
+ {
+  "index": 143,
+  "name": "Medals",
+  "type": "integer"
+ },
+ {
+  "index": 144,
+  "name": "pCallBack",
+  "type": "Entity"
+ },
+ {
+  "index": 145,
+  "name": "eMessage",
+  "type": "integer"
+ },
+ {
+  "index": 146,
+  "name": "nTimer",
+  "type": "number"
+ },
+ {
+  "index": 147,
+  "name": "bRealTime",
+  "type": "truth"
+ },
+ {
+  "index": 148,
+  "name": "HasCollided",
+  "type": "truth"
+ },
+ {
+  "index": 149,
+  "name": "ColEntity",
+  "type": "Entity"
+ },
+ {
+  "index": 150,
+  "name": "ColVolume",
+  "type": "Entity"
+ },
+ {
+  "index": 151,
+  "name": "ColMaterial",
+  "type": "integer"
+ },
+ {
+  "index": 152,
+  "name": "ColFaceProperty",
+  "type": "integer"
+ },
+ {
+  "index": 153,
+  "name": "ColNormal",
+  "type": "vector"
+ },
+ {
+  "index": 154,
+  "name": "ColPos",
+  "type": "vector"
+ },
+ {
+  "index": 155,
+  "name": "SetDecal",
+  "type": "truth"
+ },
+ {
+  "index": 156,
+  "name": "CollisionEntity",
+  "type": "Entity"
+ },
+ {
+  "index": 157,
+  "name": "RealNode",
+  "type": "Entity"
+ },
+ {
+  "index": 158,
+  "name": "CollisionPos",
+  "type": "vector"
+ },
+ {
+  "index": 159,
+  "name": "ColliderEntity",
+  "type": "Entity"
+ },
+ {
+  "index": 160,
+  "name": "Sound",
+  "type": "list(Entity)"
+ },
+ {
+  "index": 161,
+  "name": "Volume",
+  "type": "list(number)"
+ },
+ {
+  "index": 162,
+  "name": "Min_Pause",
+  "type": "list(number)"
+ },
+ {
+  "index": 163,
+  "name": "Max_Pause",
+  "type": "list(number)"
+ },
+ {
+  "index": 164,
+  "name": "Position_Type",
+  "type": "list(integer)"
+ },
+ {
+  "index": 165,
+  "name": "Position_Entity",
+  "type": "list(Entity)"
+ },
+ {
+  "index": 166,
+  "name": "ent_1",
+  "type": "Entity"
+ },
+ {
+  "index": 167,
+  "name": "ent_2",
+  "type": "Entity"
+ },
+ {
+  "index": 168,
+  "name": "Watched",
+  "type": "Entity"
+ },
+ {
+  "index": 169,
+  "name": "WatchedName",
+  "type": "integer"
+ },
+ {
+  "index": 170,
+  "name": "HealthPercentage",
+  "type": "number"
+ },
+ {
+  "index": 171,
+  "name": "InFocus",
+  "type": "truth"
+ },
+ {
+  "index": 172,
+  "name": "LocalShowTime",
+  "type": "number"
+ },
+ {
+  "index": 173,
+  "name": "GamePulse",
+  "type": "integer"
+ },
+ {
+  "index": 174,
+  "name": "UnderPulse",
+  "type": "integer"
+ },
+ {
+  "index": 175,
+  "name": "UberPulse",
+  "type": "integer"
+ },
+ {
+  "index": 176,
+  "name": "StayTime",
+  "type": "number"
+ },
+ {
+  "index": 177,
+  "name": "toHighPulses",
+  "type": "integer"
+ },
+ {
+  "index": 178,
+  "name": "at_entity",
+  "type": "Entity"
+ },
+ {
+  "index": 179,
+  "name": "pos_offset",
+  "type": "vector"
+ },
+ {
+  "index": 180,
+  "name": "ParticleOwner",
+  "type": "Entity"
+ },
+ {
+  "index": 181,
+  "name": "ParticleSys",
+  "type": "Entity"
+ },
+ {
+  "index": 182,
+  "name": "at_pos",
+  "type": "vector"
+ },
+ {
+  "index": 183,
+  "name": "LifeTime",
+  "type": "number"
+ },
+ {
+  "index": 184,
+  "name": "s_particel_dam",
+  "type": "integer"
+ },
+ {
+  "index": 185,
+  "name": "dist",
+  "type": "number"
+ },
+ {
+  "index": 186,
+  "name": "PedestrianGroup",
+  "type": "integer"
+ },
+ {
+  "index": 187,
+  "name": "Minimum",
+  "type": "integer"
+ },
+ {
+  "index": 188,
+  "name": "Maximum",
+  "type": "integer"
+ },
+ {
+  "index": 189,
+  "name": "PathPoint",
+  "type": "Entity"
+ },
+ {
+  "index": 190,
+  "name": "Neighborhood",
+  "type": "Entity"
+ },
+ {
+  "index": 191,
+  "name": "Object",
+  "type": "Entity"
+ },
+ {
+  "index": 192,
+  "name": "StartOpacity",
+  "type": "number"
+ },
+ {
+  "index": 193,
+  "name": "OpaPerSec",
+  "type": "number"
+ },
+ {
+  "index": 194,
+  "name": "DelayTimer",
+  "type": "number"
+ },
+ {
+  "index": 195,
+  "name": "Valid",
+  "type": "truth"
+ },
+ {
+  "index": 196,
+  "name": "Type",
+  "type": "integer"
+ },
+ {
+  "index": 197,
+  "name": "Relation",
+  "type": "integer"
+ },
+ {
+  "index": 198,
+  "name": "TargetScore",
+  "type": "integer"
+ },
+ {
+  "index": 199,
+  "name": "OverallAwardType",
+  "type": "integer"
+ },
+ {
+  "index": 200,
+  "name": "AwardString",
+  "type": "integer"
+ },
+ {
+  "index": 201,
+  "name": "TutAwardString",
+  "type": "integer"
+ },
+ {
+  "index": 202,
+  "name": "NotifyThis",
+  "type": "Entity"
+ },
+ {
+  "index": 203,
+  "name": "RequiredScore",
+  "type": "integer"
+ },
+ {
+  "index": 204,
+  "name": "position",
+  "type": "vector"
+ },
+ {
+  "index": 205,
+  "name": "normal",
+  "type": "vector"
+ },
+ {
+  "index": 206,
+  "name": "type",
+  "type": "integer"
+ },
+ {
+  "index": 207,
+  "name": "particle",
+  "type": "Entity"
+ },
+ {
+  "index": 208,
+  "name": "target",
+  "type": "Entity"
+ },
+ {
+  "index": 209,
+  "name": "impact_pos",
+  "type": "vector"
+ },
+ {
+  "index": 210,
+  "name": "impact_orient",
+  "type": "quaternion"
+ },
+ {
+  "index": 211,
+  "name": "position",
+  "type": "?"
+ }
+]

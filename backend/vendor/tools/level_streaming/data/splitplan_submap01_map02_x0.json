@@ -1,0 +1,59 @@
+{
+ "block": "data_pc/overdose_the_game/overdose/shared/submap01_map02_lostoros_downtown.submap",
+ "axis": "x",
+ "at": 0.0,
+ "placed_entities": {
+  "B": 1826,
+  "A": 2343
+ },
+ "route_groups": 30,
+ "routes_crossing_the_plane": 1,
+ "trigger_volumes_straddling": 10,
+ "by_category": {
+  "trigger_volume": {
+   "B": 77,
+   "A": 60
+  },
+  "trigger_logic": {
+   "B": 248,
+   "A": 195
+  },
+  "placeholder": {
+   "A": 344,
+   "B": 252
+  },
+  "other": {
+   "A": 1008,
+   "B": 765
+  },
+  "folder": {
+   "A": 18,
+   "B": 13
+  },
+  "route": {
+   "A": 32,
+   "B": 39
+  },
+  "collision_box": {
+   "B": 20,
+   "A": 15
+  },
+  "model": {
+   "A": 475,
+   "B": 290
+  },
+  "sound": {
+   "A": 14,
+   "B": 2
+  },
+  "particle": {
+   "A": 83,
+   "B": 50
+  },
+  "light": {
+   "B": 70,
+   "A": 99
+  }
+ },
+ "loaders_now": 22
+}

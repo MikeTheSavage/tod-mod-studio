@@ -1,0 +1,6 @@
+{
+ "description": "test V3: dirt bike engine x1.5 in all 7 bike mission blocks (one zip, 7 blocks).",
+ "set": {
+  "bike.max_engine_force": 18000.0
+ }
+}

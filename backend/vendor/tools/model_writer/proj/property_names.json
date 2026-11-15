@@ -1,0 +1,5390 @@
+[
+ {
+  "name": "ActionsPoints",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 131
+ },
+ {
+  "name": "AmmoActiveWeapon",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 130
+ },
+ {
+  "name": "AmmoInPrimWeapon",
+  "type": "list(integer)",
+  "class": "(engine-builtin)",
+  "slot": 20
+ },
+ {
+  "name": "AmmoInSecWeapon",
+  "type": "list(integer)",
+  "class": "(engine-builtin)",
+  "slot": 21
+ },
+ {
+  "name": "AmmoList",
+  "type": "list(integer)",
+  "class": "(engine-builtin)",
+  "slot": 18
+ },
+ {
+  "name": "AmountTB",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 34
+ },
+ {
+  "name": "AmountTB_BG",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 35
+ },
+ {
+  "name": "AvarageHealth",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 135
+ },
+ {
+  "name": "AwardAP",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 62
+ },
+ {
+  "name": "AwardModelList",
+  "type": "list(Entity)",
+  "class": "(engine-builtin)",
+  "slot": 63
+ },
+ {
+  "name": "AwardModelListBg",
+  "type": "list(Entity)",
+  "class": "(engine-builtin)",
+  "slot": 64
+ },
+ {
+  "name": "AwardString",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 126
+ },
+ {
+  "name": "AwardType",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 61
+ },
+ {
+  "name": "Award_achived",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 90
+ },
+ {
+  "name": "BGSprite",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 28
+ },
+ {
+  "name": "BarrelsKilled",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 134
+ },
+ {
+  "name": "Best_Move",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 100
+ },
+ {
+  "name": "Best_Move_string",
+  "type": "string",
+  "class": "(engine-builtin)",
+  "slot": 99
+ },
+ {
+  "name": "BlipSprite",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 36
+ },
+ {
+  "name": "Bonus",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 117
+ },
+ {
+  "name": "BounceSpeed",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 68
+ },
+ {
+  "name": "CCmove",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 122
+ },
+ {
+  "name": "ColEntity",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 149
+ },
+ {
+  "name": "ColFaceProperty",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 152
+ },
+ {
+  "name": "ColMaterial",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 151
+ },
+ {
+  "name": "ColNormal",
+  "type": "vector",
+  "class": "(engine-builtin)",
+  "slot": 153
+ },
+ {
+  "name": "ColPos",
+  "type": "vector",
+  "class": "(engine-builtin)",
+  "slot": 154
+ },
+ {
+  "name": "ColVolume",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 150
+ },
+ {
+  "name": "ColliderEntity",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 159
+ },
+ {
+  "name": "CollisionEntity",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 156
+ },
+ {
+  "name": "CollisionImpulse",
+  "type": "vector",
+  "class": "(engine-builtin)",
+  "slot": 5
+ },
+ {
+  "name": "CollisionPos",
+  "type": "vector",
+  "class": "(engine-builtin)",
+  "slot": 158
+ },
+ {
+  "name": "ComboBonus",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 124
+ },
+ {
+  "name": "CurrentHealth",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 128
+ },
+ {
+  "name": "CurrentWeapons",
+  "type": "list(string)",
+  "class": "(engine-builtin)",
+  "slot": 129
+ },
+ {
+  "name": "Current_Score",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 97
+ },
+ {
+  "name": "Damage",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 1
+ },
+ {
+  "name": "Damage_type",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 7
+ },
+ {
+  "name": "DelayTimer",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 194
+ },
+ {
+  "name": "DrivingCar",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 139
+ },
+ {
+  "name": "EnemyKills",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 132
+ },
+ {
+  "name": "EntityType",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 39
+ },
+ {
+  "name": "EntryDetailTextIndex",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 51
+ },
+ {
+  "name": "EntryDetailTextType",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 50
+ },
+ {
+  "name": "EntryIcon",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 46
+ },
+ {
+  "name": "EntrySpacing",
+  "type": "truth",
+  "class": "(engine-builtin)",
+  "slot": 52
+ },
+ {
+  "name": "EntryText",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 48
+ },
+ {
+  "name": "EntryType",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 49
+ },
+ {
+  "name": "Expand",
+  "type": "truth",
+  "class": "(engine-builtin)",
+  "slot": 71
+ },
+ {
+  "name": "FlashEffect",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 60
+ },
+ {
+  "name": "FollowUpMission",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 101
+ },
+ {
+  "name": "FromOpacity",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 112
+ },
+ {
+  "name": "FromPos",
+  "type": "vector",
+  "class": "(engine-builtin)",
+  "slot": 110
+ },
+ {
+  "name": "GamePulse",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 173
+ },
+ {
+  "name": "GoodieAward",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 118
+ },
+ {
+  "name": "GoodieAwards",
+  "type": "list(integer)",
+  "class": "(engine-builtin)",
+  "slot": 125
+ },
+ {
+  "name": "HasCollided",
+  "type": "truth",
+  "class": "(engine-builtin)",
+  "slot": 148
+ },
+ {
+  "name": "HealthPercentage",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 170
+ },
+ {
+  "name": "Highest_Score",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 96
+ },
+ {
+  "name": "InFocus",
+  "type": "truth",
+  "class": "(engine-builtin)",
+  "slot": 171
+ },
+ {
+  "name": "InUse",
+  "type": "truth",
+  "class": "(engine-builtin)",
+  "slot": 115
+ },
+ {
+  "name": "IsAchieved",
+  "type": "truth",
+  "class": "(engine-builtin)",
+  "slot": 54
+ },
+ {
+  "name": "IsActiveEntry",
+  "type": "truth",
+  "class": "(engine-builtin)",
+  "slot": 53
+ },
+ {
+  "name": "KillsNeeded",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 123
+ },
+ {
+  "name": "L_Combo",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 98
+ },
+ {
+  "name": "LargestCombo",
+  "type": "string",
+  "class": "(engine-builtin)",
+  "slot": 138
+ },
+ {
+  "name": "LastPoint",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 75
+ },
+ {
+  "name": "LeftHandGunList",
+  "type": "list(truth)",
+  "class": "(engine-builtin)",
+  "slot": 17
+ },
+ {
+  "name": "LocalShowTime",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 172
+ },
+ {
+  "name": "LocationSprite",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 37
+ },
+ {
+  "name": "MaxAmmoList",
+  "type": "list(integer)",
+  "class": "(engine-builtin)",
+  "slot": 19
+ },
+ {
+  "name": "MaxNumOfWeapon",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 141
+ },
+ {
+  "name": "MaxPowerUpList",
+  "type": "list(integer)",
+  "class": "(engine-builtin)",
+  "slot": 25
+ },
+ {
+  "name": "MaxScale",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 70
+ },
+ {
+  "name": "Max_Pause",
+  "type": "list(number)",
+  "class": "(engine-builtin)",
+  "slot": 163
+ },
+ {
+  "name": "Maximum",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 188
+ },
+ {
+  "name": "Medals",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 143
+ },
+ {
+  "name": "MenuOpened",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 140
+ },
+ {
+  "name": "Min_Pause",
+  "type": "list(number)",
+  "class": "(engine-builtin)",
+  "slot": 162
+ },
+ {
+  "name": "Minimum",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 187
+ },
+ {
+  "name": "Mission",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 88
+ },
+ {
+  "name": "MissionConditions",
+  "type": "list(Entity)",
+  "class": "(engine-builtin)",
+  "slot": 102
+ },
+ {
+  "name": "Mission_Entity",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 91
+ },
+ {
+  "name": "Mission_Valid",
+  "type": "truth",
+  "class": "(engine-builtin)",
+  "slot": 87
+ },
+ {
+  "name": "Mission_complete",
+  "type": "truth",
+  "class": "(engine-builtin)",
+  "slot": 92
+ },
+ {
+  "name": "Mission_name",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 94
+ },
+ {
+  "name": "Mission_open",
+  "type": "truth",
+  "class": "(engine-builtin)",
+  "slot": 93
+ },
+ {
+  "name": "Mission_start_submap",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 95
+ },
+ {
+  "name": "Mission_type",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 89
+ },
+ {
+  "name": "MostOftenKill",
+  "type": "list(integer)",
+  "class": "(engine-builtin)",
+  "slot": 137
+ },
+ {
+  "name": "MostUsedWeapon",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 142
+ },
+ {
+  "name": "MoveBitName",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 119
+ },
+ {
+  "name": "MoveName",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 116
+ },
+ {
+  "name": "NameTextField",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 55
+ },
+ {
+  "name": "NameTextFieldBG",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 56
+ },
+ {
+  "name": "Neighborhood",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 190
+ },
+ {
+  "name": "NeutralKills",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 133
+ },
+ {
+  "name": "NewPoint",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 74
+ },
+ {
+  "name": "NormalPos",
+  "type": "vector",
+  "class": "(engine-builtin)",
+  "slot": 31
+ },
+ {
+  "name": "NormalSize",
+  "type": "vector",
+  "class": "(engine-builtin)",
+  "slot": 30
+ },
+ {
+  "name": "NotifyThis",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 202
+ },
+ {
+  "name": "NumOfAwards",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 65
+ },
+ {
+  "name": "Object",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 191
+ },
+ {
+  "name": "Objective",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 84
+ },
+ {
+  "name": "ObjectiveList",
+  "type": "list(Entity)",
+  "class": "(engine-builtin)",
+  "slot": 103
+ },
+ {
+  "name": "OpaPerSec",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 193
+ },
+ {
+  "name": "OptionAction",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 44
+ },
+ {
+  "name": "OptionName",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 41
+ },
+ {
+  "name": "OrgScale",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 69
+ },
+ {
+  "name": "OrgSize",
+  "type": "vector",
+  "class": "(engine-builtin)",
+  "slot": 29
+ },
+ {
+  "name": "OverallAwardType",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 199
+ },
+ {
+  "name": "Owner",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 2
+ },
+ {
+  "name": "ParticleOwner",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 180
+ },
+ {
+  "name": "ParticleSys",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 181
+ },
+ {
+  "name": "Peercontactpoint",
+  "type": "vector",
+  "class": "(engine-builtin)",
+  "slot": 6
+ },
+ {
+  "name": "Placeholder",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 72
+ },
+ {
+  "name": "Position",
+  "type": "vector",
+  "class": "(engine-builtin)",
+  "slot": 127
+ },
+ {
+  "name": "Position_Entity",
+  "type": "list(Entity)",
+  "class": "(engine-builtin)",
+  "slot": 165
+ },
+ {
+  "name": "Position_Type",
+  "type": "list(integer)",
+  "class": "(engine-builtin)",
+  "slot": 164
+ },
+ {
+  "name": "PowerUpList",
+  "type": "list(integer)",
+  "class": "(engine-builtin)",
+  "slot": 24
+ },
+ {
+  "name": "RangeSqr",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 13
+ },
+ {
+  "name": "RecievingCollVolume",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 4
+ },
+ {
+  "name": "RecievingEntity",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 0
+ },
+ {
+  "name": "Relation",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 197
+ },
+ {
+  "name": "RequiredScore",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 203
+ },
+ {
+  "name": "RightHandGunList",
+  "type": "list(truth)",
+  "class": "(engine-builtin)",
+  "slot": 16
+ },
+ {
+  "name": "ScoreTextField",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 57
+ },
+ {
+  "name": "SelectedPos",
+  "type": "vector",
+  "class": "(engine-builtin)",
+  "slot": 33
+ },
+ {
+  "name": "SelectedSize",
+  "type": "vector",
+  "class": "(engine-builtin)",
+  "slot": 32
+ },
+ {
+  "name": "SetDecal",
+  "type": "truth",
+  "class": "(engine-builtin)",
+  "slot": 155
+ },
+ {
+  "name": "Show",
+  "type": "truth",
+  "class": "(engine-builtin)",
+  "slot": 85
+ },
+ {
+  "name": "ShowIcon",
+  "type": "truth",
+  "class": "(engine-builtin)",
+  "slot": 47
+ },
+ {
+  "name": "SlideUpTime",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 106
+ },
+ {
+  "name": "SlideX",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 108
+ },
+ {
+  "name": "SlideY",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 109
+ },
+ {
+  "name": "Sound",
+  "type": "list(Entity)",
+  "class": "(engine-builtin)",
+  "slot": 160
+ },
+ {
+  "name": "SoundFrequency",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 121
+ },
+ {
+  "name": "SoundIndex",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 120
+ },
+ {
+  "name": "Sprite",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 27
+ },
+ {
+  "name": "StartOpacity",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 192
+ },
+ {
+  "name": "StartPoint",
+  "type": "vector",
+  "class": "(engine-builtin)",
+  "slot": 73
+ },
+ {
+  "name": "StartSlideTime",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 107
+ },
+ {
+  "name": "StayTime",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 114
+ },
+ {
+  "name": "Stroke3",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 58
+ },
+ {
+  "name": "Stroke4",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 59
+ },
+ {
+  "name": "SubMapIndex",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 40
+ },
+ {
+  "name": "TargetOpacity",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 113
+ },
+ {
+  "name": "TargetPos",
+  "type": "vector",
+  "class": "(engine-builtin)",
+  "slot": 111
+ },
+ {
+  "name": "TargetScore",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 198
+ },
+ {
+  "name": "TaxiZapEntry",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 45
+ },
+ {
+  "name": "TextBox",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 66
+ },
+ {
+  "name": "TextBoxBG",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 67
+ },
+ {
+  "name": "TextBox_BG",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 105
+ },
+ {
+  "name": "TextField",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 42
+ },
+ {
+  "name": "TextFieldBG",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 43
+ },
+ {
+  "name": "TutAwardString",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 201
+ },
+ {
+  "name": "Type",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 26
+ },
+ {
+  "name": "UberPulse",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 175
+ },
+ {
+  "name": "UnderPulse",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 174
+ },
+ {
+  "name": "UsedKillTypes",
+  "type": "list(string)",
+  "class": "(engine-builtin)",
+  "slot": 136
+ },
+ {
+  "name": "Valid",
+  "type": "truth",
+  "class": "(engine-builtin)",
+  "slot": 195
+ },
+ {
+  "name": "Volume",
+  "type": "list(number)",
+  "class": "(engine-builtin)",
+  "slot": 161
+ },
+ {
+  "name": "Watched",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 168
+ },
+ {
+  "name": "WatchedEntity",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 38
+ },
+ {
+  "name": "WatchedName",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 169
+ },
+ {
+  "name": "at_entity",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 178
+ },
+ {
+  "name": "at_pos",
+  "type": "truth",
+  "class": "(engine-builtin)",
+  "slot": 77
+ },
+ {
+  "name": "bActive",
+  "type": "truth",
+  "class": "(engine-builtin)",
+  "slot": 83
+ },
+ {
+  "name": "bInView",
+  "type": "truth",
+  "class": "(engine-builtin)",
+  "slot": 14
+ },
+ {
+  "name": "bIsVisible",
+  "type": "truth",
+  "class": "(engine-builtin)",
+  "slot": 15
+ },
+ {
+  "name": "bRealTime",
+  "type": "truth",
+  "class": "(engine-builtin)",
+  "slot": 147
+ },
+ {
+  "name": "currenttime",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 76
+ },
+ {
+  "name": "dist",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 185
+ },
+ {
+  "name": "eMessage",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 145
+ },
+ {
+  "name": "eRotateSpace",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 82
+ },
+ {
+  "name": "ent_1",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 166
+ },
+ {
+  "name": "ent_2",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 167
+ },
+ {
+  "name": "impact_orient",
+  "type": "quaternion",
+  "class": "(engine-builtin)",
+  "slot": 210
+ },
+ {
+  "name": "impact_pos",
+  "type": "vector",
+  "class": "(engine-builtin)",
+  "slot": 209
+ },
+ {
+  "name": "inflictor_node",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 3
+ },
+ {
+  "name": "nTimer",
+  "type": "number",
+  "class": "(engine-builtin)",
+  "slot": 146
+ },
+ {
+  "name": "normal",
+  "type": "vector",
+  "class": "(engine-builtin)",
+  "slot": 205
+ },
+ {
+  "name": "pBlock",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 8
+ },
+ {
+  "name": "pBone",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 78
+ },
+ {
+  "name": "pCallBack",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 144
+ },
+ {
+  "name": "pPlaceHolder",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 22
+ },
+ {
+  "name": "pPlaceholder",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 11
+ },
+ {
+  "name": "pResource",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 10
+ },
+ {
+  "name": "particle",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 207
+ },
+ {
+  "name": "pos_offset",
+  "type": "vector",
+  "class": "(engine-builtin)",
+  "slot": 179
+ },
+ {
+  "name": "position",
+  "type": "vector",
+  "class": "(engine-builtin)",
+  "slot": 204
+ },
+ {
+  "name": "sTeleportName",
+  "type": "string",
+  "class": "(engine-builtin)",
+  "slot": 9
+ },
+ {
+  "name": "s_particel_dam",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 184
+ },
+ {
+  "name": "target",
+  "type": "Entity",
+  "class": "(engine-builtin)",
+  "slot": 208
+ },
+ {
+  "name": "toHighPulses",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 177
+ },
+ {
+  "name": "type",
+  "type": "integer",
+  "class": "(engine-builtin)",
+  "slot": 206
+ },
+ {
+  "name": "vCurrentAngle",
+  "type": "vector",
+  "class": "(engine-builtin)",
+  "slot": 79
+ },
+ {
+  "name": "vLocalPosition",
+  "type": "vector",
+  "class": "(engine-builtin)",
+  "slot": 23
+ },
+ {
+  "name": "vTargetAngle",
+  "type": "vector",
+  "class": "(engine-builtin)",
+  "slot": 80
+ },
+ {
+  "name": "blendfinishedevent",
+  "type": "integer",
+  "class": "AnimLayer",
+  "slot": 23
+ },
+ {
+  "name": "blendinanim",
+  "type": "Entity",
+  "class": "AnimLayer",
+  "slot": null
+ },
+ {
+  "name": "blendoutanim",
+  "type": "Entity",
+  "class": "AnimLayer",
+  "slot": null
+ },
+ {
+  "name": "crossblendfactor",
+  "type": "number",
+  "class": "AnimLayer",
+  "slot": 19
+ },
+ {
+  "name": "crossblendspeed",
+  "type": "number",
+  "class": "AnimLayer",
+  "slot": 21
+ },
+ {
+  "name": "crosstarget1",
+  "type": "Entity",
+  "class": "AnimLayer",
+  "slot": 15
+ },
+ {
+  "name": "crosstarget2",
+  "type": "Entity",
+  "class": "AnimLayer",
+  "slot": 16
+ },
+ {
+  "name": "event",
+  "type": "integer",
+  "class": "AnimLayer",
+  "slot": 22
+ },
+ {
+  "name": "freeze",
+  "type": "truth",
+  "class": "AnimLayer",
+  "slot": 12
+ },
+ {
+  "name": "getclearoverridetarget1onblendfinished",
+  "type": "truth",
+  "class": "AnimLayer",
+  "slot": 29
+ },
+ {
+  "name": "getclearoverridetarget2onblendfinished",
+  "type": "truth",
+  "class": "AnimLayer",
+  "slot": 30
+ },
+ {
+  "name": "looping",
+  "type": "truth",
+  "class": "AnimLayer",
+  "slot": 11
+ },
+ {
+  "name": "motionlayer",
+  "type": "Entity",
+  "class": "AnimLayer",
+  "slot": 24
+ },
+ {
+  "name": "overridegamepivotpos1",
+  "type": "vector",
+  "class": "AnimLayer",
+  "slot": 27
+ },
+ {
+  "name": "overridegamepivotpos2",
+  "type": "vector",
+  "class": "AnimLayer",
+  "slot": 28
+ },
+ {
+  "name": "overridetarget1",
+  "type": "truth",
+  "class": "AnimLayer",
+  "slot": 25
+ },
+ {
+  "name": "overridetarget2",
+  "type": "truth",
+  "class": "AnimLayer",
+  "slot": 26
+ },
+ {
+  "name": "playing",
+  "type": "truth",
+  "class": "AnimLayer",
+  "slot": 10
+ },
+ {
+  "name": "playpos1",
+  "type": "number",
+  "class": "AnimLayer",
+  "slot": 17
+ },
+ {
+  "name": "playpos2",
+  "type": "number",
+  "class": "AnimLayer",
+  "slot": 18
+ },
+ {
+  "name": "speedmultiplier",
+  "type": "number",
+  "class": "AnimLayer",
+  "slot": 31
+ },
+ {
+  "name": "stallfirstframe",
+  "type": "truth",
+  "class": "AnimLayer",
+  "slot": null
+ },
+ {
+  "name": "target_anim",
+  "type": "integer",
+  "class": "AnimLayer",
+  "slot": 13
+ },
+ {
+  "name": "targetanim",
+  "type": "Entity",
+  "class": "AnimLayer",
+  "slot": null
+ },
+ {
+  "name": "targetcrossblendfactor",
+  "type": "number",
+  "class": "AnimLayer",
+  "slot": 20
+ },
+ {
+  "name": "weight",
+  "type": "number",
+  "class": "AnimLayer",
+  "slot": 14
+ },
+ {
+  "name": "anim_flags",
+  "type": "integer",
+  "class": "AnimSlot",
+  "slot": -1
+ },
+ {
+  "name": "crossblendframes",
+  "type": "number",
+  "class": "AnimSlot",
+  "slot": -1
+ },
+ {
+  "name": "loopmode1",
+  "type": "integer",
+  "class": "AnimSlot",
+  "slot": -1
+ },
+ {
+  "name": "override_average_x",
+  "type": "number",
+  "class": "AnimSlot",
+  "slot": -1
+ },
+ {
+  "name": "override_average_y",
+  "type": "number",
+  "class": "AnimSlot",
+  "slot": -1
+ },
+ {
+  "name": "override_average_z",
+  "type": "number",
+  "class": "AnimSlot",
+  "slot": -1
+ },
+ {
+  "name": "override_escape_x",
+  "type": "number",
+  "class": "AnimSlot",
+  "slot": -1
+ },
+ {
+  "name": "override_escape_y",
+  "type": "number",
+  "class": "AnimSlot",
+  "slot": -1
+ },
+ {
+  "name": "override_escape_z",
+  "type": "number",
+  "class": "AnimSlot",
+  "slot": -1
+ },
+ {
+  "name": "speed",
+  "type": "number",
+  "class": "AnimSlot",
+  "slot": -1
+ },
+ {
+  "name": "target1",
+  "type": "string",
+  "class": "AnimSlot",
+  "slot": -1
+ },
+ {
+  "name": "damage_type",
+  "type": "integer",
+  "class": "Bullet",
+  "slot": null
+ },
+ {
+  "name": "impulse_multiplier",
+  "type": "number",
+  "class": "Bullet",
+  "slot": null
+ },
+ {
+  "name": "dynlightcullrange",
+  "type": "number",
+  "class": "Camera",
+  "slot": -1
+ },
+ {
+  "name": "farclip",
+  "type": "number",
+  "class": "Camera",
+  "slot": 13
+ },
+ {
+  "name": "fov",
+  "type": "number",
+  "class": "Camera",
+  "slot": 11
+ },
+ {
+  "name": "nearclip",
+  "type": "number",
+  "class": "Camera",
+  "slot": 12
+ },
+ {
+  "name": "offset",
+  "type": "number",
+  "class": "Camera",
+  "slot": 10
+ },
+ {
+  "name": "active_texture_set",
+  "type": "integer",
+  "class": "Character",
+  "slot": 18
+ },
+ {
+  "name": "attachment",
+  "type": "string",
+  "class": "Character",
+  "slot": 16
+ },
+ {
+  "name": "bonecontrol",
+  "type": "truth",
+  "class": "Character",
+  "slot": 11
+ },
+ {
+  "name": "character_sep1",
+  "type": "truth",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "character_sep2",
+  "type": "truth",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "character_sep3",
+  "type": "truth",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "character_sep4",
+  "type": "truth",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "character_sep5",
+  "type": "truth",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "character_sep6",
+  "type": "truth",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "character_sep7",
+  "type": "truth",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "draw_phys_data",
+  "type": "truth",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "is_player_character",
+  "type": "truth",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "modelres",
+  "type": "string",
+  "class": "Character",
+  "slot": 17
+ },
+ {
+  "name": "number_of_textures_sets",
+  "type": "integer",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "opacity",
+  "type": "number",
+  "class": "Character",
+  "slot": 12
+ },
+ {
+  "name": "phys_Belly_damping",
+  "type": "number",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_Belly_num_iterations",
+  "type": "integer",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_Belly_restlength",
+  "type": "number",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_Belly_weight",
+  "type": "number",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_BreastL_damping",
+  "type": "number",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_BreastL_num_iterations",
+  "type": "integer",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_BreastL_restlength",
+  "type": "number",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_BreastL_weight",
+  "type": "number",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_BreastR_damping",
+  "type": "number",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_BreastR_num_iterations",
+  "type": "integer",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_BreastR_restlength",
+  "type": "number",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_BreastR_weight",
+  "type": "number",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_Pony_damping",
+  "type": "number",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_Pony_num_iterations",
+  "type": "integer",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_Pony_restlength",
+  "type": "number",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_Pony_weight",
+  "type": "number",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_Pony_z_axis_end",
+  "type": "number",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_Pony_z_axislimit_on",
+  "type": "truth",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_TrouserL_XLimit",
+  "type": "number",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_TrouserL_damping",
+  "type": "number",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_TrouserL_num_iterations",
+  "type": "integer",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_TrouserL_restlength",
+  "type": "number",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_TrouserL_weight",
+  "type": "number",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_TrouserR_XLimit",
+  "type": "number",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_TrouserR_damping",
+  "type": "number",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_TrouserR_num_iterations",
+  "type": "integer",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_TrouserR_restlength",
+  "type": "number",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_TrouserR_weight",
+  "type": "number",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_TrouserSideWayTolerance",
+  "type": "number",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_TrouserWideness",
+  "type": "number",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "phys_world_gravity_vec",
+  "type": "vector",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "physics_on",
+  "type": "truth",
+  "class": "Character",
+  "slot": null
+ },
+ {
+  "name": "AISubType",
+  "type": "integer",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "Always_Complete_Goto",
+  "type": "truth",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "BackUpWeapon",
+  "type": "integer",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "CallBackNode",
+  "type": "integer",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "CurrentModel",
+  "type": "integer",
+  "class": "CharacterPlaceholder",
+  "slot": 23
+ },
+ {
+  "name": "CustomDesiredRange",
+  "type": "number",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "Damage_mod",
+  "type": "number",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "Damage_modify",
+  "type": "integer",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "DesiredRange",
+  "type": "integer",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "DontHunt",
+  "type": "truth",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "FactionID",
+  "type": "integer",
+  "class": "CharacterPlaceholder",
+  "slot": 17
+ },
+ {
+  "name": "FallbackModel",
+  "type": "integer",
+  "class": "CharacterPlaceholder",
+  "slot": 24
+ },
+ {
+  "name": "ForceDynamicNodeName",
+  "type": "string",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "Goto_Movement",
+  "type": "integer",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "GotopointDamage_mod",
+  "type": "number",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "HeadShot_Damage",
+  "type": "integer",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "Health_mod",
+  "type": "number",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "Health_modify",
+  "type": "integer",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "IgnoreActionBreaks",
+  "type": "truth",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "IgnoreMagnet",
+  "type": "truth",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "IgnoreWeaponDrop",
+  "type": "truth",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "Ignore_5M_rule",
+  "type": "truth",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "Ignore_Hit_Anim",
+  "type": "integer",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "InflictorValue_mod",
+  "type": "integer",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "Is_Buddy",
+  "type": "truth",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "Is_ConeHead",
+  "type": "truth",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "LockedType",
+  "type": "truth",
+  "class": "CharacterPlaceholder",
+  "slot": 22
+ },
+ {
+  "name": "Marco_sqr_dist",
+  "type": "number",
+  "class": "CharacterPlaceholder",
+  "slot": 31
+ },
+ {
+  "name": "MissionObjectiveKill",
+  "type": "truth",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "Model",
+  "type": "integer",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "Morale",
+  "type": "integer",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "OrgHealth",
+  "type": "number",
+  "class": "CharacterPlaceholder",
+  "slot": 16
+ },
+ {
+  "name": "PedestrianGroup",
+  "type": "integer",
+  "class": "CharacterPlaceholder",
+  "slot": 21
+ },
+ {
+  "name": "PhysicModel",
+  "type": "integer",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "PointValue_mod",
+  "type": "integer",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "PreviousModel",
+  "type": "integer",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "SecretFaction",
+  "type": "integer",
+  "class": "CharacterPlaceholder",
+  "slot": 20
+ },
+ {
+  "name": "StoreAlarm",
+  "type": "truth",
+  "class": "CharacterPlaceholder",
+  "slot": 26
+ },
+ {
+  "name": "StorePriority",
+  "type": "truth",
+  "class": "CharacterPlaceholder",
+  "slot": 27
+ },
+ {
+  "name": "StoreTrig",
+  "type": "truth",
+  "class": "CharacterPlaceholder",
+  "slot": 25
+ },
+ {
+  "name": "StoreTrigType",
+  "type": "integer",
+  "class": "CharacterPlaceholder",
+  "slot": 28
+ },
+ {
+  "name": "StoredDamage",
+  "type": "number",
+  "class": "CharacterPlaceholder",
+  "slot": 15
+ },
+ {
+  "name": "Use_AISubType_Data",
+  "type": "truth",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "UsingModifiedFaction",
+  "type": "truth",
+  "class": "CharacterPlaceholder",
+  "slot": 18
+ },
+ {
+  "name": "UsingSecretFaction",
+  "type": "truth",
+  "class": "CharacterPlaceholder",
+  "slot": 19
+ },
+ {
+  "name": "Wait_until_Aggressive",
+  "type": "number",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "When_Shot",
+  "type": "integer",
+  "class": "CharacterPlaceholder",
+  "slot": null
+ },
+ {
+  "name": "passenger_seat",
+  "type": "integer",
+  "class": "CharacterPlaceholder",
+  "slot": 29
+ },
+ {
+  "name": "was_passenger",
+  "type": "truth",
+  "class": "CharacterPlaceholder",
+  "slot": 30
+ },
+ {
+  "name": "AllwaysUpdate",
+  "type": "truth",
+  "class": "Cloth",
+  "slot": null
+ },
+ {
+  "name": "BoundingRadius",
+  "type": "number",
+  "class": "Cloth",
+  "slot": null
+ },
+ {
+  "name": "Damping",
+  "type": "number",
+  "class": "Cloth",
+  "slot": null
+ },
+ {
+  "name": "Iterations",
+  "type": "integer",
+  "class": "Cloth",
+  "slot": null
+ },
+ {
+  "name": "Weight",
+  "type": "number",
+  "class": "Cloth",
+  "slot": null
+ },
+ {
+  "name": "WindInfluence",
+  "type": "number",
+  "class": "Cloth",
+  "slot": null
+ },
+ {
+  "name": "addblend",
+  "type": "truth",
+  "class": "Cloth",
+  "slot": null
+ },
+ {
+  "name": "length",
+  "type": "number",
+  "class": "CollisionBox",
+  "slot": -1
+ },
+ {
+  "name": "width",
+  "type": "number",
+  "class": "CollisionBox",
+  "slot": -1
+ },
+ {
+  "name": "ClosestCollisionVolume",
+  "type": "integer",
+  "class": "CollisionProbe",
+  "slot": null
+ },
+ {
+  "name": "ClosestNode",
+  "type": "Entity",
+  "class": "CollisionProbe",
+  "slot": null
+ },
+ {
+  "name": "ClosestNormal",
+  "type": "vector",
+  "class": "CollisionProbe",
+  "slot": null
+ },
+ {
+  "name": "CollisionFlags",
+  "type": "integer",
+  "class": "CollisionProbe",
+  "slot": null
+ },
+ {
+  "name": "ContactPos",
+  "type": "vector",
+  "class": "CollisionProbe",
+  "slot": null
+ },
+ {
+  "name": "HintCollisionVolume",
+  "type": "integer",
+  "class": "CollisionProbe",
+  "slot": null
+ },
+ {
+  "name": "HintNode",
+  "type": "Entity",
+  "class": "CollisionProbe",
+  "slot": null
+ },
+ {
+  "name": "MaterialID",
+  "type": "integer",
+  "class": "CollisionProbe",
+  "slot": null
+ },
+ {
+  "name": "MinDistance",
+  "type": "number",
+  "class": "CollisionProbe",
+  "slot": null
+ },
+ {
+  "name": "OptimisticMode",
+  "type": "truth",
+  "class": "CollisionProbe",
+  "slot": null
+ },
+ {
+  "name": "RealNode",
+  "type": "Entity",
+  "class": "CollisionProbe",
+  "slot": null
+ },
+ {
+  "name": "ResolvedPos",
+  "type": "vector",
+  "class": "CollisionProbe",
+  "slot": null
+ },
+ {
+  "name": "SurfaceID",
+  "type": "integer",
+  "class": "CollisionProbe",
+  "slot": null
+ },
+ {
+  "name": "angle",
+  "type": "number",
+  "class": "CollisionProbe",
+  "slot": null
+ },
+ {
+  "name": "dynamicmask",
+  "type": "integer",
+  "class": "CollisionProbe",
+  "slot": null
+ },
+ {
+  "name": "nodes",
+  "type": "listEntity",
+  "class": "CollisionProbe",
+  "slot": null
+ },
+ {
+  "name": "radius",
+  "type": "number",
+  "class": "CollisionProbe",
+  "slot": null
+ },
+ {
+  "name": "touchingnodes",
+  "type": "listEntity",
+  "class": "CollisionProbe",
+  "slot": null
+ },
+ {
+  "name": "usermask",
+  "type": "integer",
+  "class": "CollisionProbe",
+  "slot": null
+ },
+ {
+  "name": "extrusion",
+  "type": "number",
+  "class": "CollisionSphere",
+  "slot": 11
+ },
+ {
+  "name": "key",
+  "type": "integer",
+  "class": "Control",
+  "slot": -1
+ },
+ {
+  "name": "keystr",
+  "type": "string",
+  "class": "Control",
+  "slot": -1
+ },
+ {
+  "name": "active_camera_anim",
+  "type": "string",
+  "class": "CutscenePlayer",
+  "slot": null
+ },
+ {
+  "name": "after_stop_event",
+  "type": "string",
+  "class": "CutscenePlayer",
+  "slot": null
+ },
+ {
+  "name": "before_start_event",
+  "type": "string",
+  "class": "CutscenePlayer",
+  "slot": null
+ },
+ {
+  "name": "cam_dynlights_cullrange",
+  "type": "number",
+  "class": "CutscenePlayer",
+  "slot": null
+ },
+ {
+  "name": "cam_nearclip",
+  "type": "number",
+  "class": "CutscenePlayer",
+  "slot": null
+ },
+ {
+  "name": "cutscene",
+  "type": "string",
+  "class": "CutscenePlayer",
+  "slot": null
+ },
+ {
+  "name": "default_inherit",
+  "type": "truth",
+  "class": "CutscenePlayer",
+  "slot": null
+ },
+ {
+  "name": "framepos",
+  "type": "integer",
+  "class": "CutscenePlayer",
+  "slot": null
+ },
+ {
+  "name": "looped",
+  "type": "truth",
+  "class": "CutscenePlayer",
+  "slot": null
+ },
+ {
+  "name": "override_current_camera",
+  "type": "truth",
+  "class": "CutscenePlayer",
+  "slot": null
+ },
+ {
+  "name": "timepos",
+  "type": "number",
+  "class": "CutscenePlayer",
+  "slot": null
+ },
+ {
+  "name": "BufferSize",
+  "type": "integer",
+  "class": "DecalManager",
+  "slot": null
+ },
+ {
+  "name": "PerFrameFillSize",
+  "type": "integer",
+  "class": "DecalManager",
+  "slot": null
+ },
+ {
+  "name": "texture",
+  "type": "string",
+  "class": "DecalManager",
+  "slot": null
+ },
+ {
+  "name": "AirResistanceXZ",
+  "type": "number",
+  "class": "DynamicSurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "AirResistanceY",
+  "type": "number",
+  "class": "DynamicSurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "Category",
+  "type": "integer",
+  "class": "DynamicSurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "ForceOffset",
+  "type": "number",
+  "class": "DynamicSurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "ForceRotate",
+  "type": "number",
+  "class": "DynamicSurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "InitialHeight",
+  "type": "number",
+  "class": "DynamicSurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "Mass",
+  "type": "number",
+  "class": "DynamicSurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "MassSize",
+  "type": "number",
+  "class": "DynamicSurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "MaxCount",
+  "type": "integer",
+  "class": "DynamicSurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "ObjectDensity",
+  "type": "number",
+  "class": "DynamicSurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "Radius",
+  "type": "number",
+  "class": "DynamicSurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "RotResistanceXZ",
+  "type": "number",
+  "class": "DynamicSurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "RotResistanceY",
+  "type": "number",
+  "class": "DynamicSurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "SpawnRate",
+  "type": "number",
+  "class": "DynamicSurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "Texture1",
+  "type": "string",
+  "class": "DynamicSurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "Texture2",
+  "type": "string",
+  "class": "DynamicSurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "Texture3",
+  "type": "string",
+  "class": "DynamicSurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "Texture4",
+  "type": "string",
+  "class": "DynamicSurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "WindFactor",
+  "type": "number",
+  "class": "DynamicSurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "WindLift",
+  "type": "number",
+  "class": "DynamicSurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "WindLiftHeight",
+  "type": "number",
+  "class": "DynamicSurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "id",
+  "type": "integer",
+  "class": "Entity",
+  "slot": -1
+ },
+ {
+  "name": "script_priority",
+  "type": "integer",
+  "class": "Entity",
+  "slot": -1
+ },
+ {
+  "name": "density",
+  "type": "number",
+  "class": "Fog",
+  "slot": null
+ },
+ {
+  "name": "end",
+  "type": "number",
+  "class": "Fog",
+  "slot": 11
+ },
+ {
+  "name": "fog_type",
+  "type": "integer",
+  "class": "Fog",
+  "slot": null
+ },
+ {
+  "name": "start",
+  "type": "number",
+  "class": "Fog",
+  "slot": 10
+ },
+ {
+  "name": "block_id",
+  "type": "integer",
+  "class": "Folder",
+  "slot": null
+ },
+ {
+  "name": "KeyOpacity",
+  "type": "number",
+  "class": "GEKeyFrame",
+  "slot": null
+ },
+ {
+  "name": "KeyRotationX",
+  "type": "number",
+  "class": "GEKeyFrame",
+  "slot": null
+ },
+ {
+  "name": "KeyRotationY",
+  "type": "number",
+  "class": "GEKeyFrame",
+  "slot": null
+ },
+ {
+  "name": "KeyRotationZ",
+  "type": "number",
+  "class": "GEKeyFrame",
+  "slot": null
+ },
+ {
+  "name": "KeyScaleX",
+  "type": "number",
+  "class": "GEKeyFrame",
+  "slot": null
+ },
+ {
+  "name": "KeyScaleY",
+  "type": "number",
+  "class": "GEKeyFrame",
+  "slot": null
+ },
+ {
+  "name": "KeyScaleZ",
+  "type": "number",
+  "class": "GEKeyFrame",
+  "slot": null
+ },
+ {
+  "name": "KeyTextureScroll",
+  "type": "number",
+  "class": "GEKeyFrame",
+  "slot": null
+ },
+ {
+  "name": "KeyTime",
+  "type": "number",
+  "class": "GEKeyFrame",
+  "slot": null
+ },
+ {
+  "name": "KeyTranslationX",
+  "type": "number",
+  "class": "GEKeyFrame",
+  "slot": null
+ },
+ {
+  "name": "KeyTranslationY",
+  "type": "number",
+  "class": "GEKeyFrame",
+  "slot": null
+ },
+ {
+  "name": "KeyTranslationZ",
+  "type": "number",
+  "class": "GEKeyFrame",
+  "slot": null
+ },
+ {
+  "name": "Brightness",
+  "type": "number",
+  "class": "GFXEffect",
+  "slot": null
+ },
+ {
+  "name": "LightBleeding",
+  "type": "number",
+  "class": "GFXEffect",
+  "slot": null
+ },
+ {
+  "name": "MotionBlur",
+  "type": "number",
+  "class": "GFXEffect",
+  "slot": null
+ },
+ {
+  "name": "NoiseBlendMode",
+  "type": "integer",
+  "class": "GFXEffect",
+  "slot": null
+ },
+ {
+  "name": "NoiseIntensity",
+  "type": "number",
+  "class": "GFXEffect",
+  "slot": null
+ },
+ {
+  "name": "NoiseTexture",
+  "type": "string",
+  "class": "GFXEffect",
+  "slot": null
+ },
+ {
+  "name": "Saturation",
+  "type": "number",
+  "class": "GFXEffect",
+  "slot": null
+ },
+ {
+  "name": "VignetteColor",
+  "type": "vector",
+  "class": "GFXEffect",
+  "slot": null
+ },
+ {
+  "name": "VignetteIntensity",
+  "type": "number",
+  "class": "GFXEffect",
+  "slot": null
+ },
+ {
+  "name": "VignetteShape",
+  "type": "number",
+  "class": "GFXEffect",
+  "slot": null
+ },
+ {
+  "name": "VignetteSize",
+  "type": "number",
+  "class": "GFXEffect",
+  "slot": null
+ },
+ {
+  "name": "VignetteTexture",
+  "type": "string",
+  "class": "GFXEffect",
+  "slot": null
+ },
+ {
+  "name": "BlendMode",
+  "type": "integer",
+  "class": "GeometryEffect",
+  "slot": null
+ },
+ {
+  "name": "EffectFadeThreshold",
+  "type": "number",
+  "class": "GeometryEffect",
+  "slot": null
+ },
+ {
+  "name": "EffectLifeTime",
+  "type": "number",
+  "class": "GeometryEffect",
+  "slot": null
+ },
+ {
+  "name": "EffectRadius",
+  "type": "number",
+  "class": "GeometryEffect",
+  "slot": null
+ },
+ {
+  "name": "Looping",
+  "type": "truth",
+  "class": "GeometryEffect",
+  "slot": null
+ },
+ {
+  "name": "TriggerAtStart",
+  "type": "truth",
+  "class": "GeometryEffect",
+  "slot": null
+ },
+ {
+  "name": "gesep0",
+  "type": "truth",
+  "class": "GeometryEffect",
+  "slot": null
+ },
+ {
+  "name": "is_target_bracket",
+  "type": "truth",
+  "class": "GeometryEffect",
+  "slot": null
+ },
+ {
+  "name": "GoodieSubType",
+  "type": "integer",
+  "class": "GoodiePlaceHolder",
+  "slot": null
+ },
+ {
+  "name": "RespawnTime",
+  "type": "number",
+  "class": "GoodiePlaceHolder",
+  "slot": null
+ },
+ {
+  "name": "Respawnable",
+  "type": "truth",
+  "class": "GoodiePlaceHolder",
+  "slot": null
+ },
+ {
+  "name": "back",
+  "type": "number",
+  "class": "GuideBox",
+  "slot": -1
+ },
+ {
+  "name": "front",
+  "type": "number",
+  "class": "GuideBox",
+  "slot": -1
+ },
+ {
+  "name": "height",
+  "type": "number",
+  "class": "GuideBox",
+  "slot": -1
+ },
+ {
+  "name": "left",
+  "type": "number",
+  "class": "GuideBox",
+  "slot": -1
+ },
+ {
+  "name": "right",
+  "type": "number",
+  "class": "GuideBox",
+  "slot": -1
+ },
+ {
+  "name": "Broken",
+  "type": "truth",
+  "class": "HavocPlaceHolder",
+  "slot": 22
+ },
+ {
+  "name": "Default_particle_effect",
+  "type": "integer",
+  "class": "HavocPlaceHolder",
+  "slot": null
+ },
+ {
+  "name": "IsVIP",
+  "type": "truth",
+  "class": "HavocPlaceHolder",
+  "slot": null
+ },
+ {
+  "name": "Locked",
+  "type": "truth",
+  "class": "HavocPlaceHolder",
+  "slot": 17
+ },
+ {
+  "name": "ObjectSubType",
+  "type": "integer",
+  "class": "HavocPlaceHolder",
+  "slot": null
+ },
+ {
+  "name": "PopSensitiveType",
+  "type": "integer",
+  "class": "HavocPlaceHolder",
+  "slot": null
+ },
+ {
+  "name": "Priority",
+  "type": "integer",
+  "class": "HavocPlaceHolder",
+  "slot": 19
+ },
+ {
+  "name": "Real_Active_Texture_Set",
+  "type": "integer",
+  "class": "HavocPlaceHolder",
+  "slot": null
+ },
+ {
+  "name": "Replace_pivot_ID",
+  "type": "integer",
+  "class": "HavocPlaceHolder",
+  "slot": 20
+ },
+ {
+  "name": "ResourceType",
+  "type": "integer",
+  "class": "HavocPlaceHolder",
+  "slot": null
+ },
+ {
+  "name": "Status",
+  "type": "integer",
+  "class": "HavocPlaceHolder",
+  "slot": 16
+ },
+ {
+  "name": "VIPTimer",
+  "type": "number",
+  "class": "HavocPlaceHolder",
+  "slot": 18
+ },
+ {
+  "name": "com_ID",
+  "type": "integer",
+  "class": "HavocPlaceHolder",
+  "slot": 21
+ },
+ {
+  "name": "FadeCamBlindDiming",
+  "type": "number",
+  "class": "LensFlare",
+  "slot": null
+ },
+ {
+  "name": "FadeCameraAngle1",
+  "type": "number",
+  "class": "LensFlare",
+  "slot": null
+ },
+ {
+  "name": "FadeCameraAngle2",
+  "type": "number",
+  "class": "LensFlare",
+  "slot": null
+ },
+ {
+  "name": "FadeFlareAngle",
+  "type": "number",
+  "class": "LensFlare",
+  "slot": null
+ },
+ {
+  "name": "InverseFlareAngle",
+  "type": "truth",
+  "class": "LensFlare",
+  "slot": null
+ },
+ {
+  "name": "Offset",
+  "type": "number",
+  "class": "LensFlare",
+  "slot": null
+ },
+ {
+  "name": "Size",
+  "type": "number",
+  "class": "LensFlare",
+  "slot": null
+ },
+ {
+  "name": "Texture",
+  "type": "string",
+  "class": "LensFlare",
+  "slot": null
+ },
+ {
+  "name": "color_rgb",
+  "type": "vector",
+  "class": "LensFlare",
+  "slot": null
+ },
+ {
+  "name": "EmitterSize",
+  "type": "number",
+  "class": "LensFlareManager",
+  "slot": null
+ },
+ {
+  "name": "FadeDistance",
+  "type": "number",
+  "class": "LensFlareManager",
+  "slot": null
+ },
+ {
+  "name": "LineCheckLength",
+  "type": "number",
+  "class": "LensFlareManager",
+  "slot": null
+ },
+ {
+  "name": "OcclusionFactor",
+  "type": "number",
+  "class": "LensFlareManager",
+  "slot": null
+ },
+ {
+  "name": "SizeReduction",
+  "type": "number",
+  "class": "LensFlareManager",
+  "slot": null
+ },
+ {
+  "name": "brightness",
+  "type": "number",
+  "class": "Light",
+  "slot": null
+ },
+ {
+  "name": "dynamic_emission",
+  "type": "truth",
+  "class": "Light",
+  "slot": null
+ },
+ {
+  "name": "is_negative_light",
+  "type": "truth",
+  "class": "Light",
+  "slot": null
+ },
+ {
+  "name": "light_color_rgb",
+  "type": "vector",
+  "class": "Light",
+  "slot": null
+ },
+ {
+  "name": "light_type",
+  "type": "integer",
+  "class": "Light",
+  "slot": null
+ },
+ {
+  "name": "range",
+  "type": "number",
+  "class": "Light",
+  "slot": null
+ },
+ {
+  "name": "static_color_rgb",
+  "type": "vector",
+  "class": "Light",
+  "slot": null
+ },
+ {
+  "name": "static_emission",
+  "type": "truth",
+  "class": "Light",
+  "slot": null
+ },
+ {
+  "name": "imagefile",
+  "type": "string",
+  "class": "LoadScreenNode",
+  "slot": -1
+ },
+ {
+  "name": "gamename",
+  "type": "string",
+  "class": "MemoryCards",
+  "slot": null
+ },
+ {
+  "name": "ps2sleslicense",
+  "type": "string",
+  "class": "MemoryCards",
+  "slot": null
+ },
+ {
+  "name": "ps2sluslicense",
+  "type": "string",
+  "class": "MemoryCards",
+  "slot": null
+ },
+ {
+  "name": "savefilesize",
+  "type": "integer",
+  "class": "MemoryCards",
+  "slot": 10
+ },
+ {
+  "name": "metrictexturemode",
+  "type": "truth",
+  "class": "MockupBox",
+  "slot": null
+ },
+ {
+  "name": "metrictexturemultiplier",
+  "type": "number",
+  "class": "MockupBox",
+  "slot": null
+ },
+ {
+  "name": "backside_transparent",
+  "type": "truth",
+  "class": "Model",
+  "slot": null
+ },
+ {
+  "name": "blocks_static_light",
+  "type": "truth",
+  "class": "Model",
+  "slot": null
+ },
+ {
+  "name": "depth_sorted",
+  "type": "truth",
+  "class": "Model",
+  "slot": null
+ },
+ {
+  "name": "disablezwrite",
+  "type": "truth",
+  "class": "Model",
+  "slot": null
+ },
+ {
+  "name": "dynamically_lit",
+  "type": "truth",
+  "class": "Model",
+  "slot": null
+ },
+ {
+  "name": "hard_alpha_factor",
+  "type": "number",
+  "class": "Model",
+  "slot": null
+ },
+ {
+  "name": "msep1",
+  "type": "truth",
+  "class": "Model",
+  "slot": null
+ },
+ {
+  "name": "msep2",
+  "type": "truth",
+  "class": "Model",
+  "slot": null
+ },
+ {
+  "name": "msep3",
+  "type": "truth",
+  "class": "Model",
+  "slot": null
+ },
+ {
+  "name": "place_in_hud",
+  "type": "truth",
+  "class": "Model",
+  "slot": null
+ },
+ {
+  "name": "single_color_mode",
+  "type": "truth",
+  "class": "Model",
+  "slot": null
+ },
+ {
+  "name": "solo_pivot",
+  "type": "integer",
+  "class": "Model",
+  "slot": null
+ },
+ {
+  "name": "statically_lit",
+  "type": "truth",
+  "class": "Model",
+  "slot": null
+ },
+ {
+  "name": "use_hard_alpha_factor",
+  "type": "truth",
+  "class": "Model",
+  "slot": null
+ },
+ {
+  "name": "use_virtual_hud",
+  "type": "truth",
+  "class": "Model",
+  "slot": null
+ },
+ {
+  "name": "AL_AimAllowed",
+  "type": "truth",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "AL_AimAnimType",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "AL_AimHighLow",
+  "type": "truth",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "AL_DefaultAnimDict",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "AL_PassiveAnimType",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "AL_ShootAndAimDict",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "AL_ShootAnimType",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "ActionAnimInfoList_AimAllowed",
+  "type": "truth",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "ActionAnimInfoList_AimAnimType",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "ActionAnimInfoList_AimHighLow",
+  "type": "truth",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "ActionAnimInfoList_DefaultAnimDict",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "ActionAnimInfoList_PassiveAnimType",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "ActionAnimInfoList_ShootAndAimDict",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "ActionAnimInfoList_ShootAnimType",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "ActionAnimList_AimHigh",
+  "type": "Entity",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "ActionAnimList_AimLow",
+  "type": "Entity",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "ActionAnimList_Passive",
+  "type": "Entity",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "ActionAnimList_ShootHigh",
+  "type": "Entity",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "ActionAnimList_ShootLow",
+  "type": "Entity",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "ActionAnimList_WeaponClass",
+  "type": "string",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "CurrAnimInfoListIndex",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "CurrAnimListIndex",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "D_AimAllowed",
+  "type": "truth",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "D_AimAnimType",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "D_AimHighLow",
+  "type": "truth",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "D_DefaultAnimDict",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "D_PassiveAnimType",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "D_ShootAndAimDict",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "D_ShootAnimType",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "G_AimAllowed",
+  "type": "truth",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "G_AimAnimType",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "G_AimHighLow",
+  "type": "truth",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "G_DefaultAnimDict",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "G_PassiveAnimType",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "G_ShootAndAimDict",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "G_ShootAnimType",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "HG_AimAllowed",
+  "type": "truth",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "HG_AimAnimType",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "HG_AimHighLow",
+  "type": "truth",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "HG_DefaultAnimDict",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "HG_PassiveAnimType",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "HG_ShootAndAimDict",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "HG_ShootAnimType",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "MG_AimAllowed",
+  "type": "truth",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "MG_AimAnimType",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "MG_AimHighLow",
+  "type": "truth",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "MG_DefaultAnimDict",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "MG_PassiveAnimType",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "MG_ShootAndAimDict",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "MG_ShootAnimType",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "M_AimAllowed",
+  "type": "truth",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "M_AimAnimType",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "M_AimHighLow",
+  "type": "truth",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "M_DefaultAnimDict",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "M_PassiveAnimType",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "M_ShootAndAimDict",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "M_ShootAnimType",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "SH_AimAllowed",
+  "type": "truth",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "SH_AimAnimType",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "SH_AimHighLow",
+  "type": "truth",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "SH_DefaultAnimDict",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "SH_PassiveAnimType",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "SH_ShootAndAimDict",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "SH_ShootAnimType",
+  "type": "integer",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "dummy0",
+  "type": "truth",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "dummy1",
+  "type": "truth",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "dummy2",
+  "type": "truth",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "dummy3",
+  "type": "truth",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "dummy4",
+  "type": "truth",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "dummy5",
+  "type": "truth",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "dummy6",
+  "type": "truth",
+  "class": "MotionAnimSlot",
+  "slot": null
+ },
+ {
+  "name": "updateabsolute",
+  "type": "truth",
+  "class": "MotionLayer",
+  "slot": 36
+ },
+ {
+  "name": "worldendorient",
+  "type": "quaternion",
+  "class": "MotionLayer",
+  "slot": 35
+ },
+ {
+  "name": "worldendpos",
+  "type": "vector",
+  "class": "MotionLayer",
+  "slot": 34
+ },
+ {
+  "name": "worldstartorient",
+  "type": "quaternion",
+  "class": "MotionLayer",
+  "slot": 33
+ },
+ {
+  "name": "worldstartpos",
+  "type": "vector",
+  "class": "MotionLayer",
+  "slot": 32
+ },
+ {
+  "name": "displacementX",
+  "type": "integer",
+  "class": "MoviePlayer",
+  "slot": null
+ },
+ {
+  "name": "displacementY",
+  "type": "integer",
+  "class": "MoviePlayer",
+  "slot": null
+ },
+ {
+  "name": "movie",
+  "type": "string",
+  "class": "MoviePlayer",
+  "slot": null
+ },
+ {
+  "name": "scaleX",
+  "type": "number",
+  "class": "MoviePlayer",
+  "slot": null
+ },
+ {
+  "name": "scaleY",
+  "type": "number",
+  "class": "MoviePlayer",
+  "slot": null
+ },
+ {
+  "name": "volume",
+  "type": "number",
+  "class": "MoviePlayer",
+  "slot": null
+ },
+ {
+  "name": "NextObstacleCheckTime",
+  "type": "integer",
+  "class": "Navigator",
+  "slot": 22
+ },
+ {
+  "name": "NextTargetPoint",
+  "type": "vector",
+  "class": "Navigator",
+  "slot": 16
+ },
+ {
+  "name": "ObstacleDist",
+  "type": "number",
+  "class": "Navigator",
+  "slot": 25
+ },
+ {
+  "name": "ObstacleFound",
+  "type": "truth",
+  "class": "Navigator",
+  "slot": 23
+ },
+ {
+  "name": "ObstacleNormal",
+  "type": "vector",
+  "class": "Navigator",
+  "slot": 24
+ },
+ {
+  "name": "Path2",
+  "type": "VectorList",
+  "class": "Navigator",
+  "slot": 18
+ },
+ {
+  "name": "PathFinishedEvent",
+  "type": "integer",
+  "class": "Navigator",
+  "slot": 21
+ },
+ {
+  "name": "PathFraction",
+  "type": "number",
+  "class": "Navigator",
+  "slot": 20
+ },
+ {
+  "name": "PathPoint",
+  "type": "integer",
+  "class": "Navigator",
+  "slot": 19
+ },
+ {
+  "name": "TargetPoint",
+  "type": "vector",
+  "class": "Navigator",
+  "slot": 15
+ },
+ {
+  "name": "active",
+  "type": "truth",
+  "class": "Navigator",
+  "slot": 11
+ },
+ {
+  "name": "maxlookahead",
+  "type": "number",
+  "class": "Navigator",
+  "slot": 12
+ },
+ {
+  "name": "movectrl",
+  "type": "Entity",
+  "class": "Navigator",
+  "slot": 10
+ },
+ {
+  "name": "movectrlcommand",
+  "type": "integer",
+  "class": "Navigator",
+  "slot": 13
+ },
+ {
+  "name": "obstaclecheckinterval",
+  "type": "number",
+  "class": "Navigator",
+  "slot": 14
+ },
+ {
+  "name": "IgnoreList",
+  "type": "string",
+  "class": "Node",
+  "slot": 7
+ },
+ {
+  "name": "UserType",
+  "type": "integer",
+  "class": "Node",
+  "slot": -1
+ },
+ {
+  "name": "disable_on_cutscene",
+  "type": "truth",
+  "class": "Node",
+  "slot": -1
+ },
+ {
+  "name": "fade_threshold",
+  "type": "number",
+  "class": "Node",
+  "slot": 9
+ },
+ {
+  "name": "firstchild",
+  "type": "Entity",
+  "class": "Node",
+  "slot": -1
+ },
+ {
+  "name": "flags",
+  "type": "integer",
+  "class": "Node",
+  "slot": 2
+ },
+ {
+  "name": "fragment",
+  "type": "string",
+  "class": "Node",
+  "slot": -1
+ },
+ {
+  "name": "is_tagged_for_unload",
+  "type": "truth",
+  "class": "Node",
+  "slot": -1
+ },
+ {
+  "name": "lod",
+  "type": "integer",
+  "class": "Node",
+  "slot": -1
+ },
+ {
+  "name": "lod_distance",
+  "type": "number",
+  "class": "Node",
+  "slot": -1
+ },
+ {
+  "name": "lod_fade",
+  "type": "number",
+  "class": "Node",
+  "slot": -1
+ },
+ {
+  "name": "lod_threshold",
+  "type": "number",
+  "class": "Node",
+  "slot": 8
+ },
+ {
+  "name": "name",
+  "type": "string",
+  "class": "Node",
+  "slot": -1
+ },
+ {
+  "name": "nextsibling",
+  "type": "Entity",
+  "class": "Node",
+  "slot": -1
+ },
+ {
+  "name": "order",
+  "type": "integer",
+  "class": "Node",
+  "slot": -1
+ },
+ {
+  "name": "orient",
+  "type": "quaternion",
+  "class": "Node",
+  "slot": 4
+ },
+ {
+  "name": "parent",
+  "type": "Entity",
+  "class": "Node",
+  "slot": 1
+ },
+ {
+  "name": "pos",
+  "type": "vector",
+  "class": "Node",
+  "slot": 3
+ },
+ {
+  "name": "renderordergroup",
+  "type": "integer",
+  "class": "Node",
+  "slot": -1
+ },
+ {
+  "name": "representation",
+  "type": "integer",
+  "class": "Node",
+  "slot": -1
+ },
+ {
+  "name": "scene",
+  "type": "Entity",
+  "class": "Node",
+  "slot": -1
+ },
+ {
+  "name": "script",
+  "type": "string",
+  "class": "Node",
+  "slot": -1
+ },
+ {
+  "name": "slow_fade",
+  "type": "truth",
+  "class": "Node",
+  "slot": -1
+ },
+ {
+  "name": "traverse_distance",
+  "type": "number",
+  "class": "Node",
+  "slot": -1
+ },
+ {
+  "name": "typename",
+  "type": "string",
+  "class": "Node",
+  "slot": -1
+ },
+ {
+  "name": "unique_id0",
+  "type": "integer",
+  "class": "Node",
+  "slot": -1
+ },
+ {
+  "name": "unique_id1",
+  "type": "integer",
+  "class": "Node",
+  "slot": -1
+ },
+ {
+  "name": "use_aux_quadtree",
+  "type": "truth",
+  "class": "Node",
+  "slot": 5
+ },
+ {
+  "name": "boundradius",
+  "type": "number",
+  "class": "NodeSpatial",
+  "slot": 10
+ },
+ {
+  "name": "Groundprobe",
+  "type": "Entity",
+  "class": "OverdoseVehicle",
+  "slot": null
+ },
+ {
+  "name": "LF_spring",
+  "type": "number",
+  "class": "OverdoseVehicle",
+  "slot": null
+ },
+ {
+  "name": "LR_spring",
+  "type": "number",
+  "class": "OverdoseVehicle",
+  "slot": null
+ },
+ {
+  "name": "LastNormal_list",
+  "type": "VectorListType",
+  "class": "OverdoseVehicle",
+  "slot": 23
+ },
+ {
+  "name": "LeftRearWheelMaterial",
+  "type": "integer",
+  "class": "OverdoseVehicle",
+  "slot": null
+ },
+ {
+  "name": "RF_spring",
+  "type": "number",
+  "class": "OverdoseVehicle",
+  "slot": null
+ },
+ {
+  "name": "RR_spring",
+  "type": "number",
+  "class": "OverdoseVehicle",
+  "slot": null
+ },
+ {
+  "name": "RealWheel_LF",
+  "type": "Entity",
+  "class": "OverdoseVehicle",
+  "slot": null
+ },
+ {
+  "name": "RealWheel_LR",
+  "type": "Entity",
+  "class": "OverdoseVehicle",
+  "slot": null
+ },
+ {
+  "name": "RealWheel_RF",
+  "type": "Entity",
+  "class": "OverdoseVehicle",
+  "slot": null
+ },
+ {
+  "name": "RealWheel_RR",
+  "type": "Entity",
+  "class": "OverdoseVehicle",
+  "slot": null
+ },
+ {
+  "name": "RightRearWheelMaterial",
+  "type": "integer",
+  "class": "OverdoseVehicle",
+  "slot": null
+ },
+ {
+  "name": "axle_height",
+  "type": "number",
+  "class": "OverdoseVehicle",
+  "slot": 20
+ },
+ {
+  "name": "bike",
+  "type": "truth",
+  "class": "OverdoseVehicle",
+  "slot": null
+ },
+ {
+  "name": "cpppropertiesinited",
+  "type": "truth",
+  "class": "OverdoseVehicle",
+  "slot": null
+ },
+ {
+  "name": "current_velocity",
+  "type": "vector",
+  "class": "OverdoseVehicle",
+  "slot": null
+ },
+ {
+  "name": "damagectrl",
+  "type": "Entity",
+  "class": "OverdoseVehicle",
+  "slot": null
+ },
+ {
+  "name": "driveable_ground",
+  "type": "truth",
+  "class": "OverdoseVehicle",
+  "slot": null
+ },
+ {
+  "name": "front_point_t",
+  "type": "vector",
+  "class": "OverdoseVehicle",
+  "slot": 17
+ },
+ {
+  "name": "front_point_velocity",
+  "type": "vector",
+  "class": "OverdoseVehicle",
+  "slot": 21
+ },
+ {
+  "name": "is_out_of_bounds",
+  "type": "truth",
+  "class": "OverdoseVehicle",
+  "slot": null
+ },
+ {
+  "name": "normal_List",
+  "type": "VectorListType",
+  "class": "OverdoseVehicle",
+  "slot": null
+ },
+ {
+  "name": "realmainbody",
+  "type": "Entity",
+  "class": "OverdoseVehicle",
+  "slot": null
+ },
+ {
+  "name": "realmainbody_default_y",
+  "type": "number",
+  "class": "OverdoseVehicle",
+  "slot": 24
+ },
+ {
+  "name": "rear_point_t",
+  "type": "vector",
+  "class": "OverdoseVehicle",
+  "slot": 18
+ },
+ {
+  "name": "rear_point_velocity",
+  "type": "vector",
+  "class": "OverdoseVehicle",
+  "slot": 22
+ },
+ {
+  "name": "roll_angle_t",
+  "type": "number",
+  "class": "OverdoseVehicle",
+  "slot": 19
+ },
+ {
+  "name": "spring_damping",
+  "type": "number",
+  "class": "OverdoseVehicle",
+  "slot": 25
+ },
+ {
+  "name": "spring_k",
+  "type": "number",
+  "class": "OverdoseVehicle",
+  "slot": 26
+ },
+ {
+  "name": "stiffness",
+  "type": "number",
+  "class": "OverdoseVehicle",
+  "slot": 27
+ },
+ {
+  "name": "tilt",
+  "type": "number",
+  "class": "OverdoseVehicle",
+  "slot": null
+ },
+ {
+  "name": "tilt_angle_speed",
+  "type": "number",
+  "class": "OverdoseVehicle",
+  "slot": 28
+ },
+ {
+  "name": "wheel_radius",
+  "type": "number",
+  "class": "OverdoseVehicle",
+  "slot": 29
+ },
+ {
+  "name": "AxisAlign",
+  "type": "integer",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "BirthDistFade",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "BirthDistance",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "BirthRate",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "BirthRateVariation",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "ColorVector",
+  "type": "vector",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "DirScaleX",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "DirScaleY",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "DirScaleZ",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "DirScaleZRing",
+  "type": "truth",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "DirVariation",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "EmitterDelay",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "EmitterFadeThreshold",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "EmitterLifeTime",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "EmitterRadius",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "ExplicitBirthOnly",
+  "type": "truth",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "FadeInTime",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "FadeOutTime",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "Friction",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "GlobalWindFactor",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "GrowthFactor",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "GrowthFade",
+  "type": "truth",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "Has2DEmitter",
+  "type": "truth",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "InheritEmitterSpeed",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "InitialTrigger",
+  "type": "truth",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "LifeTime",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "LifeTimeVariation",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "LinkNext",
+  "type": "truth",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "MaxParticles",
+  "type": "integer",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "ModelRes",
+  "type": "string",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "Opacity",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "OpacityVariation",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "ParticleGravity",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "RandomOffsetX",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "RandomOffsetY",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "RandomOffsetZ",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "RotationVariation",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "RotationX",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "RotationY",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "RotationZ",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "SizeVariation",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "Speed",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "SpeedVariation",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "TumbleAmp",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "TumbleSpeed",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "Turbulence",
+  "type": "number",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "UseRealTime",
+  "type": "truth",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "sep1",
+  "type": "truth",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "sep2",
+  "type": "truth",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "sep3",
+  "type": "truth",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "sep4",
+  "type": "truth",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "sep5",
+  "type": "truth",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "sep6",
+  "type": "truth",
+  "class": "ParticleSystem",
+  "slot": null
+ },
+ {
+  "name": "collisionpivot",
+  "type": "integer",
+  "class": "Placeholder",
+  "slot": 13
+ },
+ {
+  "name": "createcollisionnode",
+  "type": "truth",
+  "class": "Placeholder",
+  "slot": null
+ },
+ {
+  "name": "usemodelbound",
+  "type": "truth",
+  "class": "Placeholder",
+  "slot": 14
+ },
+ {
+  "name": "codeprofilemode",
+  "type": "integer",
+  "class": "ProfilerInput",
+  "slot": null
+ },
+ {
+  "name": "command",
+  "type": "string",
+  "class": "ProfilerInput",
+  "slot": null
+ },
+ {
+  "name": "currentpage",
+  "type": "integer",
+  "class": "ProfilerInput",
+  "slot": null
+ },
+ {
+  "name": "enableoutput",
+  "type": "truth",
+  "class": "ProfilerInput",
+  "slot": null
+ },
+ {
+  "name": "linesperpage",
+  "type": "integer",
+  "class": "ProfilerInput",
+  "slot": null
+ },
+ {
+  "name": "profilescript",
+  "type": "string",
+  "class": "ProfilerInput",
+  "slot": null
+ },
+ {
+  "name": "profiletype",
+  "type": "integer",
+  "class": "ProfilerInput",
+  "slot": null
+ },
+ {
+  "name": "profopacity",
+  "type": "number",
+  "class": "ProfilerInput",
+  "slot": null
+ },
+ {
+  "name": "psep1",
+  "type": "truth",
+  "class": "ProfilerInput",
+  "slot": null
+ },
+ {
+  "name": "psep2",
+  "type": "truth",
+  "class": "ProfilerInput",
+  "slot": null
+ },
+ {
+  "name": "psep3",
+  "type": "truth",
+  "class": "ProfilerInput",
+  "slot": null
+ },
+ {
+  "name": "psep4",
+  "type": "truth",
+  "class": "ProfilerInput",
+  "slot": null
+ },
+ {
+  "name": "psep5",
+  "type": "truth",
+  "class": "ProfilerInput",
+  "slot": null
+ },
+ {
+  "name": "psep6",
+  "type": "truth",
+  "class": "ProfilerInput",
+  "slot": null
+ },
+ {
+  "name": "scriptprofilemode",
+  "type": "integer",
+  "class": "ProfilerInput",
+  "slot": null
+ },
+ {
+  "name": "sortascending",
+  "type": "truth",
+  "class": "ProfilerInput",
+  "slot": null
+ },
+ {
+  "name": "sortbycolumn",
+  "type": "integer",
+  "class": "ProfilerInput",
+  "slot": null
+ },
+ {
+  "name": "traverseprofilemode",
+  "type": "integer",
+  "class": "ProfilerInput",
+  "slot": null
+ },
+ {
+  "name": "Elasticity",
+  "type": "number",
+  "class": "RigidBody",
+  "slot": 14
+ },
+ {
+  "name": "Grounded",
+  "type": "truth",
+  "class": "RigidBody",
+  "slot": null
+ },
+ {
+  "name": "Orientation_t",
+  "type": "quaternion",
+  "class": "RigidBody",
+  "slot": 15
+ },
+ {
+  "name": "Position_t",
+  "type": "vector",
+  "class": "RigidBody",
+  "slot": 16
+ },
+ {
+  "name": "angularmomentum",
+  "type": "vector",
+  "class": "RigidBody",
+  "slot": 10
+ },
+ {
+  "name": "coll_angular_speed",
+  "type": "vector",
+  "class": "RigidBody",
+  "slot": 11
+ },
+ {
+  "name": "coll_linear_speed",
+  "type": "vector",
+  "class": "RigidBody",
+  "slot": 12
+ },
+ {
+  "name": "coll_mass",
+  "type": "number",
+  "class": "RigidBody",
+  "slot": 13
+ },
+ {
+  "name": "initmode",
+  "type": "truth",
+  "class": "Scene",
+  "slot": null
+ },
+ {
+  "name": "playmode",
+  "type": "integer",
+  "class": "Scene",
+  "slot": null
+ },
+ {
+  "name": "rewindresumetime",
+  "type": "number",
+  "class": "Scene",
+  "slot": null
+ },
+ {
+  "name": "rewindresumetime_ms",
+  "type": "integer",
+  "class": "Scene",
+  "slot": null
+ },
+ {
+  "name": "rewindtimemultiplier",
+  "type": "number",
+  "class": "Scene",
+  "slot": null
+ },
+ {
+  "name": "timemultiplier",
+  "type": "number",
+  "class": "Scene",
+  "slot": 10
+ },
+ {
+  "name": "windsize",
+  "type": "number",
+  "class": "Scene",
+  "slot": null
+ },
+ {
+  "name": "AlignRotation",
+  "type": "truth",
+  "class": "Shadow",
+  "slot": null
+ },
+ {
+  "name": "Bonename",
+  "type": "string",
+  "class": "Shadow",
+  "slot": null
+ },
+ {
+  "name": "Complexity",
+  "type": "integer",
+  "class": "Shadow",
+  "slot": null
+ },
+ {
+  "name": "Shadowradius",
+  "type": "number",
+  "class": "Shadow",
+  "slot": null
+ },
+ {
+  "name": "ShadowradiusX",
+  "type": "number",
+  "class": "Shadow",
+  "slot": null
+ },
+ {
+  "name": "ShadowradiusY",
+  "type": "number",
+  "class": "Shadow",
+  "slot": null
+ },
+ {
+  "name": "current_soundslot",
+  "type": "Entity",
+  "class": "SoundEmitter",
+  "slot": null
+ },
+ {
+  "name": "doppler_effect_on",
+  "type": "truth",
+  "class": "SoundEmitter",
+  "slot": null
+ },
+ {
+  "name": "doppler_factor",
+  "type": "number",
+  "class": "SoundEmitter",
+  "slot": null
+ },
+ {
+  "name": "end_block_delay_time",
+  "type": "number",
+  "class": "SoundEmitter",
+  "slot": null
+ },
+ {
+  "name": "follow_cam_offset",
+  "type": "vector",
+  "class": "SoundEmitter",
+  "slot": null
+ },
+ {
+  "name": "follow_camera",
+  "type": "truth",
+  "class": "SoundEmitter",
+  "slot": null
+ },
+ {
+  "name": "is_curr_soundslot_streamed_and_alloc",
+  "type": "truth",
+  "class": "SoundEmitter",
+  "slot": null
+ },
+ {
+  "name": "isplaying",
+  "type": "truth",
+  "class": "SoundEmitter",
+  "slot": null
+ },
+ {
+  "name": "lfe_channel",
+  "type": "truth",
+  "class": "SoundEmitter",
+  "slot": null
+ },
+ {
+  "name": "maxrange",
+  "type": "number",
+  "class": "SoundEmitter",
+  "slot": null
+ },
+ {
+  "name": "minrange",
+  "type": "number",
+  "class": "SoundEmitter",
+  "slot": null
+ },
+ {
+  "name": "next_play_as_2d",
+  "type": "truth",
+  "class": "SoundEmitter",
+  "slot": null
+ },
+ {
+  "name": "no_update_pos",
+  "type": "truth",
+  "class": "SoundEmitter",
+  "slot": null
+ },
+ {
+  "name": "pitch",
+  "type": "number",
+  "class": "SoundEmitter",
+  "slot": null
+ },
+ {
+  "name": "randompitch_length",
+  "type": "number",
+  "class": "SoundEmitter",
+  "slot": null
+ },
+ {
+  "name": "randompitch_mode",
+  "type": "truth",
+  "class": "SoundEmitter",
+  "slot": null
+ },
+ {
+  "name": "randomvolume_length",
+  "type": "number",
+  "class": "SoundEmitter",
+  "slot": null
+ },
+ {
+  "name": "randomvolume_mode",
+  "type": "truth",
+  "class": "SoundEmitter",
+  "slot": null
+ },
+ {
+  "name": "rolloff",
+  "type": "number",
+  "class": "SoundEmitter",
+  "slot": null
+ },
+ {
+  "name": "send_message_to_parent",
+  "type": "truth",
+  "class": "SoundEmitter",
+  "slot": null
+ },
+ {
+  "name": "stopmessage",
+  "type": "integer",
+  "class": "SoundEmitter",
+  "slot": 10
+ },
+ {
+  "name": "back_channels",
+  "type": "truth",
+  "class": "SoundSlot",
+  "slot": null
+ },
+ {
+  "name": "center_channel_only",
+  "type": "truth",
+  "class": "SoundSlot",
+  "slot": null
+ },
+ {
+  "name": "cut_at_maxrange",
+  "type": "truth",
+  "class": "SoundSlot",
+  "slot": null
+ },
+ {
+  "name": "enable3d",
+  "type": "truth",
+  "class": "SoundSlot",
+  "slot": null
+ },
+ {
+  "name": "global_time_pitchfactor",
+  "type": "number",
+  "class": "SoundSlot",
+  "slot": null
+ },
+ {
+  "name": "group",
+  "type": "integer",
+  "class": "SoundSlot",
+  "slot": null
+ },
+ {
+  "name": "hard_pause",
+  "type": "truth",
+  "class": "SoundSlot",
+  "slot": null
+ },
+ {
+  "name": "lfe_level",
+  "type": "number",
+  "class": "SoundSlot",
+  "slot": null
+ },
+ {
+  "name": "priority",
+  "type": "integer",
+  "class": "SoundSlot",
+  "slot": null
+ },
+ {
+  "name": "solomode",
+  "type": "truth",
+  "class": "SoundSlot",
+  "slot": null
+ },
+ {
+  "name": "sound",
+  "type": "string",
+  "class": "SoundSlot",
+  "slot": null
+ },
+ {
+  "name": "static_mode",
+  "type": "truth",
+  "class": "SoundSlot",
+  "slot": null
+ },
+ {
+  "name": "streaming_sound",
+  "type": "string",
+  "class": "SoundSlot",
+  "slot": null
+ },
+ {
+  "name": "streaming_sound_fullpath_direct",
+  "type": "string",
+  "class": "SoundSlot",
+  "slot": null
+ },
+ {
+  "name": "AxisAlign3d",
+  "type": "integer",
+  "class": "Sprite",
+  "slot": 22
+ },
+ {
+  "name": "blendMode",
+  "type": "integer",
+  "class": "Sprite",
+  "slot": 12
+ },
+ {
+  "name": "color_a1",
+  "type": "number",
+  "class": "Sprite",
+  "slot": 33
+ },
+ {
+  "name": "color_a2",
+  "type": "number",
+  "class": "Sprite",
+  "slot": 35
+ },
+ {
+  "name": "color_a3",
+  "type": "number",
+  "class": "Sprite",
+  "slot": 37
+ },
+ {
+  "name": "color_a4",
+  "type": "number",
+  "class": "Sprite",
+  "slot": 39
+ },
+ {
+  "name": "color_rgb1",
+  "type": "vector",
+  "class": "Sprite",
+  "slot": 32
+ },
+ {
+  "name": "color_rgb2",
+  "type": "vector",
+  "class": "Sprite",
+  "slot": 34
+ },
+ {
+  "name": "color_rgb3",
+  "type": "vector",
+  "class": "Sprite",
+  "slot": 36
+ },
+ {
+  "name": "color_rgb4",
+  "type": "vector",
+  "class": "Sprite",
+  "slot": 38
+ },
+ {
+  "name": "const_size_far",
+  "type": "number",
+  "class": "Sprite",
+  "slot": 20
+ },
+ {
+  "name": "const_size_far_shrink",
+  "type": "number",
+  "class": "Sprite",
+  "slot": 21
+ },
+ {
+  "name": "const_size_near",
+  "type": "number",
+  "class": "Sprite",
+  "slot": 19
+ },
+ {
+  "name": "constant_size_mode",
+  "type": "integer",
+  "class": "Sprite",
+  "slot": 18
+ },
+ {
+  "name": "cullmode",
+  "type": "integer",
+  "class": "Sprite",
+  "slot": 15
+ },
+ {
+  "name": "enable_mouse_input",
+  "type": "truth",
+  "class": "Sprite",
+  "slot": null
+ },
+ {
+  "name": "infinite_distance",
+  "type": "truth",
+  "class": "Sprite",
+  "slot": 17
+ },
+ {
+  "name": "is_3d",
+  "type": "truth",
+  "class": "Sprite",
+  "slot": 14
+ },
+ {
+  "name": "is_screen_relative",
+  "type": "truth",
+  "class": "Sprite",
+  "slot": null
+ },
+ {
+  "name": "prioritylayer",
+  "type": "integer",
+  "class": "Sprite",
+  "slot": 16
+ },
+ {
+  "name": "sprite_size",
+  "type": "vector",
+  "class": "Sprite",
+  "slot": 11
+ },
+ {
+  "name": "v1u",
+  "type": "number",
+  "class": "Sprite",
+  "slot": 24
+ },
+ {
+  "name": "v1v",
+  "type": "number",
+  "class": "Sprite",
+  "slot": 25
+ },
+ {
+  "name": "v2u",
+  "type": "number",
+  "class": "Sprite",
+  "slot": 26
+ },
+ {
+  "name": "v2v",
+  "type": "number",
+  "class": "Sprite",
+  "slot": 27
+ },
+ {
+  "name": "v3u",
+  "type": "number",
+  "class": "Sprite",
+  "slot": 28
+ },
+ {
+  "name": "v3v",
+  "type": "number",
+  "class": "Sprite",
+  "slot": 29
+ },
+ {
+  "name": "v4u",
+  "type": "number",
+  "class": "Sprite",
+  "slot": 30
+ },
+ {
+  "name": "v4v",
+  "type": "number",
+  "class": "Sprite",
+  "slot": 31
+ },
+ {
+  "name": "chance_of_reflection",
+  "type": "number",
+  "class": "StaticLighting",
+  "slot": null
+ },
+ {
+  "name": "cutoff_area",
+  "type": "number",
+  "class": "StaticLighting",
+  "slot": null
+ },
+ {
+  "name": "gamma_correction",
+  "type": "number",
+  "class": "StaticLighting",
+  "slot": null
+ },
+ {
+  "name": "lighting_method",
+  "type": "integer",
+  "class": "StaticLighting",
+  "slot": null
+ },
+ {
+  "name": "lightingfile",
+  "type": "string",
+  "class": "StaticLighting",
+  "slot": null
+ },
+ {
+  "name": "lsep1",
+  "type": "truth",
+  "class": "StaticLighting",
+  "slot": null
+ },
+ {
+  "name": "lsep2",
+  "type": "truth",
+  "class": "StaticLighting",
+  "slot": null
+ },
+ {
+  "name": "lsep3",
+  "type": "truth",
+  "class": "StaticLighting",
+  "slot": null
+ },
+ {
+  "name": "lsep4",
+  "type": "truth",
+  "class": "StaticLighting",
+  "slot": null
+ },
+ {
+  "name": "lsep5",
+  "type": "truth",
+  "class": "StaticLighting",
+  "slot": null
+ },
+ {
+  "name": "max_lod_sample_radius",
+  "type": "number",
+  "class": "StaticLighting",
+  "slot": null
+ },
+ {
+  "name": "max_sample_radius",
+  "type": "number",
+  "class": "StaticLighting",
+  "slot": null
+ },
+ {
+  "name": "min_sample_photons",
+  "type": "integer",
+  "class": "StaticLighting",
+  "slot": null
+ },
+ {
+  "name": "num_photons",
+  "type": "integer",
+  "class": "StaticLighting",
+  "slot": null
+ },
+ {
+  "name": "samples_per_vert",
+  "type": "integer",
+  "class": "StaticLighting",
+  "slot": null
+ },
+ {
+  "name": "singlecolormultiplier",
+  "type": "number",
+  "class": "StaticLighting",
+  "slot": null
+ },
+ {
+  "name": "target_block_id",
+  "type": "integer",
+  "class": "StaticLighting",
+  "slot": null
+ },
+ {
+  "name": "scale",
+  "type": "vector",
+  "class": "StretchModel",
+  "slot": null
+ },
+ {
+  "name": "CloseDistance",
+  "type": "number",
+  "class": "SurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "FarDistance",
+  "type": "number",
+  "class": "SurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "Model1",
+  "type": "string",
+  "class": "SurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "Model2",
+  "type": "string",
+  "class": "SurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "Model3",
+  "type": "string",
+  "class": "SurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "Model4",
+  "type": "string",
+  "class": "SurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "Properbility1",
+  "type": "number",
+  "class": "SurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "Properbility2",
+  "type": "number",
+  "class": "SurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "Properbility3",
+  "type": "number",
+  "class": "SurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "Properbility4",
+  "type": "number",
+  "class": "SurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "RandomSeed",
+  "type": "number",
+  "class": "SurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "Variation",
+  "type": "number",
+  "class": "SurroundGeometry",
+  "slot": null
+ },
+ {
+  "name": "actualboxsize",
+  "type": "vector",
+  "class": "TextBox",
+  "slot": null
+ },
+ {
+  "name": "asciioffset",
+  "type": "integer",
+  "class": "TextBox",
+  "slot": null
+ },
+ {
+  "name": "font",
+  "type": "string",
+  "class": "TextBox",
+  "slot": null
+ },
+ {
+  "name": "horizontal_alignment",
+  "type": "integer",
+  "class": "TextBox",
+  "slot": null
+ },
+ {
+  "name": "horizontal_spacing",
+  "type": "number",
+  "class": "TextBox",
+  "slot": null
+ },
+ {
+  "name": "scale_if_widescreen",
+  "type": "truth",
+  "class": "TextBox",
+  "slot": null
+ },
+ {
+  "name": "stringwidth",
+  "type": "integer",
+  "class": "TextBox",
+  "slot": null
+ },
+ {
+  "name": "text",
+  "type": "string",
+  "class": "TextBox",
+  "slot": null
+ },
+ {
+  "name": "text_color",
+  "type": "vector",
+  "class": "TextBox",
+  "slot": null
+ },
+ {
+  "name": "text_color2",
+  "type": "vector",
+  "class": "TextBox",
+  "slot": null
+ },
+ {
+  "name": "text_scale",
+  "type": "vector",
+  "class": "TextBox",
+  "slot": null
+ },
+ {
+  "name": "textres_mode",
+  "type": "truth",
+  "class": "TextBox",
+  "slot": null
+ },
+ {
+  "name": "textslot_by_name",
+  "type": "string",
+  "class": "TextBox",
+  "slot": null
+ },
+ {
+  "name": "textslot_index",
+  "type": "integer",
+  "class": "TextBox",
+  "slot": null
+ },
+ {
+  "name": "use_glyph_ignore_color",
+  "type": "truth",
+  "class": "TextBox",
+  "slot": null
+ },
+ {
+  "name": "use_slot_index",
+  "type": "truth",
+  "class": "TextBox",
+  "slot": null
+ },
+ {
+  "name": "vertical_alignment",
+  "type": "integer",
+  "class": "TextBox",
+  "slot": null
+ },
+ {
+  "name": "vertical_clip",
+  "type": "truth",
+  "class": "TextBox",
+  "slot": null
+ },
+ {
+  "name": "vertical_scroll",
+  "type": "number",
+  "class": "TextBox",
+  "slot": null
+ },
+ {
+  "name": "vertical_spacing",
+  "type": "number",
+  "class": "TextBox",
+  "slot": null
+ },
+ {
+  "name": "view_all_slot_indices",
+  "type": "truth",
+  "class": "TextBox",
+  "slot": null
+ },
+ {
+  "name": "current_index",
+  "type": "integer",
+  "class": "TextSlot",
+  "slot": -1
+ },
+ {
+  "name": "current_text_content",
+  "type": "string",
+  "class": "TextSlot",
+  "slot": -1
+ },
+ {
+  "name": "number_of_text_indices",
+  "type": "integer",
+  "class": "TextSlot",
+  "slot": -1
+ },
+ {
+  "name": "text_string_identifier",
+  "type": "string",
+  "class": "TextSlot",
+  "slot": -1
+ },
+ {
+  "name": "textres",
+  "type": "string",
+  "class": "TextSlot",
+  "slot": -1
+ },
+ {
+  "name": "connectends",
+  "type": "truth",
+  "class": "Track",
+  "slot": -1
+ },
+ {
+  "name": "customspeed",
+  "type": "truth",
+  "class": "Track",
+  "slot": -1
+ },
+ {
+  "name": "framerate",
+  "type": "number",
+  "class": "Track",
+  "slot": -1
+ },
+ {
+  "name": "pingpong",
+  "type": "truth",
+  "class": "Track",
+  "slot": -1
+ },
+ {
+  "name": "reverse",
+  "type": "truth",
+  "class": "Track",
+  "slot": -1
+ },
+ {
+  "name": "showexample",
+  "type": "truth",
+  "class": "Track",
+  "slot": -1
+ },
+ {
+  "name": "spline",
+  "type": "truth",
+  "class": "Track",
+  "slot": -1
+ },
+ {
+  "name": "BulletDrop",
+  "type": "integer",
+  "class": "WeaponPlaceHolder",
+  "slot": null
+ },
+ {
+  "name": "MeleeWeaponSubType",
+  "type": "integer",
+  "class": "WeaponPlaceHolder",
+  "slot": null
+ },
+ {
+  "name": "WeaponSubType",
+  "type": "integer",
+  "class": "WeaponPlaceHolder",
+  "slot": null
+ },
+ {
+  "name": "FrenzyAngle",
+  "type": "number",
+  "class": "Wind",
+  "slot": -1
+ },
+ {
+  "name": "VariationSpeed",
+  "type": "number",
+  "class": "Wind",
+  "slot": -1
+ },
+ {
+  "name": "WindFlux",
+  "type": "number",
+  "class": "Wind",
+  "slot": -1
+ },
+ {
+  "name": "WindFrenzy",
+  "type": "number",
+  "class": "Wind",
+  "slot": -1
+ },
+ {
+  "name": "WindSpeed",
+  "type": "number",
+  "class": "Wind",
+  "slot": -1
+ }
+]

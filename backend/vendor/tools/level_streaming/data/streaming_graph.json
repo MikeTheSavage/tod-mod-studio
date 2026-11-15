@@ -1,0 +1,4138 @@
+{
+ "edges": [
+  {
+   "src": "mainmap_map01_dea_hq_us_border.map",
+   "target": "MAINMAP_Map02_LosToros_Downtown",
+   "count": 1
+  },
+  {
+   "src": "mainmap_map01_dea_hq_us_border.map",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "count": 1
+  },
+  {
+   "src": "mm030_smashthestash.mission",
+   "target": "MAINMAP_Map06_Virgillos_Farm",
+   "count": 1
+  },
+  {
+   "src": "mm030_smashthestash.mission",
+   "target": "SUBMAP02_Map06_Virgillos_Farm",
+   "count": 1
+  },
+  {
+   "src": "mm066_brakeintosafe.mission",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "count": 2
+  },
+  {
+   "src": "submap01_map01_dea_hq_us_border.submap",
+   "target": "SUBMAP02_Map01_DEA_HQ_US_Border",
+   "count": 1
+  },
+  {
+   "src": "submap01_map02_lostoros_downtown.submap",
+   "target": "MAINMAP_Map03_LosToros_Industrial",
+   "count": 1
+  },
+  {
+   "src": "submap01_map02_lostoros_downtown.submap",
+   "target": "MAINMAP_Map04_LosToros_Train_Harbour",
+   "count": 1
+  },
+  {
+   "src": "submap01_map02_lostoros_downtown.submap",
+   "target": "SUBMAP01_Map04_LosToros_Train_Harbour",
+   "count": 1
+  },
+  {
+   "src": "submap01_map02_lostoros_downtown.submap",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "count": 12
+  },
+  {
+   "src": "submap01_map02_lostoros_downtown.submap",
+   "target": "SUBMAP03_Map02_LosToros_Downtown",
+   "count": 2
+  },
+  {
+   "src": "submap01_map02_lostoros_downtown.submap",
+   "target": "SUBMAP04_Map02_LosToros_Downtown",
+   "count": 4
+  },
+  {
+   "src": "submap01_map02_lostoros_downtown.submap",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "count": 1
+  },
+  {
+   "src": "submap01_map03_lostoros_industrial.submap",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "count": 14
+  },
+  {
+   "src": "submap01_map04_lostoros_train_harbour.submap",
+   "target": "MAINMAP_Map02_LosToros_Downtown",
+   "count": 1
+  },
+  {
+   "src": "submap01_map04_lostoros_train_harbour.submap",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "count": 1
+  },
+  {
+   "src": "submap01_map04_lostoros_train_harbour.submap",
+   "target": "SUBMAP02_Map04_LosToros_Train_Harbour",
+   "count": 1
+  },
+  {
+   "src": "submap01_map06_virgillos_farm.submap",
+   "target": "SUBMAP02_Map06_Virgillos_Farm",
+   "count": 1
+  },
+  {
+   "src": "submap01_map09_jungle.submap",
+   "target": "SUBMAP02_Map09_Jungle",
+   "count": 1
+  },
+  {
+   "src": "submap02_map02_lostoros_downtown.submap",
+   "target": "MAINMAP_Map01_DEA_HQ_US_Border",
+   "count": 1
+  },
+  {
+   "src": "submap02_map02_lostoros_downtown.submap",
+   "target": "MAINMAP_Map03_LosToros_Industrial",
+   "count": 2
+  },
+  {
+   "src": "submap02_map02_lostoros_downtown.submap",
+   "target": "SUBMAP01_Map01_DEA_HQ_US_Border",
+   "count": 1
+  },
+  {
+   "src": "submap02_map02_lostoros_downtown.submap",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "count": 18
+  },
+  {
+   "src": "submap02_map02_lostoros_downtown.submap",
+   "target": "SUBMAP03_Map02_LosToros_Downtown",
+   "count": 12
+  },
+  {
+   "src": "submap02_map02_lostoros_downtown.submap",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "count": 2
+  },
+  {
+   "src": "submap02_map03_lostoros_industrial.submap",
+   "target": "MAINMAP_Map02_LosToros_Downtown",
+   "count": 1
+  },
+  {
+   "src": "submap02_map03_lostoros_industrial.submap",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "count": 1
+  },
+  {
+   "src": "submap02_map03_lostoros_industrial.submap",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "count": 7
+  },
+  {
+   "src": "submap02_map04_lostoros_train_harbour.submap",
+   "target": "SUBMAP01_Map04_LosToros_Train_Harbour",
+   "count": 2
+  },
+  {
+   "src": "submap02_map06_virgillos_farm.submap",
+   "target": "SUBMAP01_Map06_Virgillos_Farm",
+   "count": 1
+  },
+  {
+   "src": "submap02_map09_jungle.submap",
+   "target": "SUBMAP01_Map09_Jungle",
+   "count": 1
+  },
+  {
+   "src": "submap03_map02_lostoros_downtown.submap",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "count": 5
+  },
+  {
+   "src": "submap03_map02_lostoros_downtown.submap",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "count": 13
+  },
+  {
+   "src": "submap03_map03_lostoros_industrial.submap",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "count": 14
+  },
+  {
+   "src": "submap04_map02_lostoros_downtown.submap",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "count": 5
+  },
+  {
+   "src": "submap04_map03_lostoros_industrial.submap",
+   "target": "MAINMAP_Map02_LosToros_Downtown",
+   "count": 3
+  },
+  {
+   "src": "submap04_map03_lostoros_industrial.submap",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "count": 1
+  },
+  {
+   "src": "submap04_map03_lostoros_industrial.submap",
+   "target": "SUBMAP01_Map03_LosToros_Industrial",
+   "count": 13
+  },
+  {
+   "src": "submap04_map03_lostoros_industrial.submap",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "count": 2
+  },
+  {
+   "src": "submap04_map03_lostoros_industrial.submap",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "count": 21
+  },
+  {
+   "src": "submap04_map03_lostoros_industrial.submap",
+   "target": "SUBMAP03_Map03_LosToros_Industrial",
+   "count": 13
+  }
+ ],
+ "loaders": [
+  {
+   "block": "mainmap_map01_dea_hq_us_border.map",
+   "fragment": "MAINMAP_Map01_DEA_HQ_US_Border.fragment",
+   "target": "MAINMAP_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_and_MAINMAP_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -177.34,
+     31.68,
+     600.38
+    ],
+    "size": [
+     310.62591552734375,
+     39.257205963134766,
+     21.263423919677734
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "mainmap_map01_dea_hq_us_border.map",
+   "fragment": "MAINMAP_Map01_DEA_HQ_US_Border.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_and_MAINMAP_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -177.34,
+     31.68,
+     600.38
+    ],
+    "size": [
+     310.62591552734375,
+     39.257205963134766,
+     21.263423919677734
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "mm030_smashthestash.mission",
+   "fragment": "MM030_SmashTheStash.fragment",
+   "target": "MAINMAP_Map06_Virgillos_Farm",
+   "teleport": "MM030_STM_Teleport",
+   "root": {
+    "name": "MM030_TeleportForSTM",
+    "type": "Trigger_Root(CollisionSphere)",
+    "pos": [
+     991.41,
+     -10.59,
+     -1160.22
+    ],
+    "size": [
+     null,
+     null,
+     null
+    ],
+    "radius": 24.541664123535156
+   }
+  },
+  {
+   "block": "mm030_smashthestash.mission",
+   "fragment": "MM030_SmashTheStash.fragment",
+   "target": "SUBMAP02_Map06_Virgillos_Farm",
+   "teleport": "MM030_STM_Teleport",
+   "root": {
+    "name": "MM030_TeleportForSTM",
+    "type": "Trigger_Root(CollisionSphere)",
+    "pos": [
+     991.41,
+     -10.59,
+     -1160.22
+    ],
+    "size": [
+     null,
+     null,
+     null
+    ],
+    "radius": 24.541664123535156
+   }
+  },
+  {
+   "block": "mm066_brakeintosafe.mission",
+   "fragment": "MM066_BrakeIntoSafe.fragment",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "MM066_TriggerLoad_SUBMAP02_Map03_LosToros_Industrial_B",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -848.87,
+     35.4,
+     219.09
+    ],
+    "size": [
+     532.49267578125,
+     97.1220474243164,
+     14.47607421875
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "mm066_brakeintosafe.mission",
+   "fragment": "MM066_BrakeIntoSafe.fragment",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "MM066_TriggerLoad_SUBMAP02_Map03_LosToros_Industrial_A",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -619.62,
+     26.04,
+     565.35
+    ],
+    "size": [
+     11.268227577209473,
+     78.39224243164062,
+     441.4488220214844
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map01_dea_hq_us_border.submap",
+   "fragment": "SUBMAP01_Map01_DEA_HQ_US_Border.fragment",
+   "target": "SUBMAP02_Map01_DEA_HQ_US_Border",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_and_MAINMAP_Map01_DEA_HQ_US_Border",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -761.57,
+     56.53,
+     1145.34
+    ],
+    "size": [
+     9.53290843963623,
+     4.283803939819336,
+     8.752691268920898
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP01_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -315.11,
+     16.61,
+     51.21
+    ],
+    "size": [
+     81.22117614746094,
+     34.41059112548828,
+     8.481017112731934
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP01_Map02_WorldBoundary_Triggers.fragment",
+   "target": "MAINMAP_Map04_LosToros_Train_Harbour",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map04_LosToros_Train_Harbour",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -306.44,
+     14.0,
+     -329.0
+    ],
+    "size": [
+     16.464611053466797,
+     22.063283920288086,
+     24.861316680908203
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP01_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map04_LosToros_Train_Harbour",
+   "teleport": "Teleport_Bridge_Downtown",
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map04_LosToros_Train_Harbour",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -306.44,
+     14.0,
+     -329.0
+    ],
+    "size": [
+     16.464611053466797,
+     22.063283920288086,
+     24.861316680908203
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP01_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -268.62,
+     16.61,
+     46.05
+    ],
+    "size": [
+     11.707870483398438,
+     34.41059112548828,
+     18.9019718170166
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP01_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -181.62,
+     16.61,
+     32.34
+    ],
+    "size": [
+     185.72975158691406,
+     34.41059112548828,
+     8.481017112731934
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP01_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -79.64,
+     18.68,
+     41.71
+    ],
+    "size": [
+     22.642807006835938,
+     29.36530113220215,
+     6.845436096191406
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP01_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -66.38,
+     18.68,
+     49.73
+    ],
+    "size": [
+     11.722419738769531,
+     29.36530113220215,
+     6.845436096191406
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP01_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -60.07,
+     18.68,
+     57.92
+    ],
+    "size": [
+     10.972168922424316,
+     29.36530113220215,
+     6.845436096191406
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP01_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -24.3,
+     21.41,
+     64.64
+    ],
+    "size": [
+     68.79496765136719,
+     34.41059112548828,
+     8.481017112731934
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP01_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     11.57,
+     19.47,
+     48.32
+    ],
+    "size": [
+     12.940204620361328,
+     40.24458312988281,
+     39.557621002197266
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP01_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     72.19,
+     21.41,
+     31.14
+    ],
+    "size": [
+     133.0361328125,
+     34.41059112548828,
+     8.481017112731934
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP01_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     22.32,
+     2.15,
+     48.37
+    ],
+    "size": [
+     7.5738139152526855,
+     4.913442134857178,
+     8.481017112731934
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP01_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     172.26,
+     14.9,
+     33.41
+    ],
+    "size": [
+     67.62120819091797,
+     47.82062911987305,
+     13.013406753540039
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP01_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     221.73,
+     15.57,
+     6.78
+    ],
+    "size": [
+     44.725067138671875,
+     34.41059112548828,
+     58.30400466918945
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP01_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     260.56,
+     16.72,
+     -19.08
+    ],
+    "size": [
+     47.76700973510742,
+     36.90383529663086,
+     23.386192321777344
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP01_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     290.1,
+     16.47,
+     -17.01
+    ],
+    "size": [
+     17.74042320251465,
+     36.40725326538086,
+     11.578473091125488
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP01_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     220.21,
+     23.98,
+     -388.66
+    ],
+    "size": [
+     45.21638870239258,
+     32.204463958740234,
+     96.34626007080078
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP01_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     226.28,
+     23.98,
+     -347.46
+    ],
+    "size": [
+     48.25263595581055,
+     32.204463958740234,
+     21.739160537719727
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP01_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     244.34,
+     23.98,
+     -358.82
+    ],
+    "size": [
+     27.178125381469727,
+     32.204463958740234,
+     45.904693603515625
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP01_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     188.87,
+     23.98,
+     -381.27
+    ],
+    "size": [
+     16.452661514282227,
+     32.204463958740234,
+     80.34536743164062
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP01_Map02_WorldBoundary_Triggers.fragment",
+   "target": "MAINMAP_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_and_MAINMAP_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -375.77,
+     -4.47,
+     52.72
+    ],
+    "size": [
+     5.824220180511475,
+     3.169434070587158,
+     6.6229071617126465
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP01_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_and_MAINMAP_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -375.77,
+     -4.47,
+     52.72
+    ],
+    "size": [
+     5.824220180511475,
+     3.169434070587158,
+     6.6229071617126465
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP01_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -399.82,
+     17.08,
+     -63.81
+    ],
+    "size": [
+     34.46546173095703,
+     36.082664489746094,
+     17.18212890625
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP01_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -374.83,
+     17.08,
+     -160.52
+    ],
+    "size": [
+     19.742610931396484,
+     36.082664489746094,
+     210.4261474609375
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP01_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -424.38,
+     17.08,
+     -50.45
+    ],
+    "size": [
+     20.535533905029297,
+     36.082664489746094,
+     17.18212890625
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP01_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -443.22,
+     17.08,
+     -51.42
+    ],
+    "size": [
+     23.93825912475586,
+     36.082664489746094,
+     17.18212890625
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP01_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -503.27,
+     17.08,
+     -48.87
+    ],
+    "size": [
+     100.52252960205078,
+     36.082664489746094,
+     17.18212890625
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP01_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -618.79,
+     17.71,
+     -50.33
+    ],
+    "size": [
+     131.1975860595703,
+     36.082664489746094,
+     17.18212890625
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP01_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -691.04,
+     17.08,
+     -56.37
+    ],
+    "size": [
+     19.380037307739258,
+     36.082664489746094,
+     17.18212890625
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP01_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -707.29,
+     17.08,
+     -112.23
+    ],
+    "size": [
+     15.79920482635498,
+     36.082664489746094,
+     129.0173797607422
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP01_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -690.88,
+     17.08,
+     -184.47
+    ],
+    "size": [
+     20.582401275634766,
+     36.082664489746094,
+     26.31420135498047
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP01_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -590.79,
+     17.08,
+     -255.58
+    ],
+    "size": [
+     74.93101501464844,
+     36.082664489746094,
+     17.18212890625
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP01_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -657.92,
+     17.08,
+     -232.11
+    ],
+    "size": [
+     114.5162124633789,
+     36.082664489746094,
+     17.18212890625
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP01_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -516.78,
+     17.08,
+     -255.84
+    ],
+    "size": [
+     74.93101501464844,
+     36.082664489746094,
+     17.18212890625
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP01_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -472.0,
+     17.08,
+     -254.77
+    ],
+    "size": [
+     17.61083221435547,
+     36.082664489746094,
+     17.18212890625
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP01_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -424.26,
+     17.08,
+     -256.16
+    ],
+    "size": [
+     80.10328674316406,
+     36.082664489746094,
+     17.18212890625
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map04_lostoros_train_harbour.submap",
+   "fragment": "SUBMAP01_Map04_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map04_LosToros_Train_Harbour",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map04_LosToros_Train_Harbour",
+    "type": "Trigger_Root(MockupBox)",
+    "pos": [
+     -629.1,
+     -0.47,
+     -583.07
+    ],
+    "size": [
+     null,
+     28.110734939575195,
+     null
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map04_lostoros_train_harbour.submap",
+   "fragment": "SUBMAP01_Map04_WorldBoundary_Triggers.fragment",
+   "target": "MAINMAP_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown_SpecialTrigger",
+    "type": "Trigger_Root(MockupBox)",
+    "pos": [
+     -306.41,
+     9.58,
+     -495.89
+    ],
+    "size": [
+     null,
+     11.3690767288208,
+     null
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map04_lostoros_train_harbour.submap",
+   "fragment": "SUBMAP01_Map04_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": "Teleport_Bridge_HArbour",
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown_SpecialTrigger",
+    "type": "Trigger_Root(MockupBox)",
+    "pos": [
+     -306.41,
+     9.58,
+     -495.89
+    ],
+    "size": [
+     null,
+     11.3690767288208,
+     null
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map06_virgillos_farm.submap",
+   "fragment": "SUBMAP01_Map06_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map06_Virgillos_Farm",
+   "teleport": "Submap02_Teleport",
+   "root": {
+    "name": "TriggerLoad_ActionLoad_SUBMAP02_Map06_Virgillos_Farm",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     1027.13,
+     -9.07,
+     -1122.17
+    ],
+    "size": [
+     56.529449462890625,
+     23.832387924194336,
+     44.51311492919922
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap01_map09_jungle.submap",
+   "fragment": "SUBMAP01_Map09_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map09_Jungle",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map09_Jungle_submap01",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -515.22,
+     -106.98,
+     -2395.45
+    ],
+    "size": [
+     57.50513458251953,
+     4.577989101409912,
+     18.75296401977539
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -317.03,
+     13.06,
+     34.64
+    ],
+    "size": [
+     82.80599212646484,
+     45.82008361816406,
+     13.045537948608398
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "MAINMAP_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -319.03,
+     -8.35,
+     482.43
+    ],
+    "size": [
+     20.582401275634766,
+     25.19341278076172,
+     33.93709182739258
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": "Teleport_Tunnel_Downtown",
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -319.03,
+     -8.35,
+     482.43
+    ],
+    "size": [
+     20.582401275634766,
+     25.19341278076172,
+     33.93709182739258
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     207.51,
+     10.2,
+     70.72
+    ],
+    "size": [
+     25.439374923706055,
+     31.534055709838867,
+     16.803586959838867
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     76.65,
+     38.88,
+     558.78
+    ],
+    "size": [
+     25.439374923706055,
+     31.534055709838867,
+     41.24021911621094
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -281.19,
+     13.06,
+     22.72
+    ],
+    "size": [
+     10.906871795654297,
+     45.82008361816406,
+     10.83269214630127
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -181.32,
+     13.06,
+     11.9
+    ],
+    "size": [
+     210.64952087402344,
+     45.82008361816406,
+     10.83269214630127
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -35.08,
+     13.06,
+     50.08
+    ],
+    "size": [
+     30.92316436767578,
+     45.82008361816406,
+     14.195894241333008
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -50.03,
+     13.06,
+     47.83
+    ],
+    "size": [
+     11.622943878173828,
+     45.82008361816406,
+     14.195894241333008
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -64.59,
+     13.06,
+     33.61
+    ],
+    "size": [
+     20.695100784301758,
+     45.82008361816406,
+     14.195894241333008
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -73.8,
+     12.76,
+     21.08
+    ],
+    "size": [
+     29.32089614868164,
+     45.82008361816406,
+     5.490145206451416
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -57.52,
+     13.06,
+     40.94
+    ],
+    "size": [
+     8.961685180664062,
+     45.82008361816406,
+     13.282685279846191
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     40.69,
+     13.06,
+     -26.69
+    ],
+    "size": [
+     8.520736694335938,
+     45.82008361816406,
+     50.5393180847168
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -7.46,
+     13.06,
+     19.98
+    ],
+    "size": [
+     8.520736694335938,
+     45.82008361816406,
+     60.978580474853516
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -10.35,
+     23.49,
+     40.25
+    ],
+    "size": [
+     14.312710762023926,
+     22.94301414489746,
+     20.426111221313477
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     16.24,
+     13.06,
+     -4.15
+    ],
+    "size": [
+     42.47733688354492,
+     45.82008361816406,
+     11.016729354858398
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     101.79,
+     13.06,
+     -46.89
+    ],
+    "size": [
+     124.16773223876953,
+     45.82008361816406,
+     8.481017112731934
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     181.28,
+     13.06,
+     -47.1
+    ],
+    "size": [
+     8.520736694335938,
+     45.82008361816406,
+     32.74993133544922
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     165.03,
+     13.06,
+     -17.78
+    ],
+    "size": [
+     9.065825462341309,
+     45.82008361816406,
+     66.76265716552734
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     214.05,
+     9.53,
+     -59.97
+    ],
+    "size": [
+     44.46909713745117,
+     42.00877380371094,
+     8.481017112731934
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     282.55,
+     8.03,
+     -46.53
+    ],
+    "size": [
+     15.304433822631836,
+     31.64329719543457,
+     46.84996795654297
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     258.02,
+     2.99,
+     -26.74
+    ],
+    "size": [
+     9.341787338256836,
+     9.884662628173828,
+     43.63946533203125
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     262.43,
+     10.34,
+     -68.23
+    ],
+    "size": [
+     57.42744064331055,
+     40.388916015625,
+     8.481017112731934
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     220.44,
+     2.72,
+     96.32
+    ],
+    "size": [
+     238.70103454589844,
+     9.494970321655273,
+     37.70604705810547
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     267.05,
+     10.2,
+     25.01
+    ],
+    "size": [
+     106.58554077148438,
+     31.534055709838867,
+     29.535398483276367
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     253.95,
+     10.2,
+     106.66
+    ],
+    "size": [
+     64.98890686035156,
+     31.534055709838867,
+     16.803586959838867
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     234.3,
+     10.2,
+     169.09
+    ],
+    "size": [
+     72.13899230957031,
+     31.534055709838867,
+     16.803586959838867
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     214.75,
+     10.2,
+     211.58
+    ],
+    "size": [
+     29.27156639099121,
+     31.534055709838867,
+     16.803586959838867
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     210.84,
+     14.84,
+     259.27
+    ],
+    "size": [
+     90.08329010009766,
+     33.736717224121094,
+     16.803586959838867
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     211.18,
+     14.3,
+     358.96
+    ],
+    "size": [
+     114.61724090576172,
+     32.66651153564453,
+     16.803586959838867
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     147.74,
+     13.71,
+     439.43
+    ],
+    "size": [
+     153.2700653076172,
+     31.47935676574707,
+     16.803586959838867
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     83.52,
+     22.54,
+     496.42
+    ],
+    "size": [
+     22.125715255737305,
+     62.156578063964844,
+     86.13214111328125
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "MAINMAP_Map01_DEA_HQ_US_Border",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_and_MAINMAP_Map01_DEA_Border",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -215.0,
+     21.75,
+     716.07
+    ],
+    "size": [
+     104.75342559814453,
+     19.69789695739746,
+     18.757360458374023
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map01_DEA_HQ_US_Border",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_and_MAINMAP_Map01_DEA_Border",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -215.0,
+     21.75,
+     716.07
+    ],
+    "size": [
+     104.75342559814453,
+     19.69789695739746,
+     18.757360458374023
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "MAINMAP_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_and_MAINMAP_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -373.26,
+     -4.94,
+     428.2
+    ],
+    "size": [
+     16.233701705932617,
+     4.893346786499023,
+     8.979301452636719
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP02_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_and_MAINMAP_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -373.26,
+     -4.94,
+     428.2
+    ],
+    "size": [
+     16.233701705932617,
+     4.893346786499023,
+     8.979301452636719
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP02_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -420.23,
+     8.21,
+     416.1
+    ],
+    "size": [
+     101.92225646972656,
+     88.14718627929688,
+     10.864233016967773
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP02_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -510.4,
+     8.21,
+     370.59
+    ],
+    "size": [
+     101.92225646972656,
+     88.14718627929688,
+     10.864233016967773
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP02_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -601.31,
+     8.21,
+     324.49
+    ],
+    "size": [
+     101.92225646972656,
+     88.14718627929688,
+     10.864233016967773
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP02_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -692.16,
+     8.21,
+     278.5
+    ],
+    "size": [
+     101.92225646972656,
+     88.14718627929688,
+     10.864233016967773
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP02_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -782.01,
+     8.21,
+     232.95
+    ],
+    "size": [
+     101.92225646972656,
+     88.14718627929688,
+     10.864233016967773
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP02_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -880.86,
+     8.21,
+     182.95
+    ],
+    "size": [
+     120.48724365234375,
+     88.14718627929688,
+     10.864233016967773
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP02_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -936.32,
+     8.21,
+     164.57
+    ],
+    "size": [
+     10.323524475097656,
+     88.14718627929688,
+     10.864233016967773
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP02_Map03_WorldBoundary_Triggers.fragment",
+   "target": "MAINMAP_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -418.52,
+     -8.33,
+     450.23
+    ],
+    "size": [
+     14.111344337463379,
+     20.009292602539062,
+     27.032962799072266
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP02_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": "Teleport_Tunnel_Industrial",
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -418.52,
+     -8.33,
+     450.23
+    ],
+    "size": [
+     14.111344337463379,
+     20.009292602539062,
+     27.032962799072266
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map04_lostoros_train_harbour.submap",
+   "fragment": "SUBMAP02_Map04_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map04_LosToros_Train_Harbour",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map04_LosToros_Train_Harbour",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -574.24,
+     2.71,
+     -570.86
+    ],
+    "size": [
+     51.42481994628906,
+     29.029552459716797,
+     8.481017112731934
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map04_lostoros_train_harbour.submap",
+   "fragment": "SUBMAP02_Map04_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map04_LosToros_Train_Harbour",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map04_LosToros_Train_Harbour",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -613.1,
+     3.19,
+     -633.57
+    ],
+    "size": [
+     22.330411911010742,
+     29.99283790588379,
+     8.481017112731934
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map06_virgillos_farm.submap",
+   "fragment": "SUBMAP02_Map06_Data.fragment",
+   "target": "SUBMAP01_Map06_Virgillos_Farm",
+   "teleport": "Submap01_Teleport",
+   "root": {
+    "name": "TriggerLoad_ActionLoad_SUBMAP01_Map06_Virgillos_Farm_A",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     1121.78,
+     -37.98,
+     -1407.15
+    ],
+    "size": [
+     36.44611358642578,
+     23.013017654418945,
+     47.94430160522461
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap02_map09_jungle.submap",
+   "fragment": "SUBMAP02_Map09_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map09_Jungle",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map09_Jungle_submap01",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -515.22,
+     -89.3,
+     -2354.61
+    ],
+    "size": [
+     57.50513458251953,
+     4.577989101409912,
+     100.44288635253906
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP03_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     190.83,
+     9.33,
+     71.94
+    ],
+    "size": [
+     11.67093276977539,
+     20.009292602539062,
+     27.032962799072266
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP03_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     179.21,
+     9.33,
+     60.79
+    ],
+    "size": [
+     25.31338882446289,
+     20.009292602539062,
+     4.559355735778809
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP03_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     179.37,
+     9.33,
+     83.28
+    ],
+    "size": [
+     25.31338882446289,
+     20.009292602539062,
+     4.540844917297363
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP03_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     165.98,
+     9.33,
+     41.04
+    ],
+    "size": [
+     6.2798380851745605,
+     20.009292602539062,
+     37.82314682006836
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP03_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     164.35,
+     9.33,
+     130.77
+    ],
+    "size": [
+     9.854007720947266,
+     20.009292602539062,
+     90.34236907958984
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP03_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     165.36,
+     9.33,
+     218.0
+    ],
+    "size": [
+     6.2798380851745605,
+     20.009292602539062,
+     90.34236907958984
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP03_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     165.05,
+     9.33,
+     307.73
+    ],
+    "size": [
+     6.2798380851745605,
+     20.009292602539062,
+     90.34236907958984
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP03_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     164.83,
+     9.33,
+     368.56
+    ],
+    "size": [
+     6.2798380851745605,
+     20.009292602539062,
+     33.62468338012695
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP03_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     110.33,
+     6.23,
+     388.79
+    ],
+    "size": [
+     26.12348175048828,
+     49.282203674316406,
+     109.38504028320312
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP03_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     47.31,
+     24.27,
+     506.91
+    ],
+    "size": [
+     64.19523620605469,
+     49.8810920715332,
+     23.585529327392578
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP03_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     58.38,
+     16.23,
+     430.22
+    ],
+    "size": [
+     92.47907257080078,
+     68.79180908203125,
+     23.585529327392578
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP03_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     294.12,
+     9.18,
+     -58.86
+    ],
+    "size": [
+     18.759357452392578,
+     20.5390625,
+     22.16428565979004
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP03_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     166.15,
+     9.33,
+     -7.47
+    ],
+    "size": [
+     6.2798380851745605,
+     20.009292602539062,
+     61.13300704956055
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP03_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     182.92,
+     9.33,
+     -46.43
+    ],
+    "size": [
+     6.2798380851745605,
+     20.009292602539062,
+     41.2541618347168
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP03_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     215.28,
+     9.33,
+     -57.22
+    ],
+    "size": [
+     6.2798380851745605,
+     20.009292602539062,
+     38.70601272583008
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP03_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     259.07,
+     9.33,
+     -65.11
+    ],
+    "size": [
+     6.2798380851745605,
+     20.009292602539062,
+     53.139530181884766
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP03_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     186.97,
+     9.33,
+     71.97
+    ],
+    "size": [
+     12.486112594604492,
+     20.009292602539062,
+     27.032962799072266
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP03_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     42.4,
+     30.48,
+     561.3
+    ],
+    "size": [
+     55.8141975402832,
+     49.8810920715332,
+     23.585529327392578
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP03_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -745.66,
+     17.08,
+     -2.76
+    ],
+    "size": [
+     43.77549362182617,
+     36.082664489746094,
+     17.18212890625
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP03_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -731.36,
+     17.08,
+     -44.69
+    ],
+    "size": [
+     53.89921188354492,
+     36.082664489746094,
+     17.18212890625
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP03_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -780.56,
+     21.45,
+     157.36
+    ],
+    "size": [
+     18.482868194580078,
+     67.41168975830078,
+     111.79841613769531
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP03_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -762.34,
+     21.45,
+     60.42
+    ],
+    "size": [
+     15.329951286315918,
+     67.41168975830078,
+     130.2481231689453
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP03_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -770.31,
+     21.45,
+     6.96
+    ],
+    "size": [
+     15.329951286315918,
+     67.41168975830078,
+     22.982694625854492
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP03_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -729.51,
+     21.45,
+     57.56
+    ],
+    "size": [
+     18.482868194580078,
+     67.41168975830078,
+     121.80436706542969
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP03_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -563.03,
+     21.37,
+     20.98
+    ],
+    "size": [
+     26.043933868408203,
+     67.41168975830078,
+     139.1929931640625
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP03_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -553.81,
+     21.37,
+     105.07
+    ],
+    "size": [
+     15.871108055114746,
+     67.41168975830078,
+     29.205636978149414
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP03_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -640.14,
+     21.45,
+     134.5
+    ],
+    "size": [
+     188.17018127441406,
+     67.41168975830078,
+     21.92447853088379
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP03_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -641.55,
+     21.45,
+     -46.67
+    ],
+    "size": [
+     182.81239318847656,
+     67.41168975830078,
+     22.82590675354004
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP03_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -759.84,
+     21.45,
+     -66.85
+    ],
+    "size": [
+     18.482868194580078,
+     67.41168975830078,
+     41.44989013671875
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP03_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -768.96,
+     21.45,
+     -107.02
+    ],
+    "size": [
+     18.482868194580078,
+     67.41168975830078,
+     41.44989013671875
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP03_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -771.38,
+     21.45,
+     -214.84
+    ],
+    "size": [
+     18.482868194580078,
+     67.41168975830078,
+     175.56336975097656
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap03_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP03_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP04_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP04_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -876.98,
+     21.45,
+     172.65
+    ],
+    "size": [
+     176.4308319091797,
+     67.41168975830078,
+     18.577970504760742
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP04_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     215.28,
+     9.33,
+     -356.45
+    ],
+    "size": [
+     57.10411834716797,
+     45.82008361816406,
+     79.16696166992188
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP04_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     284.3,
+     9.33,
+     -336.05
+    ],
+    "size": [
+     74.12512969970703,
+     45.82008361816406,
+     8.481017112731934
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP04_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     167.63,
+     9.33,
+     -329.81
+    ],
+    "size": [
+     74.12512969970703,
+     45.82008361816406,
+     8.481017112731934
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP04_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     177.57,
+     -2.38,
+     -394.87
+    ],
+    "size": [
+     90.10903930664062,
+     20.502222061157227,
+     149.96697998046875
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map02_lostoros_downtown.submap",
+   "fragment": "SUBMAP04_Map02_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     254.34,
+     -2.38,
+     -394.22
+    ],
+    "size": [
+     74.20594024658203,
+     20.502222061157227,
+     154.04185485839844
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -856.83,
+     15.39,
+     333.98
+    ],
+    "size": [
+     54.18568801879883,
+     30.951324462890625,
+     10.864233016967773
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "MAINMAP_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -418.52,
+     -8.33,
+     450.23
+    ],
+    "size": [
+     14.111344337463379,
+     20.009292602539062,
+     27.032962799072266
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": "Teleport_Tunnel_Industrial",
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -418.52,
+     -8.33,
+     450.23
+    ],
+    "size": [
+     14.111344337463379,
+     20.009292602539062,
+     27.032962799072266
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -780.04,
+     15.39,
+     333.71
+    ],
+    "size": [
+     20.300695419311523,
+     30.951324462890625,
+     10.864233016967773
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -820.49,
+     15.39,
+     333.86
+    ],
+    "size": [
+     20.638669967651367,
+     30.951324462890625,
+     10.864233016967773
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -800.15,
+     15.39,
+     334.87
+    ],
+    "size": [
+     22.38878631591797,
+     30.951324462890625,
+     10.864233016967773
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -743.21,
+     15.39,
+     333.59
+    ],
+    "size": [
+     53.974647521972656,
+     30.951324462890625,
+     10.864233016967773
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -720.91,
+     15.39,
+     354.23
+    ],
+    "size": [
+     9.526026725769043,
+     30.951324462890625,
+     52.300270080566406
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -721.0,
+     15.39,
+     406.57
+    ],
+    "size": [
+     9.526026725769043,
+     30.951324462890625,
+     52.300270080566406
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -720.8,
+     15.39,
+     463.18
+    ],
+    "size": [
+     9.526026725769043,
+     30.951324462890625,
+     61.8293342590332
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -722.27,
+     15.39,
+     533.34
+    ],
+    "size": [
+     9.526026725769043,
+     30.951324462890625,
+     11.74797534942627
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -724.11,
+     15.39,
+     519.82
+    ],
+    "size": [
+     9.526026725769043,
+     30.951324462890625,
+     15.295753479003906
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -722.38,
+     15.39,
+     502.9
+    ],
+    "size": [
+     9.526026725769043,
+     30.951324462890625,
+     18.440603256225586
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -731.1,
+     15.39,
+     548.07
+    ],
+    "size": [
+     9.526026725769043,
+     30.951324462890625,
+     31.362146377563477
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -761.72,
+     15.39,
+     557.35
+    ],
+    "size": [
+     48.015987396240234,
+     30.951324462890625,
+     10.864233016967773
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -841.7,
+     15.39,
+     557.63
+    ],
+    "size": [
+     37.196895599365234,
+     30.951324462890625,
+     10.864233016967773
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -802.13,
+     15.39,
+     557.49
+    ],
+    "size": [
+     32.9344367980957,
+     30.951324462890625,
+     10.864233016967773
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -820.98,
+     15.39,
+     557.39
+    ],
+    "size": [
+     4.753195762634277,
+     30.951324462890625,
+     10.864233016967773
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -879.25,
+     15.39,
+     354.78
+    ],
+    "size": [
+     9.526026725769043,
+     30.951324462890625,
+     52.300270080566406
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -879.07,
+     15.39,
+     407.12
+    ],
+    "size": [
+     9.526026725769043,
+     30.951324462890625,
+     52.300270080566406
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -879.15,
+     15.39,
+     471.06
+    ],
+    "size": [
+     9.526026725769043,
+     30.951324462890625,
+     76.48734283447266
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -878.65,
+     15.39,
+     526.23
+    ],
+    "size": [
+     9.526026725769043,
+     30.951324462890625,
+     33.51597213745117
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -868.83,
+     15.39,
+     549.14
+    ],
+    "size": [
+     9.526026725769043,
+     30.951324462890625,
+     30.821157455444336
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -793.44,
+     25.4,
+     -26.84
+    ],
+    "size": [
+     89.79682159423828,
+     51.36991882324219,
+     16.20694923400879
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -702.57,
+     25.4,
+     47.3
+    ],
+    "size": [
+     92.91279602050781,
+     51.36991882324219,
+     21.701908111572266
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -584.69,
+     25.4,
+     45.41
+    ],
+    "size": [
+     89.95511627197266,
+     51.36991882324219,
+     16.20694923400879
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -636.76,
+     25.4,
+     -1.97
+    ],
+    "size": [
+     15.943355560302734,
+     51.36991882324219,
+     120.01889038085938
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -636.46,
+     25.4,
+     85.63
+    ],
+    "size": [
+     12.693167686462402,
+     51.36991882324219,
+     120.01889038085938
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -793.09,
+     25.4,
+     72.87
+    ],
+    "size": [
+     111.13230895996094,
+     51.36991882324219,
+     16.20694923400879
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -793.48,
+     25.4,
+     -37.34
+    ],
+    "size": [
+     111.13230895996094,
+     51.36991882324219,
+     16.20694923400879
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -793.83,
+     25.4,
+     -139.26
+    ],
+    "size": [
+     93.22626495361328,
+     51.36991882324219,
+     16.20694923400879
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -788.97,
+     25.4,
+     -114.79
+    ],
+    "size": [
+     25.05479621887207,
+     51.36991882324219,
+     16.20694923400879
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -787.39,
+     25.4,
+     4.61
+    ],
+    "size": [
+     25.05479621887207,
+     51.36991882324219,
+     16.20694923400879
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -802.08,
+     25.4,
+     -224.77
+    ],
+    "size": [
+     76.3481674194336,
+     51.36991882324219,
+     16.20694923400879
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -806.61,
+     25.4,
+     153.27
+    ],
+    "size": [
+     66.07455444335938,
+     51.36991882324219,
+     16.20694923400879
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP03_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP03_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -865.4,
+     18.32,
+     147.29
+    ],
+    "size": [
+     20.349943161010742,
+     70.70191192626953,
+     126.5585708618164
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -403.83,
+     15.19,
+     -79.74
+    ],
+    "size": [
+     9.526026725769043,
+     30.951324462890625,
+     36.040138244628906
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -427.56,
+     15.19,
+     -68.07
+    ],
+    "size": [
+     14.606467247009277,
+     30.951324462890625,
+     18.054309844970703
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "MAINMAP_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_and_MAINMAP_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -359.44,
+     -5.19,
+     428.91
+    ],
+    "size": [
+     16.233701705932617,
+     4.591681003570557,
+     8.979301452636719
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP02_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP02_and_MAINMAP_Map02_LosToros_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -359.44,
+     -5.19,
+     428.91
+    ],
+    "size": [
+     16.233701705932617,
+     4.591681003570557,
+     8.979301452636719
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -444.01,
+     15.19,
+     -68.87
+    ],
+    "size": [
+     12.057294845581055,
+     30.951324462890625,
+     20.201282501220703
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -484.19,
+     15.19,
+     -66.79
+    ],
+    "size": [
+     12.057294845581055,
+     30.951324462890625,
+     65.17436218261719
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -549.2,
+     15.19,
+     -66.56
+    ],
+    "size": [
+     12.057294845581055,
+     30.951324462890625,
+     65.17436218261719
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -626.92,
+     15.19,
+     -66.29
+    ],
+    "size": [
+     12.057294845581055,
+     30.951324462890625,
+     94.30353546142578
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -425.2,
+     15.19,
+     -239.14
+    ],
+    "size": [
+     12.057294845581055,
+     30.951324462890625,
+     76.53264617919922
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -472.29,
+     15.19,
+     -237.35
+    ],
+    "size": [
+     12.057294845581055,
+     30.951324462890625,
+     22.90648651123047
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -554.56,
+     15.19,
+     -239.71
+    ],
+    "size": [
+     12.057294845581055,
+     30.951324462890625,
+     145.82351684570312
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -648.64,
+     15.19,
+     -216.09
+    ],
+    "size": [
+     12.057294845581055,
+     30.951324462890625,
+     71.2572250366211
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -667.2,
+     15.19,
+     -127.92
+    ],
+    "size": [
+     135.58876037597656,
+     30.951324462890625,
+     20.201875686645508
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -395.47,
+     15.19,
+     -198.78
+    ],
+    "size": [
+     91.26802062988281,
+     30.951324462890625,
+     20.201875686645508
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map03_LosToros_Industrial",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_Map03_LosToros_Industrial",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -395.47,
+     15.19,
+     -114.49
+    ],
+    "size": [
+     76.14105987548828,
+     30.951324462890625,
+     20.201875686645508
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "MAINMAP_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_and_MAINMAP_Map02_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -329.16,
+     -4.15,
+     19.99
+    ],
+    "size": [
+     5.824220180511475,
+     4.347407817840576,
+     6.6229071617126465
+    ],
+    "radius": null
+   }
+  },
+  {
+   "block": "submap04_map03_lostoros_industrial.submap",
+   "fragment": "SUBMAP04_Map03_WorldBoundary_Triggers.fragment",
+   "target": "SUBMAP01_Map02_LosToros_Downtown",
+   "teleport": null,
+   "root": {
+    "name": "TriggerLoad_SUBMAP01_and_MAINMAP_Map02_Downtown",
+    "type": "Trigger_Root(CollisionBox)",
+    "pos": [
+     -329.16,
+     -4.15,
+     19.99
+    ],
+    "size": [
+     5.824220180511475,
+     4.347407817840576,
+     6.6229071617126465
+    ],
+    "radius": null
+   }
+  }
+ ]
+}

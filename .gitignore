@@ -1,0 +1,14 @@
+node_modules/
+.venv/
+build/
+dist/
+backend/web/
+__pycache__/
+*.pyc
+*.zip
+*.glb
+*.dds
+*.naz
+ACTION_LOG.md
+NOTES.md
+*.log

@@ -1,0 +1,104 @@
+{
+ "source": "the author's new_content/missions/templates work folder (not included)",
+ "files": {
+  "migrate_save.py": {
+   "sha256": "c63f30be86d175749b8bd41343013ba4de0e8c95b6be9026c7a5e63a4bcfc495"
+  },
+  "samples/existing_host_downtown.json": {
+   "sha256": "6666887def5fcc8601526b74d9df25d0a5b6bd46692ec5dd14a0505342df2d9b"
+  },
+  "samples/mesa_compound.json": {
+   "sha256": "96eafe5ae28dc11ce93764003bfdbb84e7926716a45e5759287cec2566fa76bc"
+  },
+  "samples/mesa_map.json": {
+   "sha256": "6e3dcf198d3336ed61600a206fd628bb67e19d4db04d59a8be545813c68c521d"
+  },
+  "samples/second_map_ghost_showdown.json": {
+   "sha256": "4a41df78314497dca4056c75cf95718229163407d72f3fcf4f7486c8abebbafb"
+  },
+  "samples/second_map_params.json": {
+   "sha256": "2ded138be28fb2152deb6fd0424e6daad77975560ee99e4d0ea9cfbaf4814fdc"
+  },
+  "todtpl/__init__.py": {
+   "sha256": "1caff15336036c818870c9c08c2b167f7bd626fcc140fb0280f04e78f9c52b74"
+  },
+  "todtpl/data/d1_go_kill3_return.json": {
+   "sha256": "9ca339954380580cbe87b24dd6079aaaaf6868d00e845c29dce587726246f062"
+  },
+  "todtpl/tpl_build.py": {
+   "sha256": "867f4c09117d5ba2f447aa8bfbe608099076414b732f31f8eeea6647f7943813"
+  },
+  "todtpl/tpl_core.py": {
+   "sha256": "a85e083c4346e52063fc16092860234f9cf9fe0e614c7d3a3b54ce8660119732"
+  },
+  "todtpl/tpl_env.py": {
+   "sha256": "d9114fa44324f724d772b32e02ad40be6aaa8b2514403c992ffd8ff0978fed43"
+  },
+  "todtpl/tpl_host.py": {
+   "sha256": "1d3a871b0cb5e366352c3288d4aaa25724adcb574929d2e0f8ac39e868d45682"
+  },
+  "todtpl/tpl_lib.py": {
+   "sha256": "cccdff8381c621c7d2bc3c068df1236981d15fae153372887897aa6c69387235"
+  },
+  "todtpl/tpl_variant.py": {
+   "sha256": "c2a7476beec1b51e54d5e9d89b01a8f6e6a20e7820a51b7c5625cbc7f5c31f64"
+  },
+  "todtpl/types/__init__.py": {
+   "sha256": "ebdcff98f2d79386e1d5320b6725410389360a48e6114b8dd21ee75fb10d6609"
+  },
+  "todtpl/types/_base.py": {
+   "sha256": "dece9541f80d4937dc327bcfcb4c176958ad9e993930eb3f6166da833be7a1b6"
+  },
+  "todtpl/types/arena.py": {
+   "sha256": "ed64eb8d81f913aca2a36961722f36181d510ef87a016db4ed3fc424045cf3eb"
+  },
+  "todtpl/types/capture.py": {
+   "sha256": "658fb6411975796647fb5a8268f9fe37102b8304c5140fa3779f7a3ac40f72e6"
+  },
+  "todtpl/types/chase.py": {
+   "sha256": "bafe8acec2cd3e798117cf103d9f362047b079815135b43b6f7d64c6c58a9872"
+  },
+  "todtpl/types/combo.py": {
+   "sha256": "695028a36e8da3623b38bfa0426b854c3d9a6fcba2b7f4e746706a3cc4a98af8"
+  },
+  "todtpl/types/defuse.py": {
+   "sha256": "b53a3d06cd2f22c57a5aea3fcc394ae8d0e5cd799566624208396740e2b509e5"
+  },
+  "todtpl/types/destroy.py": {
+   "sha256": "eeb9cdf95d5610d306835a30ee97915768da073594a0d91497d5b47e618d79f4"
+  },
+  "todtpl/types/endurance.py": {
+   "sha256": "9a396b3f3603924bceca98b8bf732b236c146427889cb37b4e006de6a0a784c2"
+  },
+  "todtpl/types/frenzy.py": {
+   "sha256": "3002a1ad05f99455949e722ce8589760cf86f72b6f5cf92f6a638c8d5637c186"
+  },
+  "todtpl/types/ghost.py": {
+   "sha256": "6c7c9d91aa2b9152b07a7ab3fe0a7667a511617641dd4a82e0c4f8a1ecc65608"
+  },
+  "todtpl/types/hold.py": {
+   "sha256": "926a6bab598c55136258b6ab9fcc2c5f80915245d83351abe6bb3b014d405ea8"
+  },
+  "todtpl/types/lava.py": {
+   "sha256": "6565ea9657611afb7233a5f7add4affe213efad678229b010e9069d66bf15b43"
+  },
+  "todtpl/types/marked.py": {
+   "sha256": "dfa3b6adbc67fbfba75ff6db640bb20281a4db56c0968cadfa91bb1af36ce4cd"
+  },
+  "todtpl/types/race.py": {
+   "sha256": "7d7a5cda2bf9cce79444350338ea8c466d64b52736c1bab40d01a0fbaf6e888b"
+  },
+  "todtpl/types/rescue.py": {
+   "sha256": "f23fc25022c4721981f0ed18ce8bd67619a94bd353a9ffd84ea35026b76b8b3c"
+  },
+  "todtpl/types/showdown.py": {
+   "sha256": "f185a7fb9965f28f2ecbb0eeecafbc960dcd3702e1b66256d28023a83c971cfe"
+  },
+  "todtpl/types/stunt.py": {
+   "sha256": "1770676d279bfc9727e954e4c1735c9c6a5ed79f310caaa7003397aba27a93f2"
+  },
+  "todtpl/types/style.py": {
+   "sha256": "0b08ed183ffb44c8f735adfc04df20ebd42b62335bf97a540cde58f3e10eaa4e"
+  }
+ }
+}

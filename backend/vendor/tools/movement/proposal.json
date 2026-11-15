@@ -1,0 +1,24 @@
+{
+ "description": "Movement feel proposal, docs/subsystem_player_movement.md section 9 (changes 1-5). Data: AnimDict cycle rates matched to the code speeds. Code (movefeel proxy): quicker start, phase-matched blends, frame-rate independent mouse turn, diagonal clamp.",
+ "data": {
+  "anim.run.cps": 1.4892,
+  "anim.run_lean_left.cps": 1.4892,
+  "anim.run_lean_right.cps": 1.4892,
+  "anim.sprint.cps": 2.0143,
+  "anim.run_backwards.cps": 1.8616,
+  "anim.strafe_left.cps": 1.6556,
+  "anim.strafe_right.cps": 1.6556
+ },
+ "code": {
+  "vel_run_keep": 0.62,
+  "vel_run_gain": 0.38,
+  "vel_sprint_keep": 0.62,
+  "vel_sprint_gain": 3.42
+ },
+ "features": {
+  "phase_sync": 1,
+  "mouse_accumulate": 1,
+  "mouse_seconds_per_frame": 0.015833,
+  "diagonal_normalize": 1
+ }
+}

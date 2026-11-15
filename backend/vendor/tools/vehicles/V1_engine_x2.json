@@ -1,0 +1,6 @@
+{
+ "description": "test V1: engine force of every 4-wheel car x2 (12000 -> 24000 N). Sedan top speed 108 -> 168 km/h (model).",
+ "set": {
+  "car.max_engine_force": 24000.0
+ }
+}

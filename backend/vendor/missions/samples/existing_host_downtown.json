@@ -1,0 +1,14 @@
+{
+ "format": 1,
+ "package": "existing_host_demo",
+ "hosts": [
+  {"id": "downtown", "kind": "existing", "block": "submap01_map02_lostoros_downtown.submap",
+   "map_ids_from_slot": 33, "area": [-255.0, -75.0, -215.0, -25.0], "ground_y": 2.5,
+   "comment": "Downtown submap01 takes the giver box (entry-host rules: last, once-instanced fragment). Map ids + start spot come from the shipped award of slot 33 (a Downtown mission). area / ground_y are the lab-plaza guess; supply obstacles for free-ground checks."}
+ ],
+ "missions": [
+  {"id": "plaza_ghost", "type": "ghost", "host": "downtown", "index": 79,
+   "params": {"giver_pos": [-228.0, 2.5, -52.0], "giver_size": 6.0}}
+ ],
+ "options": {"zip_name": "existing_host_missions.zip"}
+}
