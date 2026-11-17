@@ -45,7 +45,7 @@ def main():
     ap.add_argument('--restools', default=DEFAULT_RESTOOLS)
     ap.add_argument('--properties', default=None)
     ap.add_argument('--no-properties', action='store_true',
-                    help="emit builtin#N property keys (skip name resolution). The UE populator is validated "
+                    help="emit builtin#N property keys (skip name resolution). The importer is validated "
                          "against builtin#N (builtin#38=model, #15=name, #415/#417=light, #241/#242/#69=collision); "
                          "name resolution via properties.dump is unreliable for some types (e.g. Light color/radius "
                          "get mis-labeled), so the import pipeline standardizes on builtin#N.")

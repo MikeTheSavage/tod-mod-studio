@@ -1,0 +1,20 @@
+[
+ {
+  "id": "level",
+  "kind": "mod",
+  "file": "level_tweak.json",
+  "screen": "level"
+ },
+ {
+  "id": "tuning",
+  "kind": "mod",
+  "file": "tuning_tweak.json",
+  "screen": "data"
+ },
+ {
+  "id": "race",
+  "kind": "mission",
+  "sample": "race",
+  "screen": "mtpl"
+ }
+]

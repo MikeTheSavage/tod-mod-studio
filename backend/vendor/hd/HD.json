@@ -1,0 +1,19 @@
+{
+ "source": "TOD HD's app/tod_hd_game.py (read only)",
+ "copied": "2026-11-15T11:26:26",
+ "note": "Copies of TOD HD's game-data layer (tod_hd_game.py: Archive, strict asset Block reader/writer, texture_patches, rewrite_block) and of its baked-lighting layer (tod_hd_lighting.py: lighting record parser, key retargeter, instance ownership; tod_hd_scatter.py: the fragment walker the ownership needs). Not edited.",
+ "files": {
+  "tod_hd_game.py": {
+   "sha256": "deaa0b29228b7c890e61cfa7b08869ae138994737489a23132ddffc000a03a33",
+   "bytes": 33563
+  },
+  "tod_hd_lighting.py": {
+   "sha256": "16fb4fd750aba928923b5aab9780a92297236e8d243aca7022e515431e86543b",
+   "bytes": 66960
+  },
+  "tod_hd_scatter.py": {
+   "sha256": "ca7684ae563edcc993e9bf231dc405d9b5b76c8711929b5d8411c0941911c824",
+   "bytes": 24276
+  }
+ }
+}

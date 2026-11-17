@@ -1,30 +1,17 @@
-"""Asset replacement manager core: the table that maps each TOD model to an Unreal asset.
+"""Model catalogue core: every TOD model of the player's game with the maps that place it, use counts, render size,
+game collision and a thumbnail drawn from the game's own mesh.
 
-Identity is the bridge's (TODBridgeLink TodbAssetTable): the STEM KEY of the model's resource path,
+Identity is the STEM KEY of the model's resource path,
   "data_" + path without "/data", without ".model", "/" -> "_", lower case
-  (/data/Models/Addons/AirVents/AirVent_Doubble.model -> data_models_addons_airvents_airvent_doubble),
-optionally "<stem>#ts<N>" for a character drawn with texture set N and "<stem>#p<N>" for the mesh of pivot N (MC's
-per-pivot import). The bridge resolves a drawn model through Config/TODBridge/asset_table.json (the imported
-originals), asset_overrides.json (replacements, which win) and asset_overrides_todhd.json (the TOD HD agent's rows,
-which win over both; this module only reads that file). This module never changes asset_table.json; it MERGES assignments into asset_overrides.json (rows it does
-not own, comments and extra fields such as "note" are kept) and keeps the manager's own state (markers, notes) in
-Config/TODBridge/asset_manager.json.
+  (/data/Models/Addons/AirVents/AirVent_Doubble.model -> data_models_addons_airvents_airvent_doubble).
 
-Files:
+Files (in the cache folder):
   asset_census.json      per TOD model: maps and placement counts, kind, render size, collision kind (built from
                          the game's blocks by `census`, cached)
-  asset_manager.json     {"kind": "todct-asset-manager", "rows": {stem: {"marker": "visual_only"|"needs_collision"|"",
-                          "note": ""}}}
-  asset_candidates.json  THE HOOK for a later matcher (vector search): {"kind": "todct-asset-candidates", "version": 1,
-                          "generated_by": "...", "rows": {stem: [{"ue": "/Game/...", "score": 0..1, "source": "...",
-                          "note": "..."}]}}. The manager shows them per row and can accept the best ones in bulk.
-                          `name_candidates` writes a simple one (name tokens + size) so the hook is exercised now.
 """
-import collections
 import json
 import math
 import os
-import re
 import struct
 import time
 import zlib
@@ -33,13 +20,9 @@ import numpy as np
 
 from . import tools
 
-MARKERS = ('', 'visual_only', 'needs_collision')
-MARKER_TEXT = {'': '', 'visual_only': 'visual only (game collision stays)',
-               'needs_collision': 'needs collision change (run the collision generator)'}
-
 
 def stem_key(path):
-    """TodbAssetTable stem key (TODBridgeLinkModule.cpp AssetStemKey)."""
+    """The stem key of a model path."""
     p = (path or '').replace('\\', '/').lower()
     if p.startswith('/data/'):
         p = p[5:]
@@ -53,7 +36,6 @@ def stem_key(path):
     return 'data_' + p.replace('/', '_')
 
 
-# ---------------------------------------------------------------------------------------------- JSON files
 def _load(path, default):
     try:
         with open(path, encoding='utf-8') as f:
@@ -71,33 +53,11 @@ def _save(path, obj):
 
 
 class Config:
-    """The bridge config folder (Unreal project Config/TODBridge) or any copy of it."""
+    """The cache folder that holds the census."""
 
     def __init__(self, folder):
         self.folder = folder
-        self.table_path = os.path.join(folder, 'asset_table.json')
-        self.overrides_path = os.path.join(folder, 'asset_overrides.json')
-        self.state_path = os.path.join(folder, 'asset_manager.json')
-        self.candidates_path = os.path.join(folder, 'asset_candidates.json')
         self.census_path = os.path.join(folder, 'asset_census.json')
-        self.todhd_path = os.path.join(folder, 'asset_overrides_todhd.json')
-
-    def table(self):
-        return _load(self.table_path, {}).get('assets', {})
-
-    def overrides_doc(self):
-        return _load(self.overrides_path, {'comment': 'HD replacements: key = stem key of the TOD asset (data_ + path '
-                                           'without .model, \'/\' -> \'_\', lower case), value = the UE asset. Entries '
-                                           'here win over asset_table.json.', 'assets': {}})
-
-    def todhd(self):
-        return _load(self.todhd_path, {}).get('assets', {})
-
-    def state(self):
-        return _load(self.state_path, {'kind': 'todct-asset-manager', 'version': 1, 'rows': {}})
-
-    def candidates(self):
-        return _load(self.candidates_path, {'kind': 'todct-asset-candidates', 'version': 1, 'rows': {}})
 
     def census(self):
         return _load(self.census_path, None)
@@ -180,42 +140,28 @@ def census(read, names, progress=None):
                 continue
             rows[key]['maps'][mk] = rows[key]['maps'].get(mk, 0) + n
             rows[key]['uses'] += n
-    return dict(kind='todct-asset-census', version=1, built=time.strftime('%Y-%m-%d %H:%M:%S'), seconds=round(time.time() - t0, 1),
+            sec = rows[key].setdefault('sections', {})
+            for p in pls:
+                sec[p[0]] = sec.get(p[0], 0) + p[3]
+    return dict(kind='todct-asset-census', version=2, built=time.strftime('%Y-%m-%d %H:%M:%S'), seconds=round(time.time() - t0, 1),
                 maps=maps, rows=rows)
 
 
 # ---------------------------------------------------------------------------------------------- the table
 def rows(cfg, census_doc=None):
-    """Merged manager rows (JSON-able), sorted by uses."""
+    """Catalogue rows (JSON-able), sorted by uses."""
     cen = census_doc or cfg.census() or dict(rows={}, maps=[])
-    table = cfg.table()
-    ov = cfg.overrides_doc().get('assets', {})
-    hd = cfg.todhd()
-    st = cfg.state().get('rows', {})
-    cand = cfg.candidates().get('rows', {})
-    keys = set(cen['rows']) | {k.split('#')[0] for k in table} | {k.split('#')[0] for k in ov} | {k.split('#')[0] for k in hd}
     out = []
-    for k in keys:
-        c = cen['rows'].get(k, {})
-        t = table.get(k, {})
-        o = ov.get(k, {})
-        s = st.get(k, {})
-        out.append(dict(key=k, name=c.get('name') or (t.get('path') or o.get('path') or k).split('/')[-1].replace('.model', ''),
-                        path=c.get('path') or t.get('path') or o.get('path'), kind=c.get('kind') or t.get('kind') or o.get('kind') or 'static',
+    for k, c in cen['rows'].items():
+        out.append(dict(key=k, name=c.get('name') or k, path=c.get('path'), kind=c.get('kind') or 'static',
                         maps=c.get('maps', {}), uses=c.get('uses', 0), size=c.get('size'), collision=c.get('collision'),
-                        collision_shapes=c.get('collision_shapes'), triangles=c.get('triangles'),
-                        ue_original=t.get('ue'), ue_assigned=o.get('ue'), assigned_note=o.get('note'),
-                        assigned_by=o.get('assigned_by'), ue_hd=(hd.get(k) or {}).get('ue'),
-                        ue_effective=(hd.get(k) or {}).get('ue') or o.get('ue') or t.get('ue'),
-                        marker=s.get('marker', o.get('collision', '')), note=s.get('note', ''),
-                        candidates=cand.get(k, []),
-                        variants=sorted(set(x for x in list(table) + list(ov) + list(hd) if x.startswith(k + '#')))))
+                        collision_shapes=c.get('collision_shapes'), triangles=c.get('triangles'), pivots=c.get('pivots'),
+                        sections=c.get('sections', {}), blocks=c.get('blocks', [])))
     out.sort(key=lambda r: (-r['uses'], r['name'].lower()))
     return out
 
 
-def filter_rows(rs, map_key=None, min_uses=0, text='', only=None):
-    """only: None | 'assigned' | 'unassigned' | 'visual_only' | 'needs_collision' | 'imported' | 'with_candidates'."""
+def filter_rows(rs, map_key=None, min_uses=0, text=''):
     t = (text or '').lower()
     out = []
     for r in rs:
@@ -223,146 +169,10 @@ def filter_rows(rs, map_key=None, min_uses=0, text='', only=None):
             continue
         if (r['maps'].get(map_key, 0) if map_key else r['uses']) < (min_uses or 0):
             continue
-        if t and t not in (r['name'] + ' ' + (r['path'] or '') + ' ' + (r['ue_assigned'] or '')).lower():
-            continue
-        if only == 'todhd' and not r.get('ue_hd'):
-            continue
-        if only == 'assigned' and not r['ue_assigned']:
-            continue
-        if only == 'unassigned' and r['ue_assigned']:
-            continue
-        if only in ('visual_only', 'needs_collision') and r['marker'] != only:
-            continue
-        if only == 'imported' and not r['ue_original']:
-            continue
-        if only == 'with_candidates' and not r['candidates']:
+        if t and t not in (r['name'] + ' ' + (r['path'] or '')).lower():
             continue
         out.append(r)
     return out
-
-
-def suggest_marker(tod_size, ue_size_m, tol_rel=0.12, tol_abs=0.3):
-    """'visual_only' when the replacement's bounds match the TOD model's within 12 % / 0.3 m per axis (the game's
-    collision still fits it), else 'needs_collision'. Sizes in metres, TOD axes (x, y up, z)."""
-    if not tod_size or not ue_size_m:
-        return ''
-    for a, b in zip(tod_size, ue_size_m):
-        if abs(a - b) > max(tol_abs, tol_rel * max(abs(a), abs(b))):
-            return 'needs_collision'
-    return 'visual_only'
-
-
-def ue_size_to_tod(size_cm):
-    """UE bounds box size (cm, X Y Z) -> TOD axes metres (x, y up, z): (X, Z, Y) / 100."""
-    return [size_cm[0] / 100.0, size_cm[2] / 100.0, size_cm[1] / 100.0]
-
-
-def assign(cfg, assignments, by='asset manager'):
-    """assignments: [{"key", "ue" (None/'' = clear), "kind" (static|skeletal), "path", "marker", "note",
-    "ue_size_cm"}]. Merges into asset_overrides.json (other rows untouched) and asset_manager.json. Returns a report."""
-    doc = cfg.overrides_doc()
-    ov = doc.setdefault('assets', {})
-    st = cfg.state()
-    srows = st.setdefault('rows', {})
-    cen = (cfg.census() or {}).get('rows', {})
-    changed, cleared, marked = [], [], []
-    for a in assignments:
-        k = a['key']
-        if not re.match(r'^data_[a-z0-9_./-]+(#(ts|p)\d+)?$', k):
-            raise ValueError('not a stem key: %r' % k)
-        if 'ue' in a:
-            if a['ue']:
-                if not a['ue'].startswith('/'):
-                    raise ValueError('%s: UE asset path must start with / (got %r)' % (k, a['ue']))
-                row = dict(ov.get(k, {}))
-                row.update(ue=a['ue'], kind=a.get('kind') or row.get('kind') or (cen.get(k.split('#')[0], {}).get('kind')) or 'static',
-                           path=a.get('path') or row.get('path') or re.sub(r'^/data(?=/)', '', cen.get(k.split('#')[0], {}).get('path') or '', flags=re.I) or None)
-                if row['path'] is None:
-                    row.pop('path')
-                row['assigned_by'] = by
-                if a.get('ue_size_cm') and cen.get(k, {}).get('size'):
-                    row['suggested'] = suggest_marker(cen[k]['size'], ue_size_to_tod(a['ue_size_cm']))
-                    if 'marker' not in a and not srows.get(k, {}).get('marker'):
-                        a = dict(a, marker=row['suggested'])          # the size check sets the first marker
-                ov[k] = row
-                changed.append(k)
-            elif k in ov and ov[k].get('assigned_by'):
-                del ov[k]                         # only rows this manager made are removed; hand-made rows stay
-                cleared.append(k)
-        if 'marker' in a or 'note' in a:
-            s = srows.setdefault(k, {})
-            if 'marker' in a:
-                if a['marker'] not in MARKERS:
-                    raise ValueError('%s: marker %r (one of %s)' % (k, a['marker'], MARKERS))
-                s['marker'] = a['marker']
-                if k in ov:
-                    if a['marker']:
-                        ov[k]['collision'] = a['marker']
-                    else:
-                        ov[k].pop('collision', None)
-                marked.append(k)
-            if 'note' in a:
-                s['note'] = a['note']
-    _save(cfg.overrides_path, doc)
-    _save(cfg.state_path, st)
-    return dict(assigned=changed, cleared=cleared, marked=marked, overrides=len(ov), file=cfg.overrides_path)
-
-
-def accept_candidates(cfg, keys, min_score=0.0):
-    cand = cfg.candidates().get('rows', {})
-    a = []
-    for k in keys:
-        c = sorted(cand.get(k, []), key=lambda x: -x.get('score', 0))
-        if c and c[0].get('score', 0) >= min_score:
-            a.append(dict(key=k, ue=c[0]['ue'], kind=c[0].get('kind'), ue_size_cm=c[0].get('size_cm')))
-    return assign(cfg, a, by='candidate (%s)' % ((cfg.candidates().get('generated_by')) or 'matcher'))
-
-
-# ---------------------------------------------------------------------------------------------- candidates hook
-STOP = {'sm', 'mesh', 'model', 'models', 'static', 'staticmeshes', 'textured', 'veg', 'bui', 'ter', 'data', 'addons',
-        'game', 'jungle', 'vegetation', 'downtown', 'lostoros', 'industrial', 'harbour', 'farm', 'hacienda', 'props'}
-
-
-def tokens(s):
-    s = re.sub(r'([a-z])([A-Z])', r'\1 \2', s or '')
-    return {t for t in re.split(r'[^a-z0-9]+', s.lower()) if len(t) > 1 and not t.isdigit() and not re.match(r'^map\d+$', t)} - STOP
-
-
-def name_candidates(cfg, ue_assets, rows_=None, top=5, exclude_roots=('/Game/K/',), min_score=0.2):
-    """The built-in matcher (fills the hook until the vector search exists): ue_assets = [{"ue": path, "name": .,
-    "size_cm": [x,y,z], "kind": "static"}] (the editor scans its asset registry). Score = name-token overlap
-    (Jaccard) * 0.7 + size similarity * 0.3. Writes asset_candidates.json; returns the doc."""
-    rs = rows_ or rows(cfg)
-    pool = [u for u in ue_assets if not any(u['ue'].startswith(r) for r in exclude_roots)]
-    ptok = [(u, tokens(u.get('name') or u['ue'].split('/')[-1].split('.')[0])) for u in pool]
-    out = {}
-    for r in rs:
-        tt = tokens(r['name']) | tokens((r['path'] or '').replace('/', ' '))
-        if not tt:
-            continue
-        sc = []
-        for u, ut in ptok:
-            if not ut or u.get('kind', 'static') != r['kind']:
-                continue
-            j = len(tt & ut) / len(tt | ut)
-            if j <= 0:
-                continue
-            size = 0.0
-            if r.get('size') and u.get('size_cm'):
-                a = np.asarray(r['size']) + 0.1
-                b = np.asarray(ue_size_to_tod(u['size_cm'])) + 0.1
-                size = float(np.exp(-np.mean(np.abs(np.log(a / b)))))
-            sc.append(dict(ue=u['ue'], score=round(0.7 * j + 0.3 * size, 4), source='name-match',
-                           kind=u.get('kind', 'static'), size_cm=u.get('size_cm'),
-                           note='tokens %s' % sorted(tt & ut)))
-        sc = [x for x in sc if x['score'] >= min_score]
-        sc.sort(key=lambda x: -x['score'])
-        if sc:
-            out[r['key']] = sc[:top]
-    doc = dict(kind='todct-asset-candidates', version=1, generated_by='todct name-match', generated=time.strftime('%Y-%m-%d %H:%M:%S'),
-               pool=len(pool), rows=out)
-    _save(cfg.candidates_path, doc)
-    return doc
 
 
 # ---------------------------------------------------------------------------------------------- thumbnails

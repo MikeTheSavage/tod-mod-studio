@@ -3,8 +3,7 @@
   python export_map.py OUTDIR BLOCK [BLOCK ...]      (first the .map, then its .submap files, optionally overdose.main)
 
 Placement: every Model entity of every level fragment (prefab definitions under /data/scripts/fragments are skipped),
-world = parent * local up the fragment-local parent chain, stored quaternions conjugated (project convention, see
-tools/ue/kapow_populate_v2.py). Model pivots use the parent index at pivot+0x58, also conjugated.
+world = parent * local up the fragment-local parent chain, stored quaternions conjugated (project convention). Model pivots use the parent index at pivot+0x58, also conjugated.
 Collision sources:
   - model+0x54 HullList (static collision, model space)
   - pivot+0x44 CollisionList (per pivot, pivot-local space): VertexCloud hulls and OrientedBoxes

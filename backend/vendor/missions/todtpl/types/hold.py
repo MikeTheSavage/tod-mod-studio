@@ -13,7 +13,7 @@ from ._base import make_spec
 MOD = sys.modules[__name__]
 NAME = 'hold'
 TITLE = 'Hold the Zone'
-SUMMARY = 'Stand inside a marked zone for a set time while three waves of bandits attack. Leaving the zone pauses the clock.'
+SUMMARY = 'Stand inside a marked zone for a set time while three waves of bandits attack.'
 HOST_NEEDS = ['A free, flat square of at least 10 x 10 m for the zone; open ground within 25 m for nine attackers in three waves.',
               'A free strip (76 x 10 m) for the 22 spare placeholders (parked, disabled).',
               'Works in any new map or existing section with flat ground.']
@@ -29,20 +29,20 @@ NPP = 3
 _WAVES_REL = [(-12.0, 4.0), (18.0, 4.0), (4.0, 14.0), (-12.0, -14.0), (20.0, -14.0), (6.0, -22.0), (-8.0, 12.0), (14.0, 12.0), (22.0, -2.0)]
 
 PARAMS = [
-    P('zone', 'point', lambda h, p: h.pt(4, -4), 'Hold zone', 'Centre of the zone the player must stand in.', group='Placement'),
-    P('zone_size', 'float', 10.0, 'Zone size', 'Edge length of the square hold zone.', min=4.0, max=40.0, unit='m', group='Placement'),
-    P('attackers', 'points', lambda h, p: [h.pt(x, z) for x, z in _WAVES_REL], 'Attacker positions', 'Nine attackers: the first three are wave 1, the next three wave 2, the last three wave 3 (x, y, z).', min_len=9, max_len=9, group='Placement'),
-    P('spare_region', 'rect', lambda h, p: list(h.rr(-38, 28, 38, 38)), 'Spare strip', 'Where the enemies that do not fight are parked (disabled).', group='Placement', advanced=True),
-    P('giver_npc_park', 'point', lambda h, p: h.pt(14, -24), 'Parked task giver', 'Where the template task-giver character is parked.', group='Placement', advanced=True),
-    P('snap_to_free_ground', 'bool', True, 'Keep clear of obstacles', 'Move attackers that fall inside a wall or prop to the nearest free ground.', group='Placement', advanced=True),
+    P('zone', 'point', lambda h, p: h.pt(4, -4), 'Hold zone', '', group='Placement'),
+    P('zone_size', 'float', 10.0, 'Zone size', '', min=4.0, max=40.0, unit='m', group='Placement'),
+    P('attackers', 'points', lambda h, p: [h.pt(x, z) for x, z in _WAVES_REL], 'Attacker positions', '', min_len=9, max_len=9, group='Placement'),
+    P('spare_region', 'rect', lambda h, p: list(h.rr(-38, 28, 38, 38)), 'Spare strip', '', group='Placement', advanced=True),
+    P('giver_npc_park', 'point', lambda h, p: h.pt(14, -24), 'Parked task giver', '', group='Placement', advanced=True),
+    P('snap_to_free_ground', 'bool', True, 'Keep clear of obstacles', '', group='Placement', advanced=True),
     P('seconds', 'int', 60, 'Seconds to hold', 'Seconds the player must spend inside the zone (one tick per second inside). At least %d.' % MIN_SECONDS, min=MIN_SECONDS, max=600, unit='s', group='Settings'),
-    P('wave_delays', 'floats', [0.0, 20.0, 40.0], 'Wave delays', 'Seconds after the start at which each wave of three arrives (the three of a wave are 1.5 s apart).', min_len=3, max_len=3, group='Settings'),
-    P('enemy_health', 'float', 0.3, 'Attacker health', 'Health multiplier (1.0 = normal).', min=0.05, max=3.0, group='Settings'),
-    P('enemy_damage', 'float', 0.01, 'Attacker damage', 'Damage multiplier (1.0 = normal).', min=0.0, max=3.0, group='Settings'),
-    P('text_hold', 'text', lambda h, p: 'Hold the zone for %d seconds' % p['seconds'], 'Objective text', 'The objective line.', group='Texts', max_len=60),
-    P('text_count', 'text', '%0 out of %1 seconds held', 'Counter text', 'The counter line (%0 = seconds held, %1 = needed).', group='Texts', max_len=50),
-    P('text_leave', 'text', 'You left the zone. Get back in to keep holding!', 'Leave warning', 'Shown when the player steps out of the zone.', group='Texts', max_len=60),
-    P('text_done', 'text', 'Zone held!', 'Success text', 'Shown when the zone is held.', group='Texts', max_len=40),
+    P('wave_delays', 'floats', [0.0, 20.0, 40.0], 'Wave delays', '', min_len=3, max_len=3, group='Settings'),
+    P('enemy_health', 'float', 0.3, 'Attacker health', '', min=0.05, max=3.0, group='Settings'),
+    P('enemy_damage', 'float', 0.01, 'Attacker damage', '', min=0.0, max=3.0, group='Settings'),
+    P('text_hold', 'text', lambda h, p: 'Hold the zone for %d seconds' % p['seconds'], 'Objective text', '', group='Texts', max_len=60),
+    P('text_count', 'text', '%0 out of %1 seconds held', 'Counter text', '', group='Texts', max_len=50),
+    P('text_leave', 'text', 'You left the zone. Get back in to keep holding!', 'Leave warning', '', group='Texts', max_len=60),
+    P('text_done', 'text', 'Zone held!', 'Success text', '', group='Texts', max_len=40),
 ]
 
 

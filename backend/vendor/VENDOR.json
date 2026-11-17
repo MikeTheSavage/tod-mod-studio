@@ -1,5 +1,5 @@
 {
- "source": "the author's TOD Project tools (not included)",
+ "source": "the TOD Project game-data tools (not included)",
  "copied": "2026-10-20T16:25:05",
  "note": "Vendored copy of the TOD Project game-data tools. Local patches are listed in VENDOR.md; database.bin-derived tables are rebuilt per user by backend/tod_tables.py.",
  "dropped": [
@@ -18,23 +18,23 @@
  ],
  "files": {
   "tod_model_extract.py": {
-   "sha256": "1ea2ce0ce36cd83f83cd4e53d4c0edfc0dbdbe5d79b42448f90f38edbc8c542b",
-   "bytes": 14237,
+   "sha256": "b3391b43015817c2b137994b7b71df1ec253224a0abaa00a2014ba6d1ef33e1f",
+   "bytes": 13996,
    "source_mtime": "2026-09-13T02:58:01"
   },
   "tod_model_to_gltf.py": {
-   "sha256": "b84324765be4fa6b3407f39f8ff029bf5452c6826b308fafa31c8017058ab539",
-   "bytes": 8715,
+   "sha256": "b33cf86da7b140faa4f58bf42c2c923f6abe22dda27e3e941afbe36d2b2305a3",
+   "bytes": 8707,
    "source_mtime": "2026-06-02T04:14:31"
   },
   "tod_static_textured.py": {
-   "sha256": "0b11c2b822c01e74a10ed16925210342bc438d3278d51d30ce0ffc592f2fae3e",
-   "bytes": 12749,
+   "sha256": "368cfb134b2d43c50fafc31fac7af3118e359f8678daa6bb9686d2a30200f2b7",
+   "bytes": 12433,
    "source_mtime": "2026-09-13T02:58:01"
   },
   "tod_dds.py": {
-   "sha256": "0d7035026f0f43c83669bbf09f9ba2bcf61d538c7ed76f43273d8231765b3ba0",
-   "bytes": 5309,
+   "sha256": "31fa07704413effbe592aa7bc6baa77e7fead5b74878e128b242f04b032eb779",
+   "bytes": 5314,
    "source_mtime": "2026-06-18T21:21:00"
   },
   "tod_texture_extract.py": {
@@ -43,13 +43,13 @@
    "source_mtime": "2026-06-18T18:50:02"
   },
   "tod_char_anim_extract.py": {
-   "sha256": "168c874d064ebad691134fe37677c271b71a1c537a69a946496901ec3b55fcd5",
-   "bytes": 9608,
+   "sha256": "8cf50c302e3bc42da934f50312e479d80ab21b2c8ac7180a63f18af0d50916b3",
+   "bytes": 9605,
    "source_mtime": "2026-09-13T06:45:10"
   },
   "tod_anim_extract.py": {
-   "sha256": "e46ab6274f72ef602ee1abd43c0dd1007aa38dfb14bf0714bdadd9fdc83997ea",
-   "bytes": 8618,
+   "sha256": "2938934ab09bc2cab779d06abe04645d60cef472cee7f7d49bfe42f32166e679",
+   "bytes": 8624,
    "source_mtime": "2026-09-13T06:45:10"
   },
   "tod_anim_remap.py": {
@@ -58,8 +58,8 @@
    "source_mtime": "2026-06-12T09:21:32"
   },
   "tod_fragment_decode.py": {
-   "sha256": "f79323d7e73f8dc03e43aca5f1c19f31d25e50571c21bba6d3c1b285ca86fff4",
-   "bytes": 14058,
+   "sha256": "72953eecb9ac872480a228e3a298c61f5c452f1afe215fc94a41857887f489a8",
+   "bytes": 14069,
    "source_mtime": "2026-06-12T10:50:52"
   },
   "tod_block_fragment_recover.py": {
@@ -73,8 +73,8 @@
    "source_mtime": "2026-09-12T19:55:57"
   },
   "tod_extract_level.py": {
-   "sha256": "9b939fb272514db59bea47a7baf8ec404fef9eb561cca6261c5850365dbd3476",
-   "bytes": 6341,
+   "sha256": "3461ccb528d118a6d605dfbc13d18ce3def97f3cfa8c61af4ad0d51cd8706b26",
+   "bytes": 6337,
    "source_mtime": "2026-06-19T04:40:03"
   },
   "fragment_writer/todfrag.py": {
@@ -243,8 +243,8 @@
    "source_mtime": "2026-10-19T06:40:08"
   },
   "model_writer/export_map.py": {
-   "sha256": "7b7f7bf28f688c619821da00efc3b9d70d566e32f5e69e0aa58097747334346a",
-   "bytes": 13621,
+   "sha256": "0334d0e6c432dbae0397a2d07692cba217d81e3adc281a221b64603f14fe4fad",
+   "bytes": 13586,
    "source_mtime": "2026-10-19T06:40:08"
   },
   "model_writer/near.py": {
@@ -258,18 +258,18 @@
    "source_mtime": "2026-10-19T06:40:08"
   },
   "model_writer/proj/tod_model_extract.py": {
-   "sha256": "faf03737cc013fdf6e8469bbf7d2d8bbbeb245b41d4af7070ccec7551b44bd29",
-   "bytes": 14062,
+   "sha256": "7495b59cd89bb2e8b19caf95d763b648dc0a0b49851d171fc65dde3a2e1b5118",
+   "bytes": 14075,
    "source_mtime": "2026-10-19T06:40:08"
   },
   "model_writer/proj/tod_model_to_gltf.py": {
-   "sha256": "b84324765be4fa6b3407f39f8ff029bf5452c6826b308fafa31c8017058ab539",
-   "bytes": 8715,
+   "sha256": "b33cf86da7b140faa4f58bf42c2c923f6abe22dda27e3e941afbe36d2b2305a3",
+   "bytes": 8707,
    "source_mtime": "2026-10-19T06:40:08"
   },
   "model_writer/proj/tod_fragment_decode.py": {
-   "sha256": "f79323d7e73f8dc03e43aca5f1c19f31d25e50571c21bba6d3c1b285ca86fff4",
-   "bytes": 14058,
+   "sha256": "72953eecb9ac872480a228e3a298c61f5c452f1afe215fc94a41857887f489a8",
+   "bytes": 14069,
    "source_mtime": "2026-10-19T06:40:08"
   },
   "model_writer/proj/tod_block_fragment_recover.py": {
@@ -318,8 +318,8 @@
    "source_mtime": "2026-10-18T23:30:39"
   },
   "collision/export_map.py": {
-   "sha256": "7b7f7bf28f688c619821da00efc3b9d70d566e32f5e69e0aa58097747334346a",
-   "bytes": 13621,
+   "sha256": "0334d0e6c432dbae0397a2d07692cba217d81e3adc281a221b64603f14fe4fad",
+   "bytes": 13586,
    "source_mtime": "2026-10-18T22:46:29"
   },
   "collision/model_glb.py": {
@@ -398,18 +398,18 @@
    "source_mtime": "2026-10-18T23:30:40"
   },
   "collision/proj/tod_model_extract.py": {
-   "sha256": "faf03737cc013fdf6e8469bbf7d2d8bbbeb245b41d4af7070ccec7551b44bd29",
-   "bytes": 14062,
+   "sha256": "7495b59cd89bb2e8b19caf95d763b648dc0a0b49851d171fc65dde3a2e1b5118",
+   "bytes": 14075,
    "source_mtime": "2026-10-18T22:46:36"
   },
   "collision/proj/tod_model_to_gltf.py": {
-   "sha256": "b84324765be4fa6b3407f39f8ff029bf5452c6826b308fafa31c8017058ab539",
-   "bytes": 8715,
+   "sha256": "b33cf86da7b140faa4f58bf42c2c923f6abe22dda27e3e941afbe36d2b2305a3",
+   "bytes": 8707,
    "source_mtime": "2026-10-18T22:46:36"
   },
   "collision/proj/tod_fragment_decode.py": {
-   "sha256": "f79323d7e73f8dc03e43aca5f1c19f31d25e50571c21bba6d3c1b285ca86fff4",
-   "bytes": 14058,
+   "sha256": "72953eecb9ac872480a228e3a298c61f5c452f1afe215fc94a41857887f489a8",
+   "bytes": 14069,
    "source_mtime": "2026-10-18T22:46:36"
   },
   "collision/proj/tod_block_fragment_recover.py": {
@@ -862,5 +862,15 @@
    "bytes": 2650,
    "source_mtime": "2026-10-20T12:46:57"
   }
+ },
+ "hd_copies": {
+  "folder": "backend/vendor/hd",
+  "record": "hd/HD.json",
+  "files": [
+   "tod_hd_game.py",
+   "tod_hd_lighting.py",
+   "tod_hd_scatter.py"
+  ],
+  "source": "TOD HD's app folder (read only)"
  }
 }

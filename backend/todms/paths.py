@@ -15,16 +15,27 @@ WEB = os.path.join(BACKEND, 'web')
 APP_NAME = 'TODModStudio'
 
 
+def portable_root():
+    """Portable mode: a file called portable.txt next to the program keeps the library, settings, backups and the cache in a `data` folder
+    next to it, so the whole folder can be carried on a stick. -> that folder, or None."""
+    here = os.path.dirname(os.path.abspath(sys.executable)) if FROZEN else os.path.dirname(BACKEND)
+    if os.path.isfile(os.path.join(here, 'portable.txt')):
+        return os.path.join(here, 'data')
+    return None
+
+
 def user_dir():
-    """Settings, mod library and backups: %APPDATA%/TODModStudio (override: TODMS_HOME)."""
-    d = os.environ.get('TODMS_HOME') or os.path.join(os.environ.get('APPDATA') or os.path.expanduser('~'), APP_NAME)
+    """Settings, mod library and backups: %APPDATA%/TODModStudio (override: TODMS_HOME; portable.txt: <program folder>/data/home)."""
+    pr = portable_root()
+    d = os.environ.get('TODMS_HOME') or (os.path.join(pr, 'home') if pr else None) or os.path.join(os.environ.get('APPDATA') or os.path.expanduser('~'), APP_NAME)
     os.makedirs(d, exist_ok=True)
     return d
 
 
 def cache_dir():
     """Extracted meshes, textures, level layouts: %LOCALAPPDATA%/TODModStudio/cache (override: TODMS_CACHE)."""
-    d = os.environ.get('TODMS_CACHE') or os.path.join(
+    pr = portable_root()
+    d = os.environ.get('TODMS_CACHE') or (os.path.join(pr, 'cache') if pr else None) or os.path.join(
         os.environ.get('LOCALAPPDATA') or os.path.expanduser('~'), APP_NAME, 'cache')
     os.makedirs(d, exist_ok=True)
     return d

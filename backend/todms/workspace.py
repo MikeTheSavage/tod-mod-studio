@@ -8,7 +8,7 @@ import time
 import traceback
 import uuid
 
-from . import paths
+from . import paths, ledger
 
 SETTINGS_FILE = 'settings.json'
 LEVEL_VERSION = 5          # bump when the level JSON layout changes (old cache entries are rebuilt)
@@ -148,9 +148,20 @@ class Workspace:
         self.save_settings()
         return self.status()
 
+    @staticmethod
+    def missing_parts():
+        """Libraries the picture steps need (the minimap and the plan are drawn with PIL): the ones that cannot be imported, for the startup self-check."""
+        out = []
+        for mod in ('PIL', 'numpy'):
+            try:
+                __import__(mod)
+            except Exception:
+                out.append(mod)
+        return out
+
     def status(self):
         g = self.game
-        return dict(ready=g is not None, settings={k: v for k, v in self.settings.items() if k != 'tables_for'},
+        return dict(ready=g is not None, missing=self.missing_parts(), settings={k: v for k, v in self.settings.items() if k != 'tables_for'},
                     game=g.info() if g else None, base_mode=self.base_mode, cache=paths.cache_dir(),
                     user_dir=paths.user_dir(), maps=len(self.catalog['maps']) if self.catalog else 0)
 
@@ -189,7 +200,7 @@ class Workspace:
             from . import extract
             raw, _ = self.read_block(entry)
             self._assets[key] = extract.BlockAssets(raw, os.path.splitext(entry)[1])
-            while len(self._assets) > 4:
+            while len(self._assets) > getattr(self, '_assets_cap', 4):
                 self._assets.popitem(last=False)
         else:
             self._assets.move_to_end(key)
@@ -250,6 +261,7 @@ class Workspace:
         (from the same block, else the other context blocks). Returns {model: {url, bound, coll, textures}}."""
         from .game import MAIN_ENTRY
         ctx = list(dict.fromkeys(list(context_entries) + [MAIN_ENTRY]))
+        self._assets_cap = max(4, len(ctx) + 1)       # a whole map has many blocks in play: do not re-read them per texture
         assets = [(e, self.block_key(e)) for e in ctx]
         idx = {k: self._asset_index(k) for _, k in assets}
         dirty = set()
@@ -292,6 +304,9 @@ class Workspace:
                              hulls=rec['meta'].get('hulls', 0), textures=texs)
         for k in dirty:
             self._save_index(k, idx[k])
+        self._assets_cap = 4
+        while len(self._assets) > 4:
+            self._assets.popitem(last=False)
         return out
 
     def _texture(self, name, order, idx, dirty):
@@ -315,24 +330,85 @@ class Workspace:
         return None
 
     # ------------------------------------------------------------------ open a level (job)
-    def open_level(self, map_id, section=None, missions=(), progress=None):
-        """map block + one section + any missions, as the engine has them resident together."""
+    def open_level(self, map_id, section=None, missions=(), progress=None, sections=None):
+        """map block + sections + any missions, as the engine has them resident together.
+        sections: a list of section entries, or '*' for every section of the map (the whole map)."""
         m = next(x for x in self.catalog['maps'] if x['id'] == map_id)
         entries = [m['map_block']]
-        if section:
-            entries.append(section)
+        if sections == '*':
+            sections = [s['entry'] for s in m['sections']]
+        for s in ([section] if section else []) + list(sections or []):
+            if s and s not in entries:
+                entries.append(s)
         entries += [x for x in missions if x]
         levels = []
         for i, e in enumerate(entries):
             if progress:
                 progress('reading %s' % e.split('/')[-1], i, len(entries))
             levels.append(self.level_json(e))
+            ledger.remember(self, e, levels[-1])
         names = set()
         for L in levels:
             names |= set(L['models'])
         ctx = [e for e in entries]
         models = self.model_table(names, ctx, progress)
         return dict(map=map_id, entries=entries, levels=levels, models=models)
+
+    # Models that live in a mission or section block rather than the shared one (found with the asset census).
+    MODEL_HOME = {
+        '/data/characters/gangster/gangster.model': 'subm_38_down_move_kill.mission',
+        '/data/characters/mexican_police/mexican_police.model': 'mm080_highwaybridge.mission',
+        '/data/characters/military/soldier.model': 'mm092_escapejungle.mission',
+        '/data/models/vehicles/dirtbike/bike.model': 'subm_07_indu_mulral01_race.mission',
+        '/data/models/vehicles/pickup4x4/vehicle.model': 'intermission_after_bridge.mission',
+        '/data/models/vehicles/stationwagon/vehicle.model': 'subm_07_indu_mulral01_race.mission',
+        '/data/models/vehicles/bigtruck/vehicle.model': 'subm_12_indu_mulral02_race.mission',
+        '/data/models/vehicles/van_urban/vehicle.model': 'subm_17_down_coldeb02_killsteal.mission',
+        '/data/models/vehicles/forklift/vehicle.model': 'subm_41_harb_move_kill.mission',
+        '/data/models/vehicles/sedan_74_standard/vehicle.model': 'subm_08_down_7gates01_race.mission',
+        '/data/models/vehicles/pickuptruck/vehicle.model': 'subm_40_harb_move_kill.mission',
+        '/data/models/vehicles/conquistador/vehicle.model': 'subm_33_harb_mulral04_race.mission',
+        '/data/models/vehicles/elcamino_lostorosrose/vehicle.model': 'submap01_map07_meat_factory.submap',
+        '/data/models/vehicles/sedan_modernstandard/vehicle.model': 'submap03_map03_lostoros_industrial.submap',
+    }
+
+    def home_entry(self, n):
+        """The block that holds the mesh of model path n (a model that lives in a mission or section block, else the shared one)."""
+        from .game import MAIN_ENTRY
+        by_base = {MAIN_ENTRY.split('/')[-1]: MAIN_ENTRY}
+        for m in self.catalog['maps']:
+            by_base[m['map_block'].split('/')[-1]] = m['map_block']
+            for s in m['sections'] + m['missions']:
+                if s.get('entry'):
+                    by_base[s['entry'].split('/')[-1]] = s['entry']
+        n = (n or '').lower()
+        base = self.MODEL_HOME.get(n)
+        home = by_base.get(base) if base else MAIN_ENTRY
+        if not base:                                  # a model that lives in some other block: the asset index knows which
+            try:
+                from . import assetindex
+                doc = assetindex.load(self)
+                r = doc and doc['models'].get(n)
+                if r and r['blocks'] and MAIN_ENTRY not in r['blocks']:
+                    home = r['blocks'][0]
+            except Exception:
+                pass
+        if base and not home:
+            import fragtool as ft
+            home = next((x for x in ft.archive().names if x.lower().endswith('/' + base)), MAIN_ENTRY)
+        return home
+
+    def find_models(self, names):
+        """Meshes for model paths that may not be in the open blocks (the live preview of added objects).
+        Returns the same record shape as model_table."""
+        out = {}
+        for n in names:
+            n = (n or '').lower()
+            try:
+                out.update(self.model_table({n}, [self.home_entry(n)]))
+            except Exception as ex:
+                out[n] = dict(missing=True, reason=str(ex))
+        return out
 
     def prepare_all(self, progress=None):
         """First-run cache: every map block and section (missions are extracted when first opened)."""

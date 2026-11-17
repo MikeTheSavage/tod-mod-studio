@@ -59,7 +59,7 @@ def build_combined(model, clips):
         if nf <= 0: continue
         # Match the float32 accessor values exactly in both payload and bounds.
         # Decimal rounding can push a frame endpoint above the 30 Hz boundary;
-        # UE's glTF importer then adds a whole frame (82/346 police clips).
+        # a glTF importer then adds a whole frame (82/346 police clips).
         times = [ae.frame_time_float32(f, FPS) for f in range(nf)]
         tin = add_acc(struct.pack('<%df' % nf, *times), 5126, 'SCALAR', nf, [0.0], [max(times)])
         samplers = []; channels = []

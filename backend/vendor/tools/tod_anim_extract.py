@@ -23,7 +23,7 @@ import tod_model_to_gltf as g
 FPS = 30.0
 
 def frame_time_float32(frame, fps=FPS):
-    """Encode the frame grid without crossing UE glTF's float-quotient ceiling.
+    """Encode the frame grid without crossing a glTF reader's float-quotient ceiling.
 
     Most times use nearest float32. A few endpoints (e.g. frame 241 at 30 Hz)
     need the immediately preceding float to avoid an unintended extra frame.

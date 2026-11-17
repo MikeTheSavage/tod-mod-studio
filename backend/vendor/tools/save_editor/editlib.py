@@ -344,10 +344,12 @@ def map_of_submap(s, sub_idx):
     raise KeyError('no map for submap %x' % sub_idx)
 
 
-def start_mission(s, m, player_at_teleport=True):
+def start_mission(s, m, player_at_teleport=True, submap=None):
     """EXPERIMENTAL 'start of mission m': header -> the mission's map/submap/mission blocks, every record of
     blocks 2-6 dropped (they load in their authored initial state), master_mission_ctrl -> mission m with zeroed
-    per-mission counters, the summary updated, Ram placed on the mission's TELEPORT node."""
+    per-mission counters, the summary updated, Ram placed on the mission's TELEPORT node.
+    submap: the mission's `Mission_SubMap` from its award (the engine loads THAT submap; the list entry's Mission_start_submap is the
+    award's Mission_StartMap and differs for missions 5, 8, 10, 18, 20 and 23). Without it the list entry is used (older behaviour)."""
     mc = s.mission_ctrl()
     ml = s.get(mc, 'Mission_List')
     info = ml[m]
@@ -356,7 +358,8 @@ def start_mission(s, m, player_at_teleport=True):
     cache = s.node1(r'cache\(Node\)')
     subs = s.get(cache, 'DB_SUBMAP_LIST')
     maps = s.get(cache, 'DB_MAP_LIST')
-    sub_ent = subs[info['Mission_start_submap']]
+    sub_no = info['Mission_start_submap'] if submap is None else int(submap)
+    sub_ent = subs[sub_no]
     sub_idx = int(sub_ent[1:], 16) & 0xFFFFF
     map_idx = map_of_submap(s, sub_idx)
     folder = mission_folder(s, m)
@@ -380,7 +383,7 @@ def start_mission(s, m, player_at_teleport=True):
     sets = {'Current_Mission': m, 'Start_Mission': m, 'TargetName': folder[4],
             'EnemiesKilledOnCurrentMission': 0, 'NeutralsKilledOnCurrentMission': 0, 'Mission_Score': 0,
             'Curr_L_Combo': 0.0, 'Curr_Best_Move': 0, 'MissionLoad': False, 'MissionCanceled': False,
-            'Current_loaded_SubMap': info['Mission_start_submap'], 'LastSubMap': sub_ent, 'LastMap': mapent}
+            'Current_loaded_SubMap': sub_no, 'LastSubMap': sub_ent, 'LastMap': mapent}
     if mapno is not None:
         sets['Current_loaded_MainMap'] = mapno
     if info['Mission_type'] == 0:
@@ -395,7 +398,7 @@ def start_mission(s, m, player_at_teleport=True):
     s.set(mc, 'Mission_List', ml)
     items = s.j['summary']['items']
     items[0] = [m]
-    items[2] = [info['Mission_start_submap']]
+    items[2] = [sub_no]
     moved = None
     if player_at_teleport and tp:
         q = tp[4]

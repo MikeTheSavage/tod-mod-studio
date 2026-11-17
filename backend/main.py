@@ -1,6 +1,8 @@
 """TOD Mod Studio: a standalone level and data editor for Total Overdose (2005).
 
   TODModStudio.exe                 opens the app window
+  TODModStudio.exe Mod.todmod      opens it and offers to add the file (also .todcollection, .todpiece)
+  TODModStudio.exe --restore-vanilla [--remove-backups]   no window: put the game back to its own files (the uninstaller uses this)
   python main.py --server [--port 8765]   API + UI only (open http://127.0.0.1:8765 in a browser; development)
 """
 import argparse
@@ -18,15 +20,21 @@ TITLE = 'TOD Mod Studio'
 
 
 def main():
+    from todms import cli
+    rc = cli.main(sys.argv[1:])
+    if rc is not None:
+        return rc
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--server', action='store_true', help='no window: serve the UI and the API for a browser')
     ap.add_argument('--port', type=int, default=0)
+    ap.add_argument('files', nargs='*', help='.todmod / .todcollection / .todpiece files to offer to add (a double click in Windows)')
     ap.add_argument('--selftest', metavar='OUT.json', help='start, answer one status request, write the result, exit')
     a = ap.parse_args()
     from todms import paths
     paths.ensure_cpu_guard()          # keep builds off CPU cores that divide packed floats wrongly
     if a.server:
         server.DEV = True
+    server.OPEN_FILES.extend(cli.open_files(a.files))
     srv = server.serve(a.port or (8765 if a.server else 0))
     port = srv.server_address[1]
     url = 'http://127.0.0.1:%d/' % port
@@ -36,7 +44,7 @@ def main():
         st = json.load(urllib.request.urlopen(url + 'api/status', timeout=60))
         html = urllib.request.urlopen(url, timeout=30).read()
         out = dict(ok=True, url=url, ready=st.get('ready'), ui_bytes=len(html), has_ui=b'todms-token' in html,
-                   frozen=getattr(sys, 'frozen', False), python=sys.version.split()[0])
+                   frozen=getattr(sys, 'frozen', False), python=sys.version.split()[0], missing=st.get('missing'))
         try:
             import fragtool, submaptool, missiontool, weapons, vehtool, locotool, camtool, savefile  # noqa: F401
             out['tools_import'] = True

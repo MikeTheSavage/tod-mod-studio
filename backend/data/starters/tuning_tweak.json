@@ -1,0 +1,20 @@
+{
+ "id": "starter-tuning-tweak",
+ "name": "Example: a tuning tweak",
+ "author": "",
+ "description": "A bigger clip and a faster reload for the Beretta, a bigger clip for the Benelli.",
+ "level": [],
+ "data": {
+  "weapons": {
+   "weapons.Beretta.ClipSize": 15,
+   "weapons.Beretta.ReloadTime": 0.6,
+   "weapons.Benelli.ClipSize": 8
+  }
+ },
+ "collision": [],
+ "models": [],
+ "textures": [],
+ "view": null,
+ "format": "todms-mod",
+ "version": 1
+}

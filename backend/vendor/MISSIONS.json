@@ -50,55 +50,55 @@
    "sha256": "dece9541f80d4937dc327bcfcb4c176958ad9e993930eb3f6166da833be7a1b6"
   },
   "todtpl/types/arena.py": {
-   "sha256": "ed64eb8d81f913aca2a36961722f36181d510ef87a016db4ed3fc424045cf3eb"
+   "sha256": "c739d70a6cc0142bc5589c5a1cb422007ab0ddb9b6af8034006dd2a0917bcd22"
   },
   "todtpl/types/capture.py": {
-   "sha256": "658fb6411975796647fb5a8268f9fe37102b8304c5140fa3779f7a3ac40f72e6"
+   "sha256": "c488a6681820b588400aaee7abed8d575746af00198aef13d154cb36811ab469"
   },
   "todtpl/types/chase.py": {
-   "sha256": "bafe8acec2cd3e798117cf103d9f362047b079815135b43b6f7d64c6c58a9872"
+   "sha256": "d438e938f6154df3763e4dc51506797ea4f0616f92ca944bfc6d0d50f84c8b51"
   },
   "todtpl/types/combo.py": {
-   "sha256": "695028a36e8da3623b38bfa0426b854c3d9a6fcba2b7f4e746706a3cc4a98af8"
+   "sha256": "9e44f56bd5887fbc051143177db79b734da2bff247718d7305107c390872ae6e"
   },
   "todtpl/types/defuse.py": {
-   "sha256": "b53a3d06cd2f22c57a5aea3fcc394ae8d0e5cd799566624208396740e2b509e5"
+   "sha256": "0c35d9a80262808bf0433650db75971fc9ea2bf8a098dcd6f5dc0e3cba9f56a5"
   },
   "todtpl/types/destroy.py": {
-   "sha256": "eeb9cdf95d5610d306835a30ee97915768da073594a0d91497d5b47e618d79f4"
+   "sha256": "1db40da6127bb073f95162717f934229edf34f164c346c47d50f34257bc6194c"
   },
   "todtpl/types/endurance.py": {
-   "sha256": "9a396b3f3603924bceca98b8bf732b236c146427889cb37b4e006de6a0a784c2"
+   "sha256": "fa14af38e6a28138c9de3cb52b8eb4bdd204538e99d725e6f961fe1a928587b6"
   },
   "todtpl/types/frenzy.py": {
-   "sha256": "3002a1ad05f99455949e722ce8589760cf86f72b6f5cf92f6a638c8d5637c186"
+   "sha256": "686f6d1a9d128073782125eadb95206fb36130491d5eb7c0bac6405f61974413"
   },
   "todtpl/types/ghost.py": {
-   "sha256": "6c7c9d91aa2b9152b07a7ab3fe0a7667a511617641dd4a82e0c4f8a1ecc65608"
+   "sha256": "41e6db8c4f74f10ebabb5a1ccc3e6cd858ab00f020f0fc2d99b82357fbb139d1"
   },
   "todtpl/types/hold.py": {
-   "sha256": "926a6bab598c55136258b6ab9fcc2c5f80915245d83351abe6bb3b014d405ea8"
+   "sha256": "5eeb71171aa79283b14c5a36faca574983343155fd3c5a6f887d7b0cd05e35d1"
   },
   "todtpl/types/lava.py": {
-   "sha256": "6565ea9657611afb7233a5f7add4affe213efad678229b010e9069d66bf15b43"
+   "sha256": "781aa5b961b352229653bb36c901f42b0ab2078c69ec0dc2745a48154b4c68a7"
   },
   "todtpl/types/marked.py": {
-   "sha256": "dfa3b6adbc67fbfba75ff6db640bb20281a4db56c0968cadfa91bb1af36ce4cd"
+   "sha256": "e99437fa79afef6f668913174d6db02a76a993438acc06fbf2cdb5d2eb8f988e"
   },
   "todtpl/types/race.py": {
-   "sha256": "7d7a5cda2bf9cce79444350338ea8c466d64b52736c1bab40d01a0fbaf6e888b"
+   "sha256": "3ed02834f20c928dca94f385e106718b3566a47ff2863d2e5ca0eecf81938114"
   },
   "todtpl/types/rescue.py": {
-   "sha256": "f23fc25022c4721981f0ed18ce8bd67619a94bd353a9ffd84ea35026b76b8b3c"
+   "sha256": "7d6042aba61ac25bf03ef8555336c6624008bdcd83a3e7700087353ecd6c91f6"
   },
   "todtpl/types/showdown.py": {
-   "sha256": "f185a7fb9965f28f2ecbb0eeecafbc960dcd3702e1b66256d28023a83c971cfe"
+   "sha256": "470446d8312598856e45a7b972ff0ea128afb956e75020a9df874cc9ee0c62f3"
   },
   "todtpl/types/stunt.py": {
-   "sha256": "1770676d279bfc9727e954e4c1735c9c6a5ed79f310caaa7003397aba27a93f2"
+   "sha256": "4dc77ca602c315957ae8ca9309f9876ea5b9ea236caf23033a3ef37ef25da1bb"
   },
   "todtpl/types/style.py": {
-   "sha256": "0b08ed183ffb44c8f735adfc04df20ebd42b62335bf97a540cde58f3e10eaa4e"
+   "sha256": "4a1c86d6cf9a377ef3f91b3de71e5fab2c34e833b4f3b3ca5cc99463994c84e3"
   }
  }
 }

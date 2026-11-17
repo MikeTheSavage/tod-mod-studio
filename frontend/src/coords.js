@@ -8,6 +8,12 @@ export const fromView = v => [v.x, v.y, -v.z]
 export const quatToView = q => new THREE.Quaternion(-q[0], -q[1], q[2], q[3])
 export const quatFromView = q => [-q.x, -q.y, q.z, q.w]
 
+// The engine's facing, measured in game: an arrival yaw of 0 faces +z, 90 faces -x (west), 270 faces +x. -> ground direction [x, z].
+// (The same as make_new_map.facing_vector.) The arrows of the editor point this way; a box still turns by the plain quaternion.
+export const facingDir = yawDeg_ => { const a = yawDeg_ * Math.PI / 180; return [-Math.sin(a), Math.cos(a)] }
+// the turn of an arrow that sits inside a group already turned by quatToView(quatFromYaw(yaw)): together they point along facingDir(yaw)
+export const facingQuat = yawDeg_ => quatToView(quatFromYaw(-2 * yawDeg_))
+
 export const r3 = v => v.map(x => Math.round(x * 1000) / 1000)
 
 // yaw in degrees about +Y in game space, from a game quaternion

@@ -12,7 +12,7 @@ from ._base import make_spec
 MOD = sys.modules[__name__]
 NAME = 'endurance'
 TITLE = 'Endurance'
-SUMMARY = 'A score attack: waves of bandits keep coming, stronger every tier, until the clock runs out. Points are the score.'
+SUMMARY = 'A score attack: waves of bandits keep coming, stronger every tier, until the clock runs out.'
 HOST_NEEDS = ['Open, flat ground for four groups of 3-4 bandits (each around a centre you choose); the player must be able to fight in the middle.',
               'A parking spot for the template\'s Downtown walk-in boxes and a spare strip (disabled, never seen).',
               'Works in any new map or existing section with flat ground.']
@@ -31,20 +31,20 @@ L01 = 'SubM_20_Down_JavPer_Kill_LEVEL01'
 OFFSETS = [(-3.0, -3.0), (3.0, -3.0), (-3.0, 3.0), (3.0, 3.0)]
 
 PARAMS = [
-    P('tier_centres', 'points', lambda h, p: [h.pt(-14, 4), h.pt(26, 6), h.pt(-2, 26), h.pt(8, 12)], 'Tier positions', 'Centre of the bandit group of tier 1, 2, 3 and 4 (x, y, z).', min_len=4, max_len=4, group='Placement'),
-    P('spare_region', 'rect', lambda h, p: list(h.rr(-38, 28, 38, 38)), 'Spare strip', 'Where the enemies that do not fight are parked (disabled).', group='Placement', advanced=True),
-    P('park', 'point', lambda h, p: h.pt(-60, 55, None), 'Parking spot', 'Where the template\'s Downtown walk-in boxes are parked (disabled).', group='Placement', advanced=True),
-    P('giver_npc_park', 'point', lambda h, p: h.pt(-26, 26), 'Parked task giver', 'Where the template task-giver character is parked.', group='Placement', advanced=True),
-    P('snap_to_free_ground', 'bool', True, 'Keep clear of obstacles', 'Move bandits that fall inside a wall or prop to the nearest free ground.', group='Placement', advanced=True),
-    P('step', 'float', 20.0, 'Wave interval', 'Seconds between waves.', min=5.0, max=120.0, unit='s', group='Settings'),
-    P('waves', 'int', 12, 'Number of waves', 'How many waves arrive (from wave 9 on two folders arrive at once).', min=2, max=40, group='Settings'),
-    P('countdown', 'float', lambda h, p: p['step'] * (p['waves'] - 1) + 40.0, 'Time limit', 'Seconds on the clock (default: all waves plus 40 s).', min=20.0, max=3600.0, unit='s', group='Settings'),
-    P('tier_health', 'floats', [0.3, 0.4, 0.6, 0.9], 'Tier health', 'Health multiplier of tier 1..4.', min_len=4, max_len=4, group='Settings'),
-    P('tier_damage', 'floats', [0.2, 0.3, 0.4, 0.5], 'Tier damage', 'Damage multiplier of tier 1..4.', min_len=4, max_len=4, group='Settings'),
-    P('tier_weapons', 'floats', [0.0, 0.0, 5.0, 5.0], 'Tier weapons', 'Weapon sub-type of tier 1..4 (0 = pistol, 5 = shotgun).', min_len=4, max_len=4, group='Settings', advanced=True),
-    P('text_survive', 'text', 'Survive the waves and score as much as you can', 'Objective text', 'The objective line.', group='Texts', max_len=70),
-    P('text_timeup', 'text', 'TIME IS UP! Your score is final', 'Time-up text', 'Shown when the clock runs out.', group='Texts', max_len=50),
-    P('text_count', 'text', '%0 bandits down', 'Counter text', 'The counter line.', group='Texts', max_len=40),
+    P('tier_centres', 'points', lambda h, p: [h.pt(-14, 4), h.pt(26, 6), h.pt(-2, 26), h.pt(8, 12)], 'Tier positions', '', min_len=4, max_len=4, group='Placement'),
+    P('spare_region', 'rect', lambda h, p: list(h.rr(-38, 28, 38, 38)), 'Spare strip', '', group='Placement', advanced=True),
+    P('park', 'point', lambda h, p: h.pt(-60, 55, None), 'Parking spot', '', group='Placement', advanced=True),
+    P('giver_npc_park', 'point', lambda h, p: h.pt(-26, 26), 'Parked task giver', '', group='Placement', advanced=True),
+    P('snap_to_free_ground', 'bool', True, 'Keep clear of obstacles', '', group='Placement', advanced=True),
+    P('step', 'float', 20.0, 'Wave interval', '', min=5.0, max=120.0, unit='s', group='Settings'),
+    P('waves', 'int', 12, 'Number of waves', '', min=2, max=40, group='Settings'),
+    P('countdown', 'float', lambda h, p: p['step'] * (p['waves'] - 1) + 40.0, 'Time limit', '', min=20.0, max=3600.0, unit='s', group='Settings'),
+    P('tier_health', 'floats', [0.3, 0.4, 0.6, 0.9], 'Tier health', '', min_len=4, max_len=4, group='Settings'),
+    P('tier_damage', 'floats', [0.2, 0.3, 0.4, 0.5], 'Tier damage', '', min_len=4, max_len=4, group='Settings'),
+    P('tier_weapons', 'floats', [0.0, 0.0, 5.0, 5.0], 'Tier weapons', '0 = pistol, 5 = shotgun', min_len=4, max_len=4, group='Settings', advanced=True),
+    P('text_survive', 'text', 'Survive the waves and score as much as you can', 'Objective text', '', group='Texts', max_len=70),
+    P('text_timeup', 'text', 'TIME IS UP! Your score is final', 'Time-up text', '', group='Texts', max_len=50),
+    P('text_count', 'text', '%0 bandits down', 'Counter text', '', group='Texts', max_len=40),
 ]
 
 

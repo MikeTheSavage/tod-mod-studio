@@ -15,11 +15,23 @@
       --accent: #ff8a4c; --accent-soft: #3a2519; --note: #2e2a1c; --note-line: #6d5d24; --code: #2f2b28;
     }
   }
+  :root[data-theme="dark"] {
+    --bg: #1b1916; --panel: #242120; --ink: #ece6de; --muted: #a59b90; --line: #3a3531;
+    --accent: #ff8a4c; --accent-soft: #3a2519; --note: #2e2a1c; --note-line: #6d5d24; --code: #2f2b28;
+  }
+  :root[data-theme="contrast"] {
+    --bg: #000; --panel: #0a0a0a; --ink: #fff; --muted: #e6e6e6; --line: #bdbdbd;
+    --accent: #ffd400; --accent-soft: #262200; --note: #1a1a1a; --note-line: #ffd400; --code: #202020;
+  }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  mark.hit { background: #ffd23f; color: #1a1a1a; border-radius: 3px; }
   body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 "Segoe UI", system-ui, sans-serif; }
   .wrap { max-width: 860px; margin: 0 auto; padding: 32px 16px 80px; }
   header { border-bottom: 3px solid var(--accent); padding-bottom: 18px; margin-bottom: 28px; }
   h1 { font-size: 34px; margin: 0 0 6px; letter-spacing: -0.5px; }
+  .glossary-note { color: var(--muted); }
   .lead { color: var(--muted); font-size: 18px; margin: 0; }
   nav { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px; margin-bottom: 32px; }
   nav b { display: block; margin-bottom: 6px; }
@@ -55,7 +67,7 @@
 <header>
   <h1>TOD Mod Studio</h1>
   <p class="lead">A level editor and mod manager for Total Overdose (2005). This guide explains, in plain words, what it
-  does and how to use it.</p>
+  does and how to use it. Inside the app it opens with the <b>?</b> button at the top or the <kbd>F1</kbd> key.</p>
 </header>
 
 <nav>
@@ -65,16 +77,30 @@
     <li><a href="#how">How it works</a></li>
     <li><a href="#install">Installing</a></li>
     <li><a href="#first">The first start</a></li>
+    <li><a href="#help">Help, lessons and examples</a></li>
     <li><a href="#level">Editing a level</a></li>
+    <li><a href="#view3d">The 3D view</a></li>
+    <li><a href="#tools">Editor tools</a></li>
     <li><a href="#data">Changing game values</a></li>
+    <li><a href="#playground">Tune previews and the Playground</a></li>
+    <li><a href="#import">Bringing in a model</a></li>
+    <li><a href="#textures">Textures</a></li>
+    <li><a href="#catalogue">The catalogue</a></li>
     <li><a href="#play">Putting your mod in the game</a></li>
+    <li><a href="#testgame">Test in game</a></li>
+    <li><a href="#debug">Debug</a></li>
+    <li><a href="#limits">Limits and Problems</a></li>
+    <li><a href="#versions">Versions, backups and restore to original</a></li>
     <li><a href="#share">Sharing mods</a></li>
-    <li><a href="#more">The other tabs</a></li>
-    <li><a href="#saves">Your saved games</a></li>
+    <li><a href="#more">The other screens</a></li>
+    <li><a href="#saves">Your saved games and save copies</a></li>
+    <li><a href="#newmaps">Adding a new map and its entrances</a></li>
+    <li><a href="#district">Bringing in a whole district from your own 3D file</a></li>
+    <li><a href="#missiontemplates">Adding your own missions</a></li>
+    <li><a href="#controller">Controller support</a></li>
+    <li><a href="#access">Settings, accessibility and language</a></li>
     <li><a href="#trouble">If something goes wrong</a></li>
     <li><a href="#files">Where things are kept</a></li>
-    <li><a href="#newmaps">Adding a new map and its teleport spots</a></li>
-    <li><a href="#missiontemplates">Adding your own missions</a></li>
   </ol>
 </nav>
 
@@ -83,7 +109,10 @@
 <ul>
   <li>look around every level in 3D, with the game's real models and textures;</li>
   <li>move, add and remove things in a level: pickups, weapons, enemies, vehicles, invisible walls, trigger boxes;</li>
-  <li>change numbers the game uses, such as weapon damage, clip sizes and car handling;</li>
+  <li>change numbers the game uses, such as weapon damage, clip sizes and car handling, and try them in a small playground first;</li>
+  <li>bring in your own 3D models and pictures, or replace the game's;</li>
+  <li>add new maps and your own missions;</li>
+  <li>test your mod in the game with one button, in a private copy that leaves your own game alone;</li>
   <li>put your changes into the game with one click, and take them out again with one click;</li>
   <li>share your mod with friends as a small file.</li>
 </ul>
@@ -98,10 +127,9 @@ the game's files.</p>
   <div><b>4. Build</b>It checks your changes and builds one mod file.</div>
   <div><b>5. Play</b>The game loads that file first, so your changes win.</div>
 </div>
-<p>The game's own files are <b>never changed</b>. Your mod lives in one extra file, <code>todms_mods.zip</code>,
-next to the game. The app adds that file to the game's list of files to load (in <code>configpc.txt</code>) and keeps
-a backup of that list. Removing your mods deletes the extra file and restores the list, and the game is exactly as it
-was.</p>
+<p>The game's own files are <b>never changed</b>. Your mods live in one extra file, the <b>pack</b>, next to the game. The app adds that file
+to the game's list of files to load (in <code>configpc.txt</code>) and keeps a backup of that list. Removing your mods deletes the extra
+file and restores the list, and the game is exactly as it was.</p>
 <p>Before anything is written, the app checks every change: the parts you did not touch must stay identical, nothing
 may point at something that does not exist, and the game's limits must be respected. If a check fails, nothing is
 installed and the app tells you what is wrong.</p>
@@ -118,24 +146,61 @@ Click <b>More info</b>, then <b>Run anyway</b>.</div>
 Setup says it is missing, install it from Microsoft's website first.</p>
 <p><b>To uninstall:</b> Windows Settings &rarr; Apps &rarr; Installed apps &rarr; TOD Mod Studio &rarr; Uninstall.
 Your mods stay in your library unless you tick the box to delete them too. Remove your mods from the game first
-(see <a href="#play">section 7</a>) if you want the game back to normal.</p>
-<p><b>To update:</b> run a newer Setup. It replaces the program and keeps your mods and settings.</p>
+(see <a href="#versions">Versions, backups and restore to original</a>) if you want the game back to normal.</p>
+<p><b>To update:</b> run a newer Setup. It replaces the program and keeps your mods and settings. After an update the app shows <b>What's new</b> once.</p>
 
 <h2 id="first"><span class="n">4</span>The first start</h2>
 <ol>
-  <li>Pick your Total Overdose folder: the one that contains <code>TOD.exe</code> and <code>blocks.naz</code>.
-    For GOG that is usually <code>C:\GOG Games\Total Overdose</code>.</li>
-  <li>The app checks the game and then copies the levels into its cache. This takes a few minutes and a few hundred
-    MB of disk space. It only happens once.</li>
+  <li>The welcome screen asks <b>Where is your game installed?</b> Pick your Total Overdose folder: the one that contains
+    <code>TOD.exe</code> and <code>blocks.naz</code>. For GOG that is usually <code>C:\GOG Games\Total Overdose</code>.
+    Press <b>Use this folder</b>.</li>
+  <li>The <b>One-time setup</b> step copies the levels into the app's cache. This takes a few minutes and a few hundred
+    MB of disk space. It only happens once. You can press <b>Continue</b> without waiting: the progress stays in the bar at the
+    bottom of the window, and a level you open waits for the reading to finish.</li>
   <li>If you have the TOD HD graphics mod installed, the app notices and builds your mods on top of it.</li>
+  <li>When setup is done the app offers a short walkthrough: place a crate and test it in the game. You can skip it and start it later from <b>Help</b>.</li>
 </ol>
+<h3 id="around">Finding your way around</h3>
+<p>The bar on the left lists the areas. The top bar shows the screens of the area you are in, your mod's name, how many changes
+are not saved yet, and the <b>Save mod</b> and <b>New</b> buttons. The bar at the bottom shows your game folder, whether the game is
+running, what is installed in the game, any job in progress, the Problems count, the worst limit and how many of the 17 new-mission slots are free.</p>
+<table>
+  <tr><th>Area</th><th>Screens</th></tr>
+  <tr><td><b>Home</b></td><td>&ldquo;What do you want to do?&rdquo; Pick up where you left off, start something new, or open an example project.</td></tr>
+  <tr><td><b>World</b> (Edit the world)</td><td><span class="tab">Level editor</span>, <span class="tab">Routes</span>, <span class="tab">Sections</span>, <span class="tab">Collision</span>, <span class="tab">Mission logic</span></td></tr>
+  <tr><td><b>Create</b> (Add content)</td><td><span class="tab">Mission templates</span>, <span class="tab">New maps</span>, <span class="tab">Import model</span>, <span class="tab">Textures</span></td></tr>
+  <tr><td><b>Tune</b></td><td><span class="tab">Game data</span></td></tr>
+  <tr><td><b>Play</b> (Play and share)</td><td><span class="tab">Mods and install</span>, <span class="tab">Test saves</span>, <span class="tab">Limits</span></td></tr>
+  <tr><td><b>Debug</b></td><td><span class="tab">Test run</span>, <span class="tab">Find a bad mod</span>, <span class="tab">Support</span></td></tr>
+  <tr><td><b>Assets</b> and <b>Settings</b> (bottom of the bar)</td><td><span class="tab">Catalogue</span>, <span class="tab">Settings</span></td></tr>
+</table>
+<p>Whenever something goes into the game, the same <b>Into the game</b> bar appears at the bottom of the screen:
+<b>Check</b>, then <b>Build</b>, then <b>Install</b>, with a button to remove it again. Buttons that remove things from the game ask first and
+say what is kept.</p>
+<h3 id="mode">Beginner and Advanced</h3>
+<p>The app starts in <b>Advanced</b> mode, which shows everything. <b>Beginner</b> mode hides the screens that most people rarely need
+(<span class="tab">Routes</span>, <span class="tab">Sections</span>, <span class="tab">Collision</span>, <span class="tab">Mission logic</span> and <span class="tab">Find a bad mod</span>) and folds away the Advanced panels. Nothing is deleted:
+switch back at any time in <b>Settings</b> or in the Help window, and links to those screens keep working.</p>
 
-<h2 id="level"><span class="n">5</span>Editing a level</h2>
-<h3>Open a level</h3>
-<p>Go to the <span class="tab">Level editor</span> tab. Pick a map, then a section of that map. If you also want
-the mission's enemies, pickups and vehicles, pick one or more missions. Click <b>Open</b>.</p>
+<h2 id="help"><span class="n">5</span>Help, lessons and examples</h2>
+<p>The <b>?</b> button in the top bar (or <kbd>F1</kbd>) opens the Help window. It opens at the part of this guide that matches the screen you are on.
+The working screens have no teaching text of their own: hover over a control for a short tooltip, and open Help for the rest.</p>
+<ul>
+  <li><b>Guide.</b> This guide, with a search box. Type a word and the matching sections are listed; click one to jump to it.</li>
+  <li><b>Lessons.</b> Short step-by-step lessons that run inside the real editor. A small note points at the next control and checks that you did the step.
+    <b>Next</b> goes on, <b>Skip</b> ends the lesson. Lessons: <i>Place a crate and test it in the game</i>, <i>Change a weapon</i>, <i>Add a mission</i>.</li>
+  <li><b>Examples.</b> Three small finished projects to open and look at: a level tweak, a tuning tweak and a race mission. They contain only your kind of changes, never the game's files.</li>
+  <li><b>Glossary.</b> What words such as section, loader, trigger, route, archive, pack, block and giver mean.</li>
+  <li><b>What's new.</b> What changed in the last updates.</li>
+</ul>
 
-<h3>Move around</h3>
+<h2 id="level"><span class="n">6</span>Editing a level</h2>
+<h3 id="s-open-a-level">Open a level</h3>
+<p>Go to <b>World</b> and the <span class="tab">Level editor</span> screen. In the bar at the top pick a <b>Map</b>, then a <b>Section</b>
+of that map, or <b>Whole map</b>. The level opens as soon as you choose. If you also want a mission's enemies, pickups and vehicles, open the
+<b>Missions</b> menu, tick one or more missions and press <b>Open with these</b>.</p>
+
+<h3 id="s-move-around">Move around</h3>
 <table>
   <tr><th>To do this</th><th>Use</th></tr>
   <tr><td>Orbit around</td><td>Left mouse drag</td></tr>
@@ -145,26 +210,56 @@ the mission's enemies, pickups and vehicles, pick one or more missions. Click <b
   <tr><td>Jump to the selected object</td><td><kbd>F</kbd></td></tr>
 </table>
 
-<h3>Change things</h3>
+<h3 id="s-change-things">Change things</h3>
 <ol>
-  <li>Click an object in the 3D view or in the <b>Objects</b> list.</li>
-  <li>Drag the arrows to move it. <kbd>G</kbd> moves, <kbd>R</kbd> rotates, <kbd>T</kbd> resizes boxes.</li>
+  <li>Click an object in the 3D view or in the list on the left (the <b>Objects</b> button at the top shows or hides that list;
+    the chips and the search box narrow it down).</li>
+  <li>Drag the arrows to move it. The <b>Select</b>, <b>Move</b>, <b>Rotate</b> and <b>Resize</b> buttons at the top switch the tool:
+    <kbd>G</kbd> moves, <kbd>R</kbd> rotates, <kbd>T</kbd> resizes boxes.</li>
   <li>The panel on the right shows its position, its type (which pickup, weapon or vehicle) and more. Type new values
-    there if you want exact numbers.</li>
-  <li><b>Add</b> puts a new object in the middle of the view: a pickup, weapon, enemy, vehicle, trigger box,
-    invisible wall, navigation blocker or route point.</li>
-  <li><b>Duplicate</b> (<kbd>Ctrl</kbd>+<kbd>D</kbd>) copies the selected object. <b>Delete</b> removes it.</li>
-  <li>Made a mistake? <kbd>Ctrl</kbd>+<kbd>Z</kbd> undoes, <kbd>Ctrl</kbd>+<kbd>Y</kbd> redoes.</li>
+    there if you want exact numbers. <b>Advanced</b> holds the collision flags and every property.</li>
+  <li><b>Add</b> puts a new object in the level: a pickup, weapon, enemy, vehicle, trigger box,
+    invisible wall, navigation blocker or route point. Choose the kind, then click the ground to place it; <kbd>R</kbd> turns it before you click.</li>
+  <li><b>Duplicate</b> (<kbd>Ctrl</kbd>+<kbd>D</kbd>) copies the selected object. <b>Delete</b> removes it. Both are at the bottom of the right panel.</li>
+  <li>Made a mistake? <kbd>Ctrl</kbd>+<kbd>Z</kbd> undoes, <kbd>Ctrl</kbd>+<kbd>Y</kbd> redoes. Every editing action can be undone.</li>
 </ol>
-<p><b>Layers</b> hides or shows kinds of objects, the level's models and its collision (the invisible shapes you
-bump into, coloured by type).</p>
-<p><b>Check</b> tests your changes without installing anything and lists any problems, for example too many objects
+<p>The <b>Show</b> menu hides or shows kinds of objects, the level's models and its collision (the invisible shapes you
+bump into, coloured by type; every colour also has a name in the legend). The <b>Edit list</b> chip in the left panel lists every change you made so far.</p>
+<p><b>Check</b> tests your changes without installing anything and lists any problems, with a count of what needs a look, for example too many objects
 in a section or too many drivable cars in one place (the game allows 4 at once).</p>
 <div class="note">Some sections cannot take new objects (the app tells you which). New walls for those go into the
 map's shared layer instead, which is loaded with every section of that map.</div>
 
-<h2 id="data"><span class="n">6</span>Changing game values</h2>
-<p>The <span class="tab">Game data</span> tab changes numbers the game keeps in its data files:</p>
+<h2 id="view3d"><span class="n">7</span>The 3D view</h2>
+<p>One 3D view draws every map in the app: the Level editor, New maps, Mission templates, Sections, Test saves and Mission logic all use it, so it
+behaves the same everywhere.</p>
+<ul>
+  <li><b>3D and Top.</b> The switch in the view's corner changes between a free camera and a view straight down with north at the top. Top view pans with <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> or a left drag and zooms toward the mouse.</li>
+  <li><b>Picking and placing.</b> Click to pick. While you place something, a see-through copy follows the mouse; click to put it down. In screens that ask for a position and a facing, press, drag and release to set both.</li>
+  <li><b>Overlays.</b> Boxes, rings, paths and labels the screens draw over the map (loaders, spots, zones, routes, mission triggers). A menu can hide each layer.</li>
+  <li><b>Snapping.</b> Grid, angle and height: <i>Surface</i> follows what is under the mouse, <i>Ground</i> goes down through roofs to the floor, <i>Free</i> does not snap.</li>
+  <li><b>Controller and keyboard.</b> Everything the mouse does here can also be done from a controller or the keyboard (see Controller support).</li>
+</ul>
+<p>Heavy maps stream in while you look around, and a progress box shows how many models have arrived. The <b>Map</b> button in the screens that only use the map for context turns the models off to make it faster.</p>
+
+<h2 id="tools"><span class="n">8</span>Editor tools</h2>
+<ul>
+  <li><b>Selecting many.</b> <kbd>Ctrl</kbd> or <kbd>Shift</kbd> click adds to the selection. Drag a box in Select mode (or hold <kbd>Shift</kbd> and drag). <kbd>Ctrl</kbd>+<kbd>A</kbd> selects all, <kbd>Shift</kbd>+<kbd>A</kbd> selects everything of the same model. In the list, <kbd>Shift</kbd> picks a range and <kbd>Ctrl</kbd> toggles one.</li>
+  <li><b>Group moves.</b> Move or turn the selection together, change one property on many objects at once, move by an exact amount, align and spread them out, or drop them to the ground.</li>
+  <li><b>Snapping.</b> Grid and angle steps for moves and turns, and a height mode (see the 3D view).</li>
+  <li><b>Prefabs and copy buffer.</b> Save a group of objects as a prefab and stamp it anywhere, also in another map or mod. Prefabs, shortcuts and the copy buffer belong to you, not to one mod.</li>
+  <li><b>Scatter brush.</b> Paint pickups, weapons, enemies or vehicles over an area with a radius, density, spacing and random turn. One stroke is one undo step.</li>
+  <li><b>Outliner.</b> Search, filter chips, hide, lock and isolate (<kbd>Ctrl</kbd>+<kbd>I</kbd>); <kbd>Alt</kbd>+<kbd>H</kbd> shows all again. Layers are named groups you can hide or lock; they are saved with the mod.</li>
+  <li><b>Ruler and scale figure.</b> Measure distances in metres, or put a 1.8 m figure next to something to judge its size.</li>
+  <li><b>Camera spots and notes.</b> Save a viewpoint, or pin a note in the level, and come back to it later.</li>
+  <li><b>Find and replace.</b> <kbd>Ctrl</kbd>+<kbd>H</kbd> swaps one kind of pickup, weapon or vehicle for another everywhere in the mod.</li>
+  <li><b>Command search.</b> <kbd>Ctrl</kbd>+<kbd>K</kbd> lists every command of the open screen and a way to go to any screen. <b>Keyboard shortcuts</b> (in the Tools menu or the command search) lets you rebind keys. <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> <kbd>Q</kbd> <kbd>E</kbd> stay reserved for flying.</li>
+</ul>
+
+<h2 id="data"><span class="n">9</span>Changing game values</h2>
+<p>The <span class="tab">Game data</span> screen (area <b>Tune</b>) changes numbers the game keeps in its data files. Pick the group at the top, use <b>Find</b>
+to search, and switch on <b>Only changed</b> to see just what you edited. A table row is one weapon or vehicle: click a cell to type a new number, or pick a row to use the sliders on the right.
+A changed value shows its old number crossed out, and <b>Use the default</b> puts it back. The groups:</p>
 <ul>
   <li><b>Weapons:</b> damage, clip size, fire rate, range, ammo;</li>
   <li><b>Vehicles:</b> handling, health, cameras, traffic;</li>
@@ -174,46 +269,122 @@ map's shared layer instead, which is loaded with every section of that map.</div
 <p>Your changes belong to the mod you are working on. A few things (such as field of view) are built into the game's
 program itself; the app lists those but cannot change them.</p>
 
-<h2 id="play"><span class="n">7</span>Putting your mod in the game</h2>
+<h2 id="playground"><span class="n">10</span>Tune previews and the Playground</h2>
+<p>Each group in Game data has a live picture of what your numbers do, so you can judge a change before you put it in the game:</p>
+<ul>
+  <li><b>Weapons:</b> the weapon model, rings that show the damage at each distance, the spread cone and tracers at the fire rate.</li>
+  <li><b>Vehicles:</b> the car on a moving road with a speed gauge and its turning circle.</li>
+  <li><b>Moves:</b> Ram playing the move, with a timeline of the slow-motion speed.</li>
+  <li><b>Camera:</b> the camera's view of Ram, and a small picture seen through it.</li>
+</ul>
+<p>The <b>Playground</b> button lets you actually try the numbers: a shooting range for the weapon you picked, a driving test for the car, and a walking test with slow motion.
+It uses your changed values and the controller or the keyboard. It is a rough model of the game, close enough to judge a change but not the real game; use <b>Test in game</b> for that.</p>
+
+<h2 id="import"><span class="n">11</span>Bringing in a model</h2>
+<p>Open <b>Create</b> and <span class="tab">Import model</span>. Pick a 3D file of your own (<code>.glb</code>, <code>.gltf</code> or <code>.obj</code>) and choose what it becomes:</p>
+<ul>
+  <li><b>A new model</b> you can then place in a level from the Level editor's Add list; or</li>
+  <li><b>A replacement</b> for one of the game's models: pick the game model, and every copy of it in the game changes.</li>
+</ul>
+<p>Set the direction (which way is up), the scale (the screen can size it to match the original or to the height of Ram) and where the model's origin sits. The app reduces the model to what the game can load, bakes its pictures, and builds a simple collision shape (hull, box or pieces) if you want one.
+The <b>Limits</b> panel on the screen shows how close you are to the game's limits for models and pictures. Characters cannot be replaced, and a model that TOD HD or another mod already replaced is marked: yours goes on top of it.</p>
+<p>For a whole city or district, use the <b>Large scene</b> button at the top right of this screen (see <a href="#district">Bringing in a whole district from your own 3D file</a>).</p>
+
+<h2 id="textures"><span class="n">12</span>Textures</h2>
+<p>Open <b>Create</b> and <span class="tab">Textures</span>. Every picture in the game is listed once, with the models that use it. Pick one, load your own picture
+(PNG, JPEG, BMP, TGA or DDS) and see it on the model. The game has strict rules about picture shapes, so the screen offers sizes of the original's shape, can <b>Crop to power of two</b>,
+keeps see-through pictures see-through, and lists its <b>Checks</b>. <b>Revert</b> puts the original picture back.</p>
+
+<h2 id="catalogue"><span class="n">13</span>The catalogue</h2>
+<p>The <b>Assets</b> area (bottom of the left bar) holds the <span class="tab">Catalogue</span>: every model in your game as a card with a picture.</p>
+<ul>
+  <li>Narrow the list by category, map, size and triangle count, or by <b>used</b> models; search by name and sort.</li>
+  <li>Pick a card to see a live 3D preview. Switch on the wireframe, the collision shape, the bones or a 1.8 m figure.</li>
+  <li>For models with a skeleton, pick an animation clip and play it.</li>
+  <li>The detail panel lists measures, where the model is used (map, section, mission) and its textures. Clicking a place opens the Level editor there, clicking a texture opens Textures.</li>
+  <li><b>Place in level</b> starts placing it in the Level editor. <b>Replace</b> opens Import model with the target chosen.</li>
+</ul>
+<p>The first time, the app reads the whole game to build the list; after that it opens at once.</p>
+
+<h2 id="play"><span class="n">14</span>Putting your mod in the game</h2>
 <ol>
-  <li>Click <b>Save mod</b> to keep it in your library.</li>
-  <li>Go to the <span class="tab">Mods</span> tab. Tick the mods you want. When two mods change the same value, the one
-    lower in the list wins.</li>
-  <li><b>Close the game</b>, then click <b>Install enabled mods into the game</b>.</li>
+  <li>Click <b>Save mod</b> at the top to keep it in your library.</li>
+  <li>Go to <b>Play</b> and the <span class="tab">Mods and install</span> screen. Switch on the mods you want. When two mods change the same value,
+    the one lower in the list wins; drag a mod to reorder the list. The <b>Profile</b> menu keeps named lists of switched-on mods, and <b>Community</b> next to <b>Library</b> lists mods from the community list set in <b>Settings</b>.</li>
+  <li><b>Close the game</b>, then click <b>Install enabled mods into the game</b> in the bar at the bottom. The panel on the right,
+    <b>In the game now</b>, shows what the game has: mods, new maps, new missions.</li>
   <li>Start Total Overdose and play.</li>
 </ol>
-<p><b>To go back to the normal game:</b> close the game and click <b>Remove all mods</b>.</p>
+<p><b>To go back to the normal game:</b> close the game and click <b>Remove all mods</b>. The app asks first and tells you what is kept.</p>
 
-<h2 id="share"><span class="n">8</span>Sharing mods</h2>
+<h2 id="testgame"><span class="n">15</span>Test in game</h2>
+<p>You do not have to install a mod to try it. <b>Test in game</b> (in the Level editor bar, the mod library and the Debug area) does everything in one go:</p>
+<ol>
+  <li><b>Check</b> your mod (it stops here if something is wrong);</li>
+  <li><b>Build</b> it into a private copy of the game. The copy shares the big files with your game and uses little extra disk space; your own game folder is not touched;</li>
+  <li><b>Test copy</b>: your enabled mods, new maps and missions and the open mod go into the copy only;</li>
+  <li><b>Test save</b>: a save that starts you where you want (a chosen spot, full health, weapons, and so on);</li>
+  <li><b>Launch</b> the game.</li>
+</ol>
+<p>The small bars next to the button show which step is running. While the game runs the button becomes <b>Stop</b>. If the game closes with an error, a <b>Crashed</b> button opens a short report of what it was loading.
+The arrow next to the button has <b>Test settings</b> (where to start and what to give the player) and <b>Test in my own game</b>, which does install the mod into your real game after asking, and puts your saves back afterwards.
+If your drives differ the app tells you how much a full copy costs and asks first. The <span class="tab">Settings</span> screen can keep the private copy after the game closes.</p>
+
+<h2 id="debug"><span class="n">16</span>Debug</h2>
+<p>The <b>Debug</b> area is for when something does not work.</p>
 <ul>
-  <li><b>Share</b> saves your mod as a <code>.todmod</code> file. It is small because it is a list of your changes
-    (a recipe), not a copy of the game's files.</li>
-  <li>Your friend uses <b>Import</b> in their TOD Mod Studio. Their copy builds the mod from their own game when they
-    install it.</li>
-  <li>Mods made with the project's Unreal level editor plugin also import here.</li>
+  <li><span class="tab">Test run</span>: the options for Test in game, the state of the last run, the blocks the game loaded, the slowest loads and the memory it used, and the game's own log.</li>
+  <li><span class="tab">Find a bad mod</span>: if the game crashes and you do not know which mod does it, the app turns half of your mods on, asks whether the problem still happens, and halves again until it finds the one (or tells you that it needs two together).</li>
+  <li><span class="tab">Support</span>: a <b>Support bundle</b> is a small file for someone who helps you. It holds your version, game and mod names and the last test's log. Your user name and folders are replaced before it is made.</li>
 </ul>
 
-<h2 id="more"><span class="n">9</span>The other tabs</h2>
+<h2 id="limits"><span class="n">17</span>Limits and Problems</h2>
+<p>The game has hard limits (how many objects a section holds, how big a model or picture may be, how many archives it can load, and so on). The app measures how much of each limit your mods use.</p>
+<ul>
+  <li>The <b>meter strip</b> at the top of the main screens shows the limits that matter for that screen. Each meter shows a number, a bar and a symbol:
+    a tick for fine, a triangle for getting close (70 % or more, with a striped bar), a cross for over the limit (a cross-hatched bar), a dash when the app cannot tell. Tooltips and screen readers give the state in words. Colour alone never carries the meaning.</li>
+  <li><span class="tab">Limits</span> (<b>Play</b> area) lists every limit with its value, scope, source and how sure the app is of it.</li>
+  <li><b>Problems</b> (the status bar and the drawer that opens from it) lists everything the app found: live rules, the last Check and any meter that is amber or red. <b>Show me</b> jumps to the thing that is wrong.</li>
+</ul>
+<p>Some limits would crash the game when passed. For those the app refuses to install or export and there is no override. The others are warnings.</p>
+
+<h2 id="versions"><span class="n">18</span>Versions, backups and restore to original</h2>
+<ul>
+  <li><b>Autosave.</b> Your unsaved changes are kept a few seconds after each change. If the app closes, the next start brings them back.</li>
+  <li><b>Versions</b> (button in the top bar): name a point in your mod's life and go back to it later. Keeps up to 30 per mod.</li>
+  <li><b>Backups.</b> Before the app changes the game's files or its list of archives it makes a backup. <span class="tab">Mods and install</span> lists them in <b>Game files</b>, where you can restore or delete one. <b>Verify</b> checks the game files and can bring back one that changed.</li>
+  <li><b>Restore to original.</b> The button in <b>Game files</b> removes everything Mod Studio put in the game and saves a backup first. Your mod library, projects and saves are kept.</li>
+  <li><b>Game changed since install.</b> If TOD HD or Gameplay+ changes after you installed, the status bar says so; <b>Rebuild</b> makes the pack again on top of it.</li>
+</ul>
+
+<h2 id="share"><span class="n">19</span>Sharing mods</h2>
+<ul>
+  <li><b>Share</b> (top right), then <b>The selected mod</b> (click a mod in the list first, or use the <b>&hellip;</b> menu on its row), saves your mod as a <code>.todmod</code> file. <b>The switched-on mods as a collection</b> and <b>One piece</b> (a prefab, routes, tuning or a mission) share more or less than one mod. It is small because it is a list of your changes
+    (a recipe), not a copy of the game's files. Models and pictures you added travel inside it.</li>
+  <li>Your friend uses <b>Import&hellip;</b> on the same screen in their TOD Mod Studio. Their copy builds the mod from their own game when they
+    install it.</li>
+  <li>Mods shared by older versions of TOD Mod Studio also import here.</li>
+</ul>
+
+<h2 id="more"><span class="n">20</span>The other screens</h2>
 <table>
-  <tr><th>Tab</th><th>What it is for</th></tr>
+  <tr><th>Screen</th><th>What it is for</th></tr>
   <tr><td><span class="tab">Collision</span></td><td>Turn a 3D model of your own (<code>.glb</code>, <code>.gltf</code>
     or <code>.obj</code>) into something solid in the game, such as a wall, ramp, rocks or a building. Pick the file,
     place it, choose a surface (it sets footstep sounds and bullet marks) and click <b>Generate collision</b>.</td></tr>
   <tr><td><span class="tab">Routes</span></td><td>See and edit the paths enemies, pedestrians and traffic follow.
-    Click a point and drag it, add points, or block an area so characters walk around it. <b>Validate</b> finds broken
+    Click a point and drag it, add points, or block an area so characters walk around it. Each kind of route has its own colour, a point shape and a letter in the list. <b>Validate</b> finds broken
     links.</td></tr>
-  <tr><td><span class="tab">Missions</span></td><td>See a mission's triggers as cards: <b>IF</b> this happens,
+  <tr><td><span class="tab">Mission logic</span></td><td>See a mission's triggers as cards: <b>IF</b> this happens,
     <b>DO</b> that. Change what fires a trigger and what it does, or add a ready-made one (go to a point, kill N
-    enemies, timer, spawn a group, camera cut, objective text).</td></tr>
+    enemies, timer, spawn a group, camera cut, objective text). The graph's cards say new, edited or start in words as well as colour.</td></tr>
   <tr><td><span class="tab">Sections</span></td><td>The loading zones between parts of a map. <b>Fix teleport</b>
     turns a few zones that jump you across the border into ones you simply walk through.</td></tr>
-  <tr><td><span class="tab">Assets</span></td><td>A read-only list of every model in your game: where it is used and
-    what collision it has, with thumbnails.</td></tr>
-  <tr><td><span class="tab">Test save</span></td><td>Make a save file that starts you right where you want to test,
+  <tr><td><span class="tab">Test saves</span></td><td>Make a save file that starts you right where you want to test,
     with full health or all weapons if you like. The save slot it replaces is backed up first.</td></tr>
 </table>
 
-<h2 id="saves"><span class="n">10</span>Your saved games</h2>
+<h2 id="saves"><span class="n">21</span>Your saved games and save copies</h2>
 <p>Total Overdose saves remember objects by the order they were created. To keep your old saves working, the app:</p>
 <ul>
   <li>adds new objects <b>after</b> the existing ones, never in between;</li>
@@ -221,80 +392,115 @@ program itself; the app lists those but cannot change them.</p>
     off, so you never see them. You can change this in <b>Settings</b>, but truly deleting can break saves made in
     that section, and the checker will warn you.</li>
 </ul>
+<h3 id="s-test-saves">Test saves</h3>
+<p>In <span class="tab">Test saves</span> you can <b>Start at a chosen spot</b> (the map of the save is shown; click the place, or use <b>Place</b> to set position and facing) or <b>Start from one of your saves</b>.</p>
+<h3 id="s-save-copies">Save copies</h3>
+<p>Before the app installs or removes anything it copies your whole save folder (the last 20 copies are kept). <b>Save copies</b> on the same screen lists them, and <b>Restore</b> puts one back.
+<b>Update a save for new missions</b> makes an updated copy of a save that knows your new missions; it never changes the original save.</p>
 
-<h2 id="trouble"><span class="n">11</span>If something goes wrong</h2>
+<h2 id="newmaps"><span class="n">22</span>Adding a new map and its entrances</h2>
+<p>Open <b>Create</b> and <span class="tab">New maps</span>. A <b>map project</b> holds one new map and how players get into it. It is separate from your ordinary mod; its files are kept in the
+<code>newmaps</code> folder beside your saved mods and settings. The <b>Map project</b> menu at the top switches between projects. The five areas next to it are the steps, left to right:</p>
 <table>
-  <tr><th>Problem</th><th>What to do</th></tr>
-  <tr><td>The app window stays blank or does not open</td><td>Install the Microsoft Edge WebView2 Runtime, then start
-    the app again.</td></tr>
-  <tr><td>Install into the game fails</td><td>Close Total Overdose first. Then read the checker's message: it names
-    the change that broke a rule.</td></tr>
-  <tr><td>The game crashes or acts strangely after installing</td><td>Click <b>Remove all mods</b> to get the normal
-    game back. Then turn mods on one at a time to find the one causing it.</td></tr>
-  <tr><td>"Windows protected your PC"</td><td>Click <b>More info</b>, then <b>Run anyway</b>. The installer is not
-    signed by a company.</td></tr>
-  <tr><td>You moved or reinstalled the game</td><td>Pick the new game folder in <b>Settings</b>.</td></tr>
+  <tr><th>Area</th><th>What it is for</th></tr>
+  <tr><td><span class="tab">Atlas</span></td><td>Where the map stands in the world.</td></tr>
+  <tr><td><span class="tab">Entrances</span></td><td>The boxes in the game's maps that lead into yours, where the player arrives, and the way back.</td></tr>
+  <tr><td><span class="tab">Map</span></td><td>The inside of the map: the arrival and return spots, the ground, roads, edges, look and minimap.</td></tr>
+  <tr><td><span class="tab">Ready</span></td><td>Everything the app found, per map and for the whole project, before you install.</td></tr>
+  <tr><td><span class="tab">Manage</span></td><td>What is installed, shared sections and exporting the map as a package. (Advanced mode.)</td></tr>
 </table>
-
-<h2 id="files"><span class="n">12</span>Where things are kept</h2>
-<table>
-  <tr><th>What</th><th>Where</th></tr>
-  <tr><td>The program</td><td><code>%LOCALAPPDATA%\Programs\TOD Mod Studio</code> (or the folder you chose)</td></tr>
-  <tr><td>Your mods and settings</td><td><code>%APPDATA%\TODModStudio</code> (mods in the <code>mods</code> folder)</td></tr>
-  <tr><td>The game cache</td><td><code>%LOCALAPPDATA%\TODModStudio\cache</code> (safe to delete; it is rebuilt)</td></tr>
-  <tr><td>Installed mods</td><td><code>todms_mods.zip</code> in the game folder, and the backup
-    <code>configpc.txt.todms_backup</code></td></tr>
-</table>
-<p>To open one of these, paste the path into the address bar of File Explorer.</p>
-
-<h2 id="newmaps"><span class="n">13</span>Adding a new map and its teleport spots</h2>
-<p>Open <b>New maps</b> and click <b>Create project</b>, or paste the path to an existing map recipe JSON or build
-folder and click <b>Import</b>. A project is separate from your ordinary mod. Its files are kept in the
-<code>newmaps</code> folder beside your saved mods and settings.</p>
+<h3 id="s-nm-start">Start a project</h3>
 <ol>
-  <li>Give the package a name. Choose a map to copy and give the new map an unused name. The map name must have exactly
-    the same number of letters as the original; the screen tells you the required length.</li>
-  <li>Set <b>Main arrival</b>: where Ram appears inside the new map. Positions are in metres: x and z run along the
-    ground; y is height. Check that there is ground under this point. Changing the map to copy does not move your spots.</li>
-  <li>Under <b>Entry spots</b>, add a box, choose the existing map and section, and click the top view to place it.
-    Type its height, facing and size. Walking into this invisible box loads the new map. The other boxes shown are
-    the game's existing loading zones; avoid placing your new box across one of them.</li>
-  <li>Add <b>Named arrivals</b> inside the new map if different entrances should lead to different places. Choose the
-    destination in each entry box's <b>Arrive at</b> list. The inside view shows all your spots and their facing arrows.
-    It does not draw the ground or buildings.</li>
-  <li>Set the <b>Return spot</b>, including the existing map, section and named point Ram should return to. Imported
-    recipes keep these names. The block containing that point must be correct so the checker can find it.</li>
-  <li>Click <b>Save project</b>, then <b>Check</b>. Read each PASS, WARN or FAIL message. Check reads the recipe and
-    destination names; <b>Build</b> also writes the map and checks its objects, collision and finished package.
-    The output folder is shown when it finishes. A saved copy of the recipe is included in that folder.</li>
-  <li>Close the game and click <b>Install package</b>. The app copies the package into the selected game folder and
-    puts it first in the game's loading list. It backs up <code>configpc.txt</code>. If an installed mod or another
-    map package changes the same part of the game, remove that one first. <b>Uninstall package</b> removes just this
-    project's package and keeps the other archives in order. Save and rebuild after changing any spots.</li>
+  <li>Press <b>New map project</b>. Pick a start: <b>Blank</b>, <b>Desert compound</b>, <b>Canyon road</b>, <b>Town block</b> or <b>Shipped map copy</b> (a copy of one of the game's maps).
+    For the first four, pick a size, <b>Small</b>, <b>Medium</b> or <b>Large</b>; the tiles show the side in metres and how much of the game's limits it uses.</li>
+  <li>Choose where the first entrance goes (<b>Entrance in</b>), give the <b>Package name</b> and press <b>Create</b>.
+    To open a recipe you already have, paste its path under <b>Import a recipe</b> and press <b>Import</b>.</li>
+  <li>The map's name must have exactly as many letters as the game map it is built from. The <b>Map</b> area shows the count (for example 18/18) next to the name, and a button suggests a free name.</li>
 </ol>
-<p>An older map builder may support only one entry leading to the main arrival. The screen says when this applies;
-extra entries can be saved but cannot be built until the app includes the newer builder. Older build folders may
-also lack the original recipe: the app warns if only their spots were recovered. Import the original JSON to keep
-all walls, objects and other map contents.</p>
-
-<h2 id="missiontemplates"><span class="n">14</span>Adding your own missions</h2>
-<h3>Making a mission</h3>
-<p>Open <b>Mission templates</b>. A mission project holds one or more missions that take place on a map of yours (a project from
-<b>New maps</b>) or in a part of an existing map such as Downtown.</p>
+<h3 id="s-nm-atlas">Atlas</h3>
+<p>One top view shows every shipped map and your new maps. Click <b>Place on the layout</b>, then click where the map goes; <kbd>R</kbd> turns it. <b>Placement</b> on the right has three choices:</p>
+<ul>
+  <li><b>Separate</b> (the usual one): the map has its own space. The picture is only an editor layout, so the game does not care where you put it, but a warning appears when a map overlaps another one or sits outside the safe box.</li>
+  <li><b>Extension</b>: the map is a section inside one of the game's maps. Choose the <b>Host section</b>, then draw the region it covers on the host and choose what is carried over.</li>
+  <li><b>Aligned</b>: the map sits next to a neighbour. Pick the edge (north, east, south or west), press <b>Snap to the neighbour</b> and read the <b>Seam</b> line, which tells you if the ground at the join differs.</li>
+</ul>
+<h3 id="s-nm-entrances">Entrances</h3>
+<p>An entrance is an invisible box in one of the game's maps. Walking into it (or pressing the use key in it) loads your map. The list on the left holds your entrances; <b>Add an entrance</b> makes one and <b>Table</b> lists all of them together with the entrances of your other projects.
+The left view shows the game's map (<b>Host</b>), the right view shows your map (<b>New map</b>).</p>
 <ol>
-  <li>Click <b>New project</b>, or open a sample from the list: <b>Mesa Compound</b> shows all 17 kinds on one map (it uses all
-    17 mission slots), the yard sample is a short two-mission example.</li>
-  <li>Under <b>Maps for the missions</b> add the map: one of your new maps, or a section of an existing map. Sections that cannot take
+  <li>Select the entrance and pick its <b>In section</b>. A section that cannot take an entrance says so.</li>
+  <li>Press <b>Place box</b> and click the host view where the box goes; press and drag to set its facing. Size, height and facing can also be typed under <b>Trigger box</b>. <b>Fires on</b> chooses <b>Touch</b> or <b>Use</b>.</li>
+  <li>Pick the <b>Icon</b> (Church, Bullring, Downtown, Harbour, Industrial, Border or Angel) and the <b>Beam</b> (None, Slim or Full) the player sees at the box.</li>
+  <li>Press <b>Place arrival</b> and click the new map's view, dragging to turn the player the way you want. This is where the player lands. Check that there is ground under it. If you made <b>named arrivals</b> in the <span class="tab">Map</span> area, choose one in <b>Arrives at</b>; otherwise the entrance lands at the <b>Main arrival</b>.</li>
+  <li>Set the <b>Way back</b>: a box in your map (<b>Place way back</b>) and the spot in the game's map where the player lands again. Switch on <b>One-way</b> if there is none.</li>
+  <li>In Advanced mode, <b>Options</b> has <b>By vehicle</b> (the box is for cars, such as a tunnel; the car arrives with the player) and <b>Locked until mission</b> (the entrance opens after that mission was the last one played).</li>
+</ol>
+<p>The map needs at least one entrance that is not locked, so the player can always get out; the list says so under it. <b>Checks</b> at the bottom of the panel lists what is wrong with the selected entrance.</p>
+<div class="note">An entrance arrival, a named arrival or the map's main arrival must not lie inside a mission giver's box. Check refuses it, because the game can stop when the player lands there. Move one of them out of the other.</div>
+<h3 id="s-nm-map">Map</h3>
+<p>The list on the left holds the <b>Arrival spot</b>, the <b>Return spot</b> (where Ram goes back to in the game's map; press it to add one) and any <b>Named arrivals</b> (<b>Add a named arrival</b>). Pick one and press <b>Place</b>, then click the view, or type its numbers on the right. Positions are in metres: x and z run along the ground, y is height. <b>Map</b> in the corner of the view draws a shipped map under your spots.
+The right panel also holds the <b>Map card</b>: name, description, author, theme, size and a picture.</p>
+<p>The <b>Build</b> panel on the view has the tools. Each is a tab; every stroke is one undo step, and the meters under the tabs show how close the map is to the game's limits.</p>
+<table>
+  <tr><th>Tab</th><th>What it does</th></tr>
+  <tr><td><b>Terrain</b></td><td><b>Make the ground</b>, then <b>Raise</b>, <b>Lower</b>, <b>Smooth</b>, <b>Flatten</b> or <b>Ramp</b> it with a brush. A grey picture can be loaded as a heightmap and saved again.</td></tr>
+  <tr><td><b>Paint</b></td><td>Ground pictures and the <b>Surface</b> type under them (footsteps, grip and impacts follow it); steep ground can turn to rock.</td></tr>
+  <tr><td><b>Roads</b></td><td>Click points to lay a road with width, lanes and kerbs; it can level the ground, carry a traffic route, or become a bridge or ramp.</td></tr>
+  <tr><td><b>Edges</b></td><td>Cliffs and invisible walls round the map, water, and a kill plane that sends a fallen player back.</td></tr>
+  <tr><td><b>Scatter</b></td><td>Trees, rocks and bushes over an area you draw, with a density and a seed.</td></tr>
+  <tr><td><b>Look</b></td><td>The sky, sun, ambient light and fog, from presets, with a preview. <b>Bake lighting</b> works out shadows when the map is built (<b>Fast</b>, <b>Normal</b> or <b>Fine</b>). <b>Skyline</b> adds a ring of far towers beyond the edge.</td></tr>
+  <tr><td><b>Blockout</b></td><td>Draw grey boxes first and swap them for the game's real pieces later (<b>Kits</b>).</td></tr>
+  <tr><td><b>Sections</b>, <b>Show</b>, <b>Minimap</b></td><td>(Advanced mode.) Split the map into sections, show collision, routes and bounds, and draw the minimap. <b>Write minimap</b> draws it from the map; it shows in the game with the Gameplay+ radar.</td></tr>
+</table>
+<h3 id="s-nm-ready">Ready and Manage</h3>
+<p><span class="tab">Ready</span> says <b>Ready to install</b> or <b>Install blocked</b> and lists every error and warning per map and for the project, with the usual counts: sections in the game, maps, and the quadtree sizes. Click a row to go to the place that fixes it. Install stays blocked while an error is left.</p>
+<p><span class="tab">Manage</span> shows the numbers your project has taken, the map projects and whether each is in the game, which sections are shared, and <b>Export</b> writes the map as a package into a folder or file you name.</p>
+<h3 id="s-nm-build">Check, Build, Install</h3>
+<ol>
+  <li>Press <b>Save project</b>. In the <b>Into the game</b> bar press <b>Check</b>; <b>Details</b> lists each PASS, WARN or FAIL message. Check reads the recipe and the destination names.</li>
+  <li><b>Build</b> writes the map and checks its objects, collision and the finished package. A big map takes a few minutes.</li>
+  <li>Close the game and press <b>Install into the game</b>. The app puts the package first in the game's loading list and backs up <code>configpc.txt</code>. If an installed mod or another map package changes the same part of the game, remove that one first. <b>Uninstall package</b> (it asks first) removes just this project's package. Save and build again after you change anything.</li>
+</ol>
+<p>You can also try the map without installing it: <b>Test in game</b> in the <b>Play</b> area builds a private copy.</p>
+<p>New missions for your map are made in <span class="tab">Mission templates</span> (see <a href="#missiontemplates">Adding your own missions</a>); the game takes 17 new missions in all.</p>
+
+<h2 id="district"><span class="n">23</span>Bringing in a whole district from your own 3D file</h2>
+<p>A big 3D scene, such as a city district, can become a new map. Use a file of your own that you have the right to use. The app cuts it down to what the game can load, bakes the lighting and builds collision, so you can walk on it.</p>
+<ol>
+  <li><b>Source.</b> Open <b>Create</b> &rarr; <span class="tab">Import model</span> and press <b>Large scene</b> (<b>Single model</b> goes back). Paste the path of a <code>.glb</code> or <code>.gltf</code> file or press <b>Choose&hellip;</b>. The page shows its size, parts, materials and pictures. If the scene lies on its side or upside down, change <b>Direction</b> (<b>Y up</b>, <b>Z up</b>, <b>Upside down</b>, the flip and the turn). Press <b>Next</b>.</li>
+  <li><b>Scale.</b> Press <b>Measure</b>, click both ends of something of a known size (a door about 2.1 m, a lane about 3.5 m, a car about 4.5 m) and type its real length, then <b>Apply</b>. The figure of Ram stands beside the scene so you can judge it, and the streets can be compared with Downtown's.</li>
+  <li><b>Region.</b> On the top view draw the part you want (<b>Rectangle</b>, <b>Polygon</b> or <b>Square</b> with a side). <b>Clip</b> cuts at the border; <b>Whole parts</b> keeps every part the shape touches. The counts show the triangles, parts, materials and pictures inside. A region of a few hundred metres across is plenty; a larger one builds slowly and may not fit the game's limits.</li>
+  <li><b>Clean.</b> Keep the defaults: repeated, stray and empty triangles are dropped and vertices are welded.</li>
+  <li><b>Textures.</b> Keep the defaults: identical pictures are merged, small ones are packed together and the set is shrunk to the budget.</li>
+  <li><b>Sections.</b> The scene is split into objects, and the meters above the page show each limit. Change nothing unless one turns amber or red; then <b>Reduce triangles</b> helps.</li>
+  <li><b>Collision.</b> Solid ground and walls are made from the walkable surfaces. The surface type follows each picture and can be changed per picture. A step taller than the game's player can climb is reported by Check.</li>
+  <li><b>Send.</b> Name it and choose <b>New map</b>. Pick <b>A new project</b>, or the project that already holds this map to send it again. <b>Place</b> is the x and z of the district's middle in the world: choose free ground that no shipped map covers, and look at the <span class="tab">Atlas</span> to see that it does not overlap one. Press <b>Send to new map</b>, then <b>Open in New maps</b>. Sending writes the map, its name, walls along the edge, the sea and a ring of far towers. Sending again with another scale or <b>Place</b> moves the arrival, way back, entrances, walls and missions with it.</li>
+  <li><b>Entrances.</b> In <span class="tab">New maps</span> &rarr; <span class="tab">Entrances</span> choose a game map such as Downtown, put the box on the path the player walks, put the arrival on a street and turn it to face down the street, and set the way back. Pick the icon and beam. For a car entrance such as a tunnel, switch on <b>By vehicle</b> on a second entrance whose box sits where a road goes down. <span class="tab">Ready</span> must show no error.</li>
+  <li><b>Look.</b> In the <span class="tab">Map</span> area open <b>Look</b> and pick the <b>City day</b> preset. Keep <b>Bake lighting</b> on at <b>Normal</b> and the <b>Skyline</b> on. Then <b>Write minimap</b> in the <b>Minimap</b> tab (Advanced mode).</li>
+  <li><b>Missions.</b> In <span class="tab">Mission templates</span> start a project on your map and add a kind such as <b>Ghost Run</b>. Put the giver a few metres from the arrival, not on top of it. The plan of the district lies under the placement view.</li>
+  <li><b>Check, Build, Install.</b> Press <b>Check</b> until it is clean; the map-area row passes only when the district stands on its own ground. <b>Build</b> takes several minutes for a big district. Then <b>Install into the game</b>, or try it first with <b>Test in game</b>.</li>
+</ol>
+<div class="note">A scene made for another purpose often has water, glass and trees that need a look in the game. Walk the district after the first build and send it again with changes if something is wrong.</div>
+
+<h2 id="missiontemplates"><span class="n">24</span>Adding your own missions</h2>
+<h3 id="s-making-a-mission">Making a mission</h3>
+<p>Open <b>Create</b> and <span class="tab">Mission templates</span>. A mission project holds one or more missions that take place on a map of yours (a project from
+<b>New maps</b>, including a district brought in from a 3D file) or in a part of an existing map such as Downtown.</p>
+<ol>
+  <li>Click <b>New project</b>, or choose <b>Open a sample&hellip;</b>: <b>Mesa Compound</b> shows all 17 kinds on one map (it uses all
+    17 mission slots), the yard sample is a short two-mission example, and <b>A race in the yard</b> is a single checkpoint race.</li>
+  <li>On the left, under <b>Maps for the missions</b>, press <b>+ Add a map</b>: choose one of your new maps, or a section of an existing map. Sections that cannot take
     a mission giver are greyed; hover to see why. For an existing section, give its walkable play area and ground height, and choose a shipped
     mission to start like.</li>
-  <li>Under <b>Add a mission</b>, pick a kind. Each card says what the player does and what the map needs. Then place things: select the
-    mission, click <b>Place</b> next to a point or area and click the top view (north is up). The yellow box is the mission giver:
-    the player steps into it and presses the use key to be offered the mission.</li>
-  <li>Change the numbers in the form. Every setting says what it does and its allowed range; "use the default" undoes a change.</li>
-  <li><b>Check</b> lists what to fix, in plain words (a giver on a building, a pass score nobody can earn, boxes too close together).
-    Then <b>Build</b> (about a minute) and, with the game closed, <b>Install</b>.</li>
+  <li>On the <b>Pick a kind of mission</b> page, click a card and press <b>Use this kind</b>. Then place things:
+    the <b>Place on the map</b> list shows what still needs a spot; click an item and click the top view (north is up). The yellow box is the mission giver:
+    the player steps into it and presses the use key to be offered the mission. Keep the map's arrival, its named arrivals and every entrance arrival out of this box: Check refuses a landing spot inside a giver's box, so move one of them out of the other.</li>
+  <li>Change the numbers in the <b>Settings</b> panel on the right: a slider and a number box, with the allowed range. <b>Use the default</b> undoes a change,
+    and <b>Advanced</b> folds away the rest.</li>
+  <li><b>Check</b> (in the <b>Into the game</b> bar, with the <b>Check results</b> list above it) says what to fix, in plain words (a giver on a building, a pass score nobody can earn, boxes too close together);
+    <b>Show me</b> jumps to the mission. Then <b>Build</b> (about a minute) and, with the game closed, <b>Install into the game</b>.</li>
 </ol>
-<h3>The 17 kinds of mission</h3>
+<h3 id="s-the-17-kinds-of-mission">The 17 kinds of mission</h3>
 <table>
   <tr><th>Kind</th><th>What the player does</th></tr>
   <tr><td>Showdown</td><td>Walk to a bandit camp, shoot the gang, then return to a marked strip.</td></tr>
@@ -316,23 +522,85 @@ all walls, objects and other map contents.</p>
   <tr><td>Style Run</td><td>Score attack: chain kills, keep the combo alive and use loco moves. Style is the score.</td></tr>
 </table>
 <p>Each kind's settings (positions, timers, how many enemies, how tough they are, scores, and all the texts the player
-reads) are in the form next to the map. The <b>Floor Is Lava</b> kind needs a map that already has stones, ramps or
+reads) are in the Settings panel next to the map. The <b>Floor Is Lava</b> kind needs a map that already has stones, ramps or
 walkways to step on.</p>
-<h3>Gameplay+</h3>
+<h3 id="s-gameplay">Gameplay+</h3>
 <p>If the Gameplay+ mod is installed, the app builds the missions on top of it, so Gameplay+'s own changes stay in
 effect. Install Gameplay+ first, then build and install your missions.</p>
-<p><b>Slots.</b> A game can have 17 new missions in total. The page shows how many are left. All your installed mission projects
-are built together into one package, <code>todms_missions.zip</code>, so installing a second project rebuilds the first one with it.
+<p><b>Slots.</b> A game can have 17 new missions in total, whatever the number of maps. The bar at the bottom of the window shows how many are left. All your installed mission projects
+are built together into the pack, so installing a second project rebuilds the first one with it.
 The game can load 8 archive files; the app refuses an install that would go over that. If a new map you use here was installed from the
-<b>New maps</b> tab, installing the missions replaces that package (the map is part of the missions package).</p>
+<b>New maps</b> screen, installing the missions replaces that package (the map is part of the missions package).</p>
 <p><b>Old saves.</b> A save made before you installed the missions does not know them: pressing the use key at a new mission giver would
-close the game. Open <b>Test save</b>, <b>Update a save for new missions</b>, pick the save and make an updated copy. It never changes your
+close the game. Open <b>Play</b> and <span class="tab">Test saves</span>, find <b>Update a save for new missions</b>, pick the save and press <b>Make an updated copy</b>. It never changes your
 save and never runs by itself; installing the copy backs up the slot it replaces. A new game, or a save made after the install, needs nothing.</p>
 <p><b>Givers in an existing section (Downtown and so on).</b> A giver box placed in a section the game already has needs one more thing in an old
 save: its script thread. The save update adds it when the save holds that section. A save that does not hold the section (for example one made
 right at the end of the game, or at the start of a mission) loads the section fresh and the box stays silent until the section is loaded again:
 start or finish any mission, or walk through any map loader and come back. A new game loads sections that way, so it needs nothing. Placing a goal
 zone on top of the giver box (the Ghost run) is refused: you accept standing in the box, and a zone only counts when you walk into it.</p>
+
+<h2 id="controller"><span class="n">25</span>Controller support</h2>
+<p>A game controller can run the whole app. Plug it in and a button hint bar appears in the status bar.</p>
+<table>
+  <tr><th>Control</th><th>In the interface</th><th>In the 3D view</th></tr>
+  <tr><td>D-pad or left stick</td><td>Move focus between controls</td><td>Left stick flies; d-pad steps the selection</td></tr>
+  <tr><td>A</td><td>Press (a text field opens an on-screen keyboard)</td><td>Pick what the centre cross points at; place</td></tr>
+  <tr><td>B</td><td>Back or Escape</td><td>Cancel, or leave the view</td></tr>
+  <tr><td>X / Y</td><td>&mdash;</td><td>X adds again, Y cycles Select, Move, Rotate, Resize</td></tr>
+  <tr><td>LB / RB</td><td>Switch tabs</td><td>Turn the object being placed</td></tr>
+  <tr><td>LT / RT</td><td>Switch area</td><td>Fly down and up</td></tr>
+  <tr><td>Start / View</td><td>Command search / Problems</td><td>Same</td></tr>
+</table>
+<p>Hold <b>View</b> and press <b>LB</b> or <b>RB</b> for undo and redo. <b>Settings</b> has a <b>Controller</b> card: invert look, swap A and B for Nintendo-style pads, vibration, look and fly speed, and the dead zone, with live stick circles to check them. The playgrounds in Game data take the controller too.
+Everything on the keyboard that moves focus works with the arrow keys as well.</p>
+
+<h2 id="access"><span class="n">26</span>Settings, accessibility and language</h2>
+<p>Everything in this section is in <b>Settings</b> under <b>Appearance</b> and <b>Accessibility</b>, and is remembered on this PC.</p>
+<table>
+  <tr><th>Setting</th><th>What it does</th></tr>
+  <tr><td><b>Theme</b></td><td><b>Follow Windows</b> (the default) switches between dark and light with Windows. <b>Dark</b>, <b>Light</b> and <b>High contrast</b> fix one look. High contrast has a black background, white text, strong borders and a bright accent.</td></tr>
+  <tr><td><b>UI scale</b></td><td>Makes the whole app bigger or smaller, from 90 % to 150 %. The layout stays usable at 125 % in a small window.</td></tr>
+  <tr><td><b>Text size</b></td><td>Makes the text bigger without changing the layout much.</td></tr>
+  <tr><td><b>Colour-blind safe colours</b></td><td>Swaps the green, amber and red of the meters and the 3D view for colours that stay apart. Shapes and words are shown with colours in any case.</td></tr>
+  <tr><td><b>Reduced motion</b></td><td>Follows the Windows setting by default. On, the camera jumps instead of flying and animations are skipped.</td></tr>
+  <tr><td><b>Mode</b></td><td>Beginner or Advanced (see <a href="#mode">Beginner and Advanced</a>).</td></tr>
+  <tr><td><b>Language</b></td><td>English only for now. Translations are made by the community: all the app's words are in one list that anyone can copy and translate.</td></tr>
+</table>
+<h3 id="s-keyboard">Keyboard</h3>
+<p>Every control can be reached with the keyboard: <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> go through them, the arrow keys move between nearby controls, <kbd>Enter</kbd> or <kbd>Space</kbd> press, <kbd>Esc</kbd> closes a menu or a window.
+The control that has focus always has a clear outline. <kbd>F1</kbd> opens Help and <kbd>Ctrl</kbd>+<kbd>K</kbd> opens the command search.</p>
+<h3 id="s-screen-readers">Screen readers</h3>
+<p>The screens that are not 3D (Mods, Game data tables, Settings, Test saves, Limits and Problems) have labels for screen readers: regions, tables, switches and progress bars say what they are. The 3D view cannot be read aloud; the same actions are in the lists beside it.</p>
+<h3 id="s-language">Language</h3>
+<p>To add a translation, copy the English word list to a new language file, translate the values and keep the keys, and add the language to the list of languages. The notes for this are in the <code>locales</code> folder of the source.</p>
+
+<h2 id="trouble"><span class="n">27</span>If something goes wrong</h2>
+<table>
+  <tr><th>Problem</th><th>What to do</th></tr>
+  <tr><td>The app window stays blank or does not open</td><td>Install the Microsoft Edge WebView2 Runtime, then start
+    the app again.</td></tr>
+  <tr><td>Install into the game fails</td><td>Close Total Overdose first. Then read the checker's message: it names
+    the change that broke a rule.</td></tr>
+  <tr><td>The game crashes or acts strangely after installing</td><td>Use <b>Find a bad mod</b> in the Debug area, or click <b>Remove all mods</b> to get the normal
+    game back and turn mods on one at a time. <b>Support bundle</b> makes a file you can send to someone who helps.</td></tr>
+  <tr><td>"Windows protected your PC"</td><td>Click <b>More info</b>, then <b>Run anyway</b>. The installer is not
+    signed by a company.</td></tr>
+  <tr><td>You moved or reinstalled the game</td><td>Pick the new game folder in <b>Settings</b>.</td></tr>
+  <tr><td>The screen is too small or too big</td><td>Change <b>UI scale</b> and <b>Text size</b> in Settings.</td></tr>
+  <tr><td>A screen you expect is missing</td><td>You may be in Beginner mode. Switch to Advanced in Settings or in Help.</td></tr>
+</table>
+
+<h2 id="files"><span class="n">28</span>Where things are kept</h2>
+<table>
+  <tr><th>What</th><th>Where</th></tr>
+  <tr><td>The program</td><td><code>%LOCALAPPDATA%\Programs\TOD Mod Studio</code> (or the folder you chose)</td></tr>
+  <tr><td>Your mods and settings</td><td><code>%APPDATA%\TODModStudio</code> (mods in the <code>mods</code> folder)</td></tr>
+  <tr><td>The game cache</td><td><code>%LOCALAPPDATA%\TODModStudio\cache</code> (safe to delete; it is rebuilt)</td></tr>
+  <tr><td>Installed mods</td><td>The pack in the game folder, and the backup
+    <code>configpc.txt.todms_backup</code></td></tr>
+</table>
+<p>To open one of these, paste the path into the address bar of File Explorer.</p>
 
 <footer>TOD Mod Studio is a fan-made tool. Total Overdose belongs to its owners; the app reads your own copy and never
 ships the game's files.</footer>

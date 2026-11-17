@@ -1,4 +1,4 @@
-// Mission graph editor (companion tools part B, same core as the Unreal TOD Level Editor plugin's Mission Graph tab):
+// Mission graph editor (companion tools part B):
 // a mission's trigger trees as cards (conditions with their event codes and activators, actions with their ActionType,
 // target and delay) and lines from an action to the trigger it acts on. Edit values, rewire which trigger fires an
 // action, retarget it, disable a trigger, add a trigger from a template, and check the build with missiontool's lint.
@@ -6,6 +6,9 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { get, runJob } from './api.js'
 import { short, describeMission, newId } from './partb.js'
+import View3D from './View3D.jsx'
+import { useBundle, pickOfBlock, boundsOf, CONTEXT_LAYERS } from './levelLoad.js'
+import { t as tr } from './i18n.js'
 
 const M10 = 'data_pc/overdose_the_game/overdose/shared/mm010_ernestocruz.mission'
 const CW = 300, ROWH = 15, HEAD = 34, GAPX = 90, GAPY = 26
@@ -42,6 +45,8 @@ export default function Missions({ status, project, commit }) {
   const setOps = o => commit({ ...project, missions: o })
   const [view, setView] = useState(() => ({ x: 20, y: 20, s: new URLSearchParams(location.search).get('edited') ? 1.9 : 0.8 }))
   const drag = useRef(null)
+  const [showMap, setShowMap] = useState(() => new URLSearchParams(location.search).get('showmap') === '1')
+  const [focus3, setFocus3] = useState(null)
 
   useEffect(() => { get('/api/catalog').then(setCatalog).catch(e => setMsg(e.message)) }, [])
   const missions = useMemo(() => (catalog?.maps || []).flatMap(m => m.missions.map(x => ({ ...x, map: m.title }))), [catalog])
@@ -70,6 +75,18 @@ export default function Missions({ status, project, commit }) {
   const pos = useMemo(() => layout(onlyEdited ? shown.map((t, i) => ({ ...t, column: i % 3, row: Math.floor(i / 3) })) : shown), [graph, onlyEdited])
   const byId = Object.fromEntries(trig.map(t => [t.id, t]))
   const selT = sel ? byId[sel.tid] : null
+  // where the triggers are: the mission's own map in 3D, a box or ring for every trigger
+  const mapPick = useMemo(() => (showMap && catalog ? pickOfBlock(catalog, entry) : null), [showMap, catalog, entry])
+  const lvl = useBundle(mapPick, !!mapPick)
+  const overlays = useMemo(() => trig.filter(t => t.pos).map(t => {
+    const color = t.new ? '#3cff8a' : editedIds.has(t.id) ? '#ffd166' : (graph?.starts || []).includes(t.id) ? '#ff9f1c' : t.disabled ? '#6b7280' : '#4cc9f0'
+    const tagOf = t.new ? 'NEW' : editedIds.has(t.id) ? 'EDITED' : (graph?.starts || []).includes(t.id) ? 'START' : ''
+    const base = { id: t.id, color, label: (tagOf ? tagOf + ' · ' : '') + (t.name || t.node), selected: sel?.tid === t.id, opacity: 0.18 }
+    if (t.box && t.box.every(v => v > 0)) return { ...base, kind: 'box', pos: t.pos, size: t.box }
+    if (t.radius) return { ...base, kind: 'ring', pos: t.pos, radius: t.radius }
+    return { ...base, kind: 'point', pos: t.pos }
+  }), [graph, editedIds, sel?.tid])
+  const mapFocus = useMemo(() => { const b = boundsOf(trig.filter(t => t.pos).map(t => t.pos), 30); return b ? { bounds: b, y: trig.find(t => t.pos)?.pos[1] ?? 0 } : null }, [graph, entry])
   const selRow = selT && sel.kind === 'cond' ? selT.conditions.find(c => c.node === sel.node)
     : selT && sel.kind === 'act' ? selT.actions.find(a => a.node === sel.node) : null
 
@@ -81,6 +98,7 @@ export default function Missions({ status, project, commit }) {
       setRewiring(null); return
     }
     setSel({ tid: t.id, kind, node })
+    if (t.pos) setFocus3({ pos: t.pos, dist: 40 })
   }
   const fragFull = t => t.path ? t.frag : t.frag
   const setValue = () => {
@@ -129,16 +147,17 @@ export default function Missions({ status, project, commit }) {
 
   return (
     <div className="editor mgraph" style={{ gridTemplateColumns: '1fr 360px' }}>
-      <div className="viewport" style={{ background: '#151a21' }}>
+      <div className="viewport" style={{ background: 'var(--vp)' }}>
         <div className="toolbar">
           <select value={entry} onChange={e => { setEntry(e.target.value); setSel(null) }}>
             {missions.map(m => <option key={m.entry} value={m.entry}>{m.title} ({short(m.entry)})</option>)}
-            {!missions.length && <option value={M10}>MM010 Ernesto Cruz</option>}</select>
-          <button onClick={() => setOnlyEdited(false)} className={!onlyEdited ? 'on' : ''}>All triggers ({trig.length})</button>
-          <button onClick={() => setOnlyEdited(true)} className={onlyEdited ? 'on' : ''}>Edited ({editedIds.size})</button>
-          <span className="lbl">Drag to pan, wheel to zoom. Green: new, yellow: rewired or edited.{rewiring && <b> Click the trigger that should fire {rewiring.node}.</b>}</span>
+            {!missions.length && <option value={M10}>{tr('mm010_ernesto_cruz')}</option>}</select>
+          <button onClick={() => setOnlyEdited(false)} className={!onlyEdited ? 'on' : ''}>{tr('all_triggers')}{trig.length})</button>
+          <button onClick={() => setOnlyEdited(true)} className={onlyEdited ? 'on' : ''}>{tr('edited')}{editedIds.size})</button>
+          <button onClick={() => setShowMap(!showMap)} className={showMap ? 'on' : ''} aria-pressed={showMap} title={tr('where_the_triggers_are_on_the')}>{tr('map')}</button>
+          <span className="lbl" title={tr('green_new_yellow_rewired_or_edited')}>{tr('drag_to_pan_wheel_to_zoom')}{rewiring && <b>{' '}{tr('click_the_trigger_that_should_fire')}{' '}{rewiring.node}.</b>}</span>
         </div>
-        <svg style={{ position: "absolute", top: 34, left: 0, width: "100%", height: "calc(100% - 34px)" }} onWheel={wheel} onMouseDown={down} onMouseMove={move} onMouseUp={up} onMouseLeave={up}>
+        <svg style={{ position: "absolute", top: 34, left: 0, width: "100%", height: showMap ? "calc(55% - 34px)" : "calc(100% - 34px)" }} onWheel={wheel} onMouseDown={down} onMouseMove={move} onMouseUp={up} onMouseLeave={up}>
           <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#8fb3ff" /></marker></defs>
           <g transform={`translate(${view.x},${view.y}) scale(${view.s})`}>
             {(graph?.edges || []).map((e, i) => {
@@ -158,60 +177,63 @@ export default function Missions({ status, project, commit }) {
               return <g key={t.id} transform={`translate(${p.x},${p.y})`}>
                 <rect width={CW} height={p.h} rx={6} fill={fill} stroke={stroke} strokeWidth={edited || t.new ? 2.5 : 1.2}
                   onClick={ev => { ev.stopPropagation(); clickCard(t, 'trigger', t.node) }} />
-                <text x={8} y={15} fill="#e8eef7" fontSize={12} fontWeight="bold">{(t.name || t.node).slice(0, 38)}{t.disabled ? ' (disabled)' : ''}</text>
+                <text x={8} y={15} fill="#e8eef7" fontSize={12} fontWeight="bold">{(t.name || t.node).slice(0, t.new || edited || (graph.starts || []).includes(t.id) ? 30 : 38)}{t.disabled ? ' (disabled)' : ''}</text>
+                {(t.new || edited || (graph.starts || []).includes(t.id)) && <text x={CW - 8} y={13} textAnchor="end" fill={stroke} fontSize={9} fontWeight="bold">{t.new ? 'NEW' : edited ? 'EDITED' : 'START'}</text>}
                 <text x={8} y={28} fill="#9fb0c4" fontSize={10}>{t.cls}{t.base} {String(t.trigger_on || '').slice(0, 26)}{t.reactivate ? ' re-arms' : ''}</text>
                 {t.conditions.map((c, i) => <text key={c.node} x={10} y={HEAD + i * ROWH + 10} fontSize={10}
-                  fill={sel?.node === c.node ? '#ffffff' : '#7fd1ff'} onClick={ev => { ev.stopPropagation(); clickCard(t, 'cond', c.node) }}>
-                  IF {String(c.event).slice(0, 30)}{c.activator ? ' by ' + String(c.activator).split(' ').slice(0, 3).join(' ') : ''}</text>)}
+                  fill={sel?.node === c.node ? '#ffffff' : '#7fd1ff'} onClick={ev => { ev.stopPropagation(); clickCard(t, 'cond', c.node) }}>{tr('if')}{' '}{String(c.event).slice(0, 30)}{c.activator ? ' by ' + String(c.activator).split(' ').slice(0, 3).join(' ') : ''}</text>)}
                 {t.actions.map((a, i) => <text key={a.node} x={10 + (a.depth || 0) * 8} y={HEAD + (t.conditions.length + i) * ROWH + 10} fontSize={10}
                   fill={a.rewired_from ? '#ffd166' : a.new ? '#3cff8a' : sel?.node === a.node ? '#ffffff' : '#ffc9a3'}
                   onClick={ev => { ev.stopPropagation(); clickCard(t, 'act', a.node) }}>
-                  DO {a.short} {a.code ?? ''}: {String(a.does || '').split(/[:(;]/)[0].slice(0, 22)} {'-> ' + String(a.target_name || a.target || '').slice(0, 22)}{a.delay ? ` +${a.delay}s` : ''}</text>)}
+                  {a.new ? 'DO+' : a.rewired_from ? 'DO↻' : 'DO'} {a.short} {a.code ?? ''}: {String(a.does || '').split(/[:(;]/)[0].slice(0, 22)} {'-> ' + String(a.target_name || a.target || '').slice(0, 22)}{a.delay ? ` +${a.delay}s` : ''}</text>)}
               </g>
             })}
           </g>
         </svg>
+        {showMap && <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '45%', display: 'flex', borderTop: '1px solid var(--line)' }}>
+          <View3D defaultMode="top" bundle={lvl.bundle} view={lvl.view} layers={CONTEXT_LAYERS} overlays={overlays} focus={focus3 || mapFocus}
+            onPickOverlay={id => { const t = byId[id]; if (t) { setSel({ tid: id, kind: 'trigger', node: t.node }); setFocus3({ pos: t.pos, dist: 40 }) } }}>
+            {(lvl.busy || lvl.err) && <span className="floatpanel" style={{ left: 12, top: 12 }}>{lvl.busy ? lvl.busy + '…' : 'No map'}</span>}
+          </View3D></div>}
       </div>
       <aside className="panel" style={{ overflow: 'auto' }}>
         <section className="box">
-          <h3>Selection</h3>
-          {!sel && <p className="muted">Click a card (the trigger), an IF row (a condition) or a DO row (an action).</p>}
+          <h3>{tr('selection')}</h3>
+          {!sel && <p className="muted">{tr('click_a_card_the_trigger_an')}</p>}
           {selT && <div>
             <p><b>{selT.name}</b> <span className="muted">{selT.frag} {selT.node}</span></p>
             {selRow && <pre className="muted" style={{ whiteSpace: 'pre-wrap', fontSize: 11 }}>{JSON.stringify(selRow, null, 1).slice(0, 900)}</pre>}
-            <div className="row"><select value={prop} onChange={e => setProp(e.target.value)}><option value="">set a value</option>
+            <div className="row"><select value={prop} onChange={e => setProp(e.target.value)}><option value="">{tr('set_a_value')}</option>
               {props.map(p => <option key={p}>{p}</option>)}</select>
-              <input value={val} onChange={e => setVal(e.target.value)} style={{ width: 90 }} /><button onClick={setValue} disabled={!prop}>Set</button></div>
+              <input value={val} onChange={e => setVal(e.target.value)} style={{ width: 90 }} /><button onClick={setValue} disabled={!prop}>{tr('set')}</button></div>
             <div className="btns">
-              {sel.kind === 'act' && !selRow?.new && <button onClick={() => setRewiring({ node: sel.node, frag: selT.frag, fragFull: fragFull(selT) })}>Rewire to another trigger</button>}
-              {sel.kind === 'act' && <button onClick={retarget}>Retarget</button>}
-              {sel.kind === 'trigger' && !selT.new && <button onClick={disable}>Disable trigger</button>}
+              {sel.kind === 'act' && !selRow?.new && <button onClick={() => setRewiring({ node: sel.node, frag: selT.frag, fragFull: fragFull(selT) })}>{tr('rewire_to_another_trigger')}</button>}
+              {sel.kind === 'act' && <button onClick={retarget}>{tr('retarget')}</button>}
+              {sel.kind === 'trigger' && !selT.new && <button onClick={disable}>{tr('disable_trigger')}</button>}
             </div>
           </div>}
         </section>
         <section className="box">
-          <h3>New trigger from a template</h3>
+          <h3>{tr('new_trigger_from_a_template')}</h3>
           <div className="row"><select value={tpl.template} onChange={e => setTpl({ ...tpl, template: e.target.value })}>
             {Object.entries(graph?.enums?.TEMPLATES || {}).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}</select></div>
           <p className="muted">{graph?.enums?.TEMPLATES?.[tpl.template]?.help}</p>
           {['name', 'pos', 'size', 'yaw', 'objective', 'text', 'count', 'seconds', 'target', 'camera', 'hold'].map(k =>
             <label key={k} className="kv">{k}<input value={tpl[k]} onChange={e => setTpl({ ...tpl, [k]: e.target.value })} /></label>)}
-          <label className="kv">action<select value={tpl.action} onChange={e => setTpl({ ...tpl, action: e.target.value })}>
-            <option value="">(template default: {graph?.enums?.TEMPLATES?.[tpl.template]?.action})</option>
+          <label className="kv">{tr('action')}<select value={tpl.action} onChange={e => setTpl({ ...tpl, action: e.target.value })}>
+            <option value="">{tr('template_default')}{' '}{graph?.enums?.TEMPLATES?.[tpl.template]?.action})</option>
             {(graph?.enums?.ACTION_KINDS || []).map(a => <option key={a}>{a}</option>)}</select></label>
-          <button onClick={addTrigger}>Add trigger</button>
+          <button onClick={addTrigger}>{tr('add_trigger')}</button>
         </section>
         <section className="box">
-          <h3>Edits <span className="badge">{ops.length}</span></h3>
-          <ol className="changes">{ops.map((o, i) => <li key={i}>{describeMission(o)} <button onClick={() => setOps(ops.filter((_, j) => j !== i))}>x</button></li>)}</ol>
-          <button className="primary" onClick={runCheck} disabled={!ops.length}>Check (build + missiontool lint)</button>
-          {lint && <p className="muted">missiontool lint of the shipped block: {lint.length} issues (leftover targets of the original data).</p>}
+          <h3>{tr('edits')}{' '}<span className="badge">{ops.length}</span></h3>
+          <ol className="changes">{ops.map((o, i) => <li key={i}>{describeMission(o)} <button onClick={() => setOps(ops.filter((_, j) => j !== i))}>{tr('x_11f6ad')}</button></li>)}</ol>
+          <button className="primary" onClick={runCheck} disabled={!ops.length}>{tr('check')}</button>
+          {lint && <p className="muted">{lint.length}{' '}{tr('leftover_targets_in_the_shipped_data')}</p>}
         </section>
-        {check && <section className="box"><h3>Check: {check.result}</h3>
+        {check && <section className="box"><h3>{tr('check_695ef8')}{' '}{check.result}</h3>
           <ul className="checklist">{check.lines.map((l, i) => <li key={i} className={l.level}><b>{l.area}</b> {l.text}</li>)}</ul></section>}
-        <section className="box"><p className="muted">Save safety: values, rewires (an action's parent), retargets and disabling change
-          existing objects only. A new trigger (root, condition, action) is appended after the last object of the mission block,
-          so every existing object keeps its creation index and old saves still load.</p></section>
+        
       </aside>
       {busy && <div className="busy">{busy}</div>}
       {msg && <div className="error" onClick={() => setMsg(null)}>{msg}</div>}

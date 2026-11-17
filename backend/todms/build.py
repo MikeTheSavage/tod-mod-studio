@@ -13,9 +13,11 @@ Per block:
   stage A  move / set / disable / remove / raw ops through the fragment writer (fragtool.apply_ops) and its full
            verification (fragtool.verify_block: only the intended records change, no dangling references, ...)
   stage B  adds as save-safe grafts: the new entities are appended to the fragment the engine instantiates LAST in
-           the block (so no existing node changes its save index), parented to that fragment's owner (entity 0), the
-           same rule as the Unreal TODLevelEditor; submaptool.verify then checks that every existing node keeps its
-           runtime index. Delete = retire (moved 5 km below the world, collision flags 0), also as there.
+           the block (so no existing node changes its save index), parented to that fragment's owner (entity 0);
+           submaptool.verify then checks that every existing node keeps its runtime index. Delete = retire (moved
+           5 km below the world, collision flags 0).
+  assets   (todms/assets_stage.py) imported / replaced models and replaced textures, written into the blocks that hold them, then
+           proven: every other record byte-identical, strict reader, maximumAssetSize
   finally  fragtool.roundtrip_block on the result (exact parse / re-serialise) and the engine OpenZip/FindFile
            read-back of the zip (fragtool.write_zip).
 """
@@ -134,7 +136,7 @@ def stage_a(entry, raw, ops, T, report):
                 report['save_safe'] = False
                 report.setdefault('removed', []).append('%s %s' % (nm.split('/')[-1], '0x%08X' % n))
             else:
-                # retire (the Unreal TODLevelEditor rule): kept, moved 5 km below the world, collision flags 0
+                # retire: kept, moved 5 km below the world, collision flags 0
                 d = doc(nm)
                 k = [k for k, x in frs if x == nm][0]
                 owner, _ = ft.owner_chain(b, frs, k, T)
@@ -152,6 +154,9 @@ def stage_a(entry, raw, ops, T, report):
     for o in fops:
         key = (o['op'], o['fragment'], o.get('entity'), o.get('prop')) if o['op'] in ('set', 'move') else None
         if key and key in seen:
+            prev = merged[seen[key]]
+            if o['op'] == 'move':            # one mod moves, another turns: both stay (position and facing are separate values)
+                o = dict(prev, **{k: v for k, v in o.items() if k in ('pos', 'orient')})
             merged[seen[key]] = o
             continue
         if key:
@@ -181,7 +186,7 @@ def _short_checks(vr):
 
 # ---------------------------------------------------------------------------------------------- stage B
 def stage_b(ws, entry, raw, adds, T, report, uid_nodes):
-    """Save-safe adds, the same rule as the Unreal TODLevelEditor (todle_build.graft): the template's
+    """Save-safe adds: the template's
     subtree is appended after the last create of the fragment the block instantiates LAST, its root parented to 0
     (that fragment's owner, the shipped resolution path; no literal ids). Templates whose subtree points at other
     entities are refused."""
@@ -282,7 +287,7 @@ def _graft(dst, src, nodes, src_root, T, used, bits, seed):
 # ---------------------------------------------------------------------------------------------- stage C
 def stage_c(ws, sets, outs, rep, progress=None):
     """Collision generator sets -> host model HullLists (todct.collision: the model writer's record edit,
-    model_edit.verify, a world-space read-back). Same code and rules as the Unreal TODLevelEditor export."""
+    model_edit.verify, a world-space read-back)."""
     from todct import collision as CO
     T = ws.T
     built = dict(outs)
@@ -324,8 +329,7 @@ def stage_c(ws, sets, outs, rep, progress=None):
 
 # ---------------------------------------------------------------------------------------------- whole build
 def stage_d(ws, part_b, outs, rep, collision=None, progress=None):
-    """Companion tools part B (routes, missions, sections) on top of stages A-C: todct.edits, the same code and rules
-    as the Unreal TODLevelEditor export (new entities appended after every existing node of their block, literal
+    """Companion tools part B (routes, missions, sections) on top of stages A-C: todct.edits (new entities appended after every existing node of their block, literal
     parent links; verified by navtool, missiontool graph + lint, seamless transitions.catalog, submaptool verify)."""
     from todct import edits as ED
     if progress:
@@ -354,11 +358,14 @@ def stage_d(ws, part_b, outs, rep, collision=None, progress=None):
     return sorted(built.items())
 
 
-def build(ws, level_ops, frag_ops_by_entry, out_dir, zip_name, progress=None, collision=None, part_b=None):
+def build(ws, level_ops, frag_ops_by_entry, out_dir, zip_name, progress=None, collision=None, part_b=None, assets=None):
     """level_ops: editor ops (all mods, in order). frag_ops_by_entry: {entry: [fragment writer ops]} from the data
-    editors. collision: collision sets (companion tools, shared with the Unreal plugin), built last into their host
+    editors. collision: collision sets (companion tools), built last into their host
     models' HullLists. Writes out_dir/<zip_name> and report.json; returns the report."""
     T = ws.T
+    if assets:
+        from . import assets_stage
+        level_ops = assets_stage.prepare_adds(level_ops, assets)
     per = {}
     for op in level_ops:
         per.setdefault(op['entry'], []).append(op)
@@ -392,6 +399,9 @@ def build(ws, level_ops, frag_ops_by_entry, out_dir, zip_name, progress=None, co
             rep['save_safe'] = False
         rep['blocks'].append(brep)
         outs.append((entry, raw))
+    if assets and (assets.get('models') or assets.get('textures')):
+        from . import assets_stage
+        outs = assets_stage.stage_assets(ws, assets, level_ops, outs, rep, progress)
     if collision:
         outs = stage_c(ws, collision, outs, rep, progress)
     if part_b and any(part_b.values()):

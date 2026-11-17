@@ -1,23 +1,29 @@
-// Routes and nav editor (companion tools part B, same core as the Unreal TOD Level Editor plugin's Routes tab):
+// Routes and nav editor (companion tools part B):
 // enemy GotoPaths and patrols, vehicle tracks, pedestrian SignPosts, traffic points, NavBlock boxes and Neighborhood
 // circles drawn in 3D with arrows; move, insert, remove, reorder, link and unlink points, set speeds and widths,
 // validate, and check the build with navtool. The edits are the mod's "nav" ops.
+import { vpColor } from './theme.js'
 import React, { Suspense, useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas, useThree } from '@react-three/fiber'
 import { OrbitControls, TransformControls, Line, Html } from '@react-three/drei'
 import * as THREE from 'three'
 import { get, runJob } from './api.js'
+import { useUi } from './uistore.js'
 import { toView, fromView, quatToView } from './coords.js'
 import { buildView } from './view.js'
 import { ModelThing } from './Scene.jsx'
-import { KIND_COLOR, KIND_LABEL, short, navMove, navInsert, navRemove, navReorder, navLink, navSet, describeNav,
+import { KIND_COLOR, KIND_MARK, kindColor, KIND_LABEL, short, navMove, navInsert, navRemove, navReorder, navLink, navSet, describeNav,
   newId, isNew } from './partb.js'
+import { t } from './i18n.js'
 
 const JUNGLE = ['mainmap_map09_jungle.map', 'submap01_map09_jungle.submap', 'submap02_map09_jungle.submap',
   'mm010_ernestocruz.mission'].map(b => 'data_pc/overdose_the_game/overdose/shared/' + b)
 const SPHERE = new THREE.SphereGeometry(0.45, 12, 8)
 const CONE = new THREE.ConeGeometry(0.45, 1.3, 10)
 const BOX = new THREE.BoxGeometry(1, 1, 1)
+const DIAMOND = new THREE.OctahedronGeometry(0.55)
+const PYRAMID = new THREE.ConeGeometry(0.55, 1.0, 4)
+const POINT_GEO = { sphere: SPHERE, box: new THREE.BoxGeometry(0.8, 0.8, 0.8), diamond: DIAMOND, cone: PYRAMID }
 const UP = new THREE.Vector3(0, 1, 0)
 const mats = new Map()
 const mat = (c, o = 1) => {
@@ -36,6 +42,7 @@ function propsFor(route, point, editable) {
 }
 
 export default function Routes({ status, project, commit }) {
+  const cbOn = useUi().prefs.cb
   const [catalog, setCatalog] = useState(null)
   const [mapId, setMapId] = useState('map09')
   const [entries, setEntries] = useState(JUNGLE)
@@ -150,65 +157,62 @@ export default function Routes({ status, project, commit }) {
     <div className="editor routes" style={{ gridTemplateColumns: '360px 1fr 340px' }}>
       <aside className="panel" style={{ overflow: 'auto' }}>
         <section className="box">
-          <h3>Routes and nav</h3>
+          <h3>{t('routes_and_nav')}</h3>
           <div className="row"><select value={mapId} onChange={e => { setMapId(e.target.value); setBundle(null)
             const m = catalog.maps.find(x => x.id === e.target.value); setEntries([m.map_block, ...m.sections.map(s => s.entry)]) }}>
             {(catalog?.maps || []).map(m => <option key={m.id} value={m.id}>{m.title}</option>)}</select>
-            <label className="check"><input type="checkbox" checked={showMap} onChange={e => setShowMap(e.target.checked)} /><span>show the map</span></label></div>
+            <label className="check"><input type="checkbox" checked={showMap} onChange={e => setShowMap(e.target.checked)} /><span>{t('show_the_map')}</span></label></div>
           <div className="blocks">{blocks.map(b => <label key={b} className="check"><input type="checkbox" checked={entries.includes(b)}
             onChange={e => setEntries(e.target.checked ? [...entries, b] : entries.filter(x => x !== b))} />
-            <span>{short(b)}{model?.edit?.[b] && !model.edit[b].can_append && <i className="muted" title={model.edit[b].reason}> (no new points)</i>}</span></label>)}</div>
+            <span>{short(b)}{model?.edit?.[b] && !model.edit[b].can_append && <i className="muted" title={model.edit[b].reason}>{' '}{t('no_new_points')}</i>}</span></label>)}</div>
         </section>
         <section className="box">
           <div className="row"><select value={filter} onChange={e => setFilter(e.target.value)}>
-            <option value="all">all routes ({routes.length})</option>
+            <option value="all">{t('all_routes')}{routes.length})</option>
             {Object.keys(KIND_LABEL).map(k => <option key={k} value={k}>{KIND_LABEL[k]}</option>)}</select></div>
           <ul className="checklist" style={{ maxHeight: 220, overflow: 'auto' }}>{shown.map(([r, i]) => {
             const n = issues.filter(x => x.ref?.track === r.node || (x.ref?.entry === r.entry && r.points.some(p => p.node === x.ref?.node))).length
-            return <li key={i} className={i === ri ? 'warn' : 'ok'} style={{ cursor: 'pointer', borderColor: KIND_COLOR[r.kind] }} onClick={() => selectRoute(i)}>
-              <b>{r.kind}</b> {r.name || r.node} <span className="muted">{short(r.entry)} {r.points.length} pts</span>
-              {r.points.some(p => p.new) && <span className="badge ok">edited</span>}{n > 0 && <span className="badge">{n} issues</span>}</li>
+            return <li key={i} className={i === ri ? 'warn' : 'ok'} style={{ cursor: 'pointer', borderColor: kindColor(r.kind, cbOn) }} onClick={() => selectRoute(i)}>
+              <span className="kmark" style={{ color: kindColor(r.kind, cbOn) }} title={KIND_LABEL[r.kind]} aria-hidden="true">{(KIND_MARK[r.kind] || KIND_MARK.goto).glyph}{(KIND_MARK[r.kind] || KIND_MARK.goto).letter}</span> <b>{r.kind}</b> {r.name || r.node} <span className="muted">{short(r.entry)} {r.points.length}{' '}{t('pts')}</span>
+              {r.points.some(p => p.new) && <span className="badge ok">{t('edited_a22fca')}</span>}{n > 0 && <span className="badge">{n}{' '}{t('issues')}</span>}</li>
           })}</ul>
         </section>
         {route && <section className="box">
           <h3>{route.name || route.node} <span className="muted">{KIND_LABEL[route.kind]}</span></h3>
-          <p className="muted">{route.path}</p>
           <table className="sets"><tbody>{route.points.map((p, j) => <tr key={p.node} className={j === pi ? 'sel' : j === pi2 ? 'sel2' : ''}
             onClick={ev => { pick(ri, j, ev); fly(p.pos) }} style={{ cursor: 'pointer' }}>
-            <td>{j + 1}</td><td>{p.new ? <b className="good">{p.node} new</b> : p.node}</td><td>{p.order ?? ''}</td>
+            <td>{j + 1}</td><td>{p.new ? <b className="good">{p.node}{' '}{t('new_c2a6b0')}</b> : p.node}</td><td>{p.order ?? ''}</td>
             <td className="muted">{p.pos.map(v => v.toFixed(1)).join(', ')}</td></tr>)}</tbody></table>
           <div className="btns">
-            <button onClick={() => insertAfter(false)} title="A new point halfway to the next one (save-safe: appended after the block's last node, linked to the route by a literal parent)">Insert after</button>
-            <button onClick={() => insertAfter(true)}>Append</button>
-            <button onClick={removePt} disabled={!point}>Remove</button>
-            <button onClick={() => reorder(-1)} disabled={!point || !pi}>Move up</button>
-            <button onClick={() => reorder(1)} disabled={!point || pi >= route.points.length - 1}>Move down</button>
-            {route.kind === 'signposts' && <><button onClick={() => link(true)}>Link</button><button onClick={() => link(false)}>Unlink</button></>}
+            <button onClick={() => insertAfter(false)} title={t('a_new_point_halfway_to_the')}>{t('insert_after')}</button>
+            <button onClick={() => insertAfter(true)}>{t('append')}</button>
+            <button onClick={removePt} disabled={!point}>{t('remove')}</button>
+            <button onClick={() => reorder(-1)} disabled={!point || !pi}>{t('move_up')}</button>
+            <button onClick={() => reorder(1)} disabled={!point || pi >= route.points.length - 1}>{t('move_down')}</button>
+            {route.kind === 'signposts' && <><button onClick={() => link(true)}>{t('link')}</button><button onClick={() => link(false)}>{t('unlink')}</button></>}
           </div>
           {point && <div className="row3">{['x', 'y', 'z'].map((a, k) => <label key={a}>{a}<input value={posEdit[k]}
             onChange={e => { const c = [...posEdit]; c[k] = e.target.value; setPosEdit(c) }} /></label>)}</div>}
-          {point && <button onClick={applyPos}>Apply position</button>}
+          {point && <button onClick={applyPos}>{t('apply_position')}</button>}
           <div className="row" style={{ marginTop: 8 }}><select value={prop} onChange={e => setProp(e.target.value)}>
-            <option value="">set a value</option>{props.map(p => <option key={p} value={p}>{p}</option>)}</select>
-            <input value={val} onChange={e => setVal(e.target.value)} placeholder="value" style={{ width: 80 }} />
-            <button onClick={setValue} disabled={!prop}>Set</button></div>
+            <option value="">{t('set_a_value')}</option>{props.map(p => <option key={p} value={p}>{p}</option>)}</select>
+            <input value={val} onChange={e => setVal(e.target.value)} placeholder={t('value_f32b67')} style={{ width: 80 }} />
+            <button onClick={setValue} disabled={!prop}>{t('set')}</button></div>
           {prop && model.units[prop] && <p className="muted">{prop}: {model.units[prop]}</p>}
         </section>}
         <section className="box">
-          <h3>New NavBlock</h3>
-          <p className="muted">A CollisionBox with CollisionFlags 32: NPC bodies and the Navigator avoid it, Ram, bullets and the
-            camera pass. Placed at the centre of the view.</p>
+          <h3>{t('new_navblock')}</h3>
+          
           <div className="row"><select value={nb.entry} onChange={e => setNb({ ...nb, entry: e.target.value })}>
             {entries.filter(canAppend).map(e => <option key={e} value={e}>{short(e)}</option>)}</select></div>
           <div className="row3">{['w', 'h', 'l'].map((a, k) => <label key={a}>{a} (m)<input value={nb.size[k]}
             onChange={e => { const s = [...nb.size]; s[k] = e.target.value; setNb({ ...nb, size: s }) }} /></label>)}</div>
-          <div className="row"><label>yaw <input value={nb.yaw} onChange={e => setNb({ ...nb, yaw: e.target.value })} style={{ width: 60 }} /></label>
-            <button onClick={addNavBlock}>Add NavBlock</button></div>
+          <div className="row"><label>{t('yaw')}{' '}<input value={nb.yaw} onChange={e => setNb({ ...nb, yaw: e.target.value })} style={{ width: 60 }} /></label>
+            <button onClick={addNavBlock}>{t('add_navblock')}</button></div>
         </section>
       </aside>
       <div className="viewport">
-        <div className="toolbar"><span className="lbl">Click a point to select it, shift-click a second SignPost, drag the arrows to move.
-          Orange GotoPath, pink patrol, brown vehicle, green SignPost, blue traffic, magenta NavBlock, purple Neighborhood; new points bright green.</span></div>
+        <div className="toolbar"><span className="lbl" title={t('shift_click_a_second_signpost_to')}>{t('click_a_point_drag_the_arrows')}</span></div>
         <Canvas linear flat camera={{ fov: 55, near: 0.2, far: 6000, position: [-500, -120, 2200] }}>
           <Suspense fallback={null}>
             <View routes={routes} ri={ri} pi={pi} pi2={pi2} pick={pick} bundle={showMap ? bundle : null} issues={issues}
@@ -218,27 +222,21 @@ export default function Routes({ status, project, commit }) {
       </div>
       <aside className="panel" style={{ overflow: 'auto' }}>
         <section className="box">
-          <h3>Edits <span className="badge">{ops.length}</span></h3>
-          <ol className="changes">{ops.map((o, i) => <li key={i}>{describeNav(o)} <button onClick={() => setOps(ops.filter((_, j) => j !== i))}>x</button></li>)}</ol>
-          <div className="btns"><button onClick={load}>Validate</button><button className="primary" onClick={runCheck} disabled={!ops.length}>Check (build + navtool)</button></div>
+          <h3>{t('edits')}{' '}<span className="badge">{ops.length}</span></h3>
+          <ol className="changes">{ops.map((o, i) => <li key={i}>{describeNav(o)} <button onClick={() => setOps(ops.filter((_, j) => j !== i))}>{t('x_11f6ad')}</button></li>)}</ol>
+          <div className="btns"><button onClick={load}>{t('validate')}</button><button className="primary" onClick={runCheck} disabled={!ops.length}>{t('check_build_navtool')}</button></div>
         </section>
         <section className="box">
-          <h3>Issues <span className="badge">{issues.length}</span></h3>
+          <h3>{t('issues_30ce4c')}{' '}<span className="badge">{issues.length}</span></h3>
           <ul className="checklist">{issues.map((x, i) => <li key={i} className={x.severity === 'error' ? 'error' : x.severity === 'warning' ? 'warn' : 'ok'}
             style={{ cursor: x.pos ? 'pointer' : 'default' }} onClick={() => x.pos && fly(x.pos)}><b>{x.kind}</b> {x.message}</li>)}
-            {!issues.length && <li className="ok">No dangling or one-way links, no route through new collision, no unreachable point.</li>}</ul>
+            {!issues.length && <li className="ok">{t('no_dangling_or_one_way_links')}</li>}</ul>
         </section>
         {check && <section className="box">
-          <h3>Check: {check.result}</h3>
+          <h3>{t('check_695ef8')}{' '}{check.result}</h3>
           <ul className="checklist">{check.lines.map((l, i) => <li key={i} className={l.level}><b>{l.area}</b> {l.text}</li>)}</ul>
         </section>}
-        <section className="box">
-          <p className="muted">Save safety: TOD saves address objects by creation order. Moves, links, orders and values change
-            existing objects only. A new point is appended after the last object of its block and linked to its route by a
-            literal entity id (block &lt;&lt; 20 | creation index), which the engine resolves exactly like a save record
-            (FindEntityById). A removed point is detached from its route, never deleted. Blocks that end with a shared prefab
-            (the jungle sections) cannot take new points.</p>
-        </section>
+        
       </aside>
       {busy && <div className="busy">{busy}</div>}
       {msg && <div className="error" onClick={() => setMsg(null)}>{msg}</div>}
@@ -254,8 +252,8 @@ function View({ routes, ri, pi, pi2, pick, bundle, issues, focus, onDrag, target
   const sel = ri != null && pi != null ? routes[ri]?.points[pi] : null
   useEffect(() => { setSelObj(selRef.current || null) }, [sel?.node, ri])
   return <>
-    <color attach="background" args={['#1a2029']} />
-    <fog attach="fog" args={['#1a2029', 500, 2500]} />
+    <color attach="background" args={[vpColor()]} />
+    <fog attach="fog" args={[vpColor(), 500, 2500]} />
     <ambientLight intensity={0.85} />
     <directionalLight position={[300, 500, 200]} intensity={0.7} />
     {models.map(e => <ModelThing key={e.id} e={e} rec={bundle.models[e.model]} showGeom showColl={false}
@@ -297,7 +295,9 @@ function Arrow({ a, b, color }) {
 }
 
 function RouteDraw({ r, i, sel, pi, pi2, pick }) {
-  const c = KIND_COLOR[r.kind] || '#cccccc'
+  const cb = useUi().prefs.cb
+  const c = kindColor(r.kind, cb)
+  const mark = KIND_MARK[r.kind] || KIND_MARK.goto
   const width = sel ? 4 : 2
   if (r.kind === 'navblocks') {
     return <>{r.points.map((b, j) => {
@@ -332,10 +332,10 @@ function RouteDraw({ r, i, sel, pi, pi2, pick }) {
   return <>
     {segs.map(([a, b, nw, dir], k) => <React.Fragment key={k}>
       <Line points={[toView(a).add(new THREE.Vector3(0, 0.3, 0)), toView(b).add(new THREE.Vector3(0, 0.3, 0))]}
-        color={nw ? '#3cff8a' : c} lineWidth={width} />
+        color={nw ? '#3cff8a' : c} lineWidth={width} dashed={!!mark.dash} dashSize={mark.dash ? mark.dash[0] : 1} gapSize={mark.dash ? mark.dash[1] : 1} />
       {dir && <Arrow a={[a[0], a[1] + 0.3, a[2]]} b={[b[0], b[1] + 0.3, b[2]]} color={nw ? '#3cff8a' : c} />}
     </React.Fragment>)}
-    {r.points.map((p, j) => <mesh key={p.node} position={toView(p.pos).add(new THREE.Vector3(0, 0.3, 0))} geometry={SPHERE}
+    {r.points.map((p, j) => <mesh key={p.node} position={toView(p.pos).add(new THREE.Vector3(0, 0.3, 0))} geometry={POINT_GEO[mark.shape] || SPHERE}
       scale={sel && (j === pi || j === pi2) ? 1.8 : 1} material={mat(p.new ? '#3cff8a' : sel && j === pi ? '#ffffff' : sel && j === pi2 ? '#ffe66d' : c)}
       onClick={ev => { ev.stopPropagation(); pick(i, j, ev) }} />)}
   </>

@@ -10,7 +10,7 @@ outside the install folder and is kept on update and, unless the user ticks the 
 
   Setup.exe                          the window
   Setup.exe --silent [--dir D] [--desktop] [--no-startmenu]
-  Setup.exe --uninstall [--silent] [--purge]
+  Setup.exe --uninstall [--silent] [--purge] [--restore-game] [--remove-backups]
 """
 import json
 import os
@@ -28,6 +28,10 @@ UNINSTALLER = 'Uninstall TOD Mod Studio.exe'
 GUIDE = 'TOD Mod Studio Guide.html'
 WEBVIEW2_URL = 'https://go.microsoft.com/fwlink/p/?LinkId=2124703'
 NO_WINDOW = 0x08000000
+# Files the program opens (a double click). build_setup.py writes the same list into setup_info.json; this is the fallback.
+ASSOCIATIONS = (('.todmod', 'TODModStudio.Mod', 'TOD Mod Studio mod'), ('.todcollection', 'TODModStudio.Collection', 'TOD Mod Studio collection'),
+                ('.todpiece', 'TODModStudio.Piece', 'TOD Mod Studio piece'))
+CLASSES = 'Software\\Classes'          # HKCU only: no administrator rights
 
 
 def res(name):
@@ -94,6 +98,74 @@ def app_running():
     return EXE.lower() in r.stdout.lower()
 
 
+def associations():
+    inf = info().get('associations')
+    return [tuple(a) for a in inf] if inf else list(ASSOCIATIONS)
+
+
+def register_associations(exe, log=print, reg=None, root=CLASSES):
+    """.todmod, .todcollection and .todpiece open TOD Mod Studio (HKCU Software Classes, so no admin). The program gets the path as its
+    argument and offers to add the file."""
+    reg = reg or winreg
+    for ext, progid, label in associations():
+        k = reg.CreateKey(reg.HKEY_CURRENT_USER, root + '\\' + progid)
+        reg.SetValueEx(k, '', 0, reg.REG_SZ, label)
+        reg.SetValueEx(reg.CreateKey(reg.HKEY_CURRENT_USER, root + '\\' + progid + '\\DefaultIcon'), '', 0, reg.REG_SZ, exe + ',0')
+        reg.SetValueEx(reg.CreateKey(reg.HKEY_CURRENT_USER, root + '\\' + progid + '\\shell\\open\\command'), '', 0, reg.REG_SZ,
+                       '"%s" "%%1"' % exe)
+        reg.SetValueEx(reg.CreateKey(reg.HKEY_CURRENT_USER, root + '\\' + ext), '', 0, reg.REG_SZ, progid)
+    _notify_shell()
+    log('File types registered.')
+
+
+def unregister_associations(reg=None, root=CLASSES):
+    """Remove only what register_associations wrote (an extension that someone else has taken over is left alone)."""
+    reg = reg or winreg
+    for ext, progid, _label in associations():
+        try:
+            k = reg.OpenKey(reg.HKEY_CURRENT_USER, root + '\\' + ext)
+            if reg.QueryValueEx(k, '')[0] == progid:
+                reg.DeleteKey(reg.HKEY_CURRENT_USER, root + '\\' + ext)
+        except OSError:
+            pass
+        for sub in ('\\shell\\open\\command', '\\shell\\open', '\\shell', '\\DefaultIcon', ''):
+            try:
+                reg.DeleteKey(reg.HKEY_CURRENT_USER, root + '\\' + progid + sub)
+            except OSError:
+                pass
+    _notify_shell()
+
+
+def _notify_shell():
+    try:
+        import ctypes
+        ctypes.windll.shell32.SHChangeNotify(0x08000000, 0, None, None)      # SHCNE_ASSOCCHANGED
+    except Exception:                                                        # noqa: BLE001
+        pass
+
+
+def restore_game(dest, remove_backups, log=print):
+    """Before the files go: the program itself puts the game back to its original files (its restore code), without a window.
+    Raises when it could not, so nothing is uninstalled while the game still depends on our archive."""
+    exe = os.path.join(dest, EXE)
+    if not os.path.isfile(exe):
+        log('The program is already gone: the game was not touched.')
+        return
+    log('Putting the game back to its original files...')
+    out = os.path.join(os.environ.get('TEMP', dest), 'todms_restore_result.json')
+    cmd = [exe, '--restore-vanilla', '--result', out] + (['--remove-backups'] if remove_backups else [])
+    r = subprocess.run(cmd, creationflags=NO_WINDOW, timeout=900)
+    try:
+        with open(out, encoding='utf-8') as f:
+            res = json.load(f)
+        os.remove(out)
+    except (OSError, ValueError):
+        res = dict(ok=r.returncode == 0)
+    if not res.get('ok'):
+        raise RuntimeError('The game was not put back: %s Nothing was uninstalled.' % (res.get('error') or 'unknown error.'))
+    log('The game has its original files again.' if res.get('restored') else 'No game folder was set: nothing to restore.')
+
+
 def install(dest, startmenu=True, desktop=False, log=print):
     dest = os.path.abspath(dest)
     if app_running():
@@ -125,6 +197,7 @@ def install(dest, startmenu=True, desktop=False, log=print):
             make_lnk(start_menu_lnk(APP + ' Guide'), os.path.join(dest, GUIDE), dest, icon=False)
     if desktop:
         make_lnk(desktop_lnk(), exe, dest)
+    register_associations(exe, log)
     size_kb = sum(os.path.getsize(os.path.join(dp, f)) for dp, _, fs in os.walk(dest) for f in fs) // 1024
     k = winreg.CreateKey(winreg.HKEY_CURRENT_USER, KEY)
     unin = '"%s" --uninstall' % os.path.join(dest, UNINSTALLER)
@@ -138,10 +211,13 @@ def install(dest, startmenu=True, desktop=False, log=print):
     return exe
 
 
-def uninstall(purge=False, log=print):
+def uninstall(purge=False, log=print, restore=False, remove_backups=False):
     dest = installed_dir() or os.path.dirname(os.path.abspath(sys.executable))
     if app_running():
         raise RuntimeError('TOD Mod Studio is running. Close it first, then uninstall again.')
+    if restore or remove_backups:
+        restore_game(dest, remove_backups, log)
+    unregister_associations()
     for lnk in (start_menu_lnk(), start_menu_lnk(APP + ' Guide'), desktop_lnk()):
         if os.path.exists(lnk):
             os.remove(lnk)
@@ -238,11 +314,13 @@ def gui(mode):
         go.configure(command=start)
     else:
         ttk.Label(f, text='Remove %s from this PC?' % APP, font=('Segoe UI', 12, 'bold')).grid(sticky='w')
-        purge = tk.BooleanVar(value=False)
-        ttk.Checkbutton(f, text='Also delete my mod library, settings and the extracted game cache', variable=purge
-                        ).grid(sticky='w', pady=(10, 0))
-        ttk.Label(f, text='Mods already installed into the game stay until you remove them in the app (Mods tab).',
-                  justify='left').grid(sticky='w', pady=(6, 0))
+        purge, restore, backups = tk.BooleanVar(value=False), tk.BooleanVar(value=True), tk.BooleanVar(value=False)
+        ttk.Checkbutton(f, text='Put the game back to its original files first (removes installed mods, new maps and missions)',
+                        variable=restore).grid(sticky='w', pady=(10, 0))
+        ttk.Checkbutton(f, text='Delete the backups Mod Studio made (restore points and copies of my saves)', variable=backups).grid(sticky='w')
+        ttk.Checkbutton(f, text='Also delete my mod library, settings and the extracted game cache', variable=purge).grid(sticky='w')
+        ttk.Label(f, text='If you leave the first box off, installed mods stay in the game and nothing can remove them afterwards.',
+                  justify='left', foreground='#a03000').grid(sticky='w', pady=(6, 0))
         ttk.Label(f, textvariable=status).grid(sticky='w', pady=(10, 0))
         btns = ttk.Frame(f)
         btns.grid(sticky='e', pady=(8, 0))
@@ -257,7 +335,7 @@ def gui(mode):
                 return
             messagebox.showinfo(APP, '%s was removed.' % APP)
             root.destroy()
-        go.configure(command=lambda: (go.state(['disabled']), run_bg(lambda: uninstall(purge.get(), say), done)))
+        go.configure(command=lambda: (go.state(['disabled']), run_bg(lambda: uninstall(purge.get(), say, restore.get(), backups.get()), done)))
     root.mainloop()
 
 
@@ -265,7 +343,7 @@ def main(argv):
     uninst = '--uninstall' in argv or os.path.basename(sys.executable).lower().startswith('uninstall')
     if '--silent' in argv:
         if uninst:
-            uninstall('--purge' in argv)
+            uninstall('--purge' in argv, restore='--restore-game' in argv, remove_backups='--remove-backups' in argv)
         else:
             d = argv[argv.index('--dir') + 1] if '--dir' in argv else (installed_dir() or default_dir())
             install(d, '--no-startmenu' not in argv, '--desktop' in argv)

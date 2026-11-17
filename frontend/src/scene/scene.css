@@ -1,0 +1,30 @@
+.scene .scene-page { padding: 16px; overflow: auto; display: flex; flex-direction: column; gap: 10px; min-height: 0; flex: 1; }
+.scene .scene-err { padding: 6px 12px; }
+.scene .scene-meters { flex-wrap: wrap; row-gap: 2px; padding: 4px 12px; border-bottom: 1px solid var(--line); background: var(--surface); }
+.scene-facts { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+.scene-facts.one { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; }
+.scene-facts .fact .v { font-size: calc(18px * var(--ts, 1)); font-weight: 600; font-variant-numeric: tabular-nums; }
+.scene-facts .fact .k { color: var(--text-3); font-size: calc(11.5px * var(--ts, 1)); }
+.scene-table { border-collapse: collapse; width: 100%; font-size: calc(12px * var(--ts, 1)); }
+.scene-table td, .scene-table th { padding: 3px 6px; text-align: left; border-bottom: 1px solid var(--line); font-weight: 400; }
+.scene-table th { color: var(--text-3); font-weight: 500; }
+.scene-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+.scene-table tr.t-warn td { color: var(--warn); } .scene-table tr.t-bad td { color: var(--bad); }
+.scene-sheet .scene-table { max-width: 720px; }
+.scene-sheet { padding: 14px; overflow: auto; height: 100%; display: flex; flex-direction: column; gap: 10px; color: var(--text); background: var(--bg); }
+.scene-done { display: flex; flex-direction: column; gap: 6px; padding: 10px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); max-width: 560px; }
+.topview { position: relative; width: 100%; min-height: 200px; }
+.topview svg { width: 100%; height: 100%; display: block; touch-action: none; background: var(--vp); outline: none; }
+.topview .tv-bg { fill: var(--vp); }
+.topview .tv-grid { stroke: var(--line); opacity: .5; }
+.topview .tv-region { fill: color-mix(in srgb, var(--accent) 22%, transparent); stroke: var(--accent); }
+.topview .tv-region.live { stroke-dasharray: 6 4; }
+.topview .tv-dot { fill: var(--accent); }
+.topview .tv-spot { fill: none; stroke: #ffd23f; }
+.topview .tv-xy { position: absolute; left: 8px; bottom: 6px; color: var(--text-3); font-size: calc(11px * var(--ts, 1)); font-variant-numeric: tabular-nums; pointer-events: none; }
+.scene-map { width: 100%; max-height: 52vh; background: var(--vp); border-radius: var(--r-md); }
+.scene-map .sec { stroke: var(--line); stroke-width: .6; } .scene-map .sec.ok { fill: color-mix(in srgb, var(--ok) 28%, transparent); }
+.scene-map .sec.warn { fill: color-mix(in srgb, var(--warn) 34%, transparent); } .scene-map .sec.bad { fill: color-mix(in srgb, var(--bad) 40%, transparent); }
+.scene-map .obj { fill: none; stroke: var(--text-3); stroke-width: .25; } .scene-map .lbl { fill: var(--text-2); }
+.scene .tab { font-variant-numeric: tabular-nums; }
+.scene .scene-meters .meter { flex: 0 1 250px; min-width: 200px; }

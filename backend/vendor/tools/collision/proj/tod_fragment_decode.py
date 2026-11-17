@@ -279,7 +279,7 @@ def build_entities(ops):
                 key = BUILTIN_NAMES[op['propIndex']]
             ent['properties'][key] = op['value']
 
-    # derive a clean transform + parent for UE import
+    # derive a clean transform + parent for the placement export
     for ent in entities.values():
         pr = ent['properties']
         tf = {}

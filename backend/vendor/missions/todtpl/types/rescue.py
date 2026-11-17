@@ -12,7 +12,7 @@ from ._base import make_spec
 MOD = sys.modules[__name__]
 NAME = 'rescue'
 TITLE = 'Rescue'
-SUMMARY = 'A hostage is held by three guards. Kill the guards and set the hostage free.'
+SUMMARY = 'A hostage is held by three guards.'
 HOST_NEEDS = ['A spot for the hostage with room for three guards around it (a building interior works if the player can enter it).',
               'A camera zone and an "enable guards" zone near the entrance; a parking strip for the rest.',
               'Works in any new map or existing section. The hostage does not walk anywhere (free mode).']
@@ -29,21 +29,21 @@ _ROUTE_REL = [(-22.0, 19.0), (-24.5, 14.0), (-24.5, 9.0), (-20.0, 3.0), (-16.0, 
               (-4.0, -26.0), (-1.0, -31.0), (0.0, -33.0)]
 
 PARAMS = [
-    P('hostage', 'point', lambda h, p: h.pt(-22, 19), 'Hostage position', 'Where the hostage stands.', group='Placement'),
-    P('guards', 'points', lambda h, p: [h.pt(-27.5, 16), h.pt(-17.5, 16), h.pt(-22, 14)], 'Guard positions', 'Where the three guards stand (x, y, z).', min_len=3, max_len=3, group='Placement'),
-    P('camera_zone', 'point', lambda h, p: h.pt(-24.5, 8), 'Camera zone', 'Walk-in zone (8 x 6 m) in front of the entrance that cuts the camera and wakes the guards.', group='Placement'),
-    P('enable_zone', 'point', lambda h, p: h.pt(-22, 16), 'Guard zone', 'Zone (8 x 4 m) next to the hostage that enables the guards.', group='Placement'),
-    P('route', 'points', lambda h, p: [h.pt(x, z) for x, z in _ROUTE_REL], 'Hostage path', 'Corners of the path the hostage\'s 45 track points are laid along (decoration in free mode).', min_len=2, group='Placement', advanced=True),
-    P('destination_npc', 'point', lambda h, p: h.pt(6, -33), 'Destination contact', 'Where the template destination character waits.', group='Placement', advanced=True),
-    P('marker_pos', 'point', lambda h, p: h.pt(0, -30), 'Task giver marker', 'Position of the template task-giver marker.', group='Placement', advanced=True),
-    P('vehicle_park', 'point', lambda h, p: h.pt(30, 36), 'Vehicle parking', 'Where the template vehicles and passengers are parked (disabled).', group='Placement', advanced=True),
-    P('zone_park', 'point', lambda h, p: h.pt(-36, 36), 'Zone parking', 'Where unused template zones are parked (twelve slots, 3 m apart along +x).', group='Placement', advanced=True),
-    P('spare_region', 'rect', lambda h, p: list(h.rr(-38, 33, 38, 38.5)), 'Spare strip', 'Where the unused enemies are parked (disabled).', group='Placement', advanced=True),
-    P('guards_to_kill', 'int', 3, 'Guards to kill', 'How many of the three guards must die to free the hostage.', min=1, max=3, group='Settings'),
-    P('enemy_health', 'float', 0.3, 'Guard health', 'Health multiplier (1.0 = normal).', min=0.05, max=3.0, group='Settings'),
-    P('enemy_damage', 'float', 0.03, 'Guard damage', 'Damage multiplier (1.0 = normal).', min=0.0, max=3.0, group='Settings'),
-    P('text_find', 'text', 'Find the hostage in the house', 'Objective 1 text', 'First objective line.', group='Texts', max_len=70),
-    P('text_escort', 'text', 'Kill the guards and free the hostage', 'Objective 2 text', 'Second objective line.', group='Texts', max_len=70),
+    P('hostage', 'point', lambda h, p: h.pt(-22, 19), 'Hostage position', '', group='Placement'),
+    P('guards', 'points', lambda h, p: [h.pt(-27.5, 16), h.pt(-17.5, 16), h.pt(-22, 14)], 'Guard positions', '', min_len=3, max_len=3, group='Placement'),
+    P('camera_zone', 'point', lambda h, p: h.pt(-24.5, 8), 'Camera zone', '', group='Placement'),
+    P('enable_zone', 'point', lambda h, p: h.pt(-22, 16), 'Guard zone', '', group='Placement'),
+    P('route', 'points', lambda h, p: [h.pt(x, z) for x, z in _ROUTE_REL], 'Hostage path', '', min_len=2, group='Placement', advanced=True),
+    P('destination_npc', 'point', lambda h, p: h.pt(6, -33), 'Destination contact', '', group='Placement', advanced=True),
+    P('marker_pos', 'point', lambda h, p: h.pt(0, -30), 'Task giver marker', '', group='Placement', advanced=True),
+    P('vehicle_park', 'point', lambda h, p: h.pt(30, 36), 'Vehicle parking', '', group='Placement', advanced=True),
+    P('zone_park', 'point', lambda h, p: h.pt(-36, 36), 'Zone parking', '', group='Placement', advanced=True),
+    P('spare_region', 'rect', lambda h, p: list(h.rr(-38, 33, 38, 38.5)), 'Spare strip', '', group='Placement', advanced=True),
+    P('guards_to_kill', 'int', 3, 'Guards to kill', '', min=1, max=3, group='Settings'),
+    P('enemy_health', 'float', 0.3, 'Guard health', '', min=0.05, max=3.0, group='Settings'),
+    P('enemy_damage', 'float', 0.03, 'Guard damage', '', min=0.0, max=3.0, group='Settings'),
+    P('text_find', 'text', 'Find the hostage in the house', 'Objective 1 text', '', group='Texts', max_len=70),
+    P('text_escort', 'text', 'Kill the guards and free the hostage', 'Objective 2 text', '', group='Texts', max_len=70),
 ]
 
 

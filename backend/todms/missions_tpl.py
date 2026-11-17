@@ -8,7 +8,7 @@ Rules this module keeps:
     install is built as ONE project (the projects marked as installed in the game folder, plus the one being built).
   * At most 17 new missions per game install, shared by all projects (the library's own message is shown).
   * Builds run on the game's REAL archive chain (configpc.txt, so on top of Gameplay+ or TOD HD when they are installed).
-  * A mission package is ONE archive, todms_missions.zip (mission blocks + texts merged), first on the filesystem line.
+  * The mission package (mission blocks + texts merged) is the LAST stage of the pack, todms_pack.zip (pack.py).
   * A new-map host is built into the mission package. A New maps package of the same map is taken out when the
     missions are installed (it would be the same blocks twice).
 Projects are stored like the New maps projects, in <TODMS_HOME>/mission_projects/<id>/project.json.
@@ -17,17 +17,19 @@ import contextlib
 import copy
 import hashlib
 import json
+import math
 import os
 import re
 import shutil
 import sys
 import uuid
 
-from . import paths, game, mods, newmap
+from . import paths, game, mods, newmap, limits, mapalloc
 
 ZIP = 'todms_missions.zip'
 RECORD = 'todms_missions.json'
-SLOT_LIMIT = 8                       # archives the engine mounts from the filesystem line
+SLOT_LIMIT = limits.value('P1')      # archives the engine mounts from the filesystem line
+MISSION_SLOTS = limits.value('L7')   # new mission indices per install
 FORMAT = 1
 
 
@@ -46,6 +48,60 @@ def directory(pid):
 
 def revision(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True, allow_nan=False, default=str).encode()).hexdigest()
+
+
+def _scale_pt(v, r, old=(0.0, 0.0, 0.0), new=(0.0, 0.0, 0.0)):
+    if not isinstance(v, (list, tuple)) or len(v) < 3:
+        return v
+    return [None if c is None else round((float(c) - o) * r + n, 3) for c, o, n in zip(v, old, new)]
+
+
+def _scale_rect(v, r, old, new):
+    return [round((float(v[0]) - old[0]) * r + new[0], 3), round((float(v[1]) - old[2]) * r + new[2], 3),
+            round((float(v[2]) - old[0]) * r + new[0], 3), round((float(v[3]) - old[2]) * r + new[2], 3)]
+
+
+def rescale_hosts(newmap_id, r, old_place=(0.0, 0.0, 0.0), new_place=(0.0, 0.0, 0.0)):
+    """A new map changed its scale (`r` = new / old) or its place in the world: in every mission project that uses it, the host area, its ground
+    height and the positions of the missions on it (points, point lists, rectangles; sizes stay) move out from the scene's middle and on to the
+    new place. -> projects changed."""
+    L = lib()
+    kinds = {}
+    changed = 0
+    old, new = [float(v) for v in old_place], [float(v) for v in new_place]
+    for rec in list_projects():
+        proj = copy.deepcopy(rec['project'])
+        mine = {h['id'] for h in proj.get('hosts') or [] if h.get('kind') == 'new_map' and h.get('newmap_id') == newmap_id}
+        if not mine:
+            continue
+        for h in proj['hosts']:
+            if h['id'] in mine:
+                if h.get('area'):
+                    h['area'] = _scale_rect(h['area'], r, old, new)
+                if h.get('ground_y') is not None:
+                    h['ground_y'] = round((float(h['ground_y']) - old[1]) * r + new[1], 3)
+                if h.get('bounds'):
+                    h['bounds'] = _scale_rect(h['bounds'], r, old, new)
+        for m in proj.get('missions') or []:
+            if m.get('host') not in mine:
+                continue
+            if m['type'] not in kinds:
+                kinds[m['type']] = {s['key']: s['kind'] for s in L.template_schema(m['type'], None).get('params', [])}
+            ks = kinds[m['type']]
+            pr = m.get('params') or {}
+            for k, v in list(pr.items()):
+                kd = ks.get(k)
+                if kd == 'point':
+                    pr[k] = _scale_pt(v, r, old, new)
+                elif kd == 'points':
+                    pr[k] = [_scale_pt(q, r, old, new) for q in v]
+                elif kd == 'rect':
+                    pr[k] = _scale_rect(v, r, old, new)
+                elif kd == 'rects':
+                    pr[k] = [_scale_rect(q, r, old, new) for q in v]
+        save_project(proj, rec['id'])
+        changed += 1
+    return changed
 
 
 def check_project(project):
@@ -108,25 +164,31 @@ SAMPLES = {
     'mesa': dict(title='Mesa Compound', files=('mesa_map.json', 'mesa_compound.json'), id='sample-mesa-compound',
                  text='A new walled compound map with all 17 mission types, one giver each. It uses ALL 17 new mission slots: '
                       'installing it leaves no room for other new missions in the same game.'),
+    'race': dict(title='A race in the yard', files=('second_map_params.json', os.path.join(paths.DATA, 'starters', 'race_yard.json')),
+                 id='sample-race-yard', text='A small yard map with one checkpoint race: a short way to see a mission from start to finish.'),
     'yard': dict(title='Two missions in a small yard', files=('second_map_params.json', 'second_map_ghost_showdown.json'),
                  id='sample-yard', text='A small yard map with a showdown and a ghost mission: a short way to see the whole flow.'),
 }
 
 
+def _sample_file(name):
+    return name if os.path.isabs(name) else os.path.join(VENDOR, 'samples', name)
+
+
 def sample_info():
     out = []
     for key, s in SAMPLES.items():
-        proj = json.load(open(os.path.join(VENDOR, 'samples', s['files'][1]), encoding='utf-8'))
+        proj = json.load(open(_sample_file(s['files'][1]), encoding='utf-8'))
         out.append(dict(key=key, title=s['title'], text=s['text'], missions=len(proj['missions']), id=s['id'],
-                        uses_all_slots=len(proj['missions']) >= 17))
+                        uses_all_slots=len(proj['missions']) >= MISSION_SLOTS))
     return out
 
 
 def open_sample(key):
     """Create (or refresh) the sample's New maps project and mission project; returns the mission project."""
     s = SAMPLES[key]
-    maps = json.load(open(os.path.join(VENDOR, 'samples', s['files'][0]), encoding='utf-8'))
-    lib = json.load(open(os.path.join(VENDOR, 'samples', s['files'][1]), encoding='utf-8'))
+    maps = json.load(open(_sample_file(s['files'][0]), encoding='utf-8'))
+    lib = json.load(open(_sample_file(s['files'][1]), encoding='utf-8'))
     maps['package'] = s['title'] + ' (sample map)'
     newmap.save_project(maps, s['id'])
     hosts = []
@@ -171,6 +233,8 @@ def session(ws):
     """Bind the shared tool modules to this game for one library call (callers hold the jobs lock); restore afterwards."""
     L = lib(ws)
     from todtpl import tpl_env
+    from . import mapgen
+    mapgen.install_builder_plug()                    # a host map made of generated parts or an imported scene needs the builder's part and picture kinds
     paths.setup_tools(ws.game.naz)
     tpl_env.CFG['blocks_naz'] = ws.game.naz
     E = tpl_env.get()
@@ -196,14 +260,7 @@ def chain_paths(ws):
 
 
 def chain_signature(ws):
-    sig = []
-    for p in chain_paths(ws):
-        try:
-            st = os.stat(p)
-            sig.append([os.path.basename(p), st.st_size, st.st_mtime_ns])
-        except OSError:
-            sig.append([os.path.basename(p), None, None])
-    return sig
+    return game.chain_signature(ws.game.folder, [os.path.basename(p) for p in chain_paths(ws)])
 
 
 # ------------------------------------------------------------------------------------------------ the install record
@@ -231,7 +288,27 @@ def snapshot_of(pid, project):
     return dict(name=project['name'], project=project, newmaps=nms)
 
 
-def compose(entries, pins=None):
+# Project-level keys of a new-map project (not part of one map): they go to blocks that already work, so they have to travel with the maps
+CARRY_KEYS = ('existing_spots', 'existing_vehicles', 'existing_enemies', 'test_loaders')
+
+
+def carried(params):
+    """{key: [entries]} of the project-level keys a new-map project holds."""
+    return {k: copy.deepcopy(params[k]) for k in CARRY_KEYS if (params or {}).get(k)}
+
+
+def carry_missing(wanted, used):
+    """Keys (and entry counts) that were requested but are not in the params the build really used -> list of text."""
+    out = []
+    for k, ents in wanted.items():
+        have = (used or {}).get(k) or []
+        for e in ents:
+            if e not in have:
+                out.append('%s: %s did not reach the build' % (k, e.get('name') or e.get('block') or e.get('target_map') or 'an entry'))
+    return out
+
+
+def compose(entries, pins=None, alloc=None, extra_maps=None, carry=None):
     """entries: [(pid, snapshot)] -> (library project, {library mission id: (pid, mission id)}, {library host id: (pid, host id)}).
     pins: {(pid, mission id): (type, index)}: a mission keeps the index it had when it was installed."""
     pins = pins or {}
@@ -239,11 +316,22 @@ def compose(entries, pins=None):
     maps, offset = [], {}
     hosts, missions, idmap, hostmap = [], [], {}, {}
     keep = False
+    extra = carry if carry is not None else {}
     for pid, snap in entries:
         for nid, params in snap['newmaps'].items():
             if nid not in offset:
                 offset[nid] = len(maps)
-                maps.extend(copy.deepcopy(params['maps']))
+                entry = ((alloc or {}).get('owners') or {}).get(mapalloc.key_of(params, nid))
+                maps.extend(copy.deepcopy((mapalloc.inject(newmap.expand(params), entry) if entry else newmap.expand(params))['maps']))
+                for k, v in carried(params).items():
+                    extra.setdefault(k, []).extend(v)
+    for nid, params in (extra_maps or []):           # standalone new maps folded into this pass (after the maps the missions use)
+        if nid not in offset:
+            offset[nid] = len(maps)
+            entry = ((alloc or {}).get('owners') or {}).get(mapalloc.key_of(params, nid))
+            maps.extend(copy.deepcopy((mapalloc.inject(newmap.expand(params), entry) if entry else newmap.expand(params))['maps']))
+            for k, v in carried(params).items():
+                extra.setdefault(k, []).extend(v)
     for pid, snap in entries:
         proj = snap['project']
         pre = (pid + '~') if multi else ''
@@ -276,7 +364,7 @@ def compose(entries, pins=None):
     lp = dict(format=1, package='todms_missions', hosts=hosts, missions=missions,
               options={'keep_map_enemies': True} if keep else {})
     if maps:
-        lp['new_map'] = dict(package='todms_missions', maps=maps)
+        lp['new_map'] = dict(package='todms_missions', maps=maps, **{k: v for k, v in extra.items() if v})
     return lp, idmap, hostmap
 
 
@@ -345,6 +433,15 @@ def slots(ws, progress=None):
 
 
 # ------------------------------------------------------------------------------------------------ host choices and geometry
+def plan_view(pid, m):
+    """The top-down picture of a scene map (streets, buildings, water) for the placement view; None for any other map."""
+    info = (m.get('scene') or {}).get('plan')
+    if not info:
+        return None
+    from . import scenplan
+    return scenplan.view(newmap.directory(pid), info)
+
+
 def host_geometry(host):
     return dict(id=host.id, kind=host.kind, area=list(host.area), bounds=list(host.bounds), ground_y=host.ground_y,
                 obstacles=[list(o) for o in host.obst], reserved=[list(r) for r in host.reserved],
@@ -363,9 +460,9 @@ def host_choices(ws, progress=None):
         for i, m in enumerate(p['params']['maps']):
             try:
                 h = tpl_host.Host(dict(id='probe', kind='new_map', map_index=i), m)
-                maps.append(dict(index=i, name=m['name'], geometry=host_geometry(h)))
+                maps.append(dict(index=i, name=m['name'], source=m.get('source'), geometry=dict(host_geometry(h), plan=plan_view(p['id'], m))))
             except Exception as e:                       # noqa: BLE001
-                maps.append(dict(index=i, name=m.get('name'), error=str(e)))
+                maps.append(dict(index=i, name=m.get('name'), source=m.get('source'), error=str(e)))
         nms.append(dict(id=p['id'], title=p['params'].get('package') or p['id'], maps=maps))
     ex = newmap.entry_hosts(ws, progress)
     return dict(newmaps=nms, existing=ex['hosts'], existing_supported=ex['supported'],
@@ -406,6 +503,13 @@ def schema(ws, project, mtype, host_id, progress=None):
                 pass
         sc = L.template_schema(mtype, host)
         sc['host'] = host_geometry(host)
+        hd = next((h for h in project.get('hosts') or [] if h.get('id') == host_id and h.get('kind') == 'new_map'), None)
+        if hd:
+            try:
+                mm = newmap.get_project(hd['newmap_id'])['params']['maps'][int(hd.get('map_index') or 0)]
+                sc['host']['plan'] = plan_view(hd['newmap_id'], mm)
+            except (OSError, ValueError, KeyError, IndexError):
+                pass
         return sc
 
 
@@ -419,6 +523,36 @@ def _cap_message(ws, ents, pid, pins):
     snap = dict(ents)[pid]
     return __import__('todtpl').tpl_core.pool_message(chain_paths(ws), other_used(ents, pid, pins), len(snap['project'].get('missions') or [])) \
         if len(full) else None
+
+
+ARRIVE_GIVER_MARGIN = 0.5   # metres around a giver box inside which a landing spot is refused
+
+
+def arrival_giver_messages(lp):
+    """Errors for a landing spot (map arrival, teleport, entrance arrival) inside one of the project's giver boxes.
+    A custom entrance arrival placed in a giver box stopped TOD.exe a few seconds after arriving (release testing, not reproduced
+    on every layout), so the build refuses it: the player would also be offered the mission the moment he lands."""
+    msgs = []
+    maps = (lp.get('new_map') or {}).get('maps') or []
+    hosts = {h['id']: h for h in lp.get('hosts') or []}
+    for m in lp.get('missions') or []:
+        h = hosts.get(m.get('host')) or {}
+        prm = m.get('params') or {}
+        gp = prm.get('giver_pos')
+        if h.get('kind') != 'new_map' or not gp or gp[0] is None or gp[2] is None:
+            continue
+        idx = h.get('map_index', 0)
+        if not 0 <= idx < len(maps):
+            continue
+        half = float(prm.get('giver_size') or 6.0) / 2 + ARRIVE_GIVER_MARGIN
+        mp = maps[idx]
+        spots = [('arrival', (mp.get('arrival') or {}).get('pos'))]
+        spots += [('spot %s' % t.get('name'), t.get('pos')) for t in mp.get('teleports') or []]
+        spots += [('entrance %s' % e.get('id'), (e.get('arrive') or {}).get('pos')) for e in mp.get('entries') or []]
+        for label, pt in spots:
+            if pt and abs(pt[0] - gp[0]) <= half and abs(pt[2] - gp[2]) <= half:
+                msgs.append(dict(level='error', where=m['id'], text='The %s lands the player inside the giver box of "%s". Move one of them out of the other.' % (label, m['id'])))
+    return msgs
 
 
 def validate(ws, project, pid=None, progress=None):
@@ -444,6 +578,7 @@ def validate(ws, project, pid=None, progress=None):
         msgs = list(res['project'])
         for v in res['missions'].values():
             msgs += v
+        msgs += arrival_giver_messages(lp_mine)
         if cap and not any(cap in m['text'] for m in msgs):
             msgs.insert(0, dict(level='error', where='project', text=cap))
         res_ok = not any(m['level'] == 'error' for m in msgs)
@@ -456,18 +591,26 @@ def _internal_note(text):
     return text.startswith('allowed') or 'is a shipped text' in text
 
 
-def build_set(ws, ents, pins, out_dir, progress=None, pid=None):
-    """Build the combined set into out_dir; returns the result record (not stored)."""
+def build_set(ws, ents, pins, out_dir, progress=None, pid=None, extra_chain=(), overlay_entries=None, alloc=None, extra_maps=None):
+    """Build the combined set into out_dir; returns the result record (not stored).
+    extra_chain: the pack stages built before this one (mods, new maps), read in front of the game's archives;
+    overlay_entries: every block they touched (the library reads those from the stages instead of blocks.naz)."""
     snaps = dict(ents)
     with session(ws) as L:
         from todtpl import tpl_build
-        lp, idmap, hostmap = compose(ents, pins)
-        chain = chain_paths(ws)
+        wanted = {}
+        lp, idmap, hostmap = compose(ents, pins, alloc, extra_maps, carry=wanted)
+        chain = list(extra_chain) + chain_paths(ws)
+        if overlay_entries:
+            lp['options'] = dict(lp.get('options') or {}, overlay_entries=list(overlay_entries))
         cap = None
         if pid:
             cap = _cap_message(ws, ents, pid, pins)
         if cap:
             return dict(ok=False, messages=[dict(level='error', where='project', text=cap)])
+        bad = arrival_giver_messages(lp)
+        if bad:
+            return dict(ok=False, messages=translate(bad, idmap, snaps))
         os.makedirs(out_dir, exist_ok=True)
         try:
             res = L.build(lp, chain, out_dir, progress=progress)
@@ -481,6 +624,14 @@ def build_set(ws, ents, pins, out_dir, progress=None, pid=None):
         for sub in ('map', 'text'):
             shutil.rmtree(os.path.join(out_dir, sub), ignore_errors=True)
         manifest = json.load(open(res['manifest'], encoding='utf-8'))
+        if wanted:                             # a project-level key that the build did not receive must fail loudly, never vanish
+            try:
+                used = json.load(open(os.path.join(out_dir, 'params_used.json'), encoding='utf-8'))
+            except (OSError, ValueError):
+                used = {}
+            lost = carry_missing(wanted, used)
+            if lost:
+                return dict(ok=False, messages=[dict(level='error', where='project', text=t) for t in lost[:6]])
         lint = {idmap[k][1] if k in idmap else k: v for k, v in res['lint'].items()}
         warns = []
         for k, lines in res['lint'].items():
@@ -542,46 +693,8 @@ def run_build(ws, pid, progress=None):
 
 
 # ------------------------------------------------------------------------------------------------ install / uninstall
-def _slot_check(folder, add, remove):
-    fs = game.filesystem_line(game.read_configpc(folder)) or list(game.DEFAULT_FS)
-    rm = {a.lower() for a in remove}
-    after = [a for a in fs if a.lower() not in rm]
-    after.insert(0, add) if add else None
-    if len(after) > SLOT_LIMIT:
-        raise ValueError('The game can only load %d archive files and this would make %d (%s). Remove one of the other '
-                         'mods or map packages first.' % (SLOT_LIMIT, len(after), ', '.join(after)))
-    return after
-
-
-def _deploy(ws, zip_path, sha, records_projects, superseded, progress=None):
-    folder = ws.game.folder
-    modzip = os.path.join(folder, game.MOD_ZIP)
-    if os.path.exists(modzip):
-        newmap.refuse_conflict(newmap.archive_entries(zip_path), newmap.archive_entries(modzip))
-    nm_rec = newmap.installed(folder)
-    for nid, rec in nm_rec.items():
-        if nid in superseded:
-            continue
-        p = os.path.join(folder, rec['zip'])
-        if os.path.exists(p):
-            newmap.refuse_conflict(newmap.archive_entries(zip_path), newmap.archive_entries(p))
-    gone = [nm_rec[n]['zip'] for n in superseded if n in nm_rec]
-    _slot_check(folder, ZIP, [ZIP] + gone)
-    dst = os.path.join(folder, ZIP)
-    if os.path.exists(dst):
-        shutil.copy2(dst, dst + '.todms_backup')
-    shutil.copy2(zip_path, dst + '.part')
-    os.replace(dst + '.part', dst)
-    taken_out = []
-    for nid in superseded:
-        if nid in nm_rec:
-            newmap.uninstall(ws, nid)
-            taken_out.append(nid)
-    line = mods.set_filesystem(folder, ZIP, remove=[ZIP])
-    return line, taken_out
-
-
 def install(ws, pid, progress=None):
+    from . import pack
     folder = ws.game.folder
     if game.game_running(folder):
         raise RuntimeError('Total Overdose is running: close it first')
@@ -598,17 +711,15 @@ def install(ws, pid, progress=None):
     if newmap.file_hash(z) != b['sha256']:
         raise ValueError('The built package changed. Build it again before installing.')
     res = b['result']
-    superseded = sorted({nid for _p, s in ents for nid in s['newmaps']})
-    line, taken_out = _deploy(ws, z, b['sha256'], None, superseded, progress)
     projects = _project_records(ents, res)
-    rec = dict(zip=ZIP, sha256=b['sha256'], revision=b['revision'], projects=projects, taken_out_new_maps=taken_out,
-               migrate_entries=res['migrate_entries'], thread_keys=res.get('thread_keys', []), configpc_line=line,
-               missions=res['missions'])
-    newmap.write(record_path(folder), rec)
+    r = pack.apply(ws, 'install missions', missions=dict(projects=projects), progress=progress,
+                   hints=dict(missions_built=dict(zip=z, sha256=b['sha256'], result=res)))
+    rec = r['missions']
     return dict(rec, message='Installed %d mission%s' % (len(res['missions']), '' if len(res['missions']) == 1 else 's'))
 
 
 def uninstall(ws, pid, progress=None):
+    from . import pack
     folder = ws.game.folder
     if game.game_running(folder):
         raise RuntimeError('Total Overdose is running: close it first')
@@ -616,26 +727,11 @@ def uninstall(ws, pid, progress=None):
     if pid not in rec.get('projects', {}):
         return dict(message='These missions are not installed in this game folder')
     rest = {k: v for k, v in rec['projects'].items() if k != pid}
-    if not rest:
-        mods.set_filesystem(folder, None, remove=[ZIP])
-        p = os.path.join(folder, ZIP)
-        if os.path.exists(p):
-            os.remove(p)
-        os.remove(record_path(folder))
-        return dict(message='Mission package removed. New maps that were part of it can be installed again from the New maps tab.')
-    ents = [(k, dict(name=v['name'], project=v['project'], newmaps=v['newmaps'])) for k, v in rest.items()]
-    pins = {(k, mid): tuple(ix) for k, v in rest.items() for mid, ix in v['indices'].items()}
-    stage = os.path.join(paths.cache_dir(), 'missions_stage')
-    shutil.rmtree(stage, ignore_errors=True)
-    if progress:
+    if progress and rest:
         progress('Rebuilding the remaining missions')
-    res = build_set(ws, ents, pins, stage, progress)
-    if not res.get('ok'):
-        raise ValueError('The remaining missions did not build: ' + '; '.join(m['text'] for m in res['messages'][:3]))
-    line, _ = _deploy(ws, res['zip'], res['sha256'], None, [])
-    projects = _project_records(ents, res)
-    newmap.write(record_path(folder), dict(zip=ZIP, sha256=res['sha256'], projects=projects, migrate_entries=res['migrate_entries'],
-                                           thread_keys=res.get('thread_keys', []), configpc_line=line, missions=res['missions'], taken_out_new_maps=rec.get('taken_out_new_maps', [])))
+    pack.apply(ws, 'remove missions', missions=dict(projects=rest) if rest else {}, progress=progress)
+    if not rest:
+        return dict(message='Mission package removed. New maps that were part of it can be installed again from the New maps tab.')
     return dict(message='Missions removed; the rest was rebuilt')
 
 
@@ -643,4 +739,4 @@ def status(ws):
     rec = installed(ws.game.folder) if ws.game else {}
     return dict(installed=bool(rec.get('projects')), projects={k: dict(name=v['name'], count=len(v['indices']))
                                                                for k, v in rec.get('projects', {}).items()},
-                missions=rec.get('missions', []), zip_present=os.path.exists(os.path.join(ws.game.folder, ZIP)) if ws.game else False)
+                missions=rec.get('missions', []), zip_present=os.path.exists(os.path.join(ws.game.folder, game.PACK_ZIP)) if ws.game else False)

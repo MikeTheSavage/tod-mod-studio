@@ -1,55 +1,61 @@
+// Loader volumes and spots for the shared 3D view. This file used to hold the SVG top view; the drawing now lives in
+// View3D (Top mode), and this keeps the helpers every screen shares: colours, facing maths and `loaderOverlays`,
+// which turns loader volumes and spots into overlays. The default export is a ready-made view for those two kinds
+// of data (used by Sections), with an optional map underneath.
 import React, { useMemo } from 'react'
+import View3D from './View3D.jsx'
+import { boundsOf, CONTEXT_LAYERS } from './levelLoad.js'
 
-export const loaderColors = { WALK: '#5ad06a', TELEPORT: '#ff4d4d', ONEWAY: '#9aa5b1', MISSION: '#c08aff' }
+export const loaderColors = { WALK: '#3fbf5a', TELEPORT: '#e5484d', ONEWAY: '#8491a1', MISSION: '#b27df0' }
 export const spotYaw = s => {
   const [x, y, z, w] = s.orient || s.rot || [0, 0, 0, 1]
   return Math.atan2(2 * (w * y + x * z), 1 - 2 * (y * y + z * z)) * 180 / Math.PI
 }
 export const yawOrient = yaw => [0, Math.sin(yaw * Math.PI / 360), 0, Math.cos(yaw * Math.PI / 360)]
 
-// Shared Sections / New maps top view. SVG coordinates are game x/z with north (+z) up.
-export default function LoaderTopView({ volumes = [], spots = [], selected, onSelect, onPlace, after = {} }) {
-  const W = 900, H = 640
-  const frame = useMemo(() => {
-    const points = [...volumes, ...spots, ...Object.values(after)].flatMap(v => [v.pos, v.teleport_dest?.pos].filter(Boolean))
-    if (!points.length) points.push([0, 0, 0])
-    const xs = points.map(p => p[0]), zs = points.map(p => p[2])
-    const x0 = Math.min(...xs) - 40, z0 = Math.min(...zs) - 40
-    const scale = Math.min(W / (Math.max(...xs) + 40 - x0), H / (Math.max(...zs) + 40 - z0))
-    return { x0, z0, scale }
-  }, [volumes, spots, after])
-  const { x0, z0, scale } = frame
-  const X = x => (x - x0) * scale, Z = z => H - (z - z0) * scale
-  const polygon = v => {
-    if (v.corners) return v.corners.map(c => `${X(c[0])},${Z(c[1])}`).join(' ')
-    const yaw = spotYaw(v) * Math.PI / 180, [w, , l] = v.size || [3, 3, 3]
-    return [[-1, -1], [-1, 1], [1, 1], [1, -1]].map(([a, b]) => {
-      const x = a * w / 2, z = b * l / 2
-      return `${X(v.pos[0] + x * Math.cos(yaw) + z * Math.sin(yaw))},${Z(v.pos[2] - x * Math.sin(yaw) + z * Math.cos(yaw))}`
-    }).join(' ')
-  }
+const resolve = c => (c && c.startsWith('var(') ? ({ 'var(--ok)': '#3fbf5a', 'var(--accent)': '#f2a541', 'var(--sel)': '#5b9bff' })[c] || '#5b9bff' : c)
+
+// a volume (box with corners or size) or a spot (box with size, or a point with a facing) as an overlay
+export function spotOverlay(v, color, extra = {}) {
+  const base = { id: v.id, color: resolve(color), label: v.label || v.name || v.id, ...extra }
+  if (v.corners) return { ...base, kind: 'poly', corners: v.corners, y: v.pos?.[1], h: v.size?.[1] ?? 4 }
+  if (v.radius) return { ...base, kind: 'ring', pos: v.pos, radius: v.radius }
+  if (v.size) return { ...base, kind: 'box', pos: v.pos, size: v.size, yaw: spotYaw(v), arrow: true }
+  return { ...base, kind: 'point', pos: v.pos, yaw: spotYaw(v), arrow: true }
+}
+
+export function loaderOverlays({ volumes = [], spots = [], after = {}, selected }) {
+  const out = []
   const byId = Object.fromEntries(volumes.map(v => [v.id, v]))
-  const box = (v, color, click) => <g key={v.id} onClick={e => { e.stopPropagation(); click?.(v.id) }} style={{ cursor: click ? 'pointer' : 'default' }}>
-    {v.radius ? <circle cx={X(v.pos[0])} cy={Z(v.pos[2])} r={Math.max(3, v.radius * scale)} fill={color} fillOpacity={0.25} stroke={color} />
-      : <polygon points={polygon(v)} fill={color} fillOpacity={selected === v.id ? 0.6 : 0.25} stroke={color} strokeWidth={selected === v.id ? 3 : 1.5} />}
-    <line x1={X(v.pos[0])} y1={Z(v.pos[2])} x2={X(v.pos[0]) + Math.sin(spotYaw(v) * Math.PI / 180) * 20}
-      y2={Z(v.pos[2]) - Math.cos(spotYaw(v) * Math.PI / 180) * 20} stroke={color} strokeWidth={2} markerEnd="url(#loader-arrow)" />
-    <text x={X(v.pos[0]) + 6} y={Z(v.pos[2]) - 7} fill={color} fontSize={11}>{v.label || v.name || v.id}</text>
-  </g>
-  return <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', minHeight: 360, maxHeight: 680, background: '#10141a' }}
-    aria-label="Loader spots top view, north up" onClick={e => {
-      if (!onPlace) return
-      const p = e.currentTarget.createSVGPoint(); p.x = e.clientX; p.y = e.clientY
-      const q = p.matrixTransform(e.currentTarget.getScreenCTM().inverse())
-      onPlace([x0 + q.x / scale, z0 + (H - q.y) / scale])
-    }}>
-    <defs><marker id="loader-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0L10,5L0,10z" fill="#d8e2ef" /></marker></defs>
-    {volumes.map(v => <g key={v.id}>
-      {byId[v.pair] && <line x1={X(v.pos[0])} y1={Z(v.pos[2])} x2={X(byId[v.pair].pos[0])} y2={Z(byId[v.pair].pos[2])} stroke="#d8e2ef" opacity={0.4} />}
-      {v.teleport_dest && <line x1={X(v.pos[0])} y1={Z(v.pos[2])} x2={X(v.teleport_dest.pos[0])} y2={Z(v.teleport_dest.pos[2])} stroke="#ff4d4d" strokeDasharray="6 4" />}
-      {box(v, loaderColors[v.cls] || '#888', onSelect)}
-      {after[v.id] && box({ ...after[v.id], id: v.id + '-after' }, '#3cff8a')}
-    </g>)}
-    {spots.map(v => box(v, v.color || '#55dbff', onSelect))}
-  </svg>
+  for (const v of volumes) {
+    if (byId[v.pair]) out.push({ id: v.id + '~pair', kind: 'path', points: [v.pos, byId[v.pair].pos], color: '#7d8896', pickable: false, layer: 'links' })
+    if (v.teleport_dest) out.push({ id: v.id + '~tp', kind: 'path', points: [v.pos, v.teleport_dest.pos], color: '#e5484d', dashed: true, pickable: false, layer: 'links' })
+    out.push(spotOverlay(v, loaderColors[v.cls] || '#888888', { selected: selected === v.id, layer: 'loaders', opacity: 0.22 }))
+    if (after[v.id]) out.push(spotOverlay({ ...after[v.id], id: v.id + '-after' }, '#3cff8a', { pickable: false, layer: 'loaders' }))
+  }
+  for (const s of spots) out.push(spotOverlay(s, s.color || '#5b9bff', { selected: selected === s.id, always: true, layer: 'spots' }))
+  return out
+}
+
+// the box of a level's blocks: where a section's own objects lie (a zone overlay per block)
+export function boundsOverlays(bundle, color = '#5b9bff') {
+  if (!bundle) return []
+  return bundle.levels.map(L => {
+    const pts = L.entities.filter(e => e.pos && e.cat !== 'logic').map(e => e.pos)
+    const b = boundsOf(pts, 0)
+    if (!b) return null
+    return { id: 'bounds:' + L.entry, kind: 'zone', rect: b, h: 2, y: Math.min(...pts.map(p => p[1])), color, opacity: 0.05, pickable: false, always: true,
+      label: (L.title || L.entry.split('/').pop()).replace(/\.(submap|map|mission)$/, ''), layer: 'bounds' }
+  }).filter(Boolean)
+}
+
+export default function LoaderTopView({ volumes = [], spots = [], selected, onSelect, onPlace, after = {}, bundle, view, bounds = false, children }) {
+  const overlays = useMemo(() => [...loaderOverlays({ volumes, spots, after, selected }), ...(bounds ? boundsOverlays(bundle) : [])], [volumes, spots, after, selected, bundle, bounds])
+  const focus = useMemo(() => {
+    const pts = [...volumes, ...spots, ...Object.values(after)].flatMap(v => [v.pos, v.teleport_dest?.pos].filter(Boolean))
+    const b = boundsOf(pts, 40)
+    return b ? { bounds: b, y: pts[0]?.[1] ?? 0 } : null
+  }, [volumes.length, spots.length])
+  return <View3D defaultMode="top" bundle={bundle} view={view} layers={CONTEXT_LAYERS} overlays={overlays} onPickOverlay={onSelect} focus={focus}
+    onGround={onPlace ? (pos, ev, geometry) => onPlace([pos[0], pos[2]], pos, geometry) : undefined}>{children}</View3D>
 }

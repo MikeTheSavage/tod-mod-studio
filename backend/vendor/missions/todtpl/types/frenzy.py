@@ -26,19 +26,19 @@ WAVES = [('SubM_20_Down_JavPer_Kill_LEVEL01', ['Enemy_01', 'Enemy_02', 'Enemy_03
 OFFSETS = [(-3.0, -3.0), (3.0, -3.0), (-3.0, 3.0), (3.0, 3.0)]
 
 PARAMS = [
-    P('wave_centres', 'points', lambda h, p: [h.pt(-8, -8), h.pt(12, -6), h.pt(0, 2)], 'Wave positions', 'Centre of each of the three enemy groups (x, y, z). Enemies stand 3 m around it.', min_len=3, max_len=3, group='Placement'),
-    P('spare_region', 'rect', lambda h, p: list(h.rr(-38, 28, 38, 38)), 'Spare strip', 'Where the enemies that do not fight are parked (disabled).', group='Placement', advanced=True),
-    P('park', 'point', lambda h, p: h.pt(-60, 55, None), 'Parking spot', 'Where the template\'s Downtown walk-in boxes and triggers are parked (disabled). y empty = ground + 1.', group='Placement', advanced=True),
-    P('giver_npc_park', 'point', lambda h, p: h.pt(-24, -6), 'Parked task giver', 'Where the template task-giver character is parked.', group='Placement', advanced=True),
-    P('snap_to_free_ground', 'bool', True, 'Keep clear of obstacles', 'Move spots that fall inside a wall or prop to the nearest free ground.', group='Placement', advanced=True),
-    P('kills', 'int', 6, 'Kills needed', 'Kills that win the mission (11 enemies arrive in total).', min=1, max=11, group='Settings'),
-    P('countdown', 'float', 120.0, 'Time limit', 'Seconds on the clock.', min=10.0, max=900.0, unit='s', group='Settings'),
-    P('wave_delays', 'floats', [0.0, 12.0, 24.0], 'Wave delays', 'Seconds after the start at which each wave arrives (the first must be 0).', min_len=3, max_len=3, group='Settings'),
-    P('enemy_health', 'float', 0.3, 'Enemy health', 'Health multiplier (1.0 = normal).', min=0.05, max=3.0, group='Settings'),
-    P('enemy_damage', 'float', 0.1, 'Enemy damage', 'Damage multiplier of the last wave (1.0 = normal).', min=0.0, max=3.0, group='Settings'),
-    P('harmless_early_waves', 'bool', True, 'First two waves harmless', 'Waves 1 and 2 shoot without doing damage; only the last wave hurts.', group='Settings'),
-    P('text_kills', 'text', lambda h, p: 'Kill %d bandits before the time runs out' % p['kills'], 'Objective text', 'The objective line.', group='Texts', max_len=70),
-    P('text_count', 'text', '%0 out of %1 bandits killed', 'Counter text', 'The counter line (%0 = done, %1 = needed).', group='Texts', max_len=50),
+    P('wave_centres', 'points', lambda h, p: [h.pt(-8, -8), h.pt(12, -6), h.pt(0, 2)], 'Wave positions', '', min_len=3, max_len=3, group='Placement'),
+    P('spare_region', 'rect', lambda h, p: list(h.rr(-38, 28, 38, 38)), 'Spare strip', '', group='Placement', advanced=True),
+    P('park', 'point', lambda h, p: h.pt(-60, 55, None), 'Parking spot', '', group='Placement', advanced=True),
+    P('giver_npc_park', 'point', lambda h, p: h.pt(-24, -6), 'Parked task giver', '', group='Placement', advanced=True),
+    P('snap_to_free_ground', 'bool', True, 'Keep clear of obstacles', '', group='Placement', advanced=True),
+    P('kills', 'int', 6, 'Kills needed', '', min=1, max=11, group='Settings'),
+    P('countdown', 'float', 120.0, 'Time limit', '', min=10.0, max=900.0, unit='s', group='Settings'),
+    P('wave_delays', 'floats', [0.0, 12.0, 24.0], 'Wave delays', '', min_len=3, max_len=3, group='Settings'),
+    P('enemy_health', 'float', 0.3, 'Enemy health', '', min=0.05, max=3.0, group='Settings'),
+    P('enemy_damage', 'float', 0.1, 'Enemy damage', '', min=0.0, max=3.0, group='Settings'),
+    P('harmless_early_waves', 'bool', True, 'First two waves harmless', '', group='Settings'),
+    P('text_kills', 'text', lambda h, p: 'Kill %d bandits before the time runs out' % p['kills'], 'Objective text', '', group='Texts', max_len=70),
+    P('text_count', 'text', '%0 out of %1 bandits killed', 'Counter text', '', group='Texts', max_len=50),
 ]
 
 

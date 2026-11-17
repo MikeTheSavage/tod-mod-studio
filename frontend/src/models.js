@@ -16,7 +16,7 @@ export const collisionMaterial = new THREE.MeshBasicMaterial({
 })
 const plainMaterial = new THREE.MeshLambertMaterial({ color: 0x9aa3ad, side: THREE.DoubleSide })
 
-function texture(info) {
+export function texture(info) {
   if (!info?.url) return null
   if (!texCache.has(info.url)) {
     const t = ddsLoader.load(info.url, tex => {
@@ -62,6 +62,12 @@ export function loadModel(name, rec) {
         if (r) {
           r.traverse(o => {
             if (o.isMesh) {
+              if (rec.imported) {                        // an imported model: its pictures are inside the file
+                const map = o.material?.map
+                if (map) { map.colorSpace = THREE.NoColorSpace; map.wrapS = map.wrapT = THREE.RepeatWrapping }
+                o.material = new THREE.MeshLambertMaterial({ map: map || null, side: THREE.DoubleSide, alphaTest: o.material?.alphaTest || 0 })
+                return
+              }
               const ref = o.material?.userData?.tod_texture
               o.material = material(ref, rec.textures?.[ref])
             }

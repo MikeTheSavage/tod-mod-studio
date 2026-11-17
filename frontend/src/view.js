@@ -21,13 +21,17 @@ export const CATS = [
   ['logic', 'Logic and folders', '#6c757d', false],
 ]
 export const CAT_COLOR = Object.fromEntries(CATS.map(c => [c[0], c[2]]))
+// colour-blind safe colours (Okabe-Ito) for the kinds that matter most; the others keep their colour. Every kind also has its own 3D shape and a name in the lists.
+export const CAT_COLOR_CB = { pickup: '#009e73', weapon: '#e69f00', character: '#cc79a7', vehicle: '#0072b2', trigger: '#56b4e9', wall: '#d55e00', navblock: '#f0e442', route: '#009e73', marker: '#f0e442', havoc: '#d55e00' }
+export const cbOn = () => typeof document !== 'undefined' && document.documentElement.getAttribute('data-cb') === 'on'
+export const catColor = cat => (cbOn() && CAT_COLOR_CB[cat]) || CAT_COLOR[cat]
 export const CAT_LABEL = Object.fromEntries(CATS.map(c => [c[0], c[1]]))
 export const GAMEPLAY = new Set(['pickup', 'weapon', 'character', 'vehicle', 'trigger', 'wall', 'navblock', 'route',
   'marker', 'havoc'])
 
 export const keyOf = t => t.uid ? 'uid:' + t.uid : `${t.entry}|${t.frag}|${t.node}`
 
-export function buildView(bundle, ops) {
+export function buildView(bundle, ops, modelFor) {
   const ents = new Map()
   const byTarget = new Map()
   const kids = new Map()
@@ -55,7 +59,7 @@ export function buildView(bundle, ops) {
       const sub = { ...(vw.sub || {}) }
       for (const k of Object.keys(set)) if (k in sub || /SubType|CollisionFlags/.test(k)) sub[k] = set[k]
       ents.set(id, { id, isNew: true, entry: o.entry, target: { uid: o.uid }, type: vw.type, cat: vw.cat,
-        name: o.name || vw.name, pos: o.pos, rot: o.rot || [0, 0, 0, 1], size, sub, model: vw.model,
+        name: o.name || vw.name, pos: o.pos, rot: o.rot || [0, 0, 0, 1], size, sub, model: vw.model || (modelFor && modelFor(vw.cat, sub)) || undefined,
         radius: vw.radius, ed: true, op: o, changed: true })
       byTarget.set(keyOf({ uid: o.uid }), ents.get(id))
       continue

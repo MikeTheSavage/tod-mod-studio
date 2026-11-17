@@ -1,6 +1,5 @@
 // Companion tools part B: pure helpers for the route (nav), mission and section ops of the mod.
-// The op grammar is the shared core's (backend/todct nav.py, missions.py, sections.py), the same the Unreal
-// TOD Level Editor plugin writes into companion.json, so a mod builds the same bytes in both editors.
+// The op grammar is the core's (backend/todct nav.py, missions.py, sections.py).
 
 export const SHARED = 'data_pc/overdose_the_game/overdose/shared/'
 export const short = e => (e || '').replace(/\\/g, '/').split('/').pop()
@@ -15,6 +14,19 @@ export const KIND_COLOR = {
   goto: '#ff9f1c', patrol: '#ff70a6', vehicle: '#a0703c', ai_track: '#c08a4a', track: '#9aa5b1',
   signposts: '#5ad06a', traffic: '#4c9be8', navblocks: '#d633c8', neighborhoods: '#9d6bff',
 }
+// colour-blind safe set (Okabe-Ito), used when that setting is on; each kind also has a letter, a point shape and a line pattern
+export const KIND_COLOR_CB = {
+  goto: '#e69f00', patrol: '#cc79a7', vehicle: '#d55e00', ai_track: '#f0e442', track: '#bbbbbb',
+  signposts: '#009e73', traffic: '#56b4e9', navblocks: '#0072b2', neighborhoods: '#ffffff',
+}
+export const KIND_MARK = {
+  goto: { letter: 'G', glyph: '●', shape: 'sphere', dash: null }, patrol: { letter: 'P', glyph: '■', shape: 'box', dash: [1.2, 0.8] },
+  vehicle: { letter: 'V', glyph: '◆', shape: 'diamond', dash: null }, ai_track: { letter: 'A', glyph: '◆', shape: 'diamond', dash: [1.2, 0.8] },
+  track: { letter: 'T', glyph: '▲', shape: 'cone', dash: [0.4, 0.8] }, signposts: { letter: 'S', glyph: '●', shape: 'sphere', dash: [0.4, 0.8] },
+  traffic: { letter: 'R', glyph: '■', shape: 'box', dash: null }, navblocks: { letter: 'N', glyph: '▣', shape: 'box', dash: null },
+  neighborhoods: { letter: 'H', glyph: '○', shape: 'sphere', dash: [2, 1] },
+}
+export const kindColor = (kind, cb) => (cb ? KIND_COLOR_CB : KIND_COLOR)[kind] || '#cccccc'
 export const KIND_LABEL = {
   goto: 'GotoPath (enemy entry run)', patrol: 'Patrol path', vehicle: 'Vehicle track', ai_track: 'AI vehicle track',
   track: 'Track (camera, plane, door)', signposts: 'Pedestrian SignPosts', traffic: 'Traffic points',

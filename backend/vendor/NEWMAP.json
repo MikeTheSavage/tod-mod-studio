@@ -21,10 +21,6 @@
    "sha256": "fb45e5ed4118d8f4390bed727d22f3b55eef354f8a9d94ec1174eb090797a578",
    "destination": "vendor/tools/fragment_writer/lowprio.py"
   },
-  "fragment_writer/todblock.py": {
-   "sha256": "8bc764964798ffdedec5df4cfb2d3d62885281cd059096ab7f8f3afaf3390531",
-   "destination": "vendor/tools/fragment_writer/todblock.py"
-  },
   "fragment_writer/todfrag.py": {
    "sha256": "3d55d36df857359c1df51798986fad14eff0aa9de864a2253b461aafc2ff883d",
    "destination": "vendor/newmap/fragment_writer/todfrag.py"
@@ -36,10 +32,6 @@
   "level_streaming/submaptool.py": {
    "sha256": "fda9477e850051691f034ee0d1f35cd22194804797742e717694f39a8a637e1e",
    "destination": "vendor/tools/level_streaming/submaptool.py"
-  },
-  "make_new_map.py": {
-   "sha256": "055ec490823e70ee6ddd038ab04b964f11ef8c4d6653cb7ad102829726377a73",
-   "destination": "vendor/newmap/make_new_map.py"
   },
   "newgeo.py": {
    "sha256": "3143b3a7d7471a598045b564287677127ed1c97c21f0c18c2a33137c2e56eceb",
@@ -74,7 +66,7 @@
    "destination": "vendor/tools/save_editor/savefile.py"
   },
   "tex_gen.py": {
-   "sha256": "1bc15ded4b8de52882e92436356e10a11d04a98f72e45e83e1b8bde156dfbcd2",
+   "sha256": "b466556581267acbd7ff6f66893321b514da19656a9acb460435f657f2bbc39e",
    "destination": "vendor/newmap/tex_gen.py"
   }
  }

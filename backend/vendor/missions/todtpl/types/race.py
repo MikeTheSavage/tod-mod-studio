@@ -12,7 +12,7 @@ from ._base import make_spec
 MOD = sys.modules[__name__]
 NAME = 'race'
 TITLE = 'Checkpoint Run'
-SUMMARY = 'A timed on-foot run through nine checkpoints; every checkpoint adds time. Gates can be on the ground or on decks and ramps.'
+SUMMARY = 'A timed on-foot run through nine checkpoints; every checkpoint adds time.'
 HOST_NEEDS = ['Nine checkpoints you place (ground or deck); the player must be able to walk from each to the next in a straight leg.',
               'A free spot for the leftover Industrial-map props (a "park" point, never seen).',
               'Works in any new map or existing section; decks and ramps must come from the host map itself (give the gate its own y).']
@@ -26,16 +26,16 @@ COMMON = dict(giver=(24.0, -26.0, 8.0), name='CHECKPOINT RUN',
 _GATES_REL = [(35.0, -35.0), (35.0, -18.0), (35.0, 22.0), (35.0, -10.0), (34.0, -36.0), (-32.0, -33.0), (-33.0, 32.0), (-6.0, 32.0), (-6.0, -22.0)]
 
 PARAMS = [
-    P('gates', 'points', lambda h, p: [h.pt(x, z, None) for x, z in _GATES_REL], 'Checkpoints', 'The nine checkpoints in order (x, y, z). y = the ground or deck height under the gate (empty = ground). The last leg should come back to the start.', min_len=9, max_len=9, group='Placement'),
-    P('gate_radii', 'floats', [6.0] * 9, 'Checkpoint radius', 'Radius of each checkpoint sphere in metres (nine values, one per checkpoint). Use 4.5 on narrow decks.', min_len=9, max_len=9, group='Placement'),
-    P('park', 'point', lambda h, p: h.pt(60, 60, None), 'Parking spot', 'Where the leftover vehicles, forklift and mechanic of the template are parked (disabled, never seen). y empty = ground + 1.', group='Placement', advanced=True),
-    P('giver_npc_park', 'point', lambda h, p: h.pt(24, -5), 'Parked task giver', 'Where the template task-giver character is parked.', group='Placement', advanced=True),
-    P('goodie_start', 'point', lambda h, p: h.pt(23, -30), 'Goodie trail start', 'The first leg of the goodie trail starts here (the other legs follow the checkpoints).', group='Placement', advanced=True),
-    P('deck_rect', 'rect', lambda h, p: list(h.rr(32, -24, 38, 29)), 'Deck rectangle', 'Area of an elevated walkway; goodies inside it float at the deck height. Empty rectangle (all zeros) = none.', group='Placement', advanced=True),
-    P('deck_height', 'float', 4.2, 'Deck goodie height', 'Height above the ground of goodies lying on the deck.', min=0.0, max=20.0, unit='m', group='Placement', advanced=True),
-    P('start_time', 'float', 100.0, 'Start time', 'Seconds on the clock at the start (about 370 m of running needs about 90 s).', min=10.0, max=900.0, unit='s', group='Settings'),
-    P('add_points', 'int', 900, 'Time added per checkpoint', 'Racing-clock points added at each checkpoint (1/100 s). The engine gives about +3 s per gate whatever this is.', min=0, max=100000, group='Settings', advanced=True),
-    P('text_run', 'text', lambda h, p: 'Clear all %d checkpoints before the time runs out' % len(p['gates']), 'Objective text', 'The objective line.', group='Texts', max_len=70),
+    P('gates', 'points', lambda h, p: [h.pt(x, z, None) for x, z in _GATES_REL], 'Checkpoints', '', min_len=9, max_len=9, group='Placement'),
+    P('gate_radii', 'floats', [6.0] * 9, 'Checkpoint radius', '', min_len=9, max_len=9, group='Placement'),
+    P('park', 'point', lambda h, p: h.pt(60, 60, None), 'Parking spot', '', group='Placement', advanced=True),
+    P('giver_npc_park', 'point', lambda h, p: h.pt(24, -5), 'Parked task giver', '', group='Placement', advanced=True),
+    P('goodie_start', 'point', lambda h, p: h.pt(23, -30), 'Goodie trail start', '', group='Placement', advanced=True),
+    P('deck_rect', 'rect', lambda h, p: list(h.rr(32, -24, 38, 29)), 'Deck rectangle', '', group='Placement', advanced=True),
+    P('deck_height', 'float', 4.2, 'Deck goodie height', '', min=0.0, max=20.0, unit='m', group='Placement', advanced=True),
+    P('start_time', 'float', 100.0, 'Start time', '', min=10.0, max=900.0, unit='s', group='Settings'),
+    P('add_points', 'int', 900, 'Time added per checkpoint', '', min=0, max=100000, group='Settings', advanced=True),
+    P('text_run', 'text', lambda h, p: 'Clear all %d checkpoints before the time runs out' % len(p['gates']), 'Objective text', '', group='Texts', max_len=70),
 ]
 
 

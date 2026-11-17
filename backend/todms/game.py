@@ -10,11 +10,20 @@ import subprocess
 from . import paths
 
 GOG_EXE_MD5 = 'd9beb351b3c78ee9f14a766a368f3ff9'
-MOD_ZIP = 'todms_mods.zip'
-MISSIONS_ZIP = 'todms_missions.zip'      # mission templates package (missions_tpl.py)
+PACK_ZIP = 'todms_pack.zip'              # the ONE archive Mod Studio writes (pack.py): mods, then new maps, then missions
+MOD_ZIP = 'todms_mods.zip'               # the three archives of versions before the pack; migrated on first start
+MISSIONS_ZIP = 'todms_missions.zip'
+NEWMAP_PREFIX = 'todms_newmap_'
+# The line a fresh GOG install lists (the engine adds uk_sounds.naz by itself: the GOG install mounts 5 archives, see GOG_ARCHIVES).
 DEFAULT_FS = ['blocks.naz', 'sounds.naz', 'videos00.naz', 'videos01.naz']
+GOG_ARCHIVES = DEFAULT_FS + ['uk_sounds.naz']
 SHARED = 'data_pc/overdose_the_game/overdose/shared/'
 MAIN_ENTRY = SHARED + 'overdose.main'
+
+
+def is_own_archive(name):
+    n = name.lower()
+    return n in (PACK_ZIP, MOD_ZIP, MISSIONS_ZIP) or n.startswith(NEWMAP_PREFIX)
 
 
 def md5_file(p):
@@ -29,7 +38,8 @@ def read_configpc(folder):
     p = os.path.join(folder, 'configpc.txt')
     if not os.path.exists(p):
         return []
-    return open(p, 'r', encoding='latin-1').read().splitlines()
+    with open(p, 'r', encoding='latin-1') as f:
+        return f.read().splitlines()
 
 
 def filesystem_line(lines):
@@ -71,6 +81,17 @@ def game_running(folder=None):
     return False
 
 
+def chain_signature(folder, names):
+    sig = []
+    for a in names:
+        try:
+            st = os.stat(os.path.join(folder, a))
+            sig.append([a, st.st_size, st.st_mtime_ns])
+        except OSError:
+            sig.append([a, None, None])
+    return sig
+
+
 class Game:
     def __init__(self, folder):
         self.folder = os.path.abspath(folder)
@@ -102,7 +123,7 @@ class Game:
         fs = filesystem_line(read_configpc(self.folder)) or DEFAULT_FS
         out = []
         for a in fs:
-            if a.lower() in (MOD_ZIP, MISSIONS_ZIP) or a.lower().startswith('todms_newmap_') or not a.lower().endswith(('.zip', '.naz')):
+            if is_own_archive(a) or not a.lower().endswith(('.zip', '.naz')):
                 continue
             if a.lower() in ('sounds.naz', 'videos00.naz', 'videos01.naz', 'uk_sounds.naz'):
                 continue
@@ -111,6 +132,10 @@ class Game:
         if 'blocks.naz' not in [x.lower() for x in out]:
             out.append('blocks.naz')
         return out
+
+    def signature(self):
+        """[[name, size, mtime_ns]] of every archive of the effective chain: what an install was built on."""
+        return chain_signature(self.folder, self.chain('effective'))
 
     def hd_zips(self):
         return [a for a in self.chain('effective') if a.lower().startswith('hd_override')]

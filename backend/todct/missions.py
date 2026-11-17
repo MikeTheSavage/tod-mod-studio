@@ -1,4 +1,4 @@
-"""Mission graph editor core (companion tools part B), shared by the Unreal TODLevelEditor plugin and TOD Mod Studio.
+"""Mission graph editor core (companion tools part B) of TOD Mod Studio.
 
 A mission is data: trigger trees in the fragments of a .mission block (docs/subsystem_mission_scripting.md 5).
 A root (box, sphere, Node or NodeLogical) owns conditions (each waits for one event code, TrueOn, from an activator)
@@ -445,7 +445,7 @@ def verify(entry, ops, raw_before, raw_after):
 
 # ---------------------------------------------------------------------------------------------- preview (for the UIs)
 def preview(g, ops):
-    """The graph with the ops applied (fast, no build): what the editors draw between builds. Built and verified
+    """The graph with the ops applied (fast, no build): what the editor draws between builds. Built and verified
     graphs come from graph() on the built block."""
     import copy
     g = copy.deepcopy(g)

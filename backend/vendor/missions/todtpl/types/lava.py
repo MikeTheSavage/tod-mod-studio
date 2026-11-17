@@ -17,7 +17,7 @@ from ._base import make_spec
 MOD = sys.modules[__name__]
 NAME = 'lava'
 TITLE = 'Floor Is Lava'
-SUMMARY = 'Climb onto a platform and cross a chain of stones, ramps and walkways to a goal zone. Touching the ground fails the mission.'
+SUMMARY = 'Climb onto a platform and cross a chain of stones, ramps and walkways to a goal zone.'
 HOST_NEEDS = ['Stepping stones: a start platform, a chain of stones / crates / ramps (1.3 m or more high, jumpable gaps) and a goal platform that the HOST MAP provides as geometry.',
               'The lava boxes cover the floor of the lava area except the "safe" rectangles you give (the stones\' footprints), so the safe rectangles must match the real geometry.',
               'Free ground for three shooters. Works in a new map you build the stones into; an existing map section only if it has such a chain of props.']
@@ -53,25 +53,25 @@ def lava_boxes_from_safe(area, safe):
 
 
 PARAMS = [
-    P('start_zone', 'point', lambda h, p: h.pt(11.5, -36), 'Start zone', 'Centre of the start zone on the first platform (x, y, z). y = the height of the surface the player stands on.', group='Placement'),
-    P('start_size', 'floats', [2.4, 2.0, 2.6], 'Start zone size', 'Width, height, length of the start zone (m).', min_len=3, max_len=3, group='Placement', advanced=True),
-    P('goal_zone', 'point', lambda h, p: h.pt(35, 25), 'Goal zone', 'Centre of the goal zone (x, y, z). y = the height of the walkway / platform surface it stands on.', group='Placement'),
-    P('goal_size', 'floats', [3.6, 3.0, 6.0], 'Goal zone size', 'Width, height, length of the goal zone (m).', min_len=3, max_len=3, group='Placement', advanced=True),
-    P('goal_prop', 'point', lambda h, p: h.pt(35, 27), 'Goal marker', 'Where the template\'s goal marker prop stands (decoration, on the goal surface).', group='Placement', advanced=True),
-    P('shooters', 'points', lambda h, p: [h.pt(12, -16), h.pt(26, -12), h.pt(22, 6)], 'Shooter positions', 'Where the three ground shooters stand (x, y, z).', min_len=3, max_len=3, group='Placement'),
-    P('lava_area', 'rect', lambda h, p: list(h.rr(-39.5, -39.5, 39.5, 39.5)), 'Lava area', 'Rectangle [x0, z0, x1, z1] of floor that is lava (everything outside it is safe).', group='Placement'),
-    P('safe_rects', 'rects', [], 'Safe footprints', 'Rectangles of the stones, platforms, ramps and walkways the player may stand on. Used to cut the lava out of the lava area when "Lava boxes" is empty.', group='Placement'),
-    P('lava_boxes', 'rects', [], 'Lava boxes', 'Rectangles that burn, each [x0, z0, x1, z1]. Empty = computed from the lava area minus the safe footprints.', group='Placement', advanced=True),
-    P('park', 'point', lambda h, p: h.pt(-60, 55, None), 'Parking spot', 'Where leftover template content is parked (disabled).', group='Placement', advanced=True),
-    P('snap_to_free_ground', 'bool', True, 'Keep clear of obstacles', 'Move shooters that fall inside a wall or prop to the nearest free ground.', group='Placement', advanced=True),
-    P('lava_height', 'float', 1.0, 'Lava depth', 'Height of the lava boxes above the ground. A player standing on a prop at least 0.3 m higher is safe.', min=0.3, max=3.0, unit='m', group='Settings'),
-    P('fail_delay', 'float', 1.5, 'Burn delay', 'Seconds between touching the lava and MISSION FAILED.', min=0.0, max=10.0, unit='s', group='Settings', advanced=True),
-    P('enemy_health', 'float', 0.3, 'Shooter health', 'Health multiplier (1.0 = normal).', min=0.05, max=3.0, group='Settings'),
-    P('enemy_damage', 'float', 0.12, 'Shooter damage', 'Damage multiplier (1.0 = normal).', min=0.0, max=3.0, group='Settings'),
-    P('text_start', 'text', 'Climb onto the first platform', 'Objective 1 text', 'First objective line.', group='Texts', max_len=60),
-    P('text_cross', 'text', 'Cross the compound without touching the sand', 'Objective 2 text', 'Second objective line.', group='Texts', max_len=60),
-    P('text_goal', 'text', 'Reach the end of the walkway', 'Objective 3 text', 'Third objective line.', group='Texts', max_len=60),
-    P('text_burnt', 'text', 'The floor is lava! You touched the sand.', 'Burn text', 'Shown when the player touches the lava.', group='Texts', max_len=60),
+    P('start_zone', 'point', lambda h, p: h.pt(11.5, -36), 'Start zone', '', group='Placement'),
+    P('start_size', 'floats', [2.4, 2.0, 2.6], 'Start zone size', '', min_len=3, max_len=3, group='Placement', advanced=True),
+    P('goal_zone', 'point', lambda h, p: h.pt(35, 25), 'Goal zone', '', group='Placement'),
+    P('goal_size', 'floats', [3.6, 3.0, 6.0], 'Goal zone size', '', min_len=3, max_len=3, group='Placement', advanced=True),
+    P('goal_prop', 'point', lambda h, p: h.pt(35, 27), 'Goal marker', '', group='Placement', advanced=True),
+    P('shooters', 'points', lambda h, p: [h.pt(12, -16), h.pt(26, -12), h.pt(22, 6)], 'Shooter positions', '', min_len=3, max_len=3, group='Placement'),
+    P('lava_area', 'rect', lambda h, p: list(h.rr(-39.5, -39.5, 39.5, 39.5)), 'Lava area', '', group='Placement'),
+    P('safe_rects', 'rects', [], 'Safe footprints', '', group='Placement'),
+    P('lava_boxes', 'rects', [], 'Lava boxes', '', group='Placement', advanced=True),
+    P('park', 'point', lambda h, p: h.pt(-60, 55, None), 'Parking spot', '', group='Placement', advanced=True),
+    P('snap_to_free_ground', 'bool', True, 'Keep clear of obstacles', '', group='Placement', advanced=True),
+    P('lava_height', 'float', 1.0, 'Lava depth', 'A prop 0.3 m higher is safe', min=0.3, max=3.0, unit='m', group='Settings'),
+    P('fail_delay', 'float', 1.5, 'Burn delay', '', min=0.0, max=10.0, unit='s', group='Settings', advanced=True),
+    P('enemy_health', 'float', 0.3, 'Shooter health', '', min=0.05, max=3.0, group='Settings'),
+    P('enemy_damage', 'float', 0.12, 'Shooter damage', '', min=0.0, max=3.0, group='Settings'),
+    P('text_start', 'text', 'Climb onto the first platform', 'Objective 1 text', '', group='Texts', max_len=60),
+    P('text_cross', 'text', 'Cross the compound without touching the sand', 'Objective 2 text', '', group='Texts', max_len=60),
+    P('text_goal', 'text', 'Reach the end of the walkway', 'Objective 3 text', '', group='Texts', max_len=60),
+    P('text_burnt', 'text', 'The floor is lava! You touched the sand.', 'Burn text', '', group='Texts', max_len=60),
 ]
 
 

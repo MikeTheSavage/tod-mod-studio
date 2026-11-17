@@ -1,0 +1,103 @@
+{
+ "id": "starter-level-tweak",
+ "name": "Example: a level tweak",
+ "author": "",
+ "description": "Two invisible walls that close a gap in the jungle.",
+ "level": [
+  {
+   "op": "add",
+   "uid": "w1",
+   "entry": "data_pc/overdose_the_game/overdose/shared/mainmap_map09_jungle.map",
+   "template": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mainmap_map09_jungle.map",
+    "frag": "/data/Overdose_THE_GAME/Maps/Map09_Jungle/MAINMAP_Map09_Jungle.fragment",
+    "node": "0x00200003"
+   },
+   "name": "TODMS_wall_w1",
+   "pos": [
+    -896.5,
+    -124.67,
+    -2260.188
+   ],
+   "rot": [
+    0,
+    0.7071067811865475,
+    0,
+    0.7071067811865475
+   ],
+   "set": {
+    "width": 6,
+    "height": 3,
+    "length": 0.5,
+    "CollisionFlags": 3
+   },
+   "view": {
+    "type": "CollisionBox",
+    "cat": "wall",
+    "size": [
+     6,
+     3,
+     0.5
+    ],
+    "sub": {
+     "CollisionFlags": 79
+    },
+    "kindLabel": "Invisible wall",
+    "name": "SunBlockerForElevatorShaft"
+   }
+  },
+  {
+   "op": "add",
+   "uid": "w2",
+   "entry": "data_pc/overdose_the_game/overdose/shared/mainmap_map09_jungle.map",
+   "template": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mainmap_map09_jungle.map",
+    "frag": "/data/Overdose_THE_GAME/Maps/Map09_Jungle/MAINMAP_Map09_Jungle.fragment",
+    "node": "0x00200003"
+   },
+   "name": "TODMS_wall_w2",
+   "pos": [
+    -896.5,
+    -124.67,
+    -2266.188
+   ],
+   "rot": [
+    0,
+    0.7071067811865475,
+    0,
+    0.7071067811865475
+   ],
+   "set": {
+    "width": 6,
+    "height": 3,
+    "length": 0.5,
+    "CollisionFlags": 3
+   },
+   "view": {
+    "type": "CollisionBox",
+    "cat": "wall",
+    "size": [
+     6,
+     3,
+     0.5
+    ],
+    "sub": {
+     "CollisionFlags": 79
+    },
+    "kindLabel": "Invisible wall",
+    "name": "SunBlockerForElevatorShaft"
+   }
+  }
+ ],
+ "data": {},
+ "collision": [],
+ "models": [],
+ "textures": [],
+ "view": {
+  "map": "map09",
+  "section": "data_pc/overdose_the_game/overdose/shared/submap01_map09_jungle.submap",
+  "missions": []
+ },
+ "format": "todms-mod",
+ "version": 1
+}

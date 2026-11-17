@@ -98,7 +98,7 @@ def dds_to_png_bytes(path):
 
 def has_transparency(rgba):
     """True if the texture has genuinely transparent texels (alpha well below opaque). Used to set
-    glTF alphaMode=MASK so sign/decal/effect cards don't render as opaque gray quads in UE."""
+    glTF alphaMode=MASK so sign/decal/effect cards don't render as opaque gray quads in viewers."""
     mn = 255
     for i in range(3, len(rgba), 4 * 5):   # sample alpha every 5th texel
         if rgba[i] < mn:

@@ -9,7 +9,8 @@ from . import paths
 
 
 def saves_dir():
-    return os.path.join(os.path.expanduser('~'), 'Documents', 'Total Overdose', 'savegames')
+    """The game's save folder. TODMS_SAVES overrides it (tests and the proof environment never touch the real saves)."""
+    return os.environ.get('TODMS_SAVES') or os.path.join(os.path.expanduser('~'), 'Documents', 'Total Overdose', 'savegames')
 
 
 def out_dir():
@@ -53,13 +54,70 @@ def list_slots(ws, folder=None):
     return dict(folder=folder, slots=out)
 
 
-def make(ws, source, pos=None, yaw=None, heal=False, weapons=False, start_mission=None, name=None):
+CHEATS = (('god', 'GodModeOn'), ('ammo', 'UnlimitedAmmo'))
+
+
+def missions(ws, source):
+    """The valid missions of a save, for a "start this mission" list: [{i, name, type}]."""
+    savefile, editlib = _modules(ws)
+    s = editlib.Save(savefile.decode(open(source, 'rb').read()))
+    return [dict(i=m['i'], name=m['name'], type=m['type']) for m in editlib.summary(s)['missions']]
+
+
+_AWARDS = {}
+
+
+def award_submaps(ws):
+    """{mission index: Mission_SubMap} from the game's mission awards: the submap the engine loads when the mission starts.
+    (The mission list in a save holds the award's Mission_StartMap instead, which differs for missions 5, 8, 10, 18, 20 and 23.)"""
+    from . import newmap
+    key = (ws.game.base(), getattr(ws.game, 'naz', None))
+    if key in _AWARDS:
+        return _AWARDS[key]
+    r = newmap.load_recipe()
+    ft, fe, tb, S = r.ft, r.fe, r.tb, r.S
+    old = (ft._arch, ft.GOG_NAZ)
+    out = {}
+    try:
+        ft._arch, ft.GOG_NAZ = ws.game.base(), ws.game.naz
+        T = ft.types()
+        b = tb.Block(ft.archive().read(r.MAIN), '.main')
+        for nm, k in S.frags_of(b).items():
+            if 'missiondict' not in nm.lower():
+                continue
+            d = fe.FragDoc(b.payloads[k], T, nm)
+            for n in d.created_ids():
+                if (d.type_of(n) or '').startswith('database_mission_award'):
+                    m, sub = d.get(n, 'Mission'), d.get(n, 'Mission_SubMap')
+                    if m is not None and sub is not None:
+                        out[int(m)] = int(sub)
+    finally:
+        ft._arch, ft.GOG_NAZ = old
+    _AWARDS[key] = out
+    return out
+
+
+# A save made by start_mission loads its blocks but the game then fails on the first script read (fault 0xC0000005 at 0x489E50, or a
+# hang), also from a save with a map loaded (M0 q9 runs, 2026-11-15). Such saves are for inspection only.
+START_MISSION_PLAYABLE = False
+START_MISSION_NOTE = 'A save that starts a mission cannot be played yet: the game stops on it. Walk to the mission giver instead.'
+
+
+def make(ws, source, pos=None, yaw=None, heal=False, weapons=False, start_mission=None, name=None, god=False, ammo=False, unlock=None,
+         dest=None):
+    """A new save file from a copy of `source`. god / ammo write the game's own cheat flags (master_control_cheat_ctrl), unlock 'open' opens
+    every mission. The slots do not keep a mission's script step, so the furthest a save can start a mission is its beginning."""
     savefile, editlib = _modules(ws)
     s = editlib.Save(savefile.decode(open(source, 'rb').read()))
     log = []
     if start_mission is not None:
-        r = editlib.start_mission(s, int(start_mission), player_at_teleport=pos is None)
+        try:
+            sub = award_submaps(ws).get(int(start_mission))
+        except Exception:                               # noqa: BLE001  (an unreadable award table keeps the old source)
+            sub = None
+        r = editlib.start_mission(s, int(start_mission), player_at_teleport=pos is None, submap=sub)
         log.append(['start_mission', {k: v for k, v in r.items() if k not in ('moved', 'blocks')}])
+        log.append(['not_playable', START_MISSION_NOTE])
     if pos is not None:
         log.append(['move_player', s.move_player([float(x) for x in pos], None if yaw is None else float(yaw))])
     if heal:
@@ -67,15 +125,28 @@ def make(ws, source, pos=None, yaw=None, heal=False, weapons=False, start_missio
     if weapons:
         s.give_weapons('all', 'max')
         log.append(['give_weapons', 'all'])
+    if unlock in ('open', 'complete'):
+        log.append(['unlock', s.unlock(unlock)])
+    notes = []
+    for want, prop in ((god, 'GodModeOn'), (ammo, 'UnlimitedAmmo')):
+        if not want:
+            continue
+        try:
+            k = s.node1(r'master_control_cheat_ctrl\(NodeLogical\)')
+            log.append(['cheat', prop, s.set(k, prop, True)])
+        except (KeyError, ValueError) as e:
+            notes.append('%s could not be written into this save: %s' % (prop, e))
     b = savefile.encode(s.j)
     j2 = savefile.decode(b)
     ok = all(j2['checks'].values()) and not j2['parse_problems']
     if not ok:
         raise RuntimeError('the rebuilt save does not decode cleanly: %s' % j2['checks'])
     fn = name or 'TestSave_%s' % datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
-    p = os.path.join(out_dir(), fn)
+    d = dest or out_dir()
+    os.makedirs(d, exist_ok=True)
+    p = os.path.join(d, fn)
     open(p, 'wb').write(b)
-    return dict(path=p, bytes=len(b), log=log, checks=j2['checks'], player=editlib.Save(j2).player_pos())
+    return dict(path=p, bytes=len(b), log=log, notes=notes, checks=j2['checks'], player=editlib.Save(j2).player_pos())
 
 
 def install(ws, made, slot_name, folder=None):

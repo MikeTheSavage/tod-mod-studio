@@ -12,7 +12,7 @@ from ._base import make_spec
 MOD = sys.modules[__name__]
 NAME = 'marked'
 TITLE = 'Marked Man'
-SUMMARY = 'One bandit in a crowd is the marked man (chosen at random each play). Kill him; every wrong kill is a strike.'
+SUMMARY = 'One bandit in a crowd is the marked man (chosen at random each play).'
 HOST_NEEDS = ['A free, flat area of about 24 x 18 m where the crowd stands (bandits are spread over it, at least 3.5 m apart).',
               'A free strip (76 x 10 m) for the spare placeholders (parked, disabled).',
               'Works in any new map or existing section with flat ground.']
@@ -25,20 +25,20 @@ COMMON = dict(giver=(-14.0, -1.0, 6.0), name='MARKED MAN',
 HUD_NAME = 62
 
 PARAMS = [
-    P('crowd', 'rect', lambda h, p: list(h.rr(-12, -10, 12, 8)), 'Crowd area', 'Rectangle [x0, z0, x1, z1] the bandits are spread over.', group='Placement'),
-    P('spare_region', 'rect', lambda h, p: list(h.rr(-38, 28, 38, 38)), 'Spare strip', 'Where the enemies that do not take part are parked (disabled).', group='Placement', advanced=True),
-    P('cone_zone', 'point', lambda h, p: h.pt(-14, -30), 'Parked tutorial zone', 'Where the template\'s (disabled) tutorial zone and arrow stand.', group='Placement', advanced=True),
-    P('giver_npc_park', 'point', lambda h, p: h.pt(-24, 9), 'Parked task giver', 'Where the template task-giver character is parked.', group='Placement', advanced=True),
-    P('snap_to_free_ground', 'bool', True, 'Keep clear of obstacles', 'Move spots that fall inside a wall or prop to the nearest free ground.', group='Placement', advanced=True),
-    P('bandits', 'int', 5, 'Number of bandits', 'Bandits in the crowd (one of them is marked).', min=2, max=29, group='Settings'),
-    P('strikes', 'int', 3, 'Strikes allowed', 'Wrong kills that fail the mission.', min=1, max=20, group='Settings'),
-    P('countdown', 'float', 120.0, 'Time limit', 'Seconds on the clock.', min=20.0, max=900.0, unit='s', group='Settings'),
-    P('enemy_health', 'float', 0.3, 'Bandit health', 'Health multiplier (1.0 = normal).', min=0.05, max=3.0, group='Settings'),
-    P('enemy_damage', 'float', 0.1, 'Bandit damage', 'Damage multiplier (1.0 = normal).', min=0.0, max=3.0, group='Settings'),
-    P('text_find', 'text', 'Kill the marked bandit before the time runs out', 'Objective text', 'The objective line.', group='Texts', max_len=70),
-    P('text_strikes', 'text', 'Do not kill the wrong bandits', 'Strikes text', 'The strikes objective line.', group='Texts', max_len=60),
-    P('text_strikes_cnt', 'text', '%0 out of %1 wrong bandits killed', 'Strikes counter text', 'The strikes counter line.', group='Texts', max_len=50),
-    P('text_wrong', 'text', 'Wrong bandit! That is a strike', 'Strike text', 'Shown at every wrong kill.', group='Texts', max_len=50),
+    P('crowd', 'rect', lambda h, p: list(h.rr(-12, -10, 12, 8)), 'Crowd area', '', group='Placement'),
+    P('spare_region', 'rect', lambda h, p: list(h.rr(-38, 28, 38, 38)), 'Spare strip', '', group='Placement', advanced=True),
+    P('cone_zone', 'point', lambda h, p: h.pt(-14, -30), 'Parked tutorial zone', '', group='Placement', advanced=True),
+    P('giver_npc_park', 'point', lambda h, p: h.pt(-24, 9), 'Parked task giver', '', group='Placement', advanced=True),
+    P('snap_to_free_ground', 'bool', True, 'Keep clear of obstacles', '', group='Placement', advanced=True),
+    P('bandits', 'int', 5, 'Number of bandits', '', min=2, max=29, group='Settings'),
+    P('strikes', 'int', 3, 'Strikes allowed', '', min=1, max=20, group='Settings'),
+    P('countdown', 'float', 120.0, 'Time limit', '', min=20.0, max=900.0, unit='s', group='Settings'),
+    P('enemy_health', 'float', 0.3, 'Bandit health', '', min=0.05, max=3.0, group='Settings'),
+    P('enemy_damage', 'float', 0.1, 'Bandit damage', '', min=0.0, max=3.0, group='Settings'),
+    P('text_find', 'text', 'Kill the marked bandit before the time runs out', 'Objective text', '', group='Texts', max_len=70),
+    P('text_strikes', 'text', 'Do not kill the wrong bandits', 'Strikes text', '', group='Texts', max_len=60),
+    P('text_strikes_cnt', 'text', '%0 out of %1 wrong bandits killed', 'Strikes counter text', '', group='Texts', max_len=50),
+    P('text_wrong', 'text', 'Wrong bandit! That is a strike', 'Strike text', '', group='Texts', max_len=50),
 ]
 
 

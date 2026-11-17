@@ -10,7 +10,7 @@ from ._base import make_spec
 MOD = sys.modules[__name__]
 NAME = 'showdown'
 TITLE = 'Showdown'
-SUMMARY = 'Walk to a bandit camp, shoot the gang, then return to a marked strip. Three bandits stand at positions you choose.'
+SUMMARY = 'Walk to a bandit camp, shoot the gang, then return to a marked strip.'
 HOST_NEEDS = ['Free, flat ground for the camp (about 20 x 20 m) and for the two zones.',
               'Walkable ground between the start spot and the camp; nothing else (no roads, no buildings).',
               'Works in any new map and in any existing map section that has flat ground.']
@@ -23,19 +23,19 @@ TEMPLATE_BLOCK_VARIANT = 'variant:d1'      # made from the player's own blocks b
 ENEMY_NAMES = ['SubM_04_Down_SomSal_Kill_Peter', 'SubM_04_Down_SomSal_Kill_Peter01', 'SubM_04_Down_SomSal_Kill_Brian']
 
 PARAMS = [
-    P('bandits', 'points', lambda h, p: [h.pt(0, 8), h.pt(6, 11), h.pt(-6, 11)], 'Bandit positions', 'Where the three bandits stand (x, y, z). The template has exactly three.', min_len=3, max_len=3, group='Placement'),
-    P('go_zone', 'point', lambda h, p: h.pt(0, -13), 'Camp zone', 'Centre of the zone the player walks into to "reach the camp".', group='Placement'),
-    P('go_width', 'float', 14.0, 'Camp zone width', 'East-west size of the camp zone.', min=4.0, max=60.0, unit='m', group='Placement'),
-    P('go_length', 'float', 4.0, 'Camp zone length', 'North-south size of the camp zone.', min=2.0, max=60.0, unit='m', group='Placement'),
-    P('return_zone', 'point', lambda h, p: h.pt(5, -26), 'Return zone', 'Centre of the strip the player must reach after the kills (enabled once enough bandits are dead).', group='Placement'),
-    P('return_width', 'float', 50.0, 'Return zone width', 'East-west size of the return zone.', min=4.0, max=80.0, unit='m', group='Placement'),
-    P('return_length', 'float', 16.0, 'Return zone length', 'North-south size of the return zone.', min=2.0, max=60.0, unit='m', group='Placement'),
-    P('prop_pos', 'point', lambda h, p: h.pt(5, -25), 'Burrito prop', 'Position of the template prop that sits in the return zone (decoration).', group='Placement', advanced=True),
-    P('kills_needed', 'int', 2, 'Kills needed', 'How many of the three bandits must die before the return zone opens.', min=1, max=3, group='Settings'),
-    P('enemy_health', 'float', 0.3, 'Bandit health', 'Health multiplier (1.0 = normal).', min=0.05, max=3.0, group='Settings'),
-    P('enemy_damage', 'float', 0.2, 'Bandit damage', 'Damage multiplier (1.0 = normal).', min=0.0, max=3.0, group='Settings'),
-    P('text_go', 'text', 'Reach the bandit camp', 'Objective 1 text', 'First objective line.', group='Texts', max_len=60),
-    P('text_back', 'text', 'Return to the gate', 'Objective 3 text', 'Last objective line.', group='Texts', max_len=60),
+    P('bandits', 'points', lambda h, p: [h.pt(0, 8), h.pt(6, 11), h.pt(-6, 11)], 'Bandit positions', '', min_len=3, max_len=3, group='Placement'),
+    P('go_zone', 'point', lambda h, p: h.pt(0, -13), 'Camp zone', '', group='Placement'),
+    P('go_width', 'float', 14.0, 'Camp zone width', '', min=4.0, max=60.0, unit='m', group='Placement'),
+    P('go_length', 'float', 4.0, 'Camp zone length', '', min=2.0, max=60.0, unit='m', group='Placement'),
+    P('return_zone', 'point', lambda h, p: h.pt(5, -26), 'Return zone', '', group='Placement'),
+    P('return_width', 'float', 50.0, 'Return zone width', '', min=4.0, max=80.0, unit='m', group='Placement'),
+    P('return_length', 'float', 16.0, 'Return zone length', '', min=2.0, max=60.0, unit='m', group='Placement'),
+    P('prop_pos', 'point', lambda h, p: h.pt(5, -25), 'Burrito prop', '', group='Placement', advanced=True),
+    P('kills_needed', 'int', 2, 'Kills needed', '', min=1, max=3, group='Settings'),
+    P('enemy_health', 'float', 0.3, 'Bandit health', '', min=0.05, max=3.0, group='Settings'),
+    P('enemy_damage', 'float', 0.2, 'Bandit damage', '', min=0.0, max=3.0, group='Settings'),
+    P('text_go', 'text', 'Reach the bandit camp', 'Objective 1 text', '', group='Texts', max_len=60),
+    P('text_back', 'text', 'Return to the gate', 'Objective 3 text', '', group='Texts', max_len=60),
 ]
 
 

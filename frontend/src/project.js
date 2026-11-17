@@ -4,11 +4,11 @@ import { useCallback, useEffect, useReducer } from 'react'
 const KEY = 'todms.project.v1'
 
 export function emptyProject() {
-  return { id: null, name: 'My mod', author: '', description: '', level: [], data: {}, collision: [], view: null }
+  return { id: null, name: 'My mod', author: '', description: '', level: [], data: {}, collision: [], models: [], textures: [], view: null }
 }
 
 function load() {
-  try { const p = JSON.parse(localStorage.getItem(KEY)); if (p && p.level) return { collision: [], ...p } } catch { /* first run */ }
+  try { const p = JSON.parse(localStorage.getItem(KEY)); if (p && p.level) return { collision: [], models: [], textures: [], ...p } } catch { /* first run */ }
   return emptyProject()
 }
 

@@ -1,8 +1,7 @@
 """Import the project's verified TOD tools for the core.
 
-Two hosts:
-  - the Unreal plugin's backend (system Python 3.12): the author's TOD Project tools (env TOD_TOOLS, read only, never modified);
-  - TOD Mod Studio: its vendored copy (backend/vendor/tools), already on sys.path through todms.paths.setup_tools().
+The tools are Mod Studio's vendored copy (backend/vendor/tools), already on sys.path through
+todms.paths.setup_tools().
 The core needs: fragment_writer (fragtool, fragedit, todfrag, todblock), model_writer (todmodel, model_writer,
 model_edit) and todcoll. model_edit / model_writer insert their own folders at the FRONT of sys.path when imported;
 that order is restored here so the host's module choice (e.g. Mod Studio's newer tod_model_extract) stays.
@@ -26,6 +25,27 @@ def _importable(name):
         return True
     except ImportError:
         return False
+
+
+def _patch_hulls(mw):
+    """The gift-wrapping hull stacks a triangle on every coplanar point triple; a blob shadow darkens once per layer.
+    Every hull Mod Studio builds goes through model_writer.convex_hull, so it is cleaned to one fan per plane here."""
+    if getattr(mw.convex_hull, 'one_layer', False):
+        return
+    from . import hullclean
+    raw = mw.convex_hull
+
+    def convex_hull(points, eps=1e-6):
+        V, F = raw(points, eps)
+        return hullclean.clean(V, F)
+    convex_hull.one_layer = True
+    mw.convex_hull = convex_hull
+    shape = mw.hull_shape
+
+    def hull_shape(verts, faces, *a, **kw):
+        hullclean.audit(verts, faces, kw.get('aux_name') or '')
+        return shape(verts, faces, *a, **kw)
+    mw.hull_shape = hull_shape
 
 
 def load():
@@ -57,6 +77,8 @@ def load():
     # model_edit put model_writer and model_writer/proj first: restore the host's order (keep any new entries last)
     added = [p for p in sys.path if p not in before]
     sys.path[:] = before + [p for p in added if p not in before]
+
+    _patch_hulls(mw)
 
     class NS:
         pass

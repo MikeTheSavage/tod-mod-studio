@@ -1,7 +1,6 @@
 """Companion tools part B in Mod Studio: routes and nav, mission graph, sections and transitions.
 
-The logic is the shared core (backend/todct: nav, missions, sections, edits, blockedit), vendored from the Unreal
-TODLevelEditor plugin, so a mod made in either editor builds the same bytes. Blocks are read through the workspace
+The logic is the core in backend/todct (nav, missions, sections, edits, blockedit). Blocks are read through the workspace
 (ws.read_block: TOD HD's blocks when installed and "build on installed" is on, else blocks.naz).
 
 The edits live in the mod: mod['nav'], mod['missions'], mod['sections'] (op grammar: todct/nav.py, missions.py,

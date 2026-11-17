@@ -1,6 +1,6 @@
 """Vendor the new-map recipe and its local Python dependency closure; --check compares without writing.
 
-TOD_NEWMAP_SRC names the read-only recipe tools directory (the author's work folder, not included). Identical modules already shipped in
+TOD_NEWMAP_SRC overrides the read-only recipe tools directory. Identical modules already shipped in
 vendor/tools are reused. Different modules are copied verbatim under vendor/newmap.
 
 ONE submaptool: the recipe's copy (it has clone_of_file, which new-geometry maps and the mission templates need) is the
@@ -16,13 +16,12 @@ import shutil
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-SRC_ENV = os.environ.get('TOD_NEWMAP_SRC', '')
-SRC = Path(SRC_ENV)
+SRC = Path(os.environ.get('TOD_NEWMAP_SRC', '') or '/no-newmap-source')
 DST = ROOT / 'backend/vendor/newmap'
 TOOLS = ROOT / 'backend/vendor/tools'
 REC = ROOT / 'backend/vendor/NEWMAP.json'
 SUBMAPTOOL = 'level_streaming/submaptool.py'
-# the tools path exactly as the upstream sources write it (see scripts/patch_vendor.py); unset: the path patch is skipped
+# the tools path exactly as the upstream sources write it; unset: the path patch is skipped
 UPSTREAM = os.environ.get('TOD_UPSTREAM_TOOLS_PATH', '')
 PATH_PATCH = ('PROJ_TOOLS = r"' + UPSTREAM + '"', 'PROJ_TOOLS = os.path.dirname(HERE)') if UPSTREAM else None
 
@@ -39,6 +38,11 @@ def wanted_bytes(rel, p):
             raise SystemExit('submaptool: the sibling-tools path line changed upstream')
         data = data.replace(old, new)
     return data
+
+
+# Mod Studio owns make_new_map.py since wave 3 (backend/todms/newmap_recipe): it is walked for its imports but not vendored.
+# fragment_writer/todblock.py carries the record-scan guard (a name pointer must start a string) in every vendored copy of the block reader.
+FORKED = ('make_new_map.py', 'fragment_writer/todblock.py')
 
 
 def dependencies():
@@ -59,16 +63,11 @@ def dependencies():
                     if candidate.is_file():
                         pending.append(candidate)
                         break
-    return found
+    return {k: v for k, v in found.items() if k not in FORKED}
 
 
 def main():
     check = '--check' in sys.argv
-    if not SRC_ENV or not SRC.is_dir():
-        print('set TOD_NEWMAP_SRC to the new-map recipe tools folder')
-        return 1
-    if PATH_PATCH is None:
-        print('note: TOD_UPSTREAM_TOOLS_PATH is not set; the submaptool path patch is skipped')
     found = dependencies()
     records = {}
     for rel, p in sorted(found.items()):

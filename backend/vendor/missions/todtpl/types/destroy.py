@@ -12,7 +12,7 @@ from ._base import make_spec
 MOD = sys.modules[__name__]
 NAME = 'destroy'
 TITLE = 'Destroy & Collect'
-SUMMARY = 'Blow up three stands, pick up the packs they drop and deliver them to a zone. Five guards defend the stands.'
+SUMMARY = 'Blow up three stands, pick up the packs they drop and deliver them to a zone.'
 HOST_NEEDS = ['Three free spots for the stands (3 m clearance, the packs lie 3.5 m behind) with guards standing 6-10 m from each.',
               'A delivery zone and a free spot for a pickup; a parking strip for leftovers.',
               'Needs the Downtown submap data blocks (burrito stand model, pack model) installed: they are copied into the mission block.',
@@ -31,23 +31,23 @@ COKE_NODES = {1: (0x300B1E, 0x300B1F), 2: (0x300B27, 0x300B28), 3: (0x300B32, 0x
 FIGHTERS = {0x400029: (0, (-9.0, -6.0)), 0x400059: (0, (-6.0, -3.0)), 0x400082: (1, (-9.0, -4.0)), 0x40009F: (2, (-10.0, 4.0)), 0x4000AF: (2, (-7.0, -3.0))}
 
 PARAMS = [
-    P('stands', 'points', lambda h, p: [h.pt(27, 10), h.pt(27, 27), h.pt(27, -9)], 'Stand positions', 'The three burrito stands (x, y, z). Guards stand 6-10 m to the west of each; the dope pack lies behind it.', min_len=3, max_len=3, group='Placement'),
-    P('pack_offset', 'float', 3.5, 'Pack distance', 'How far behind its stand (towards +z) each dope pack lies.', min=1.5, max=10.0, unit='m', group='Placement', advanced=True),
-    P('pack_zone_length', 'float', 8.0, 'Pickup zone length', 'North-south length of each pickup zone (width is 10 m).', min=3.0, max=30.0, unit='m', group='Placement', advanced=True),
-    P('delivery_zone', 'point', lambda h, p: h.pt(0, -23), 'Delivery zone', 'Centre of the strip where the packs are delivered.', group='Placement'),
-    P('delivery_width', 'float', 20.0, 'Delivery zone width', 'East-west size of the delivery zone.', min=4.0, max=80.0, unit='m', group='Placement'),
-    P('delivery_length', 'float', 12.0, 'Delivery zone length', 'North-south size of the delivery zone.', min=3.0, max=60.0, unit='m', group='Placement'),
-    P('weapon_pickup', 'point', lambda h, p: h.pt(9, -22), 'Weapon pickup', 'Where the template weapon pickup lies (next to the start).', group='Placement'),
-    P('goodies', 'points', lambda h, p: [h.pt(14, 4), h.pt(-12, 20), h.pt(-26, -22), h.pt(0, 12), h.pt(30, -6), h.pt(-10, -14)], 'Health pickups', 'Up to six health pickups spread over the area.', max_len=6, group='Placement'),
-    P('vehicle_park', 'point', lambda h, p: h.pt(30, 36), 'Vehicle parking', 'Where the template pick-up truck and its passengers are parked (disabled, never seen).', group='Placement', advanced=True),
-    P('track_park', 'point', lambda h, p: h.pt(0, 30, None), 'Camera track parking', 'Where the leftover camera track points of the Downtown shots are parked (inert).', group='Placement', advanced=True),
-    P('giver_npc_park', 'point', lambda h, p: h.pt(24, 8), 'Parked task giver', 'Where the template task-giver character is parked.', group='Placement', advanced=True),
-    P('spare_region', 'rect', lambda h, p: list(h.rr(-38, 34, 38, 38.5)), 'Spare strip', 'Where the enemies that do not guard are parked (disabled).', group='Placement', advanced=True),
-    P('enemy_health', 'float', 0.3, 'Guard health', 'Health multiplier (1.0 = normal).', min=0.05, max=3.0, group='Settings'),
-    P('enemy_damage', 'float', 0.05, 'Guard damage', 'Damage multiplier (1.0 = normal).', min=0.0, max=3.0, group='Settings'),
-    P('stand_health', 'float', 0.3, 'Stand health', 'How much damage a stand takes before it blows up (template 0.0 in the database; scripted runs have about 200 rounds).', min=0.0, max=10.0, group='Settings'),
-    P('text_packs', 'text', 'Destroy the burrito stands and collect the dope packs', 'Objective 1 text', 'First objective line.', group='Texts', max_len=70),
-    P('text_deliver', 'text', 'Bring the dope packs to the gate', 'Objective 2 text', 'Second objective line.', group='Texts', max_len=70),
+    P('stands', 'points', lambda h, p: [h.pt(27, 10), h.pt(27, 27), h.pt(27, -9)], 'Stand positions', '', min_len=3, max_len=3, group='Placement'),
+    P('pack_offset', 'float', 3.5, 'Pack distance', '', min=1.5, max=10.0, unit='m', group='Placement', advanced=True),
+    P('pack_zone_length', 'float', 8.0, 'Pickup zone length', '', min=3.0, max=30.0, unit='m', group='Placement', advanced=True),
+    P('delivery_zone', 'point', lambda h, p: h.pt(0, -23), 'Delivery zone', '', group='Placement'),
+    P('delivery_width', 'float', 20.0, 'Delivery zone width', '', min=4.0, max=80.0, unit='m', group='Placement'),
+    P('delivery_length', 'float', 12.0, 'Delivery zone length', '', min=3.0, max=60.0, unit='m', group='Placement'),
+    P('weapon_pickup', 'point', lambda h, p: h.pt(9, -22), 'Weapon pickup', '', group='Placement'),
+    P('goodies', 'points', lambda h, p: [h.pt(14, 4), h.pt(-12, 20), h.pt(-26, -22), h.pt(0, 12), h.pt(30, -6), h.pt(-10, -14)], 'Health pickups', '', max_len=6, group='Placement'),
+    P('vehicle_park', 'point', lambda h, p: h.pt(30, 36), 'Vehicle parking', '', group='Placement', advanced=True),
+    P('track_park', 'point', lambda h, p: h.pt(0, 30, None), 'Camera track parking', '', group='Placement', advanced=True),
+    P('giver_npc_park', 'point', lambda h, p: h.pt(24, 8), 'Parked task giver', '', group='Placement', advanced=True),
+    P('spare_region', 'rect', lambda h, p: list(h.rr(-38, 34, 38, 38.5)), 'Spare strip', '', group='Placement', advanced=True),
+    P('enemy_health', 'float', 0.3, 'Guard health', '', min=0.05, max=3.0, group='Settings'),
+    P('enemy_damage', 'float', 0.05, 'Guard damage', '', min=0.0, max=3.0, group='Settings'),
+    P('stand_health', 'float', 0.3, 'Stand health', '', min=0.0, max=10.0, group='Settings'),
+    P('text_packs', 'text', 'Destroy the burrito stands and collect the dope packs', 'Objective 1 text', '', group='Texts', max_len=70),
+    P('text_deliver', 'text', 'Bring the dope packs to the gate', 'Objective 2 text', '', group='Texts', max_len=70),
 ]
 
 

@@ -22,18 +22,18 @@ COMMON = dict(giver=(-24.0, 4.0, 6.0), name='STUNT KILLS',
               load_mid='SHOOT DODGE KILLS', load_low='SHOOT DODGE + KILL', pass_score=200, silver_score=400, gold_score=600)
 
 PARAMS = [
-    P('arena', 'rect', lambda h, p: list(h.rr(-26, -14, 26, 10)), 'Fight area', 'Rectangle [x0, z0, x1, z1] the fighting enemies are spread over.', group='Placement'),
-    P('spare_region', 'rect', lambda h, p: list(h.rr(-38, 28, 38, 38)), 'Spare strip', 'Where the enemies that do not fight are parked (disabled, never seen).', group='Placement', advanced=True),
-    P('cone_zone', 'point', lambda h, p: h.pt(-14, -30), 'Tutorial zone', 'The walk-in zone that shows the SHOOT DODGE help text (also the radar blip).', group='Placement'),
-    P('giver_npc_park', 'point', lambda h, p: h.pt(-24, 9), 'Parked task giver', 'Where the template task-giver character is parked (not part of the play).', group='Placement', advanced=True),
-    P('snap_to_free_ground', 'bool', True, 'Keep clear of obstacles', 'Move spots that fall inside a wall or prop to the nearest free ground.', group='Placement', advanced=True),
-    P('enemies', 'int', 6, 'Number of enemies', 'Enemies that fight (template: 31).', min=1, max=29, group='Settings'),
-    P('combos', 'int', 3, 'SHOOT DODGE kills needed', 'Kills with the special move the player must score.', min=1, max=29, group='Settings'),
-    P('countdown', 'float', None, 'Time limit', 'Seconds on the clock. Empty = the template value (100 s).', min=10.0, max=900.0, unit='s', group='Settings'),
-    P('enemy_health', 'float', 0.2, 'Enemy health', 'Health multiplier (1.0 = normal).', min=0.05, max=3.0, group='Settings'),
-    P('enemy_damage', 'float', 0.05, 'Enemy damage', 'Damage multiplier (1.0 = normal).', min=0.0, max=3.0, group='Settings'),
-    P('harmless_gunfire', 'bool', True, 'Harmless gunfire', 'The enemies shoot but do no damage: the challenge is style, not survival.', group='Settings'),
-    P('text_combo', 'text', lambda h, p: 'Do %d SHOOT DODGE kills before the time runs out' % p['combos'], 'Objective text', 'The objective line.', group='Texts', max_len=70),
+    P('arena', 'rect', lambda h, p: list(h.rr(-26, -14, 26, 10)), 'Fight area', '', group='Placement'),
+    P('spare_region', 'rect', lambda h, p: list(h.rr(-38, 28, 38, 38)), 'Spare strip', '', group='Placement', advanced=True),
+    P('cone_zone', 'point', lambda h, p: h.pt(-14, -30), 'Tutorial zone', '', group='Placement'),
+    P('giver_npc_park', 'point', lambda h, p: h.pt(-24, 9), 'Parked task giver', '', group='Placement', advanced=True),
+    P('snap_to_free_ground', 'bool', True, 'Keep clear of obstacles', '', group='Placement', advanced=True),
+    P('enemies', 'int', 6, 'Number of enemies', '', min=1, max=29, group='Settings'),
+    P('combos', 'int', 3, 'SHOOT DODGE kills needed', '', min=1, max=29, group='Settings'),
+    P('countdown', 'float', None, 'Time limit', '', min=10.0, max=900.0, unit='s', group='Settings'),
+    P('enemy_health', 'float', 0.2, 'Enemy health', '', min=0.05, max=3.0, group='Settings'),
+    P('enemy_damage', 'float', 0.05, 'Enemy damage', '', min=0.0, max=3.0, group='Settings'),
+    P('harmless_gunfire', 'bool', True, 'Harmless gunfire', '', group='Settings'),
+    P('text_combo', 'text', lambda h, p: 'Do %d SHOOT DODGE kills before the time runs out' % p['combos'], 'Objective text', '', group='Texts', max_len=70),
 ]
 
 

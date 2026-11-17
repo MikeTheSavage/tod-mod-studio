@@ -103,13 +103,12 @@ def build_static(model):
     for mi, m in enumerate(model['meshes']):
         if not m['verts']: continue
         # HANDEDNESS (fix 2026-07-03): kapow model space is LEFT-handed (D3D9); glTF is RIGHT-handed.
-        # Writing raw coords mirrored every UE import about its local XZ plane (LR-mirrored signs
+        # Writing raw coords mirrored every import about its local XZ plane (LR-mirrored signs
         # floating away from their buildings, holes in mirrored collision). Negate Z on positions
-        # and normals so the glb is true right-handed glTF; UE's Y-up->Z-up import then yields
-        # exactly the k2u placement contract (kx, -kz, ky).
+        # and normals so the glb is true right-handed glTF.
         # WINDING (fix 2026-09-05): do NOT also reverse the index order. Kapow triangles are D3D
         # clockwise-front; the mirror alone turns them into glTF counter-clockwise-front. Reversing
-        # too made every mesh inside-out — invisible with doubleSided materials, but Chaos culls
+        # too made every mesh inside-out — invisible with doubleSided materials, and a physics engine culls
         # back faces on complex-collision traces/sweeps, so characters fell through every floor.
         pos = [(v[0][0], v[0][1], -v[0][2]) for v in m['verts']]
         nrm = [(v[3][0], v[3][1], -v[3][2]) for v in m['verts']]
@@ -184,7 +183,7 @@ def select_source_lod(meshes, lod=0):
     """Highest-detail preview selection; preserve every matching source buffer.
 
     Metadata is mandatory: guessing LOD from vertex counts loses geometry.
-    Runtime LOD selection and native blend/depth flags need separate UE support.
+    Runtime LOD selection and native blend/depth flags need separate engine support.
     """
     if not isinstance(lod, int) or not 0 <= lod <= 31:
         raise ValueError('Source LOD must be an integer from 0 through 31')

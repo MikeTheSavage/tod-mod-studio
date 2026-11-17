@@ -1,4 +1,4 @@
-"""Route and nav editor core (companion tools part B), shared by the Unreal TODLevelEditor plugin and TOD Mod Studio.
+"""Route and nav editor core (companion tools part B) of TOD Mod Studio.
 
 What it edits (docs/subsystem_navigation.md; navtool.py decodes it, this module builds on its export):
   traffic   database_traffic_point nodes linked by NameOfNextPoint inside road / junction folders
@@ -29,7 +29,7 @@ last-instantiated fragment, literal parent = (block << 20) | runtime index, orde
 point; FUN_0088E8A0 inserts a node after the last sibling with a strictly smaller order).
 
   m = model(entries, read)              navtool export of each block as the engine links it + what can be edited
-  p = preview(m, ops)                   the model with the ops applied (what the editors draw)
+  p = preview(m, ops)                   the model with the ops applied (what the editor draws)
   issues = validate(p, collision_sets)  dangling links, one-way links, routes through new collision, unreachable points
   add_to_builder(builder, m, ops)       the build requests (blockedit.Builder)
   verify(m, ops, out)                   navtool re-export of the built blocks == preview, per op
@@ -117,7 +117,7 @@ def track_of_point(m, entry, frag, node):
 
 
 def routes(m):
-    """Flat list for the editors: every route with its points (ordered), links and editable values."""
+    """Flat list for the editor: every route with its points (ordered), links and editable values."""
     out = []
     for e, ex in m['blocks'].items():
         for t in ex['tracks']:
@@ -155,7 +155,7 @@ def _ref(o, k='node'):
 
 
 def preview(m, ops):
-    """The model with the ops applied: what both editors draw and validate. New entities carry 'new': True and their
+    """The model with the ops applied: what the editor draws and validate. New entities carry 'new': True and their
     op id as node."""
     p = copy.deepcopy(m)
     for i, o in enumerate(ops):

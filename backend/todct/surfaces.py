@@ -1,5 +1,5 @@
 """TOD collision surfaces: the face material (index into facecoll.mat) and the SurfacePropFields word of a shape
-(docs/subsystem_collision.md 3.3 / 3.5 / 11.4). Shared by the pickers of both editors.
+(docs/subsystem_collision.md 3.3 / 3.5 / 11.4). Used by the surface pickers.
 
 Word bits: 10 Solid, 11 BulletProof, 12 Opaque, 13 CameraBlock, 14 (set on almost all shipped shapes),
 23 Trigger, 24 NavBlock, 25 Physics (set in the default word), 26 ActivateTriggers.

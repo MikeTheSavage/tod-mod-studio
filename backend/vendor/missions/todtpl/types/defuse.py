@@ -31,17 +31,17 @@ CHAIN = ('ACT_Enable_NextChkPoint', 'ACT_AddBlip_Next_ChkPoint', 'ACT_Enable_Nex
 SLOW = 99999.0
 
 PARAMS = [
-    P('bombs', 'points', lambda h, p: [h.pt(0, -6), h.pt(28, -4), h.pt(28, 31), h.pt(-10, 31)], 'Bomb positions', 'Where the bombs lie (x, y, z), 1 to 4. Keep them at least 6 m apart.', min_len=1, max_len=4, group='Placement'),
-    P('defuse_radius', 'float', 4.5, 'Defuse radius', 'The player must stand within this distance of a bomb and press USE.', min=1.5, max=10.0, unit='m', group='Placement'),
-    P('park', 'point', lambda h, p: h.pt(60, 60, None), 'Parking spot', 'Where leftover template content is parked (disabled, never seen). y empty = ground + 1.', group='Placement', advanced=True),
-    P('goodies', 'points', lambda h, p: [h.pt(0, -10), h.pt(12, 6), h.pt(-18, 8), h.pt(18, 14), h.pt(-4, 22), h.pt(-24, 26)], 'Health pickups', 'Up to six health pickups spread over the area.', max_len=6, group='Placement'),
-    P('giver_npc_park', 'point', lambda h, p: h.pt(24, -5), 'Parked task giver', 'Where the template task-giver character is parked.', group='Placement', advanced=True),
-    P('start_time', 'float', 65.0, 'Start time', 'Seconds on the shared clock at the start.', min=10.0, max=900.0, unit='s', group='Settings'),
-    P('add_points', 'int', 900, 'Time added per bomb', 'Racing-clock points added per defused bomb (1/100 s); the engine gives about +3 s whatever this is.', min=0, max=100000, group='Settings', advanced=True),
-    P('text_defuse', 'text', lambda h, p: 'Defuse all %d bombs before the time runs out' % len(p['bombs']), 'Objective text', 'The objective line.', group='Texts', max_len=70),
-    P('text_hint', 'text', 'Stand next to a bomb and press USE to defuse it', 'Hint text', 'Shown at the start.', group='Texts', max_len=70),
-    P('text_boom', 'text', 'BOOM! The bombs went off', 'Explosion text', 'Shown when the time runs out.', group='Texts', max_len=50),
-    P('text_count', 'text', '%0 out of %1 bombs defused', 'Counter text', 'The counter line.', group='Texts', max_len=50),
+    P('bombs', 'points', lambda h, p: [h.pt(0, -6), h.pt(28, -4), h.pt(28, 31), h.pt(-10, 31)], 'Bomb positions', 'At least 6 m apart', min_len=1, max_len=4, group='Placement'),
+    P('defuse_radius', 'float', 4.5, 'Defuse radius', '', min=1.5, max=10.0, unit='m', group='Placement'),
+    P('park', 'point', lambda h, p: h.pt(60, 60, None), 'Parking spot', '', group='Placement', advanced=True),
+    P('goodies', 'points', lambda h, p: [h.pt(0, -10), h.pt(12, 6), h.pt(-18, 8), h.pt(18, 14), h.pt(-4, 22), h.pt(-24, 26)], 'Health pickups', '', max_len=6, group='Placement'),
+    P('giver_npc_park', 'point', lambda h, p: h.pt(24, -5), 'Parked task giver', '', group='Placement', advanced=True),
+    P('start_time', 'float', 65.0, 'Start time', '', min=10.0, max=900.0, unit='s', group='Settings'),
+    P('add_points', 'int', 900, 'Time added per bomb', '', min=0, max=100000, group='Settings', advanced=True),
+    P('text_defuse', 'text', lambda h, p: 'Defuse all %d bombs before the time runs out' % len(p['bombs']), 'Objective text', '', group='Texts', max_len=70),
+    P('text_hint', 'text', 'Stand next to a bomb and press USE to defuse it', 'Hint text', '', group='Texts', max_len=70),
+    P('text_boom', 'text', 'BOOM! The bombs went off', 'Explosion text', '', group='Texts', max_len=50),
+    P('text_count', 'text', '%0 out of %1 bombs defused', 'Counter text', '', group='Texts', max_len=50),
 ]
 
 

@@ -1,10 +1,9 @@
 """Companion edits (part B) built together: routes (nav ops), missions (mission ops), sections (section ops) on top of
-whatever a host editor already built, in one blockedit.Builder, then verified by the project's tools:
+whatever the build already produced, in one blockedit.Builder, then verified by the project's tools:
   routes    navtool re-export (engine view) == the edited route model
   missions  missiontool graph shows each op; missiontool lint before/after (new issues listed)
   sections  seamless transitions.catalog on the built blocks + the box-order check; submaptool verify (indices)
-Both editors call build() (the Unreal export after its gameplay and collision stages, TOD Mod Studio as stage D), so
-they write the same bytes.
+Mod Studio calls build() as stage D of a mod build.
 
   out, rep = build(read, nav=[...], missions=[...], sections=[...], base={entry: bytes})
 """

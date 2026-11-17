@@ -4,7 +4,7 @@
 
 Needs the UI built first (frontend: npm run build -> backend/web). The vendored tools travel as plain .py files under
 _internal/vendor (they are imported from there at run time); backend/data and backend/web likewise. The companion core
-(backend/todct, vendored from the Unreal plugin) is bundled as a package; numpy is bundled for the model writer the
+(backend/todct, Mod Studio's own code) is bundled as a package; numpy is bundled for the model writer the
 collision generator uses (numpy must be importable in .venv).
 """
 import os
@@ -20,6 +20,10 @@ GUIDE = 'TOD Mod Studio Guide.html'
 def main():
     if not os.path.exists(os.path.join(B, 'web', 'index.html')):
         sys.exit('build the UI first: cd frontend && npm run build')
+    try:
+        import PIL.Image  # noqa: F401
+    except ImportError:
+        sys.exit('PIL is missing in .venv: copy PIL and pillow-*.dist-info from the system Python site-packages (the minimap and plan pictures need it)')
     for d in ('build', 'dist'):
         shutil.rmtree(os.path.join(ROOT, d), ignore_errors=True)
     sep = ';'
@@ -30,8 +34,11 @@ def main():
             '--collect-submodules', 'todms', '--collect-submodules', 'todct', '--hidden-import', 'numpy',
             '--add-data', os.path.join(B, 'vendor') + sep + 'vendor',
             '--add-data', os.path.join(B, 'data') + sep + 'data',
+            '--add-data', os.path.join(B, 'todms', 'limits.json') + sep + 'todms',
+            '--add-data', os.path.join(B, 'todms', 'newmap_recipe') + sep + os.path.join('todms', 'newmap_recipe'),
             '--add-data', os.path.join(B, 'web') + sep + 'web',
-            '--exclude-module', 'PIL', '--exclude-module', 'tkinter',      # numpy is needed: model writer (collision)
+            '--hidden-import', 'PIL.Image', '--hidden-import', 'PIL.ImageDraw', '--hidden-import', 'PIL.ImageFont',      # the minimap and the plan are drawn with PIL (copy it into .venv from the system Python)
+            '--exclude-module', 'tkinter',      # numpy is needed: model writer (collision)
             os.path.join(B, 'main.py')]
     print(' '.join(args))
     subprocess.check_call(args, cwd=ROOT)

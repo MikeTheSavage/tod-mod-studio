@@ -5,7 +5,7 @@ The walk follows the engine (and tools/save_editor/nodemap.py): the block's root
 record order, then each 'fragment' property record (in stream order) instantiates that fragment under the node that
 carries it, depth first. Fragments missing from the block are looked up in overdose.main (prefabs such as
 PKS_HighMounted.fragment). World = owner * ... * parent * local with the stored quaternion conjugated (the project
-convention the fragment writer, the collision lab and the UE bridge use).
+convention the fragment writer, and the collision lab use).
 
 An entity is editable when its fragment lives in this block and is instantiated exactly once; entities of prefab
 fragments placed several times (or living in overdose.main) are shown but read-only, because a change would apply to

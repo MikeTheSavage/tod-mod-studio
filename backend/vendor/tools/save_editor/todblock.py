@@ -151,8 +151,12 @@ def is_record_head(info, o):
     np_ = (o + 4 + u32(info, o + 4)) & 0xFFFFFFFC
     if np_ >= len(info) or info[np_] != 0x2F:
         return False
+    if np_ > 0 and 32 <= info[np_ - 1] < 127:                 # a name starts a string: a pointer into the middle of a longer path (a chance match inside a record) is no record
+        return False
     e = info.find(b"\0", np_, min(len(info), np_ + 1024))
     if e < 0:
+        return False
+    if e - np_ < 6:                                           # a name is a path: a chance header pointing at a lone "/" is no record
         return False
     return all(32 <= c < 127 for c in info[np_:e])
 

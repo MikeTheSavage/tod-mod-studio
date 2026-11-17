@@ -31,19 +31,19 @@ RING = [(6.0, 0.0), (-6.0, 0.0), (0.0, 6.0), (0.0, -6.0)]
 MIN_HOLD = 2.0
 
 PARAMS = [
-    P('points', 'points', lambda h, p: [h.pt(-30, 30), h.pt(20, 32), h.pt(-24, -32)], 'Capture points', 'The three flag points (x, y, z). Each needs clear ground around it; bandits stand 6 m from it.', min_len=3, max_len=3, group='Placement'),
-    P('zone_size', 'float', 8.0, 'Capture box size', 'Edge length of the capture box (the player must stand inside).', min=4.0, max=20.0, unit='m', group='Placement'),
-    P('spare_region', 'rect', lambda h, p: list(h.rr(-38, 28, 38, 38)), 'Spare strip', 'Where the enemies that do not fight are parked (disabled).', group='Placement', advanced=True),
-    P('park', 'point', lambda h, p: h.pt(-60, 55, None), 'Parking spot', 'Where the template\'s Downtown walk-in boxes and marker props are parked (disabled).', group='Placement', advanced=True),
-    P('giver_npc_park', 'point', lambda h, p: h.pt(12, 5), 'Parked task giver', 'Where the template task-giver character is parked.', group='Placement', advanced=True),
+    P('points', 'points', lambda h, p: [h.pt(-30, 30), h.pt(20, 32), h.pt(-24, -32)], 'Capture points', 'Clear ground around each', min_len=3, max_len=3, group='Placement'),
+    P('zone_size', 'float', 8.0, 'Capture box size', '', min=4.0, max=20.0, unit='m', group='Placement'),
+    P('spare_region', 'rect', lambda h, p: list(h.rr(-38, 28, 38, 38)), 'Spare strip', '', group='Placement', advanced=True),
+    P('park', 'point', lambda h, p: h.pt(-60, 55, None), 'Parking spot', '', group='Placement', advanced=True),
+    P('giver_npc_park', 'point', lambda h, p: h.pt(12, 5), 'Parked task giver', '', group='Placement', advanced=True),
     P('hold_seconds', 'float', 4.0, 'Seconds to capture', 'Seconds the player must stay inside a capture box to take the point. At least %g.' % MIN_HOLD, min=MIN_HOLD, max=120.0, unit='s', group='Settings'),
-    P('countdown', 'float', 120.0, 'Time limit', 'Seconds on the clock for all three points.', min=20.0, max=900.0, unit='s', group='Settings'),
-    P('enemy_health', 'float', 0.3, 'Bandit health', 'Health multiplier (1.0 = normal).', min=0.05, max=3.0, group='Settings'),
-    P('enemy_damage', 'float', 0.1, 'Bandit damage', 'Damage multiplier (1.0 = normal).', min=0.0, max=3.0, group='Settings'),
-    P('text_cap', 'text', 'Capture all three points before the time runs out', 'Objective text', 'The objective line.', group='Texts', max_len=70),
-    P('text_cap_cnt', 'text', '%0 out of %1 points captured', 'Counter text', 'The counter line.', group='Texts', max_len=50),
-    P('text_held', 'text', 'Hold the point until it is captured', 'Hold hint', 'Shown after the start.', group='Texts', max_len=50),
-    P('text_captured', 'text', 'POINT CAPTURED! Counter-attack incoming', 'Capture text', 'Shown at every capture.', group='Texts', max_len=50),
+    P('countdown', 'float', 120.0, 'Time limit', '', min=20.0, max=900.0, unit='s', group='Settings'),
+    P('enemy_health', 'float', 0.3, 'Bandit health', '', min=0.05, max=3.0, group='Settings'),
+    P('enemy_damage', 'float', 0.1, 'Bandit damage', '', min=0.0, max=3.0, group='Settings'),
+    P('text_cap', 'text', 'Capture all three points before the time runs out', 'Objective text', '', group='Texts', max_len=70),
+    P('text_cap_cnt', 'text', '%0 out of %1 points captured', 'Counter text', '', group='Texts', max_len=50),
+    P('text_held', 'text', 'Hold the point until it is captured', 'Hold hint', '', group='Texts', max_len=50),
+    P('text_captured', 'text', 'POINT CAPTURED! Counter-attack incoming', 'Capture text', '', group='Texts', max_len=50),
 ]
 
 

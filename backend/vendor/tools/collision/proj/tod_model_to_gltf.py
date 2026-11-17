@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-TOD model (.tmdl intermediate, dumped by restools) -> glTF 2.0 (.glb) for UE5.
+TOD model (.tmdl intermediate, dumped by restools) -> glTF 2.0 (.glb).
 
 v1 exports STATIC geometry: each mesh's vertices are baked by its owning pivot's world
 transform (bind pose), giving correct geometry for static props and rigid models. The pivot

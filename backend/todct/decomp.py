@@ -1,6 +1,6 @@
 """Convex decomposition of a triangle mesh into TOD collision pieces (VertexCloud shapes: convex, <= 255 vertices).
 
-Methods (all deterministic: the same mesh gives the same pieces in either editor):
+Methods (all deterministic: the same mesh gives the same pieces every time):
   'solid'    approximate convex decomposition of a closed mesh (VHACD-like, written here): the mesh is voxelised
              (ray parity fill), the voxel set is split recursively by axis planes of the mesh's own frame, each time
              at the plane that minimises the summed hull volume of the two halves, until every part is convex within
@@ -10,8 +10,6 @@ Methods (all deterministic: the same mesh gives the same pieces in either editor
              `angle_deg`) convex patches, each patch one flat shape. Exact for any mesh, also open ones (terrain,
              ramps without a bottom). Used automatically when 'solid' finds the mesh is not closed.
   'hull'     the convex hull of the whole mesh as one piece (crates, rocks, anything convex).
-  'pieces'   point sets computed elsewhere (Unreal's V-HACD or the asset's own simple collision): each is hulled
-             and capped to the limits here.
 Every piece goes through geom.capped_hull (<= 255 vertices, <= 4095 index entries).
 """
 import math
@@ -384,6 +382,7 @@ def _decompose_one(V, F, method, concavity, max_pieces, resolution, angle_deg, t
 
 
 def pieces_from_point_sets(sets, max_verts=255):
+    """One capped convex hull per point set (points already in world space)."""
     out = []
     for P in sets:
         P = np.asarray(P, dtype=np.float64).reshape(-1, 3)

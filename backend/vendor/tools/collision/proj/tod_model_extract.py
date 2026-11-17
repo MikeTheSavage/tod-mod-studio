@@ -155,7 +155,7 @@ def _colmajor(M):
 
 def build_skinned_glb(model):
     """glTF with a skin: joint nodes + per-vertex JOINTS_0/WEIGHTS_0 + inverse bind matrices.
-    Vertices stay in bind pose (un-baked); UE deforms them via the skeleton."""
+    Vertices stay in bind pose (un-baked); they are deformed by the skeleton at run time."""
     pivots = model['pivots']; npiv = len(pivots)
     Wm = g.world_mats(pivots)
     nodes = []

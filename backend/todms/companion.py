@@ -1,14 +1,11 @@
-"""Companion tools in Mod Studio (shared core: backend/todct, vendored from the Unreal TODLevelEditor plugin).
+"""Companion tools in Mod Studio (core: backend/todct).
 
   collision generator   a .glb / .gltf / .obj file placed in a map -> convex pieces with a TOD surface -> a collision
                         set of the current mod (built into a host model's HullList when the mod is built)
-  asset replacements    read-only overview: every TOD model of the user's game with its maps and use counts, a TOD
-                        thumbnail, and the Unreal replacement rows carried by the mod (or read from an Unreal project's
-                        Config/TODBridge folder). Mod Studio does not render Unreal assets.
+  model catalogue       every TOD model of the user's game with its maps, use counts and a thumbnail drawn from the
+                        game's own mesh
 """
-import json
 import os
-import shutil
 
 from . import paths
 
@@ -128,47 +125,21 @@ def census(ws, progress=None):
     return dict(models=len(doc['rows']), maps=doc['maps'], seconds=doc['seconds'])
 
 
-def asset_rows(ws, q, mod=None):
-    """Rows for the overview. The Unreal columns come from the mod's "assets" section and, when set, an Unreal
-    project's Config/TODBridge folder (settings: ue_config)."""
+def asset_rows(ws, q):
+    """Rows of the model catalogue (after a census)."""
     AS = _co()[4]
     cfg = _cfg()
     cen = cfg.census()
     if cen is None:
         return dict(ready=False, rows=[], maps=[])
-    ue_dir = ws.settings.get('ue_config')
-    if ue_dir and os.path.isdir(ue_dir):
-        ucfg = AS.Config(ue_dir)
-        rs = AS.rows(ucfg, census_doc=cen)
-        source = ue_dir
-    else:
-        rs = AS.rows(cfg, census_doc=cen)
-        source = None
-    mrows = ((mod or {}).get('assets') or {}).get('rows') or {}
-    for r in rs:
-        m = mrows.get(r['key'])
-        if m:
-            r['ue_assigned'] = m.get('ue')
-            r['marker'] = m.get('collision') or r.get('marker', '')
-            r['from_mod'] = True
+    rs = AS.rows(cfg, census_doc=cen)
     total = len(rs)
-    rs = AS.filter_rows(rs, q.get('map') or None, int(q.get('min') or 0), q.get('q') or '', q.get('only') or None)
+    rs = AS.filter_rows(rs, q.get('map') or None, int(q.get('min') or 0), q.get('q') or '')
     off, lim = int(q.get('offset') or 0), int(q.get('limit') or 200)
-    ue_thumbs = os.path.join(ue_dir, 'thumbs_ue') if ue_dir else None
     for r in rs[off:off + lim]:
         r['thumb'] = '/cache/assets/thumbs/%s.png' % r['key'] if os.path.exists(
             os.path.join(cfg.folder, 'thumbs', r['key'] + '.png')) else None
-        r['ue_thumb'] = None
-        if ue_thumbs and r.get('ue_assigned'):
-            src = os.path.join(ue_thumbs, r['key'] + '.png')
-            if os.path.exists(src):                          # copied into the cache so the app can serve it
-                dst = os.path.join(cfg.folder, 'ue_thumbs', r['key'] + '.png')
-                if not os.path.exists(dst) or os.path.getmtime(dst) < os.path.getmtime(src):
-                    os.makedirs(os.path.dirname(dst), exist_ok=True)
-                    shutil.copy2(src, dst)
-                r['ue_thumb'] = '/cache/assets/ue_thumbs/%s.png' % r['key']
-    return dict(ready=True, total=total, count=len(rs), rows=rs[off:off + lim], maps=cen['maps'], ue_config=source,
-                mod_rows=len(mrows))
+    return dict(ready=True, total=total, count=len(rs), rows=rs[off:off + lim], maps=cen['maps'])
 
 
 def thumbs(ws, keys, progress=None):

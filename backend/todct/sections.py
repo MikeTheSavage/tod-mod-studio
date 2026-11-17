@@ -1,5 +1,4 @@
-"""Section and transition tools core (companion tools part B), shared by the Unreal TODLevelEditor plugin and TOD Mod
-Studio. Background: docs/subsystem_level_streaming.md (blocks, the swap, adding and splitting submaps) and
+"""Section and transition tools core (companion tools part B) of TOD Mod Studio. Background: docs/subsystem_level_streaming.md (blocks, the swap, adding and splitting submaps) and
 docs/subsystem_seamless_transitions.md (every loader volume; the 7 teleport loaders: the Downtown-Harbour bridge x2,
 the Downtown-Industrial tunnel x3, the farm pass x2).
 

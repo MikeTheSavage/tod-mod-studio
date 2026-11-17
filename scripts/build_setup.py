@@ -11,6 +11,11 @@ import subprocess
 import sys
 import zipfile
 
+# What the shell opens with the program: extension, ProgID, label. setup_main.py registers these under HKCU Software Classes when it
+# installs (no admin) and removes them when it uninstalls; the exe gets the file path as its argument and offers to add the file.
+ASSOCIATIONS = [['.todmod', 'TODModStudio.Mod', 'TOD Mod Studio mod'], ['.todcollection', 'TODModStudio.Collection', 'TOD Mod Studio collection'],
+                ['.todpiece', 'TODModStudio.Piece', 'TOD Mod Studio piece']]
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 APPDIR = os.path.join(ROOT, 'dist', 'TODModStudio')
 WORK = os.path.join(ROOT, 'build', 'setup')
@@ -25,7 +30,7 @@ def main():
     h = subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD'], cwd=ROOT, text=True).strip()
     vf = os.path.join(ROOT, 'VERSION')           # a VERSION file (one line) wins over the commit count
     version = open(vf).read().strip() if os.path.exists(vf) else '1.0.%s' % n
-    json.dump(dict(version=version, commit=h, built=datetime.date.today().isoformat()),
+    json.dump(dict(version=version, commit=h, built=datetime.date.today().isoformat(), associations=ASSOCIATIONS),
               open(os.path.join(WORK, 'setup_info.json'), 'w'))
     payload = os.path.join(WORK, 'payload.zip')
     with zipfile.ZipFile(payload, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as z:

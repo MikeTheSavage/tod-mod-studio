@@ -12,7 +12,7 @@ from ._base import make_spec
 MOD = sys.modules[__name__]
 NAME = 'chase'
 TITLE = 'Vehicle Chase'
-SUMMARY = 'The giver stands in your map, the chase runs through Downtown: stop a fleeing truck before time runs out. The truck route is fixed.'
+SUMMARY = 'The giver stands in your map, the chase runs through Downtown: stop a fleeing truck before time runs out.'
 HOST_NEEDS = ['Only the giver box needs the host: any free spot of any map or section.',
               'The chase itself is played in Downtown (it needs its drivable roads); a host map without roads cannot replace that. The mission moves the player to Downtown and back.',
               'The start point, the player\'s car and the truck are placed in Downtown coordinates, not host coordinates.']
@@ -25,16 +25,16 @@ COMMON = dict(giver=(28.0, 12.0, 6.0), name='VEHICLE CHASE',
               start_spot='TELEPORTPOINT_SubM_05_Down_TeqSal_Kill')
 
 PARAMS = [
-    P('start_pos', 'point', [65.7, 4.9, 61.9], 'Player start (Downtown)', 'Where the player stands when the chase starts, in DOWNTOWN world coordinates (x, y, z): the open street about 10 m behind the truck.', group='Placement'),
-    P('start_yaw', 'angle', -67.0, 'Player start direction', 'Facing at the start, degrees (the truck stands at about (56.5, 6.1, 65.7)).', min=-180.0, max=360.0, unit='deg', group='Placement'),
-    P('car_pos', 'point', [62.9, 4.9, 57.8], 'Player car (Downtown)', 'Where the player\'s car stands, in DOWNTOWN world coordinates.', group='Placement'),
-    P('car_yaw', 'angle', -67.0, 'Player car direction', 'Facing of the car, degrees.', min=-180.0, max=360.0, unit='deg', group='Placement'),
-    P('countdown', 'float', 120.0, 'Time limit', 'Seconds until the truck escapes (mission failed).', min=20.0, max=900.0, unit='s', group='Settings'),
-    P('truck_delay', 'float', 4.0, 'Truck start delay', 'Seconds after the start until the truck rolls.', min=0.0, max=60.0, unit='s', group='Settings'),
-    P('truck_health', 'float', 3.0, 'Truck health', 'Truck health multiplier (template 13).', min=0.5, max=30.0, group='Settings'),
-    P('truck_speed', 'float', 0.6, 'Truck speed', 'AI speed multiplier (template 1.0); a normal car catches 0.6.', min=0.2, max=1.5, group='Settings'),
-    P('driver_damage', 'float', 0.3, 'Driver damage', 'Damage multiplier of the truck driver.', min=0.0, max=3.0, group='Settings'),
-    P('text_chase', 'text', 'Stop the escaping truck before time runs out', 'Objective text', 'The objective line.', group='Texts', max_len=70),
+    P('start_pos', 'point', [65.7, 4.9, 61.9], 'Player start (Downtown)', '', group='Placement'),
+    P('start_yaw', 'angle', -67.0, 'Player start direction', '', min=-180.0, max=360.0, unit='deg', group='Placement'),
+    P('car_pos', 'point', [62.9, 4.9, 57.8], 'Player car (Downtown)', '', group='Placement'),
+    P('car_yaw', 'angle', -67.0, 'Player car direction', '', min=-180.0, max=360.0, unit='deg', group='Placement'),
+    P('countdown', 'float', 120.0, 'Time limit', '', min=20.0, max=900.0, unit='s', group='Settings'),
+    P('truck_delay', 'float', 4.0, 'Truck start delay', '', min=0.0, max=60.0, unit='s', group='Settings'),
+    P('truck_health', 'float', 3.0, 'Truck health', '', min=0.5, max=30.0, group='Settings'),
+    P('truck_speed', 'float', 0.6, 'Truck speed', 'A normal car catches 0.6', min=0.2, max=1.5, group='Settings'),
+    P('driver_damage', 'float', 0.3, 'Driver damage', '', min=0.0, max=3.0, group='Settings'),
+    P('text_chase', 'text', 'Stop the escaping truck before time runs out', 'Objective text', '', group='Texts', max_len=70),
 ]
 
 

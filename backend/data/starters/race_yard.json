@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "package": "race_yard",
+  "hosts": [{"id": "yard", "kind": "new_map", "map_index": 0, "area": [1371.0, 1371.0, 1429.0, 1429.0], "ground_y": 20.0}],
+  "missions": [
+    {"id": "yard_race", "type": "race", "host": "yard", "index": 73, "params": {
+      "giver_pos": [1388.0, null, 1384.0], "giver_size": 8.0,
+      "gates": [[1400.0, null, 1380.0], [1415.0, null, 1385.0], [1420.0, null, 1400.0], [1415.0, null, 1415.0], [1400.0, null, 1420.0],
+                [1385.0, null, 1415.0], [1380.0, null, 1400.0], [1385.0, null, 1385.0], [1400.0, null, 1400.0]],
+      "gate_radii": [6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0, 6.0],
+      "start_time": 60.0,
+      "name": "YARD RACE", "description": "Run a loop round the scrapyard and through all nine checkpoints before the clock runs out."}}
+  ],
+  "options": {"zip_name": "race_yard_missions.zip"}
+}

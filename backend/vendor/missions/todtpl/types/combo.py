@@ -12,7 +12,7 @@ from ._base import make_spec
 MOD = sys.modules[__name__]
 NAME = 'combo'
 TITLE = 'Unbroken Combo'
-SUMMARY = 'Kill a group of bandits in one unbroken combo. If the combo timer runs out between kills, the job is over.'
+SUMMARY = 'Kill a group of bandits in one unbroken combo.'
 HOST_NEEDS = ['A small free, flat area (about 20 x 18 m) where the bandits are packed together; open ground around it.',
               'A free strip (76 x 10 m) for the 26+ spare placeholders (parked, disabled).',
               'Works in any new map or existing section with flat ground.']
@@ -27,19 +27,19 @@ TUT_FRAG = 'Tut27_ComboTimer.fragment'
 COND_MISSED = 0x102923
 
 PARAMS = [
-    P('arena', 'rect', lambda h, p: list(h.rr(-10, -10, 10, 8)), 'Bandit area', 'Rectangle [x0, z0, x1, z1] the bandits are packed into.', group='Placement'),
-    P('spare_region', 'rect', lambda h, p: list(h.rr(-38, 28, 38, 38)), 'Spare strip', 'Where the enemies that do not fight are parked (disabled).', group='Placement', advanced=True),
-    P('park', 'point', lambda h, p: h.pt(-60, 60, None), 'Parking spot', 'Where the template\'s tutorial zone and its marker are parked (disabled). y empty = ground + 1.', group='Placement', advanced=True),
-    P('giver_npc_park', 'point', lambda h, p: h.pt(-24, 9), 'Parked task giver', 'Where the template task-giver character is parked.', group='Placement', advanced=True),
-    P('snap_to_free_ground', 'bool', True, 'Keep clear of obstacles', 'Move the parked task giver off obstacles.', group='Placement', advanced=True),
-    P('enemies', 'int', 4, 'Number of bandits', 'Bandits to kill in one combo.', min=2, max=29, group='Settings'),
-    P('countdown', 'float', 150.0, 'Overall time limit', 'Seconds on the clock (a generous overall limit).', min=20.0, max=900.0, unit='s', group='Settings'),
-    P('broken_delay', 'float', 2.0, 'Combo grace', 'Seconds between "combo missed" and the failure text.', min=0.0, max=10.0, unit='s', group='Settings', advanced=True),
-    P('enemy_health', 'float', 0.3, 'Bandit health', 'Health multiplier (1.0 = normal).', min=0.05, max=3.0, group='Settings'),
-    P('enemy_damage', 'float', 0.2, 'Bandit damage', 'Damage multiplier (1.0 = normal).', min=0.0, max=3.0, group='Settings'),
-    P('text_combo', 'text', lambda h, p: 'Kill %d bandits without breaking your combo' % p['enemies'], 'Objective text', 'The objective line.', group='Texts', max_len=70),
-    P('text_broken', 'text', 'You broke your combo! The job is over.', 'Failure text', 'Shown when the combo runs out.', group='Texts', max_len=60),
-    P('text_won', 'text', 'Every bandit down in one unbroken combo!', 'Success text', 'Shown when the last bandit falls.', group='Texts', max_len=60),
+    P('arena', 'rect', lambda h, p: list(h.rr(-10, -10, 10, 8)), 'Bandit area', '', group='Placement'),
+    P('spare_region', 'rect', lambda h, p: list(h.rr(-38, 28, 38, 38)), 'Spare strip', '', group='Placement', advanced=True),
+    P('park', 'point', lambda h, p: h.pt(-60, 60, None), 'Parking spot', '', group='Placement', advanced=True),
+    P('giver_npc_park', 'point', lambda h, p: h.pt(-24, 9), 'Parked task giver', '', group='Placement', advanced=True),
+    P('snap_to_free_ground', 'bool', True, 'Keep clear of obstacles', '', group='Placement', advanced=True),
+    P('enemies', 'int', 4, 'Number of bandits', '', min=2, max=29, group='Settings'),
+    P('countdown', 'float', 150.0, 'Overall time limit', '', min=20.0, max=900.0, unit='s', group='Settings'),
+    P('broken_delay', 'float', 2.0, 'Combo grace', '', min=0.0, max=10.0, unit='s', group='Settings', advanced=True),
+    P('enemy_health', 'float', 0.3, 'Bandit health', '', min=0.05, max=3.0, group='Settings'),
+    P('enemy_damage', 'float', 0.2, 'Bandit damage', '', min=0.0, max=3.0, group='Settings'),
+    P('text_combo', 'text', lambda h, p: 'Kill %d bandits without breaking your combo' % p['enemies'], 'Objective text', '', group='Texts', max_len=70),
+    P('text_broken', 'text', 'You broke your combo! The job is over.', 'Failure text', '', group='Texts', max_len=60),
+    P('text_won', 'text', 'Every bandit down in one unbroken combo!', 'Success text', '', group='Texts', max_len=60),
 ]
 
 

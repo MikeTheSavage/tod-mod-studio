@@ -12,7 +12,7 @@ from ._base import make_spec
 MOD = sys.modules[__name__]
 NAME = 'style'
 TITLE = 'Style Run'
-SUMMARY = 'A timed score attack: chain kills, keep the combo alive, grab goodies and use loco moves. Style is the score.'
+SUMMARY = 'A timed score attack: chain kills, keep the combo alive, grab goodies and use loco moves.'
 HOST_NEEDS = ['Open, flat ground for four groups of 3-4 bandits and up to nine goodie spots (3 m apart).',
               'A parking spot for the template\'s Downtown walk-in boxes and a spare strip (disabled, never seen).',
               'Works in any new map or existing section with flat ground.']
@@ -33,27 +33,27 @@ GOODIE_TYPES = [3, 3, 3, 20, 20, 20, 21, 9, 10]
 _GOODIES_REL = [(-6.0, -8.0), (12.0, 4.0), (-12.0, 14.0), (6.0, -8.0), (-20.0, 0.0), (20.0, -12.0), (0.0, 6.0), (-28.0, 12.0), (28.0, -8.0)]
 
 PARAMS = [
-    P('wave_centres', 'points', lambda h, p: [h.pt(-14, 4), h.pt(26, 6), h.pt(-2, 26), h.pt(8, 12)], 'Wave positions', 'Centre of the bandit group of wave 1..4 (x, y, z).', min_len=4, max_len=4, group='Placement'),
-    P('goodies', 'points', lambda h, p: [h.pt(x, z) for x, z in _GOODIES_REL], 'Goodie positions', 'Where the goodies lie (x, y, z; they respawn). One position per goodie type below.', min_len=1, max_len=9, group='Placement'),
-    P('goodie_types', 'floats', [float(t) for t in GOODIE_TYPES], 'Goodie types', 'GoodieSubType per goodie: 3 = longer combos, 20 = small score bonus (+500), 21 = big score bonus (+3000), 9 = Golden Gun, 10 = Tornado. One per position.', min_len=1, max_len=9, group='Placement'),
-    P('spare_region', 'rect', lambda h, p: list(h.rr(-38, 28, 38, 38)), 'Spare strip', 'Where the enemies that do not fight are parked (disabled).', group='Placement', advanced=True),
-    P('park', 'point', lambda h, p: h.pt(-60, 55, None), 'Parking spot', 'Where the template\'s Downtown walk-in boxes are parked (disabled).', group='Placement', advanced=True),
-    P('giver_npc_park', 'point', lambda h, p: h.pt(26, -22), 'Parked task giver', 'Where the template task-giver character is parked.', group='Placement', advanced=True),
-    P('snap_to_free_ground', 'bool', True, 'Keep clear of obstacles', 'Move spots that fall inside a wall or prop to the nearest free ground.', group='Placement', advanced=True),
-    P('countdown', 'float', 90.0, 'Time limit', 'Seconds on the clock.', min=20.0, max=900.0, unit='s', group='Settings'),
-    P('wave_delays', 'floats', [0.0, 10.0, 20.0, 30.0], 'Wave delays', 'Seconds after the start at which each wave arrives.', min_len=4, max_len=4, group='Settings'),
-    P('goodie_respawn', 'float', 25.0, 'Goodie respawn', 'Seconds until a taken goodie comes back.', min=5.0, max=300.0, unit='s', group='Settings'),
-    P('kill_counts', 'floats', [5.0, 10.0, 15.0], 'Kill milestones', 'Kill counts that pay a bonus (NICE, SLICK, LEGEND).', min_len=3, max_len=3, group='Settings'),
-    P('kill_bonuses', 'floats', [200.0, 400.0, 800.0], 'Kill milestone bonus', 'Bonus points of the three kill milestones.', min_len=3, max_len=3, group='Settings'),
-    P('combo_counts', 'floats', [1.0, 4.0], 'Combo milestones', 'Number of combos performed that pay a bonus (NICE, SLICK).', min_len=2, max_len=2, group='Settings'),
-    P('combo_bonuses', 'floats', [300.0, 600.0], 'Combo milestone bonus', 'Bonus points of the two combo milestones.', min_len=2, max_len=2, group='Settings'),
-    P('enemy_health', 'float', 0.3, 'Bandit health', 'Health multiplier (1.0 = normal).', min=0.05, max=3.0, group='Settings'),
-    P('enemy_damage', 'float', 0.25, 'Bandit damage', 'Damage multiplier (1.0 = normal).', min=0.0, max=3.0, group='Settings'),
-    P('text_style', 'text', 'Score as many STYLE points as you can before time runs out', 'Objective text', 'The objective line.', group='Texts', max_len=70),
-    P('text_nice', 'text', 'NICE! STYLE BONUS', 'NICE text', 'First milestone text.', group='Texts', max_len=40),
-    P('text_slick', 'text', 'SLICK! STYLE BONUS', 'SLICK text', 'Second milestone text.', group='Texts', max_len=40),
-    P('text_legend', 'text', 'LEGEND! BIG STYLE BONUS', 'LEGEND text', 'Top milestone text.', group='Texts', max_len=40),
-    P('text_count', 'text', '%0 kills in style', 'Counter text', 'The counter line.', group='Texts', max_len=40),
+    P('wave_centres', 'points', lambda h, p: [h.pt(-14, 4), h.pt(26, 6), h.pt(-2, 26), h.pt(8, 12)], 'Wave positions', '', min_len=4, max_len=4, group='Placement'),
+    P('goodies', 'points', lambda h, p: [h.pt(x, z) for x, z in _GOODIES_REL], 'Goodie positions', '', min_len=1, max_len=9, group='Placement'),
+    P('goodie_types', 'floats', [float(t) for t in GOODIE_TYPES], 'Goodie types', '', min_len=1, max_len=9, group='Placement'),
+    P('spare_region', 'rect', lambda h, p: list(h.rr(-38, 28, 38, 38)), 'Spare strip', '', group='Placement', advanced=True),
+    P('park', 'point', lambda h, p: h.pt(-60, 55, None), 'Parking spot', '', group='Placement', advanced=True),
+    P('giver_npc_park', 'point', lambda h, p: h.pt(26, -22), 'Parked task giver', '', group='Placement', advanced=True),
+    P('snap_to_free_ground', 'bool', True, 'Keep clear of obstacles', '', group='Placement', advanced=True),
+    P('countdown', 'float', 90.0, 'Time limit', '', min=20.0, max=900.0, unit='s', group='Settings'),
+    P('wave_delays', 'floats', [0.0, 10.0, 20.0, 30.0], 'Wave delays', '', min_len=4, max_len=4, group='Settings'),
+    P('goodie_respawn', 'float', 25.0, 'Goodie respawn', '', min=5.0, max=300.0, unit='s', group='Settings'),
+    P('kill_counts', 'floats', [5.0, 10.0, 15.0], 'Kill milestones', '', min_len=3, max_len=3, group='Settings'),
+    P('kill_bonuses', 'floats', [200.0, 400.0, 800.0], 'Kill milestone bonus', '', min_len=3, max_len=3, group='Settings'),
+    P('combo_counts', 'floats', [1.0, 4.0], 'Combo milestones', '', min_len=2, max_len=2, group='Settings'),
+    P('combo_bonuses', 'floats', [300.0, 600.0], 'Combo milestone bonus', '', min_len=2, max_len=2, group='Settings'),
+    P('enemy_health', 'float', 0.3, 'Bandit health', '', min=0.05, max=3.0, group='Settings'),
+    P('enemy_damage', 'float', 0.25, 'Bandit damage', '', min=0.0, max=3.0, group='Settings'),
+    P('text_style', 'text', 'Score as many STYLE points as you can before time runs out', 'Objective text', '', group='Texts', max_len=70),
+    P('text_nice', 'text', 'NICE! STYLE BONUS', 'NICE text', '', group='Texts', max_len=40),
+    P('text_slick', 'text', 'SLICK! STYLE BONUS', 'SLICK text', '', group='Texts', max_len=40),
+    P('text_legend', 'text', 'LEGEND! BIG STYLE BONUS', 'LEGEND text', '', group='Texts', max_len=40),
+    P('text_count', 'text', '%0 kills in style', 'Counter text', '', group='Texts', max_len=40),
 ]
 
 

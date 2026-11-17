@@ -1,14 +1,14 @@
 """Collision generator core: new geometry -> TOD game collision, written into a model's HullList by the model writer.
 
-A COLLISION SET is the unit both editors save (in the Unreal session, in a Mod Studio mod, in a .todmod file):
+A COLLISION SET is the unit Mod Studio saves (in a mod, in a .todmod file):
 
   {"kind": "todct-collision", "version": 1,
    "id": "ruin-wall-01", "label": "Ruin wall block", "map": "map09_jungle",
    "visual_only": false,              true = the mesh is scenery only (far forest): no collision is written
    "host": "auto" | "/data/Models/.../TER_Chunk_01.model",
-   "source": {"editor": "unreal" | "modstudio", "asset": "/Game/...", "file": "x.glb", "actor": "label",
+   "source": {"editor": "modstudio", "file": "x.glb",
               "pos": [x,y,z], "rot": [x,y,z,w], "scale": [sx,sy,sz]},         where it came from (information)
-   "method": "solid" | "surface" | "hull" | "ue_vhacd" | "ue_simple",
+   "method": "solid" | "surface" | "hull",
    "pieces": [{"verts": [[x,y,z], ...],            game WORLD coordinates (metres, TOD axes), convex, <= 255
                "faces": [[i,j,k,...], ...],          polygons, outward
                "material": "Stone",                  facecoll.mat face material (name or index)
@@ -130,13 +130,13 @@ def pieces_from_mesh(V, F, frame_pos=(0, 0, 0), frame_quat=(0, 0, 0, 1), frame_s
     return out
 
 
-def pieces_from_point_sets(sets, material='Stone', surface='0x02007C00'):
-    """Hulls computed elsewhere (Unreal V-HACD / simple collision), already in world space."""
-    return [piece_json(p['verts'], p['faces'], material, surface) for p in decomp.pieces_from_point_sets(sets)]
-
-
 # ---------------------------------------------------------------------------------------------- the map's blocks
 BLOCK_EXTS = ('.map', '.submap')
+
+
+def pieces_from_point_sets(sets, material='Stone', surface='0x02007C00'):
+    """Convex pieces from point sets already in world space (one hull per set)."""
+    return [piece_json(p['verts'], p['faces'], material, surface) for p in decomp.pieces_from_point_sets(sets)]
 
 
 def map_key_of(entry):
@@ -494,7 +494,7 @@ def group_by_map(sets):
 
 # ---------------------------------------------------------------------------------------------- collision layer
 def layer(sets, include_visual_only=True):
-    """What both editors draw: per piece world-space triangles, class colour, material, words (JSON)."""
+    """What the editor draws: per piece world-space triangles, class colour, material, words (JSON)."""
     items = []
     for s in sets:
         for i, p in enumerate(s.get('pieces') or []):

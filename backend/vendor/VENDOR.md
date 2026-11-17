@@ -26,3 +26,15 @@ Tables the tools derive from the game's own `database.bin` (`property_table.json
 - `save_editor/kmodel.py`: global property list from TOD_TABLES_DIR
 - `level_streaming/submaptool.py`: sibling tools from the vendored copy
 - `limits/limtool.py`: sibling tools from the vendored copy (PROJ/tools/...)
+
+Comments and help text in 16 of the copied files were reworded by hand (wording only, no logic); after a re-vendor, re-read the copied files' comments for mentions of other tools and reword them the same way.
+
+## Copies from TOD HD (`backend/vendor/hd`, record `hd/HD.json`)
+
+- `hd/tod_hd_game.py`: copied unchanged from TOD HD's `app/tod_hd_game.py` (read only source). Used for the strict asset-block reader (`Block`), `texture_patches` and `rewrite_block` (texture replacement with a verified read-back). Imported by `todms/assetedit.py` and `todms/assets_stage.py`.
+- `hd/tod_hd_lighting.py` and `hd/tod_hd_scatter.py`: copied unchanged from TOD HD's `app` folder (read only source). The baked-lighting record parser, key tables, record size pass and instance ownership (`tod_hd_scatter.walk_fragment` is its fragment walker). Imported by `todms/lightfit.py` (lighting phase 2 of replaced models); private helpers (`_parse_block`, `_masked`, `_check_order`) are used as they are, nothing is patched. HD's `retarget_counts` itself is not called: it matches mesh by index and takes per-vertex colours from the same mesh only, which does not fit the importer's own sub-meshes; `lightfit` reuses its parts instead.
+- Not copied: `tod_hd_models.py`, `tod_hd_vegetation.py` (Mod Studio replaces models with its own `model_edit`/`model_writer`; their M6 numbers (bbox 110 %, 0.30 m below) are re-implemented in `todct/modelimport.py` and `todms/assets_stage.py`), `tod_hd_convert.py` (needs PIL; `todct/texture.py` is the numpy encoder).
+
+## Local logic patch (wave 3)
+
+- `save_editor/editlib.py` `start_mission(..., submap=None)`: the submap comes from the mission award's `Mission_SubMap` (what the engine loads), not from the list entry's `Mission_start_submap` (the award's `Mission_StartMap`; the two differ for missions 5, 8, 10, 18, 20, 23). `todms/saves.py` passes the award value.

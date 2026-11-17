@@ -2,13 +2,23 @@
 // Backend: todms/missions_tpl.py (/api/missiontpl). All text here is for modders: no internal names.
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { get, post, runJob } from './api.js'
-import { spotYaw } from './LoaderTopView.jsx'
+import { spotOverlay } from './LoaderTopView.jsx'
+import View3D from './View3D.jsx'
+import { useBundle, pickOfBlock, pickOfMapName, boundsOf, CONTEXT_LAYERS } from './levelLoad.js'
+import { useUI, Menu, Pipeline, CheckRow, RangeField, Advanced, Switch, UndoRedo } from './ui.jsx'
+import { useHistory, useUndoKeys } from './history.js'
+import { MeterStrip } from './Meters.jsx'
+import { ProblemsBadge } from './ProblemsPanel.jsx'
+import Snapshots from './Snapshots.jsx'
+import { useStore, registerProject, setOpen as openProblems, useJump } from './problemsStore.js'
+import { useAutosave, loadAutosave } from './autosave.js'
+import { t as tr } from './i18n.js'
 
 const short = e => (e || '').split('/').pop()
 const round = v => Math.round(v * 100) / 100
 const DOWNTOWN = 'submap01_map02_lostoros_downtown.submap'
-const LEVEL_COLOR = { error: '#ff6b6b', warn: '#f2c14e', info: '#8b97a6' }
-const COLORS = ['#55dbff', '#79ee96', '#ffd166', '#c08aff', '#ff9f6b', '#6bd0ff', '#f78fb3']
+const UNIT = { deg: '°', pts: 'pts' }
+const COLORS = ['#3ec5e8', '#4dc27d', '#d9a21b', '#b27df0', '#f08a50', '#5bb3f5', '#e56fa0']
 
 const uniqueId = (taken, base) => { let i = 1; while (taken.includes(base + i)) i++; return base + i }
 const blank = () => ({ name: 'My missions', hosts: [], missions: [], options: {} })
@@ -24,11 +34,11 @@ function PointInput({ value, onChange, onPlace, placing, label }) {
   const set = (i, x) => onChange(v.map((n, j) => j === i ? x : n))
   return <div className="row" style={{ alignItems: 'center' }}>
     <div className="row3" style={{ flex: 1 }}>
-      <label className="kv" style={{ margin: 0 }}>x<Num value={v[0]} onChange={x => set(0, x)} /></label>
-      <label className="kv" style={{ margin: 0 }}>height<Num value={v[1]} nullable placeholder="ground" onChange={x => set(1, x)} /></label>
-      <label className="kv" style={{ margin: 0 }}>z<Num value={v[2]} onChange={x => set(2, x)} /></label>
+      <label className="kv" style={{ margin: 0 }}>{tr('x_11f6ad')}<Num value={v[0]} onChange={x => set(0, x)} /></label>
+      <label className="kv" style={{ margin: 0 }}>{tr('height_73e7e5')}<Num value={v[1]} nullable placeholder={tr('ground')} onChange={x => set(1, x)} /></label>
+      <label className="kv" style={{ margin: 0 }}>{tr('z')}<Num value={v[2]} onChange={x => set(2, x)} /></label>
     </div>
-    <button className={placing ? 'primary' : ''} title="Then click the map" onClick={onPlace}>{placing ? 'Click the map' : 'Place'}</button>
+    <button className={placing ? 'primary' : ''} title={tr('then_click_the_map')} onClick={onPlace}>{placing ? 'Click the map' : 'Place'}</button>
   </div>
 }
 
@@ -39,17 +49,21 @@ function RectInput({ value, onChange, onPlace, placing }) {
       {['west x', 'south z', 'east x', 'north z'].map((l, i) => <label className="kv" key={i} style={{ margin: 0 }}>{l}
         <Num value={v[i]} onChange={x => onChange(v.map((n, j) => j === i ? x : n))} /></label>)}
     </div>
-    <button className={placing ? 'primary' : ''} title="Then click two opposite corners on the map" onClick={onPlace}>{placing ? 'Click 2 corners' : 'Place'}</button>
+    <button className={placing ? 'primary' : ''} title={tr('then_click_two_opposite_corners_on')} onClick={onPlace}>{placing ? 'Click 2 corners' : 'Place'}</button>
   </div>
 }
 
 function Field({ p, value, isSet, onChange, reset, placing, setPlacing }) {
-  const range = [p.min != null && 'at least ' + p.min, p.max != null && 'at most ' + p.max].filter(Boolean).join(', ')
-  const unit = p.unit ? ' ' + ({ deg: 'degrees', pts: 'points' }[p.unit] || p.unit) : ''
-  let input = null
   const k = p.kind
-  if (k === 'float' || k === 'int' || k === 'angle') input = <Num value={value} nullable={p.default == null} min={p.min} max={p.max} step={k === 'int' ? 1 : 'any'} onChange={onChange} />
-  else if (k === 'bool') input = <label className="check"><input type="checkbox" checked={!!value} onChange={e => onChange(e.target.checked)} /> <span>{value ? 'On' : 'Off'}</span></label>
+  const unit = p.unit ? (UNIT[p.unit] || p.unit) : ''
+  const numeric = k === 'float' || k === 'int' || k === 'angle'
+  if (numeric && p.min != null && p.max != null) {
+    return <RangeField label={p.label} help={p.help} value={value} min={p.min} max={p.max} step={k === 'int' ? 1 : undefined} def={p.default} unit={unit}
+      changed={isSet && value !== p.default} onChange={onChange} onReset={reset} digits={4} />
+  }
+  let input = null
+  if (numeric) input = <Num value={value} nullable={p.default == null} min={p.min} max={p.max} step={k === 'int' ? 1 : 'any'} onChange={onChange} />
+  else if (k === 'bool') input = <label className="check"><Switch label={p.label} on={!!value} onChange={onChange} /> <span>{value ? 'On' : 'Off'}</span></label>
   else if (k === 'text') input = (p.max_len || 0) > 60 ? <textarea rows={3} value={value ?? ''} onChange={e => onChange(e.target.value)} /> : <input value={value ?? ''} onChange={e => onChange(e.target.value)} />
   else if (k === 'choice') input = <select value={value ?? ''} onChange={e => onChange(e.target.value)}>{(p.choices || []).map(c => <option key={c} value={c}>{c}</option>)}</select>
   else if (k === 'point') input = <PointInput value={value} onChange={onChange} placing={placing?.key === p.key} onPlace={() => setPlacing({ key: p.key, kind: 'point' })} />
@@ -61,9 +75,9 @@ function Field({ p, value, isSet, onChange, reset, placing, setPlacing }) {
       <b style={{ width: 22 }}>{i + 1}</b>
       <div style={{ flex: 1 }}><PointInput value={pt} placing={placing?.key === p.key && placing.index === i}
         onChange={x => onChange(list.map((q, j) => j === i ? x : q))} onPlace={() => setPlacing({ key: p.key, kind: 'points', index: i })} /></div>
-      {!fixed && list.length > (p.min_len || 0) && <button title="Remove this point" onClick={() => onChange(list.filter((_, j) => j !== i))}>x</button>}
+      {!fixed && list.length > (p.min_len || 0) && <button className="sm" title={tr('remove_this_point')} onClick={() => onChange(list.filter((_, j) => j !== i))}>{tr('x_11f6ad')}</button>}
     </div>)}
-      {!fixed && list.length < (p.max_len || 99) && <button onClick={() => { const last = list[list.length - 1] || [0, null, 0]; setPlacing({ key: p.key, kind: 'points', index: list.length }); onChange([...list, [last[0] + 3, last[1], last[2] + 3]]) }}>Add a point</button>}
+      {!fixed && list.length < (p.max_len || 99) && <button className="sm" onClick={() => { const last = list[list.length - 1] || [0, null, 0]; setPlacing({ key: p.key, kind: 'points', index: list.length }); onChange([...list, [last[0] + 3, last[1], last[2] + 3]]) }}>{tr('add_a_point')}</button>}
     </div>
   } else if (k === 'rects') {
     const list = value || []
@@ -71,20 +85,18 @@ function Field({ p, value, isSet, onChange, reset, placing, setPlacing }) {
       <b style={{ width: 22 }}>{i + 1}</b>
       <div style={{ flex: 1 }}><RectInput value={r} placing={placing?.key === p.key && placing.index === i}
         onChange={x => onChange(list.map((q, j) => j === i ? x : q))} onPlace={() => setPlacing({ key: p.key, kind: 'rects', index: i, corner: 0 })} /></div>
-      <button title="Remove" onClick={() => onChange(list.filter((_, j) => j !== i))}>x</button></div>)}
-      <button onClick={() => { onChange([...list, [0, 0, 6, 6]]); setPlacing({ key: p.key, kind: 'rects', index: list.length, corner: 0 }) }}>Add a rectangle</button></div>
+      <button className="sm" title={tr('remove')} onClick={() => onChange(list.filter((_, j) => j !== i))}>{tr('x_11f6ad')}</button></div>)}
+      <button className="sm" onClick={() => { onChange([...list, [0, 0, 6, 6]]); setPlacing({ key: p.key, kind: 'rects', index: list.length, corner: 0 }) }}>{tr('add_a_rectangle')}</button></div>
   } else if (k === 'floats' || k === 'texts') {
     const list = value || []
     input = <div className="row" style={{ flexWrap: 'wrap' }}>{list.map((x, i) => <div key={i} style={{ width: k === 'texts' ? '100%' : 70 }}>
       {k === 'floats' ? <Num value={x} onChange={n => onChange(list.map((q, j) => j === i ? n : q))} />
         : <input value={x} onChange={e => onChange(list.map((q, j) => j === i ? e.target.value : q))} />}</div>)}</div>
   } else input = <i className="muted">{JSON.stringify(value)}</i>
-  return <div className="field" style={{ margin: '8px 0' }}>
-    <div className="row" style={{ alignItems: 'baseline' }}><b style={{ fontWeight: 600 }}>{p.label}</b>
-      <span className="muted small">{unit.trim()}{range && ' (' + range + ')'}</span>
-      {isSet && <button className="link" style={{ marginLeft: 'auto' }} onClick={reset}>use the default</button>}</div>
+  return <div className="field">
+    <div className="fieldhead" title={p.help || undefined}><span className="l">{p.label}</span>
+      {isSet ? <span className="d chg" role="button" tabIndex={0} onClick={reset} onKeyDown={e => e.key === 'Enter' && reset()}>{tr('use_the_default')}</span> : <span className="d">{tr('default')}</span>}</div>
     {input}
-    <div className="muted small">{p.help}</div>
   </div>
 }
 
@@ -112,77 +124,34 @@ function itemsOf(sc, vals) {
   return out
 }
 
-function HostView({ geom, loaders, others, items, placing, active, onPick, onPlace, areaMode }) {
-  const W = 900, H = 600
-  const [cursor, setCursor] = useState(null)
-  const ref = useRef(null)
-  const view = useMemo(() => {
-    const a = geom?.area || geom?.bounds || [-50, -50, 50, 50]
-    const pts = items.flatMap(it => it.rect ? [[it.rect[0], it.rect[1]], [it.rect[2], it.rect[3]]] : it.pos ? [[it.pos[0], it.pos[2]]] : [])
-    let ax0 = a[0], az0 = a[1], ax1 = a[2], az1 = a[3]
-    for (const [px, pz] of pts) { ax0 = Math.min(ax0, px); az0 = Math.min(az0, pz); ax1 = Math.max(ax1, px); az1 = Math.max(az1, pz) }
-    const pad = Math.max(6, 0.06 * Math.max(ax1 - ax0, az1 - az0))
-    let x0 = ax0 - pad, z0 = az0 - pad, x1 = ax1 + pad, z1 = az1 + pad
-    const scale = Math.min(W / (x1 - x0), H / (z1 - z0))
-    x1 = x0 + W / scale; z1 = z0 + H / scale              // use the whole drawing area
-    return { x0, z0, x1, z1, scale }
-  }, [geom, items])
-  const { x0, z0, x1, z1, scale } = view
-  const X = x => (x - x0) * scale, Z = z => H - (z - z0) * scale
-  const grid = []
-  const gstep = (x1 - x0) > 400 ? 50 : (x1 - x0) > 120 ? 20 : 10
-  for (let gx = Math.ceil(x0 / gstep) * gstep; gx < x1; gx += gstep) grid.push(<g key={'x' + gx}><line x1={X(gx)} x2={X(gx)} y1={0} y2={H} stroke="#222b36" /><text x={X(gx) + 2} y={H - 3} fill="#566274" fontSize={9}>{gx}</text></g>)
-  for (let gz = Math.ceil(z0 / gstep) * gstep; gz < z1; gz += gstep) grid.push(<g key={'z' + gz}><line y1={Z(gz)} y2={Z(gz)} x1={0} x2={W} stroke="#222b36" /><text x={2} y={Z(gz) - 2} fill="#566274" fontSize={9}>{gz}</text></g>)
-  const rectEl = (r, props) => <rect x={X(Math.min(r[0], r[2]))} y={Z(Math.max(r[1], r[3]))} width={Math.abs(r[2] - r[0]) * scale} height={Math.abs(r[3] - r[1]) * scale} {...props} />
-  const polygon = v => {
-    if (v.corners) return v.corners.map(c => `${X(c[0])},${Z(c[1])}`).join(' ')
-    const yaw = spotYaw(v) * Math.PI / 180, [w, , l] = v.size || [3, 3, 3]
-    return [[-1, -1], [-1, 1], [1, 1], [1, -1]].map(([a, c]) => { const x = a * w / 2, z = c * l / 2
-      return `${X(v.pos[0] + x * Math.cos(yaw) + z * Math.sin(yaw))},${Z(v.pos[2] - x * Math.sin(yaw) + z * Math.cos(yaw))}` }).join(' ')
-  }
-  const boxPoly = it => {
-    const s = Array.isArray(it.size) ? it.size : [it.size, it.size], yaw = (it.yaw || 0) * Math.PI / 180
-    return [[-1, -1], [-1, 1], [1, 1], [1, -1]].map(([a, c]) => { const x = a * s[0] / 2, z = c * s[1] / 2
-      return `${X(it.pos[0] + x * Math.cos(yaw) + z * Math.sin(yaw))},${Z(it.pos[2] - x * Math.sin(yaw) + z * Math.cos(yaw))}` }).join(' ')
-  }
-  const click = e => {
-    const svg = ref.current
-    const p = svg.createSVGPoint(); p.x = e.clientX; p.y = e.clientY
-    const q = p.matrixTransform(svg.getScreenCTM().inverse())
-    onPlace([x0 + q.x / scale, z0 + (H - q.y) / scale])
-  }
-  const color = (it, i) => it.id === active ? '#ffffff' : it.main ? '#ffd166' : COLORS[i % COLORS.length]
-  return <svg ref={ref} viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', background: '#10141a', cursor: placing || areaMode ? 'crosshair' : 'default', border: '1px solid var(--line)' }}
-    aria-label="Map top view, north up" onClick={click}
-    onMouseMove={e => { const svg = ref.current, p = svg.createSVGPoint(); p.x = e.clientX; p.y = e.clientY; const q = p.matrixTransform(svg.getScreenCTM().inverse()); setCursor([x0 + q.x / scale, z0 + (H - q.y) / scale]) }}
-    onMouseLeave={() => setCursor(null)}>
-    {grid}
-    {geom?.bounds && rectEl(geom.bounds, { fill: 'none', stroke: '#566274', strokeDasharray: '6 4' })}
-    {geom?.area && rectEl(geom.area, { fill: '#1f3a2c', fillOpacity: 0.35, stroke: '#5fd38d', strokeWidth: 1 })}
-    {(geom?.obstacles || []).map((o, i) => rectEl(o, { key: 'o' + i, fill: '#6b7686', fillOpacity: 0.7, stroke: '#9aa5b1' }))}
-    {(geom?.reserved || []).map((o, i) => <g key={'r' + i}>{rectEl(o, { fill: '#f2a541', fillOpacity: 0.12, stroke: '#f2a541', strokeDasharray: '3 3' })}
-      <text x={X(o[0]) + 3} y={Z(o[3]) + 11} fill="#f2a541" fontSize={10}>{o[4] === 'arrival' ? 'arrival' : o[4] === 'exit_loader' ? 'exit' : ''}</text></g>)}
-    {(loaders || []).map((v, i) => <g key={'l' + i}><polygon points={polygon(v)} fill="#c08aff" fillOpacity={0.15} stroke="#c08aff" /></g>)}
-    {(others || []).map((it, i) => <g key={'g' + i} opacity={0.55}><polygon points={boxPoly(it)} fill="#8b97a6" fillOpacity={0.2} stroke="#8b97a6" />
-      <text x={X(it.pos[0]) + 5} y={Z(it.pos[2]) - 6} fill="#8b97a6" fontSize={10}>{it.label}</text></g>)}
-    {items.map((it, i) => {
-      const c = color(it, i), sel = it.id === active
-      const onC = e => { e.stopPropagation(); onPick(it) }
-      if (it.shape === 'box') return <g key={it.id} onClick={onC} style={{ cursor: 'pointer' }}><polygon points={boxPoly(it)} fill={c} fillOpacity={sel ? 0.55 : 0.3} stroke={c} strokeWidth={sel ? 3 : 1.5} />
-        <text x={X(it.pos[0]) + 6} y={Z(it.pos[2]) - 8} fill={c} fontSize={11}>{it.label}</text></g>
-      if (it.shape === 'rect') return <g key={it.id} onClick={onC} style={{ cursor: 'pointer' }}>{rectEl(it.rect, { fill: c, fillOpacity: sel ? 0.3 : 0.12, stroke: c, strokeWidth: sel ? 3 : 1.2, strokeDasharray: '5 3' })}
-        <text x={X(Math.min(it.rect[0], it.rect[2])) + 3} y={Z(Math.max(it.rect[1], it.rect[3])) + 11} fill={c} fontSize={10}>{it.label}</text></g>
-      return <g key={it.id} onClick={onC} style={{ cursor: 'pointer' }}>
-        {it.shape === 'circle' && <circle cx={X(it.pos[0])} cy={Z(it.pos[2])} r={Math.max(3, it.radius * scale)} fill={c} fillOpacity={0.12} stroke={c} />}
-        <circle cx={X(it.pos[0])} cy={Z(it.pos[2])} r={sel ? 6 : 4.5} fill={c} stroke="#0b0e12" />
-        <text x={X(it.pos[0]) + 7} y={Z(it.pos[2]) - 6} fill={c} fontSize={10}>{it.short || it.label}</text></g>
-    })}
-    {cursor && <text x={W - 6} y={14} textAnchor="end" fill="#8b97a6" fontSize={11}>x {round(cursor[0])}, z {round(cursor[1])}</text>}
-  </svg>
+// The host map as overlays for the shared 3D view: play area, props, reserved spots, loader boxes, the other missions'
+// givers and the things this mission places. `g` is the ground height used where a point has none of its own.
+function hostOverlays({ geom, loaders, others, items, active, g }) {
+  const out = []
+  const flat = { y: g, ground: g, pickable: false, layer: 'host' }
+  if (geom?.plan) out.push({ id: 'h:plan', kind: 'plan', png: geom.plan.png, rect: geom.plan.rect, y: g - 0.1, pickable: false, layer: 'host' })
+  if (geom?.bounds) out.push({ id: 'h:bounds', kind: 'zone', rect: geom.bounds, h: 0.4, color: '#8491a1', opacity: 0.04, ...flat })
+  if (geom?.area) out.push({ id: 'h:area', kind: 'zone', rect: geom.area, h: 3, color: '#3fbf5a', opacity: 0.1, ...flat })
+  ;(geom?.obstacles || []).forEach((o, i) => out.push({ id: 'h:o' + i, kind: 'zone', rect: o, h: 5, color: '#7d8896', opacity: 0.3, ...flat }))
+  ;(geom?.reserved || []).forEach((o, i) => out.push({ id: 'h:r' + i, kind: 'zone', rect: o, h: 4, color: '#f2a541', opacity: 0.15, always: true,
+    label: o[4] === 'arrival' ? 'arrival' : o[4] === 'exit_loader' ? 'exit' : undefined, ...flat }))
+  ;(loaders || []).forEach((v, i) => out.push(spotOverlay({ ...v, id: 'l' + i }, '#c08aff', { opacity: 0.18, ground: g, pickable: false, layer: 'host' })))
+  ;(others || []).forEach((it, i) => { const sz = Array.isArray(it.size) ? it.size : [it.size, it.size]
+    out.push({ id: 'g' + i, kind: 'box', pos: it.pos, size: [sz[0], 4, sz[1]], yaw: it.yaw || 0, color: '#7d8896', opacity: 0.18, label: it.label, always: true, ground: g, pickable: false, layer: 'host' }) })
+  items.forEach((it, i) => {
+    const color = it.main ? '#f2a541' : COLORS[i % COLORS.length]
+    const base = { id: it.id, color, label: it.short || it.label, always: true, selected: it.id === active, ground: g, layer: 'items' }
+    if (it.shape === 'box') { const sz = Array.isArray(it.size) ? it.size : [it.size, it.size]; out.push({ ...base, kind: 'box', pos: it.pos, size: [sz[0], 4, sz[1]], yaw: it.yaw || 0, label: it.label }) }
+    else if (it.shape === 'rect') out.push({ ...base, kind: 'zone', rect: it.rect, h: 5, y: g, opacity: 0.16, label: it.label })
+    else out.push({ ...base, kind: 'point', pos: it.pos, radius: it.shape === 'circle' ? it.radius : undefined })
+  })
+  return out
 }
 
 // ---------------------------------------------------------------- the page
-export default function MissionTemplates({ status }) {
+export default function MissionTemplates({ status, go }) {
+  const ui = useUI()
+  const pstore = useStore()
   const [meta, setMeta] = useState({ projects: [], samples: [], types: [], status: null })
   const [cur, setCur] = useState(null)               // { id, project }
   const [dirty, setDirty] = useState(false)
@@ -191,6 +160,7 @@ export default function MissionTemplates({ status }) {
   const [slots, setSlots] = useState(null)
   const [schemas, setSchemas] = useState({})
   const [placing, setPlacing] = useState(null)
+  const [placeOpen, setPlaceOpen] = useState(() => window.innerWidth >= 1300)
   const [active, setActive] = useState(null)
   const [msgs, setMsgs] = useState(null)             // validate result
   const [built, setBuilt] = useState(null)
@@ -201,15 +171,24 @@ export default function MissionTemplates({ status }) {
   const [addType, setAddType] = useState(null)
   const [areaPick, setAreaPick] = useState(null)     // host id whose play area rectangle is being clicked in
   const [areaCorner, setAreaCorner] = useState(null)
+  const [vw, setVw] = useState('pick')              // 'pick' (kinds) or 'place' (map and settings)
+  const [busyPct, setBusyPct] = useState(null)
+  const [showAll, setShowAll] = useState(false)
 
   const project = cur?.project
+  useEffect(() => { if (project) registerProject('mission', cur.id || null, project) }, [project, cur?.id])
+  useAutosave('mission', cur?.id || null, project, dirty && !!project)
+  useJump('mtpl', ref => { if (ref.sample) { if (!meta.samples.some(x => x.key === ref.sample)) return false; openSample(ref.sample); return true } if (ref.mission && project?.missions.some(m => m.id === ref.mission)) setSel(ref.mission); return true })
   const refreshMeta = async () => { const m = await get('/api/missiontpl'); setMeta(m); return m }
   const refreshSlots = async () => { try { setSlots(await runJob('/api/missiontpl', { action: 'slots' })) } catch (e) { setNote(e.message) } }
-  useEffect(() => { refreshMeta().then(m => { if (m.projects.length && !cur) pick(m.projects[0]) }).catch(e => setNote(e.message)); refreshSlots()
+  useEffect(() => { refreshMeta().then(async m => { if (m.projects.length && !cur) pick(m.projects[0]); const d = await loadAutosave('mission', null); if (d) { setCur({ id: null, project: d.project }); setDirty(true); setSel(d.project.missions?.[0]?.id || null); ui.say(tr('your_last_unsaved_changes_are_back')) } }).catch(e => setNote(e.message)); refreshSlots()
     runJob('/api/missiontpl', { action: 'hosts' }).then(setChoices).catch(e => setNote(e.message))
     get('/api/catalog').then(setCatalog).catch(() => {}) }, [])
-  const pick = p => { setCur({ id: p.id, project: structuredClone(p.project), build: p.build }); setDirty(false); setMsgs(null); setBuilt(p.build?.ok ? p.build : null); setSel(p.project.missions?.[0]?.id || null); setPlacing(null); setActive(null) }
-  const edit = next => { setCur({ ...cur, project: next }); setDirty(true); setMsgs(null); setBuilt(null) }
+  const pick = p => { loadAutosave('mission', p.id).then(a => { if (a) { setCur(c => c && c.id === p.id ? ({ ...c, project: a.project }) : c); setDirty(true); ui.say(tr('your_last_unsaved_changes_are_back')) } }); hist.clear(); setCur({ id: p.id, project: structuredClone(p.project), build: p.build }); setDirty(false); setMsgs(null); setBuilt(p.build?.ok ? p.build : null); setSel(p.project.missions?.[0]?.id || null); setPlacing(null); setActive(null); setVw(p.project.missions?.length ? 'place' : 'pick') }
+  const curRef = useRef(cur); curRef.current = cur
+  const hist = useHistory(() => curRef.current?.project, v => { setCur(c => c && ({ ...c, project: v })); setDirty(true); setMsgs(null); setBuilt(null) })
+  useUndoKeys(hist)
+  const edit = next => { hist.record(); setCur({ ...cur, project: next }); setDirty(true); setMsgs(null); setBuilt(null) }
   const mission = project?.missions.find(m => m.id === sel)
   const host = project?.hosts.find(h => h.id === mission?.host)
   const typeInfo = t => meta.types.find(x => x.name === t)
@@ -251,6 +230,35 @@ export default function MissionTemplates({ status }) {
     return { area: host.area || [-50, -50, 50, 50], bounds: host.area && host.area.map((v, i) => v + (i < 2 ? -30 : 30)), obstacles: [], reserved: [] }
   })()
 
+  // the host map in 3D: real models under the overlays (the map of an existing section, or the source map of a new map)
+  const [showMap, setShowMap] = useState(true)
+  const hostPick = useMemo(() => {
+    if (!host || !catalog) return null
+    if (host.kind === 'existing') return host.block ? pickOfBlock(catalog, host.block) : null
+    const m = choices?.newmaps.find(n => n.id === host.newmap_id)?.maps[host.map_index || 0]
+    if (m?.geometry?.plan) return null                       // a scene map: its own picture below, not the map it was cloned from
+    return m?.source ? pickOfMapName(catalog, m.source) : null
+  }, [host?.id, host?.block, host?.newmap_id, host?.map_index, catalog, choices])
+  const lvl = useBundle(hostPick, showMap && !!hostPick)
+  const ground = geom?.ground_y ?? host?.ground_y ?? 0
+  const overlays = useMemo(() => geom ? hostOverlays({ geom, loaders, others, items, active, g: ground }) : [], [geom, loaders, others, items, active, ground])
+  const ghost = (() => {
+    if (areaPick) return { kind: 'rect', rect: { first: areaCorner }, color: '#3fbf5a', label: tr('play_area'), planeY: ground }
+    if (!placing || !sc) return null
+    const p = sc.params.find(q => q.key === placing.key)
+    if (placing.kind.startsWith('rect')) return { kind: 'rect', rect: { first: placing.corner === 1 ? placing.first : null }, color: '#3ec5e8', label: p?.label, planeY: ground }
+    const w = vals[placing.key === 'giver_pos' ? 'giver_size' : null], base = placing.key.replace(/_(pos|zone|centre|center)$/, '')
+    const bw = vals[placing.key + '_width'] ?? vals[base + '_width'], bl = vals[placing.key + '_length'] ?? vals[base + '_length']
+    const size = typeof w === 'number' ? [w, 4, w] : (typeof bw === 'number' && typeof bl === 'number') ? [bw, 4, bl] : null
+    return { kind: 'point', size, color: '#3ec5e8', label: p?.label, planeY: ground }
+  })()
+  const frameKey = [host?.id, sel, vw].join('|')
+  const focus = useMemo(() => {
+    const a = geom?.area || geom?.bounds
+    const pts = items.flatMap(it => it.rect ? [[it.rect[0], 0, it.rect[1]], [it.rect[2], 0, it.rect[3]]] : it.pos ? [it.pos] : [])
+    const b = boundsOf([...(a ? [[a[0], 0, a[1]], [a[2], 0, a[3]]] : []), ...pts], 12)
+    return b ? { bounds: b, y: ground } : null
+  }, [frameKey, !!geom])
   const setParam = (key, value) => edit({ ...project, missions: project.missions.map(m => m.id === sel ? { ...m, params: { ...m.params, [key]: value } } : m) })
   const resetParam = key => edit({ ...project, missions: project.missions.map(m => { if (m.id !== sel) return m; const p = { ...m.params }; delete p[key]; return { ...m, params: p } }) })
   const place = ([x, z]) => {
@@ -285,25 +293,26 @@ export default function MissionTemplates({ status }) {
     try {
       const p = name === 'uninstall' || name === 'slots' ? cur : await save()
       if (name === 'save') { setNote('Saved'); return }
-      const r = await runJob('/api/missiontpl', { action: name, id: p.id, project: p.project || project }, j => setBusy(j.message || label))
+      const r = await runJob('/api/missiontpl', { action: name, id: p.id, project: p.project || project }, j => { setBusy(j.message || label); setBusyPct(j.total ? 100 * j.done / j.total : null) })
       if (name === 'validate') setMsgs(r)
       if (name === 'build') { setBuilt(r); setMsgs({ ok: r.ok, messages: r.result.messages || [] }); if (r.ok) setNote('Built. Install puts it into your game.') }
-      if (name === 'install') setNote(r.message + '. Start the game and walk into the mission box. Saves made before this need the update on the Test save page, or pressing the use key at the box closes the game.')
+      if (name === 'install') setNote(r.message + '. Start the game and walk into the mission box. Saves made before this need the update on the Test saves screen, or pressing the use key at the box closes the game.')
       if (name === 'uninstall') setNote(r.message)
       await refreshMeta(); await refreshSlots()
       if (name !== 'validate') { const m = await get('/api/missiontpl'); const me = m.projects.find(q => q.id === p.id); if (me) setCur(c => ({ ...c, build: me.build })) }
     } catch (e) { setNote(e.message) } finally { setBusy(null) }
   }
-  const newProject = () => { if (dirty && !confirm('Discard unsaved changes?')) return; setCur({ id: null, project: blank() }); setDirty(true); setSel(null); setMsgs(null); setBuilt(null) }
+  const discardOk = async () => !dirty || await ui.confirm({ title: tr('discard_unsaved_changes'), body: tr('the_changes_to_this_mission_project'), kept: tr('kept_other_mission_projects_your_mod'), ok: tr('discard_changes') })
+  const newProject = async () => { if (!(await discardOk())) return; hist.clear(); setCur({ id: null, project: blank() }); setDirty(true); setSel(null); setMsgs(null); setBuilt(null); setVw('pick') }
   const openSample = async key => {
     const s = meta.samples.find(x => x.key === key)
-    if (s.uses_all_slots && !confirm(`${s.title} has ${s.missions} missions: it uses ALL 17 new mission slots of a game. Installing it leaves no room for other new missions. Open it anyway?`)) return
-    if (dirty && !confirm('Discard unsaved changes?')) return
+    if (s.uses_all_slots && !(await ui.confirm({ title: `Open "${s.title}"?`, body: `It has ${s.missions} missions and uses ALL 17 new mission slots of a game. Installing it leaves no room for other new missions.`, ok: tr('open_it_anyway'), danger: false }))) return
+    if (!(await discardOk())) return
     const p = await post('/api/missiontpl', { action: 'sample', key }); await refreshMeta(); pick(p)
     runJob('/api/missiontpl', { action: 'hosts' }).then(setChoices).catch(() => {})
   }
   const del = async () => {
-    if (!cur.id || !confirm('Delete this mission project? Your game is not changed.')) return
+    if (!cur.id || !(await ui.confirm({ title: tr('delete_this_mission_project'), body: tr('the_project_file_is_deleted_your'), kept: tr('kept_the_game_your_mod_library'), ok: tr('delete_project') }))) return
     try { await post('/api/missiontpl', { action: 'delete', id: cur.id }); const m = await refreshMeta(); setCur(null); setSel(null); if (m.projects[0]) pick(m.projects[0]) } catch (e) { setNote(e.message) }
   }
   const addHostNew = (nid, i) => {
@@ -319,7 +328,7 @@ export default function MissionTemplates({ status }) {
   const addMission = t => {
     if (!project.hosts.length) { setNote('Add a host first: the map or section the mission takes place in.'); return }
     const id = uniqueId(project.missions.map(m => m.id), t + '_')
-    edit({ ...project, missions: [...project.missions, { id, type: t, host: sel && mission ? mission.host : project.hosts[0].id, index: 'auto', params: {} }] }); setSel(id); setAddType(null)
+    edit({ ...project, missions: [...project.missions, { id, type: t, host: sel && mission ? mission.host : project.hosts[0].id, index: 'auto', params: {} }] }); setSel(id); setAddType(null); setVw('place'); setPlacing(null); setActive(null)
   }
   const removeMission = id => { edit({ ...project, missions: project.missions.filter(m => m.id !== id) }); if (sel === id) setSel(null) }
   const installedHere = meta.status?.projects?.[cur?.id]
@@ -330,122 +339,224 @@ export default function MissionTemplates({ status }) {
   const shipped = host?.kind === 'existing' && catalog ? (catalog.maps.find(m => m.id === mapIdOf(host.block))?.missions || []).filter(m => m.index != null) : []
   const errors = (msgs?.messages || []).filter(m => m.level === 'error').length
 
-  if (!meta.types.length) return <div className="page"><section className="box"><h3>Mission templates</h3><p className="muted">{note || 'Loading...'}</p></section></div>
-  return <div className="editor sections" style={{ gridTemplateColumns: 'minmax(0, 1fr) 440px' }}>
-    <div className="viewport" style={{ background: '#141920', overflow: 'auto', padding: 16 }}>
-      <section className="box"><h3>Mission templates</h3>
-        <p className="muted">Pick a kind of mission, choose the map it happens in, drop the mission giver and its points on the map, set the numbers,
-          then check, build and install. Everything goes into a mission package that your game loads next to your other mods.</p>
-        <div className="row">
-          <select aria-label="Mission project" value={cur?.id || ''} onChange={e => { if (dirty && !confirm('Discard unsaved changes?')) return; const p = meta.projects.find(q => q.id === e.target.value); if (p) pick(p) }}>
-            <option value="" disabled>{cur && !cur.id ? 'New mission project (not saved)' : 'Choose a mission project'}</option>
-            {meta.projects.map(p => <option key={p.id} value={p.id}>{p.project.name}</option>)}</select>
-          <button onClick={newProject}>New project</button>
-          <select aria-label="Open a sample" value="" onChange={e => e.target.value && openSample(e.target.value)}>
-            <option value="">Open a sample...</option>
-            {meta.samples.map(s => <option key={s.key} value={s.key}>Open sample: {s.title}{s.uses_all_slots ? ' (uses all 17 slots)' : ''}</option>)}</select>
+  const removeHost = async h => {
+    if (project.missions.some(m => m.host === h.id) && !(await ui.confirm({ title: tr('remove_this_map'), body: tr('missions_in_this_project_use_it'), kept: tr('kept_the_map_itself_your_other'), ok: tr('remove_map_and_missions') }))) return
+    edit({ ...project, hosts: project.hosts.filter(x => x.id !== h.id), missions: project.missions.filter(m => m.host !== h.id) })
+  }
+  const removeInstalled = async () => {
+    if (!(await ui.confirm({ title: tr('remove_these_missions_from_the_game'), body: tr('the_missions_of_this_project_stop'), kept: tr('kept_this_project_your_mod_library'), ok: tr('remove_missions') }))) return
+    run('uninstall', 'Removing')
+  }
+  const issuesOf = id => (msgs?.messages || []).filter(m => m.where === id && m.level === 'error').length
+
+  if (!meta.types.length) return <div className="screen"><div className="empty">{note || 'Loading the mission kinds…'}</div></div>
+
+  const placeKinds = sc?.params.filter(p => ['point', 'points', 'rect', 'rects'].includes(p.kind)) || []
+  const placeRow = p => {
+    const v = vals[p.key]
+    const list = Array.isArray(v) && p.kind.endsWith('s') ? v : null
+    const want = p.max_len ?? p.min_len
+    const ok = p.kind.endsWith('s') ? (list && list.length >= (p.min_len || 1)) : v != null
+    const count = list ? (want ? `${list.length} of ${want}` : String(list.length)) : (v != null ? 'placed' : 'click to place')
+    const start = () => {
+      setActive(p.key)
+      if (p.kind === 'point') setPlacing({ key: p.key, kind: 'point' })
+      else if (p.kind === 'rect') setPlacing({ key: p.key, kind: 'rect', corner: 0 })
+      else if (p.kind === 'points') setPlacing({ key: p.key, kind: 'points', index: list && p.max_len !== p.min_len ? list.length : 0 })
+      else setPlacing({ key: p.key, kind: 'rects', index: list ? list.length : 0, corner: 0 })
+    }
+    return { key: p.key, label: p.label, ok, count, start, on: placing?.key === p.key }
+  }
+  const nErr = (msgs?.messages || []).filter(m => m.level === 'error').length
+  const nWarn = (msgs?.messages || []).filter(m => m.level === 'warn').length
+  const nInfo = (msgs?.messages || []).filter(m => m.level !== 'error' && m.level !== 'warn').length
+  const hasMissions = project?.missions.length > 0
+  const pending = !!busy
+  const checkStep = pending && /check/i.test(busy) ? { tone: 'busy', note: busy, pct: busyPct ?? 30 }
+    : !msgs ? { tone: 'idle', note: hasMissions ? 'Not checked yet' : 'Add a mission first', action: hasMissions ? 'Check' : undefined, onClick: () => run('validate', 'Checking the missions'), disabled: pending }
+    : nErr ? { tone: 'bad', note: `${nErr} problem${nErr === 1 ? '' : 's'} to fix${nWarn ? `, ${nWarn} warning${nWarn === 1 ? '' : 's'}` : ''}`, action: 'Check again', onClick: () => run('validate', 'Checking the missions'), disabled: pending }
+    : { tone: nWarn ? 'warn' : 'ok', note: nWarn ? `Passed · ${nWarn} warning${nWarn === 1 ? '' : 's'}` : 'Passed', action: 'Check again', onClick: () => run('validate', 'Checking the missions'), disabled: pending }
+  const buildStep = pending && /build/i.test(busy) ? { tone: 'busy', note: busy, pct: busyPct ?? 30 }
+    : !hasMissions || nErr ? { tone: 'idle', note: nErr ? 'Fix the problem first' : 'Add a mission first' }
+    : built?.ok && !dirty ? { tone: 'ok', note: `Built · ${built.result?.missions?.length || 0} mission${built.result?.missions?.length === 1 ? '' : 's'}`, action: 'Build again', onClick: () => run('build', 'Building the missions'), disabled: pending }
+    : { tone: 'ready', note: 'Ready to build (about a minute)', action: 'Build', onClick: () => run('build', 'Building the missions'), disabled: pending }
+  const canInstall = !pending && !dirty && cur?.build?.ok && built?.ok
+  const installStep = pending && /install/i.test(busy) ? { tone: 'busy', note: busy, pct: busyPct ?? 30 }
+    : installedHere && !dirty && built?.ok ? { tone: 'ok', note: 'In the game', action: 'Install again', onClick: () => run('install', 'Installing'), disabled: !canInstall }
+    : canInstall ? { tone: 'ready', note: installedHere ? 'Game has an older version' : 'Not in the game yet', action: 'Install into the game', onClick: () => run('install', 'Installing') }
+    : { tone: 'idle', note: built?.ok ? 'Save the project first' : 'Waits for the build' }
+  const steps = [{ label: tr('check'), ...checkStep }, { label: tr('build'), ...buildStep }, { label: tr('install_into_the_game'), ...installStep }]
+
+  const groups = sc && !sc.error ? ['Placement', 'Settings', 'Scores', 'Texts'].concat([...new Set(sc.params.map(p => p.group))].filter(g => !['Placement', 'Settings', 'Scores', 'Texts'].includes(g))).filter(g => sc.params.some(p => p.group === g)) : []
+  const isMain = p => !p.advanced && p.group !== 'Placement' && p.group !== 'Texts'
+  const mainParams = sc ? sc.params.filter(isMain) : []
+  const advParams = sc ? sc.params.filter(p => !isMain(p) && p.key !== 'name') : []
+  const renderField = p => <Field key={p.key} p={p} value={vals[p.key]} isSet={mission.params && mission.params[p.key] !== undefined}
+    onChange={v => setParam(p.key, v)} reset={() => resetParam(p.key)} placing={placing} setPlacing={x => { setPlacing(x); setActive(x?.key + (x?.index != null ? ':' + x.index : '')) }} />
+  const advSet = advParams.filter(p => mission?.params && mission.params[p.key] !== undefined).length
+
+  return <div className="screen">
+    {vw === 'pick' ? (
+      <div className="tb">
+        <Menu buttonClass="crumbbtn" label={<><em>{tr('project')}</em> {cur?.project?.name || 'Choose a project'}{dirty ? ' *' : ''} {'▾'}</>}>{close => <>
+          {meta.projects.length === 0 && <div className="foot">{tr('no_saved_projects_yet')}</div>}
+          {meta.projects.map(p => <div key={p.id} className={'item' + (p.id === cur?.id ? ' on' : '')} onClick={async () => { close(); if (p.id !== cur?.id && await discardOk()) pick(p) }}>{p.project.name}</div>)}</>}</Menu>
+        {project?.hosts.length > 0 && <span className="muted small">{tr('on_db3d40')}{' '}{project.hosts.map(hostLabel).join(', ')}</span>}
+        {dirty && <span className="badge" style={{ background: 'var(--accent-soft)', color: 'var(--accent-text)' }}>{tr('unsaved')}</span>}
+        <div style={{ flex: 1 }} />
+        <Menu right label={<>{tr('open_a_sample')}{'…'}</>}>{close => <>{meta.samples.map(s => <div key={s.key} className="item" onClick={() => { close(); openSample(s.key) }}>{s.title}</div>)}</>}</Menu>
+        <UndoRedo h={hist} compact />
+        <button onClick={newProject}>{tr('new_project')}</button>
+        {cur?.id && <button className="danger" disabled={!!busy || !!installedHere} onClick={del} title={installedHere ? 'Remove it from the game first' : ''}>{tr('delete_project')}</button>}
+      </div>
+    ) : (
+      <div className="tb">
+        <button onClick={() => setVw('pick')}>{'‹'}{' '}{tr('all_kinds')}</button>
+        <div style={{ fontWeight: 600 }}>{mission?.params?.name || mission?.id || 'Mission'}</div>
+        {mission && <span className="badge">{typeInfo(mission.type)?.title || mission.type}</span>}
+        {project?.hosts.length > 1 && mission && <select aria-label={tr('map_of_this_mission')} style={{ width: 'auto', maxWidth: 220 }} value={mission.host}
+          onChange={e => edit({ ...project, missions: project.missions.map(m => m.id === sel ? { ...m, host: e.target.value, params: {} } : m) })}>
+          {project.hosts.map(h => <option key={h.id} value={h.id}>{hostLabel(h)}</option>)}</select>}
+        <div style={{ flex: 1 }} />
+        <span className="small muted wide-only" style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{placing ? (placing.kind.startsWith('rect') ? (placing.corner ? 'Click the opposite corner.' : 'Click one corner of the area.') : 'Click where it goes.') : areaPick ? 'Click two opposite corners for the play area.' : 'Click an item, then click the map.'}</span>
+        <UndoRedo h={hist} compact />
+        <button disabled={!!busy || !dirty} onClick={() => run('save', 'Saving')}>{tr('save_project')}</button>
+      </div>
+    )}
+    {note && <div className="callout neutral" role="status" style={{ margin: 0, padding: '6px 12px', borderRadius: 0, display: 'flex', gap: 8, alignItems: 'center', overflowWrap: 'anywhere' }}>
+      <span className="grow">{note}</span><button className="sm" onClick={() => setNote('')}>{tr('dismiss')}</button></div>}
+    <MeterStrip kind="mission" data={pstore.data.mission} go={go} extra={project ? <>
+      <Snapshots kind="mission" id={cur?.id} getProject={() => project} ensureId={async () => (await save()).id}
+                 onLoad={p => { hist.record(); setCur(c => ({ ...c, project: p })); setDirty(true); setMsgs(null); setBuilt(null) }} disabled={!!busy} />
+      <ProblemsBadge data={pstore.data.mission} onClick={() => openProblems(!pstore.open)} /></> : null} />
+    <div className="split">
+      <div className="panel-l" style={{ overflow: 'auto' }}>
+        <div style={{ padding: '12px 8px 4px', display: 'flex', flexDirection: 'column', gap: 2 }}>
+          {project && <label style={{ padding: '0 8px 8px', margin: 0 }}>{tr('project_name')}<input value={project.name} aria-label={tr('project_name')} onChange={e => edit({ ...project, name: e.target.value })} /></label>}
+          <div className="upper" style={{ padding: '0 8px 6px' }}>{tr('missions_in_this_project')}</div>
+          {project?.missions.map(m => (
+            <div key={m.id} className={'sideitem' + (vw === 'place' && sel === m.id ? ' on' : '')} role="button" tabIndex={0}
+                 onClick={() => { setSel(m.id); setPlacing(null); setActive(null); setVw('place') }} onKeyDown={e => e.key === 'Enter' && (setSel(m.id), setVw('place'))}>
+              <div className="a">{m.params?.name || m.id}</div>
+              <div className="b" style={{ color: issuesOf(m.id) ? 'var(--bad)' : msgs ? 'var(--ok)' : undefined }}>{typeInfo(m.type)?.title || m.type}
+                {msgs ? (issuesOf(m.id) ? ` · ${issuesOf(m.id)} problem${issuesOf(m.id) === 1 ? '' : 's'}` : ' · ready') : ''}
+                {msgs?.index?.[m.id] != null && ` · mission ${msgs.index[m.id]}`}</div>
+            </div>))}
+          <div className={'sideitem' + (vw === 'pick' ? ' on' : '')} role="button" tabIndex={0} onClick={() => setVw('pick')} onKeyDown={e => e.key === 'Enter' && setVw('pick')}>
+            <div className="a" style={{ color: 'var(--accent-text)', fontWeight: 600 }}>{tr('new_mission')}</div></div>
         </div>
-        <p style={{ margin: '8px 0 0' }}><b>{slots ? `${slots.left} of ${slots.total} new mission slots left` : 'Counting free mission slots...'}</b>
-          {slots && Object.keys(slots.projects).length > 0 && <span className="muted"> in this game: {Object.values(slots.projects).map(p => `${p.name} uses ${p.count}`).join(', ')}.</span>}
-          {project && <span className="muted"> This project has {needs}{left != null && needs > left ? ' and needs more slots than are left.' : '.'}</span>}</p>
-        <p className="muted small" style={{ margin: '4px 0 0' }}>A game can have at most 17 new missions in total, shared by everything you install.</p>
-        {meta.samples.find(s => s.id === cur?.id)?.uses_all_slots && <p className="warn">This sample uses all 17 slots. Installing it leaves no room for other new missions.</p>}
-      </section>
-      {project && <>
-        <section className="box">
-          <div className="row" style={{ alignItems: 'center' }}><h3 style={{ margin: 0 }}>Map {mission && host && <span className="muted"> - {hostLabel(host)}</span>}</h3>
-            <span className="muted small" style={{ marginLeft: 'auto' }}>North is up. {placing ? (placing.kind.startsWith('rect') ? (placing.corner ? 'Click the opposite corner.' : 'Click one corner of the area.') : 'Click where it goes.') : areaPick ? 'Click two opposite corners for the play area.' : 'Click an item to move it, then click the map.'}</span></div>
-          {geom ? <HostView geom={geom} loaders={loaders} others={others} items={items} placing={placing} active={active} areaMode={!!areaPick} onPick={pickItem} onPlace={place} />
-            : <p className="muted">{project.hosts.length ? 'Select a mission to see its map.' : 'Add a host on the right: the map the missions take place in.'}</p>}
-          <p className="muted small">Green: the play area. Grey boxes: buildings and props. Orange: the arrival spot and exits. Purple: loading boxes of the section. Yellow box: the mission giver; step into it and press the use key to be offered the mission.</p>
-        </section>
-        <section className="box"><h3>Missions in this project</h3>
-          {project.missions.map(m => <div className="row" key={m.id} style={{ marginBottom: 4 }}>
-            <button className={sel === m.id ? 'primary' : ''} style={{ flex: 1, textAlign: 'left' }} onClick={() => { setSel(m.id); setPlacing(null); setActive(null) }}>
-              {m.params?.name || m.id} <span className="muted">- {typeInfo(m.type)?.title || m.type}, {hostLabel(project.hosts.find(h => h.id === m.host) || { kind: 'x', block: '' })}{msgs?.index?.[m.id] != null && ', mission ' + msgs.index[m.id]}</span></button>
-            <button onClick={() => removeMission(m.id)} title="Remove this mission">Remove</button></div>)}
-          {!project.missions.length && <p className="muted">No missions yet. Pick a kind below.</p>}
-          <h4 style={{ marginTop: 12 }}>Add a mission</h4>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 6 }}>
-            {meta.types.map(t => <button key={t.name} className={addType === t.name ? 'on' : ''} style={{ textAlign: 'left', whiteSpace: 'normal' }} onClick={() => setAddType(addType === t.name ? null : t.name)}>
-              <b>{t.title}</b><div className="muted small">{t.summary}</div></button>)}
+        {project && <div style={{ padding: '4px 8px 12px', borderTop: '1px solid var(--line)', marginTop: 4 }}>
+          <div className="upper" style={{ padding: '8px 8px 6px' }}>{tr('maps_for_the_missions')}</div>
+          {project.hosts.map(h => <div key={h.id} style={{ padding: '2px 8px 6px' }}>
+            <div className="row"><b className="grow" style={{ fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={hostLabel(h)}>{hostLabel(h)}</b>
+              <button className="sm danger" title={tr('remove_this_map_from_the_project')} onClick={() => removeHost(h)}>{tr('remove')}</button></div>
+            {h.kind === 'existing' && <Advanced title={tr('play_area_and_start')} note={areaPick === h.id ? 'click the map' : ''}>
+              <label className="kv" style={{ margin: 0 }}>{tr('play_area_west_x_south_z')}{' '}<button className="link" onClick={() => { setAreaPick(areaPick === h.id ? null : h.id); setAreaCorner(null); setVw('place') }}>{areaPick === h.id ? 'cancel' : 'set on the map'}</button>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 4 }}>{(h.area || [0, 0, 0, 0]).map((v, i) => <Num key={i} value={v} onChange={x => edit({ ...project, hosts: project.hosts.map(q => q.id === h.id ? { ...q, area: q.area.map((n, j) => j === i ? x : n) } : q) })} />)}</div></label>
+              <label className="kv">{tr('ground_height_metres')}<Num value={h.ground_y} nullable onChange={x => edit({ ...project, hosts: project.hosts.map(q => q.id === h.id ? { ...q, ground_y: x } : q) })} /></label>
+              <label className="kv">{tr('start_the_mission_like_this_shipped')}<select value={h.map_ids_from_slot ?? ''} onChange={e => edit({ ...project, hosts: project.hosts.map(q => q.id === h.id ? { ...q, map_ids_from_slot: Number(e.target.value) } : q) })}>
+                  {h.map_ids_from_slot == null && <option value="">{tr('choose_one')}</option>}
+                  {(catalog?.maps.find(m => m.id === mapIdOf(h.block))?.missions || []).filter(m => m.index != null).map(m => <option key={m.index} value={m.index}>{m.title} ({m.index})</option>)}
+                  {h.map_ids_from_slot != null && !(catalog?.maps.find(m => m.id === mapIdOf(h.block))?.missions || []).some(m => m.index === h.map_ids_from_slot) && <option value={h.map_ids_from_slot}>{tr('mission')}{' '}{h.map_ids_from_slot}</option>}</select></label>
+</Advanced>}
+          </div>)}
+          <Menu buttonClass="soft" label={<>{tr('add_a_map')}{' '}{'▾'}</>}>{close => <>
+            <div className="grp" style={{ paddingTop: 0 }}>{tr('your_new_maps')}</div>
+            {choices?.newmaps.length === 0 && <div className="foot" style={{ border: 0, marginTop: 0 }}>{tr('none_yet_make_one_in_new')}</div>}
+            {choices?.newmaps.flatMap(n => n.maps.map((m, i) => {
+              const used = m.error || project.hosts.some(h => h.kind === 'new_map' && h.newmap_id === n.id && (h.map_index || 0) === i)
+              return <div key={n.id + i} className={'item' + (used ? ' off' : '')} onClick={() => { if (used) return; close(); addHostNew(n.id, i) }}>{m.name}</div>
+            }))}
+            <div className="grp">{tr('a_part_of_an_existing_map')}</div>
+            {(choices?.existing || []).map(h => <div key={h.block} className={'item' + (!h.offer ? ' off' : '')} title={h.offer ? h.proven : h.reason} onClick={() => { if (!h.offer) return; close(); addHostExisting(h.block) }}>
+              <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{h.block.replace('.submap', '').replace('.map', '').replace(/_/g, ' ')}</span>
+              <span className="hint">{!h.offer ? 'cannot host' : /^proven/.test(h.proven || '') ? 'tested' : 'not tested'}</span></div>)}
+</>}</Menu>
+        </div>}
+      </div>
+
+      {vw === 'pick' && <div style={{ flex: 1, minWidth: 0, overflow: 'auto', padding: 16 }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 12, flexWrap: 'wrap' }}>
+          <div style={{ fontSize: 18, fontWeight: 600 }}>{tr('pick_a_kind_of_mission')}</div>
+</div>
+        {!project && <div className="callout neutral" style={{ marginBottom: 12 }}>{tr('open_a_sample_or_start_a')}</div>}
+        {project && !project.hosts.length && <div className="callout warn" style={{ marginBottom: 12 }}><b>{tr('add_a_map_first')}</b>{' '}{tr('use')}{' '}{'“'}{tr('add_a_map')}{'”'}{' '}{tr('on_the_left')}</div>}
+        <div className="cards">
+          {meta.types.map(t => <div key={t.name} title={'The map needs ' + (t.host_needs || []).map(n => n.replace(/\.$/, '')).join('; ')} className={'card sm' + (addType === t.name ? ' sel' : '')} role="button" tabIndex={0} onClick={() => setAddType(t.name)} onKeyDown={e => e.key === 'Enter' && setAddType(t.name)} style={{ cursor: 'pointer' }}>
+            <div style={{ fontSize: 14, fontWeight: 600 }}>{t.title}</div>
+            <div style={{ fontSize: 12, color: 'var(--text-2)', textWrap: 'pretty' }}>{t.summary}</div>
+            {addType === t.name && <>
+              <button className="primary" style={{ marginTop: 4 }} disabled={!project} onClick={e => { e.stopPropagation(); addMission(t.name) }}>{tr('use_this_kind')}</button></>}
+          </div>)}
+        </div>
+      </div>}
+
+      {vw === 'place' && <>
+        <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+          <div className="vp" style={{ flex: 1, minHeight: 0 }}>
+            {geom ? <View3D defaultMode="top" bundle={lvl.bundle} view={lvl.view} layers={CONTEXT_LAYERS} overlays={overlays} focus={focus} planeY={ground}
+                onPickOverlay={id => { const it = items.find(q => q.id === id); if (it) pickItem(it) }}
+                placing={ghost} onPlace={pos => place([pos[0], pos[2]])} style={{ position: 'absolute', inset: 0 }} />
+              : <div className="vp" style={{ position: 'absolute', inset: 0 }}><div className="empty">{project?.hosts.length ? (hasMissions ? 'Choose a mission on the left to see its map.' : 'Pick a kind of mission first.') : 'Add a map on the left: the place the missions happen in.'}</div></div>}
+            {geom && placeKinds.length > 0 && !placeOpen && <button className="sm" style={{ position: 'absolute', left: 12, top: 12 }} onClick={() => setPlaceOpen(true)} title={tr('show_the_list_of_things_to')}>{tr('place_on_the_map')}{' '}{'▸'}</button>}
+            {geom && placeKinds.length > 0 && placeOpen && <div style={{ position: 'absolute', left: 12, top: 12, width: 228, padding: 8, border: '1px solid var(--line)', borderRadius: 'var(--r-lg)', background: 'var(--surface)', boxShadow: 'var(--shadow-1)' }}>
+              <div className="row" style={{ padding: '0 4px 6px' }}><div className="upper grow">{tr('place_on_the_map')}</div>
+                <button className="sm ghost" onClick={() => setPlaceOpen(false)} title={tr('hide_this_list')} aria-label={tr('hide_the_list')}>{'◂'}</button></div>
+              {placeKinds.map(placeRow).map(r => <div key={r.key} role="button" tabIndex={0} onClick={r.start} onKeyDown={e => e.key === 'Enter' && r.start()}
+                style={{ display: 'flex', alignItems: 'center', gap: 8, height: 28, padding: '0 6px', borderRadius: 'var(--r-sm)', cursor: 'pointer', background: r.on ? 'var(--accent-soft)' : r.ok ? 'transparent' : 'var(--bad-soft)' }}>
+                <span style={{ width: 16, textAlign: 'center', fontWeight: 700, color: r.ok ? 'var(--ok)' : 'var(--bad)' }}>{r.ok ? '✓' : '×'}</span>
+                <span style={{ flex: 1, fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{r.label}</span>
+                <span style={{ fontSize: 11.5, color: 'var(--text-3)' }}>{r.count}</span></div>)}
+            </div>}
+            {geom && hostPick && <span style={{ position: 'absolute', right: 98, top: 12, zIndex: 5, display: 'flex', gap: 8, alignItems: 'center' }}>
+              {lvl.busy && <span className="small muted">{lvl.busy}{'…'}</span>}{lvl.err && <span className="small warn" title={lvl.err}>{tr('no_map')}</span>}
+              <button className={'sm' + (showMap ? ' on' : '')} aria-pressed={showMap} title={tr('draw_the_map_under_the_placements')} onClick={() => setShowMap(!showMap)}>{tr('map')}</button></span>}
+            {geom && <span className="floatpanel" style={{ left: 12, bottom: 12, cursor: 'help', pointerEvents: 'auto' }} title={tr('green_play_area_grey_buildings_and')}>?</span>}
           </div>
-          {addType && <div className="result"><b>{typeInfo(addType).title}</b><p>{typeInfo(addType).summary}</p>
-            <div className="muted small">What the map needs:<ul style={{ margin: '2px 0', paddingLeft: 18 }}>{typeInfo(addType).host_needs.map((n, i) => <li key={i}>{n}</li>)}</ul></div>
-            <button className="primary" onClick={() => addMission(addType)}>Add this mission</button></div>}
-        </section>
+          <div className="checks" style={{ flex: 'none', borderTop: '1px solid var(--line)' }}>
+            <div className="ch"><span style={{ fontWeight: 600 }}>{tr('check_results')}</span>
+              {msgs ? <>{nErr > 0 && <span style={{ color: 'var(--bad)', fontSize: 12 }}>{nErr}{' '}{tr('to_fix')}</span>}{nWarn > 0 && <span style={{ color: 'var(--warn)', fontSize: 12 }}>{nWarn}{' '}{tr('warning')}{nWarn === 1 ? '' : 's'}</span>}
+                <span style={{ color: 'var(--ok)', fontSize: 12 }}>{nErr + nWarn === 0 ? 'Nothing to fix' : ''}</span></> : <span className="muted" style={{ fontSize: 12 }}>{tr('not_checked_yet')}</span>}
+              <span style={{ flex: 1 }} />
+              {msgs && nInfo > 0 && <button className="link" onClick={() => setShowAll(!showAll)}>{showAll ? 'Hide' : 'Show'} {nInfo}{' '}{tr('note')}{nInfo === 1 ? '' : 's'}</button>}
+              <button className="sm" disabled={!!busy || !hasMissions} onClick={() => run('validate', 'Checking the missions')}>{msgs ? 'Check again' : 'Check'}</button></div>
+            <div style={{ maxHeight: 132, overflow: 'auto' }}>
+              {(msgs?.messages || []).filter(m => showAll || m.level === 'error' || m.level === 'warn').map((m, i) => {
+                const can = m.where && project?.missions.some(x => x.id === m.where)
+                return <CheckRow key={i} tone={m.level === 'error' ? 'bad' : m.level === 'warn' ? 'warn' : 'info'} title={m.text} fix={m.where && m.where !== 'project' ? `(${m.where})` : ''}
+                  action={can && sel !== m.where ? 'Show me' : null} onAction={() => { setSel(m.where); setVw('place') }} />
+              })}
+              {msgs && !msgs.messages.length && <CheckRow tone="ok" title={tr('nothing_to_fix')} />}
+              {built?.ok && built.result && <details style={{ padding: '6px 12px' }}><summary className="small">{tr('built')}{' '}{built.result.missions.length}{' '}{tr('mission')}{built.result.missions.length === 1 ? '' : 's'}{' '}{tr('in_one_package')}{Math.round(built.result.bytes / 1048576)}{' '}{tr('mb_e89828')}</summary>
+                <table className="tbl small"><thead><tr><th>{tr('mission_e4698d')}</th><th>{tr('kind')}</th><th>{tr('number')}</th><th>{tr('giver_at')}</th></tr></thead><tbody>
+                  {built.result.missions.map(m => <tr key={m.project + m.id}><td>{m.name}</td><td>{typeInfo(m.type)?.title || m.type}</td><td>{m.index}</td><td>{m.giver.pos.map(round).join(', ')}</td></tr>)}</tbody></table>
+                </details>}
+            </div>
+          </div>
+        </div>
+        <div className="panel-r wide">
+          <div className="panel-h"><div className="grow"><div className="t" style={{ fontWeight: 600 }}>{tr('settings')}</div></div></div>
+          <div className="panel-b" style={{ gap: 14 }}>
+            {!mission && <div className="muted">{tr('pick_a_kind_first')}</div>}
+            {mission && <>
+              {mission.type === 'chase' && <p className="warn small">{tr('always_plays_in_downtown_only_the')}</p>}
+              {!sc && <p className="muted">{tr('loading_the_settings')}{'…'}</p>}
+              {sc?.error && <p className="bad">{sc.error}</p>}
+              {sc && !sc.error && <>
+                <div><div style={{ fontSize: 12, color: 'var(--text-2)', marginBottom: 4 }}>{tr('mission_name')}</div>
+                  <input aria-label={tr('mission_name')} value={mission.params?.name ?? vals.name ?? ''} onChange={e => setParam('name', e.target.value)} /></div>
+                {mainParams.filter(p => p.key !== 'name').map(renderField)}
+                {advParams.length > 0 && <Advanced title={tr('advanced')} note={advSet ? `${advParams.length} more, ${advSet} changed` : `${advParams.length} more, all on default`}>
+                  {groups.filter(g => advParams.some(p => p.group === g)).map(g => <div key={g}><h4>{g === 'Placement' ? 'Exact positions' : g}</h4>{advParams.filter(p => p.group === g).map(renderField)}</div>)}
+                </Advanced>}
+              </>}
+            </>}
+          </div>
+          {mission && <div className="panel-f"><button className="danger" onClick={() => removeMission(mission.id)}>{tr('remove_this_mission')}</button></div>}
+        </div>
       </>}
-      {note && <section className="box" role="status" style={{ overflowWrap: 'anywhere' }}>{note}</section>}
-      {msgs && <section className="box"><h3>{msgs.ok ? 'Looks good' : 'Needs attention'}</h3>
-        {!msgs.messages.length && <p className="good">Nothing to fix.</p>}
-        <ul className="checklist">{msgs.messages.map((m, i) => <li key={i} className={m.level === 'error' ? 'error' : m.level === 'warn' ? 'warn' : 'ok'} style={{ cursor: m.where && project?.missions.some(x => x.id === m.where) ? 'pointer' : 'default' }}
-          onClick={() => project?.missions.some(x => x.id === m.where) && setSel(m.where)}>
-          <b>{m.level === 'error' ? 'Fix' : m.level === 'warn' ? 'Check' : 'Note'}{m.where && m.where !== 'project' ? ' - ' + m.where : ''}</b> {m.text}</li>)}</ul></section>}
-      {built?.ok && built.result && <section className="box"><h3>Built</h3>
-        <p>{built.result.missions.length} mission{built.result.missions.length === 1 ? '' : 's'} in one package ({Math.round(built.result.bytes / 1048576)} MB). Installing replaces the mission package in your game folder; your game files are not touched.</p>
-        <table className="modlist" style={{ width: '100%' }}><thead><tr><th>Mission</th><th>Kind</th><th>Number</th><th>Giver at</th></tr></thead><tbody>
-          {built.result.missions.map(m => <tr key={m.project + m.id}><td>{m.name}</td><td>{typeInfo(m.type)?.title || m.type}</td><td>{m.index}</td><td>{m.giver.pos.map(round).join(', ')}</td></tr>)}</tbody></table></section>}
     </div>
-    <aside className="panel" style={{ overflow: 'auto' }}>{project && <>
-      <section className="box"><h3>Project {dirty && '- unsaved'}</h3>
-        <label className="kv">Name<input value={project.name} onChange={e => edit({ ...project, name: e.target.value })} /></label>
-        <div className="row" style={{ flexWrap: 'wrap' }}>
-          <button disabled={!!busy} onClick={() => run('save', 'Saving')}>Save</button>
-          <button disabled={!!busy || !project.missions.length} onClick={() => run('validate', 'Checking the missions')}>Check</button>
-          <button className="primary" disabled={!!busy || !project.missions.length || errors > 0} onClick={() => run('build', 'Building the missions')}>Build</button>
-          <button disabled={!!busy || dirty || !cur?.build?.ok || !built?.ok} title={!built?.ok ? 'Build first' : ''} onClick={() => run('install', 'Installing')}>Install</button>
-          <button disabled={!!busy || !installedHere} onClick={() => run('uninstall', 'Removing')}>Uninstall</button>
-          {cur?.id && <button disabled={!!busy || !!installedHere} onClick={del}>Delete project</button>}</div>
-        <p className="muted small">Build makes the mission package for everything installed in this game plus this project (about a minute). Install copies it into the game folder and adds it to the game's archive list; your original game files are not changed. {installedHere && <b>Installed in this game.</b>}</p>
-      </section>
-      <section className="box"><h3>Maps for the missions</h3>
-        {project.hosts.map(h => <div key={h.id} style={{ marginBottom: 8 }}>
-          <div className="row" style={{ alignItems: 'center' }}><b style={{ flex: 1 }}>{hostLabel(h)}</b>
-            <button title="Remove this host" onClick={() => { if (project.missions.some(m => m.host === h.id) && !confirm('Missions use this map. Remove them too?')) return; edit({ ...project, hosts: project.hosts.filter(x => x.id !== h.id), missions: project.missions.filter(m => m.host !== h.id) }) }}>Remove</button></div>
-          {h.kind === 'existing' && <div className="muted small">
-            <label className="kv">Play area (west x, south z, east x, north z) <button className="link" onClick={() => { setAreaPick(areaPick === h.id ? null : h.id); setAreaCorner(null) }}>{areaPick === h.id ? 'cancel' : 'set on the map'}</button>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 4 }}>{(h.area || [0, 0, 0, 0]).map((v, i) => <Num key={i} value={v} onChange={x => edit({ ...project, hosts: project.hosts.map(q => q.id === h.id ? { ...q, area: q.area.map((n, j) => j === i ? x : n) } : q) })} />)}</div></label>
-            <label className="kv">Ground height (metres)<Num value={h.ground_y} nullable onChange={x => edit({ ...project, hosts: project.hosts.map(q => q.id === h.id ? { ...q, ground_y: x } : q) })} /></label>
-            <label className="kv">Start the mission like this shipped mission
-              <select value={h.map_ids_from_slot ?? ''} onChange={e => edit({ ...project, hosts: project.hosts.map(q => q.id === h.id ? { ...q, map_ids_from_slot: Number(e.target.value) } : q) })}>
-                {h.map_ids_from_slot == null && <option value="">choose one</option>}
-                {(catalog?.maps.find(m => m.id === mapIdOf(h.block))?.missions || []).filter(m => m.index != null).map(m => <option key={m.index} value={m.index}>{m.title} ({m.index})</option>)}
-                {h.map_ids_from_slot != null && !(catalog?.maps.find(m => m.id === mapIdOf(h.block))?.missions || []).some(m => m.index === h.map_ids_from_slot) && <option value={h.map_ids_from_slot}>mission {h.map_ids_from_slot}</option>}</select></label>
-            <p>This section is an existing part of the game. Only the mission giver box is added to it; everything else the mission needs is added in new blocks. Give it the walkable play area and its ground height: the game does not tell us.</p></div>}
-        </div>)}
-        <h4>Add a map</h4>
-        {choices?.newmaps.length === 0 && <p className="muted small">You have no New maps projects yet. Make one on the New maps tab, or open a sample above.</p>}
-        {choices?.newmaps.flatMap(n => n.maps.map((m, i) => <div className="row" key={n.id + i} style={{ marginBottom: 3 }}>
-          <button style={{ flex: 1, textAlign: 'left' }} disabled={m.error || project.hosts.some(h => h.kind === 'new_map' && h.newmap_id === n.id && (h.map_index || 0) === i)}
-            onClick={() => addHostNew(n.id, i)}>New map: {m.name}</button></div>))}
-        <label className="kv">A part of an existing map
-          <select value="" onChange={e => e.target.value && addHostExisting(e.target.value)}>
-            <option value="">Choose a section...</option>
-            {(choices?.existing || []).map(h => <option key={h.block} value={h.block} disabled={!h.offer} title={h.offer ? h.proven : h.reason}>{h.block.replace('.submap', '').replace('.map', '').replace(/_/g, ' ')}{!h.offer ? ' (cannot host a giver)' : /^proven/.test(h.proven || '') ? ' (tested in the game)' : ' (not tested in the game yet)'}</option>)}</select></label>
-        {choices && choices.existing.some(h => !h.offer) && <p className="muted small">Greyed sections cannot take a giver box: hover one for the reason. Only the Downtown sections are tested in the game; the others pass the safety checks but you should try them in a test save first.</p>}
-        {project.hosts.some(h => h.kind === 'new_map') && <p className="muted small">A new map is built into the mission package. If you installed the same map from the New maps tab, installing the missions takes that map package out (it would be the same map twice).</p>}
-      </section>
-      {mission && <section className="box">
-        <h3>{typeInfo(mission.type)?.title}: {mission.params?.name || mission.id}</h3>
-        <p className="muted small">{typeInfo(mission.type)?.summary}</p>
-        <label className="kv">Map<select value={mission.host} onChange={e => edit({ ...project, missions: project.missions.map(m => m.id === sel ? { ...m, host: e.target.value, params: {} } : m) })}>
-          {project.hosts.map(h => <option key={h.id} value={h.id}>{hostLabel(h)}</option>)}</select></label>
-        {mission.type === 'chase' && <p className="warn small">This one is not map independent: the chase always plays in Downtown, on its roads. Only the giver can go elsewhere.</p>}
-        {!sc && <p className="muted">Loading the settings...</p>}
-        {sc?.error && <p className="bad">{sc.error}</p>}
-        {sc && !sc.error && ['Placement', 'Settings', 'Scores', 'Texts'].concat([...new Set(sc.params.map(p => p.group))].filter(g => !['Placement', 'Settings', 'Scores', 'Texts'].includes(g))).filter(g => sc.params.some(p => p.group === g)).map(g => {
-          const ps = sc.params.filter(p => p.group === g)
-          const main = ps.filter(p => !p.advanced), adv = ps.filter(p => p.advanced)
-          const render = p => <Field key={p.key} p={p} value={vals[p.key]} isSet={mission.params && mission.params[p.key] !== undefined}
-            onChange={v => setParam(p.key, v)} reset={() => resetParam(p.key)} placing={placing} setPlacing={x => { setPlacing(x); setActive(x?.key + (x?.index != null ? ':' + x.index : '')) }} />
-          return <details key={g} open={g === 'Placement' || g === 'Settings'}><summary><b>{g}</b></summary>
-            {main.map(render)}
-            {adv.length > 0 && <details><summary className="muted">More {g.toLowerCase()} settings</summary>{adv.map(render)}</details>}</details>
-        })}
-      </section>}
-    </>}
-    {!project && <section className="box"><p className="muted">Open a sample from the top of the page or start a new project.</p></section>}
-    </aside>
-    {busy && <div className="busy">{busy}</div>}
+    <Pipeline steps={steps} removeLabel={tr('remove_missions_from_the_game')} onRemove={removeInstalled} removeDisabled={!!busy || !installedHere} />
+    {busy && !/check|build|install/i.test(busy) && <div className="busy">{busy}</div>}
   </div>
 }

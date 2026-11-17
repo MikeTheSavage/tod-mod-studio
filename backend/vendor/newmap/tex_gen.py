@@ -41,7 +41,7 @@ def a16(x):
 def _periodic(n, cells, rng):
     """Smooth periodic value noise: n x n, `cells` random lattice points per side (wraps)."""
     g = rng.random((cells, cells))
-    idx = np.arange(n, dtype=np.float64) * (float(cells) / n)      # 2b: int*int/int is miscomputed in SOME numpy 2.5.3 processes here (NOTES_2b.md)
+    idx = np.arange(n, dtype=np.float64) * (float(cells) / n)      # 2b: int*int/int is miscomputed in SOME numpy 2.5.3 processes here
     i0 = np.floor(idx).astype(int)
     f = idx - i0
     f = f * f * (3 - 2 * f)

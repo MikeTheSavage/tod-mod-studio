@@ -11,7 +11,7 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'backend'))
-from todms import game, missions_tpl as MT, newmap
+from todms import archives, game, missions_tpl as MT, newmap
 
 
 def zip_at(p, entries):
@@ -80,6 +80,29 @@ class Projects(unittest.TestCase):
         self.assertEqual(idmap[ghost['id']], (a['id'], 'yard_ghost'))
         self.assertEqual({h['map_index'] for h in lp['hosts']}, {0})
 
+    def test_compose_carries_the_project_level_keys_of_every_map_project(self):
+        a = MT.open_sample('yard')
+        pa = newmap.get_project(a['project']['hosts'][0]['newmap_id'])['params']
+        pa['existing_vehicles'] = [dict(block='submap01_map02_lostoros_downtown.submap', pos=[1, 2, 3])]
+        pa['test_loaders'] = [dict(block='overdose.main', pos=[0, 0, 0], target_map=11, target_submap=22, teleport='X')]
+        snap = MT.snapshot_of(a['id'], a['project'])
+        snap['newmaps'] = {k: pa for k in snap['newmaps']}
+        extra = dict(uid='u2', maps=[dict(name='Map12_Other')], existing_spots=[dict(block='b', name='SPOT', pos=[0, 1, 0])])
+        lp, _, _ = MT.compose([(a['id'], snap)], extra_maps=[('other', extra)])
+        nm = lp['new_map']
+        self.assertEqual(nm['existing_vehicles'], pa['existing_vehicles'])
+        self.assertEqual(nm['test_loaders'], pa['test_loaders'])
+        self.assertEqual(nm['existing_spots'], extra['existing_spots'])
+        self.assertNotIn('existing_enemies', nm)
+
+    def test_a_dropped_project_key_is_reported(self):
+        wanted = dict(existing_vehicles=[dict(block='b', name='CAR')], test_loaders=[dict(block='b', target_map=11)])
+        used = dict(maps=[], existing_vehicles=[dict(block='b', name='CAR')])
+        lost = MT.carry_missing(wanted, used)
+        self.assertEqual(len(lost), 1)
+        self.assertIn('test_loaders', lost[0])
+        self.assertEqual(MT.carry_missing(wanted, dict(wanted)), [])
+
     def test_a_pin_is_ignored_when_the_mission_type_changed(self):
         a = MT.open_sample('yard')
         lp, _, _ = MT.compose([(a['id'], MT.snapshot_of(a['id'], a['project']))], {(a['id'], 'yard_ghost'): ('hold', 75)})
@@ -94,44 +117,32 @@ class Projects(unittest.TestCase):
             self.assertEqual(game.Game(self.folder).chain('effective'), ['hd_override.zip', 'blocks.naz'])
 
     def test_archive_slot_budget_is_eight(self):
-        Path(self.folder, 'configpc.txt').write_bytes(b'filesystem = ' + b', '.join(b'a%d.zip' % i for i in range(7)) + b', blocks.naz\r\n')
+        names = ['a%d.zip' % i for i in range(7)] + ['blocks.naz']
+        for n in names:
+            zip_at(os.path.join(self.folder, n), ['x'])
+        Path(self.folder, 'configpc.txt').write_bytes(('filesystem = ' + ', '.join(names) + '\r\n').encode())
+        fs = game.filesystem_line(game.read_configpc(self.folder))
         with self.assertRaises(ValueError) as cm:
-            MT._slot_check(self.folder, MT.ZIP, [MT.ZIP])
+            archives.slot_check(self.folder, fs, add=game.PACK_ZIP)
         self.assertIn('only load 8', str(cm.exception))
-        self.assertEqual(len(MT._slot_check(self.folder, MT.ZIP, [MT.ZIP, 'a0.zip'])), 8)
+        self.assertEqual(archives.slot_check(self.folder, fs, add=game.PACK_ZIP, remove=['a0.zip'])['count'], 8)
 
-    def test_install_replaces_the_new_map_package_and_uninstall_removes_everything(self):
+    def test_a_map_the_missions_host_cannot_be_installed_on_its_own_and_uninstall_goes_through_the_pack(self):
+        from todms import pack
         p = MT.open_sample('yard')
         nid = p['project']['hosts'][0]['newmap_id']
-        zip_at(os.path.join(self.folder, 'todms_newmap_%s.zip' % nid), ['other'])
-        newmap.write(os.path.join(self.folder, 'todms_newmaps.json'), {nid: dict(zip='todms_newmap_%s.zip' % nid, revision='r')})
-        Path(self.folder, 'configpc.txt').write_bytes(('filesystem = todms_newmap_%s.zip, blocks.naz\r\n' % nid).encode())
-        z = os.path.join(self.t.name, 'built.zip')
-        zip_at(z, ['data_pc/overdose_the_game/overdose/shared/overdose.main'])
         res = dict(index_of={p['id']: {'yard_showdown': 71, 'yard_ghost': 79}})
         ents = [(p['id'], MT.snapshot_of(p['id'], p['project']))]
+        newmap.write(MT.record_path(self.folder), dict(zip=game.PACK_ZIP, projects=MT._project_records(ents, res), migrate_entries=['71:2964:33']))
+        self.assertEqual(MT.installed_newmap_ids(self.folder), [nid])
         with patch.object(game, 'game_running', return_value=False):
-            line, out = MT._deploy(self.ws, z, newmap.file_hash(z), None, [nid])
-            self.assertEqual(out, [nid])
-            self.assertEqual(line, 'filesystem = todms_missions.zip, blocks.naz')
-            self.assertFalse(os.path.exists(os.path.join(self.folder, 'todms_newmap_%s.zip' % nid)))
-            newmap.write(MT.record_path(self.folder), dict(zip=MT.ZIP, projects=MT._project_records(ents, res), migrate_entries=['71:2964:33']))
-            self.assertEqual(MT.installed_newmap_ids(self.folder), [nid])
             with self.assertRaises(ValueError) as cm:                  # the plain map cannot be installed on top
                 newmap.install(self.ws, nid)
             self.assertIn('part of your mission templates', str(cm.exception))
             self.assertEqual(MT.installed(self.folder)['projects'][p['id']]['indices']['yard_ghost'], ['ghost', 79])
-            MT.uninstall(self.ws, p['id'])
-        self.assertFalse(os.path.exists(os.path.join(self.folder, MT.ZIP)))
-        self.assertFalse(os.path.exists(MT.record_path(self.folder)))
-        self.assertNotIn('todms_missions', Path(self.folder, 'configpc.txt').read_text(encoding='latin-1'))
-
-    def test_a_package_that_repeats_a_mod_archive_entry_is_refused(self):
-        z = os.path.join(self.t.name, 'built.zip')
-        zip_at(z, ['same.block'])
-        zip_at(os.path.join(self.folder, game.MOD_ZIP), ['same.block'])
-        with self.assertRaises(ValueError):
-            MT._deploy(self.ws, z, 'x', None, [])
+            with patch.object(pack, 'apply') as ap:
+                MT.uninstall(self.ws, p['id'])
+        self.assertEqual(ap.call_args.kwargs['missions'], {})            # the last project: the missions part of the pack is emptied
 
 
 class VendorChecks(unittest.TestCase):

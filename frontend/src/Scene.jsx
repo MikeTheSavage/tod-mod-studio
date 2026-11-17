@@ -2,9 +2,11 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls, TransformControls, Html, Line } from '@react-three/drei'
 import * as THREE from 'three'
-import { toView, quatToView, fromView, quatFromView } from './coords.js'
-import { CAT_COLOR } from './view.js'
+import { toView, quatToView, fromView, quatFromView, quatFromYaw } from './coords.js'
+import { catColor, cbOn } from './view.js'
 import { loadModel } from './models.js'
+import { padState, getCfg } from './pad/padstore.js'
+import { curve, lookStep, flyStep } from './pad/padlogic.js'
 
 const ONE = new THREE.Vector3(1, 1, 1)
 
@@ -23,9 +25,9 @@ const GEO = {
 const VOL_OPACITY = { wall: 0.2, navblock: 0.16, trigger: 0.04, sound: 0.03, box: 0.05 }
 const matCache = new Map()
 function catMaterial(cat, kind) {
-  const key = cat + '|' + kind
+  const key = cat + '|' + kind + '|' + (cbOn() ? 'cb' : '')
   if (!matCache.has(key)) {
-    const color = new THREE.Color(CAT_COLOR[cat] || '#cccccc')
+    const color = new THREE.Color(catColor(cat) || '#cccccc')
     let m
     if (kind === 'volume') m = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: VOL_OPACITY[cat] ?? 0.05, depthWrite: false, side: THREE.DoubleSide })
     else if (kind === 'volsel') m = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.3, depthWrite: false, side: THREE.DoubleSide })
@@ -60,7 +62,7 @@ function Thing({ e, selected, register, onPick }) {
   useEffect(() => { register(e.id, ref.current); return () => register(e.id, null) }, [e.id])
   const off = e.deleted || e.off
   const yOffset = e.cat === 'character' ? 0.9 : e.cat === 'vehicle' ? 0.75 : e.cat === 'marker' ? 0.8 : 0
-  const click = ev => { ev.stopPropagation(); onPick(e.id, ev) }
+  const click = ev => { if (!onPick) return; ev.stopPropagation(); onPick(e.id, ev) }
   return (
     <group ref={ref} position={toView(e.pos)} quaternion={quatToView(e.rot)} userData={{ eid: e.id }}>
       {isVolume(e) ? (
@@ -92,10 +94,10 @@ export function ModelThing({ e, rec, showGeom, showColl, selected, register, onP
     const b = new THREE.Box3().setFromObject(render)
     return b.isEmpty() ? null : b
   }, [render])
-  const click = ev => { ev.stopPropagation(); onPick(e.id, ev) }
+  const click = ev => { if (!onPick) return; ev.stopPropagation(); onPick(e.id, ev) }
   return (
     <group ref={ref} position={toView(e.pos)} quaternion={quatToView(e.rot)} userData={{ eid: e.id }}>
-      {render && <primitive object={render} visible={showGeom && !e.deleted} onClick={click} />}
+      {render && <group position={[0, e.isNew && e.cat !== 'model' && box ? -box.min.y : 0, 0]}><primitive object={render} visible={showGeom && !e.deleted} onClick={click} /></group>}
       {coll && <primitive object={coll} visible={showColl} />}
       {!render && !coll && <mesh geometry={GEO.small} material={catMaterial('model', 'solid')} onClick={click} />}
       {selected && box && (
@@ -136,7 +138,7 @@ export function NewCollision({ sets, existing, visible }) {
 }
 
 // ------------------------------------------------------------------ route lines
-function Routes({ links, ents, visible }) {
+export function RouteLines({ links, ents, visible }) {
   const segs = useMemo(() => {
     const by = { goto: [], patrol: [], vehicle: [], traffic: [], ped: [], object: [] }
     for (const [a, b, kind] of links) {
@@ -153,136 +155,184 @@ function Routes({ links, ents, visible }) {
   ))
 }
 
-// ------------------------------------------------------------------ camera helpers
-function CameraRig({ focus }) {
-  const { camera, controls } = useThree()
-  useEffect(() => {
-    if (!focus || !controls) return
-    const t = toView(focus.pos)
-    const d = focus.dist || 25
-    const dir = new THREE.Vector3().subVectors(camera.position, controls.target)
-    if (dir.lengthSq() < 1e-6 || focus.reset) dir.set(1, focus.dist < 15 ? 0.45 : 0.8, 1)
-    dir.normalize().multiplyScalar(d)
-    controls.target.copy(t)
-    camera.position.copy(t).add(dir)
-    camera.near = 0.2
-    camera.far = 8000
-    camera.updateProjectionMatrix()
-    controls.update()
-  }, [focus, controls])
-  return null
+
+// ------------------------------------------------------------------ moving a group: one pivot at the centre, every member follows it
+function GroupGizmo({ ents, mode, registry, snap, onCommit }) {
+  const [pv, setPv] = useState(null)
+  const pivot = useRef(null)
+  pivot.current = pv
+  const start = useRef(null)
+  const c = useMemo(() => {
+    const v = new THREE.Vector3()
+    ents.forEach(e => v.add(toView(e.pos)))
+    return v.multiplyScalar(1 / Math.max(1, ents.length))
+  }, [ents])
+  const objs = () => ents.map(e => [e, registry.current.get(e.id)]).filter(([, o]) => o)
+  const follow = () => {
+    const st = start.current
+    if (!st || !pivot.current) return
+    pivot.current.updateMatrix()
+    const D = pivot.current.matrix.clone().multiply(st.inv)
+    for (const [o, m0] of st.members) {
+      const M = D.clone().multiply(m0)
+      M.decompose(o.position, o.quaternion, new THREE.Vector3())
+    }
+  }
+  return <>
+    <group ref={setPv} position={c} />
+    {pv && <TransformControls object={pv} mode={mode} size={0.8}
+      translationSnap={snap?.grid > 0 ? snap.grid : null} rotationSnap={snap?.angle > 0 ? snap.angle * Math.PI / 180 : null}
+      onMouseDown={() => {
+        pivot.current.updateMatrix()
+        start.current = { inv: pivot.current.matrix.clone().invert(),
+          members: objs().map(([, o]) => [o, new THREE.Matrix4().compose(o.position, o.quaternion, ONE)]) }
+      }}
+      onObjectChange={follow}
+      onMouseUp={() => {
+        const moves = objs().map(([e, o]) => ({ e, pos: fromView(o.position), rot: quatFromView(o.quaternion) }))
+        start.current = null
+        if (pivot.current) { pivot.current.quaternion.identity(); pivot.current.scale.set(1, 1, 1) }
+        onCommit(moves)
+      }} />}
+  </>
 }
 
-// WASD / QE flying, while the 3D view has the mouse
-function FlyKeys({ enabled }) {
-  const { camera, controls } = useThree()
-  const keys = useRef(new Set())
-  useEffect(() => {
-    const dn = e => { if (!enabled.current || e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.ctrlKey) return; keys.current.add(e.key.toLowerCase()) }
-    const up = e => keys.current.delete(e.key.toLowerCase())
-    window.addEventListener('keydown', dn); window.addEventListener('keyup', up)
-    const blur = () => keys.current.clear()
-    window.addEventListener('blur', blur)
-    return () => { window.removeEventListener('keydown', dn); window.removeEventListener('keyup', up); window.removeEventListener('blur', blur) }
-  }, [])
-  useFrame((_, dt) => {
-    const k = keys.current
-    if (!controls || !k.size) return
-    const speed = (k.has('shift') ? 60 : 18) * dt
-    const fwd = new THREE.Vector3().subVectors(controls.target, camera.position).setY(0).normalize()
-    const right = new THREE.Vector3().crossVectors(fwd, camera.up).normalize()
-    const m = new THREE.Vector3()
-    if (k.has('w')) m.add(fwd)
-    if (k.has('s')) m.sub(fwd)
-    if (k.has('d')) m.add(right)
-    if (k.has('a')) m.sub(right)
-    if (k.has('e')) m.y += 1
-    if (k.has('q')) m.y -= 1
-    if (m.lengthSq() === 0) return
-    m.normalize().multiplyScalar(speed)
-    camera.position.add(m)
-    controls.target.add(m)
-    controls.update()
+// ------------------------------------------------------------------ the controller moves, turns or resizes the selection
+// While the sticks are held the objects follow live (like the gizmo does); when both sticks come back to rest the whole gesture
+// is ONE commit = one undo step. Move: left stick on the ground (camera relative), right stick up and down. Rotate: either
+// stick sideways. Resize (boxes only): left stick width and length, right stick height. Grid and angle snap step the gesture.
+const UPV = new THREE.Vector3(0, 1, 0)
+function PadEdit({ members, mode, registry, snap, padOn, onCommitGroup, onCommitTransform }) {
+  const { camera } = useThree()
+  const st = useRef({ dirty: false, acc: [0, 0, 0], list: [], mode: null, single: null })
+  const commit = () => {
+    const S = st.current
+    if (!S.dirty) return
+    S.dirty = false
+    const list = S.list.filter(([e, o]) => o)
+    if (S.mode === 'scale' && S.single) {
+      const [e, o] = list[0]
+      const sc = o.scale
+      const size = [e.size[0] * sc.x, e.size[1] * sc.y, e.size[2] * sc.z].map(v => Math.max(0.05, Math.round(v * 100) / 100))
+      o.scale.set(1, 1, 1)
+      onCommitTransform(e, null, null, size)
+    } else {
+      const moves = list.map(([e, o]) => ({ e, pos: fromView(o.position), rot: quatFromView(o.quaternion) }))
+      list.forEach(([, o]) => o.scale.set(1, 1, 1))
+      onCommitGroup(moves)
+    }
+    S.acc = [0, 0, 0]
+  }
+  useFrame((_, dtRaw) => {
+    const S = st.current
+    const { axes } = padState(), cfg = getCfg()
+    const live = padOn() && members.length > 0 && mode !== 'select' && (axes.lx || axes.ly || axes.rx || axes.ry)
+    if (!live) { if (S.dirty) commit(); return }
+    if (!S.dirty) { S.dirty = true; S.mode = mode; S.single = members.length === 1 ? members[0] : null; S.list = members.map(e => [e, registry.current.get(e.id)]); S.acc = [0, 0, 0] }
+    const dt = Math.min(dtRaw, 0.05)
+    const objs = S.list.map(l => l[1]).filter(Boolean)
+    if (!objs.length) return
+    if (S.mode === 'translate') {
+      const fwd = new THREE.Vector3(); camera.getWorldDirection(fwd)
+      if (camera.isOrthographicCamera) fwd.set(0, 0, -1)
+      fwd.y = 0
+      if (fwd.lengthSq() < 1e-8) fwd.set(0, 0, -1)
+      fwd.normalize()
+      const right = new THREE.Vector3().crossVectors(fwd, UPV).normalize()
+      const sp = flyStep(1, cfg, dt, 6)
+      const d = new THREE.Vector3().addScaledVector(fwd, -curve(axes.ly, 1) * sp * cfg.flySens).addScaledVector(right, curve(axes.lx, 1) * sp * cfg.flySens)
+      d.y = -curve(axes.ry, 1) * sp * cfg.flySens
+      const g = snap?.grid > 0 ? snap.grid : 0
+      if (g) {
+        for (const k of [0, 1, 2]) {
+          const comp = k === 0 ? d.x : k === 1 ? d.y : d.z
+          S.acc[k] += comp
+          const n = Math.trunc(S.acc[k] / g)
+          if (n) { S.acc[k] -= n * g; const step = n * g; if (k === 0) d.x = step; else if (k === 1) d.y = step; else d.z = step } else { if (k === 0) d.x = 0; else if (k === 1) d.y = 0; else d.z = 0 }
+        }
+      }
+      for (const o of objs) o.position.add(d)
+    } else if (S.mode === 'rotate') {
+      const v = Math.abs(axes.rx) > Math.abs(axes.lx) ? axes.rx : axes.lx
+      let ang = -lookStep(v, cfg, dt) * 0.8
+      const a = snap?.angle > 0 ? snap.angle * Math.PI / 180 : 0
+      if (a) { S.acc[0] += ang; const n = Math.trunc(S.acc[0] / a); S.acc[0] -= n * a; ang = n * a }
+      if (ang) {
+        const q = new THREE.Quaternion().setFromAxisAngle(UPV, ang)
+        const c = new THREE.Vector3()
+        objs.forEach(o => c.add(o.position)); c.multiplyScalar(1 / objs.length)
+        for (const o of objs) {
+          if (objs.length > 1) o.position.sub(c).applyQuaternion(q).add(c)
+          o.quaternion.premultiply(q)
+        }
+      }
+    } else if (S.mode === 'scale' && S.single && S.single.size) {
+      const o = objs[0], r = 0.9 * cfg.flySens
+      o.scale.x = Math.min(40, Math.max(0.02, o.scale.x * Math.exp(curve(axes.lx, 1) * r * dt)))
+      o.scale.z = Math.min(40, Math.max(0.02, o.scale.z * Math.exp(-curve(axes.ly, 1) * r * dt)))
+      o.scale.y = Math.min(40, Math.max(0.02, o.scale.y * Math.exp(-curve(axes.ry, 1) * r * dt)))
+    }
   })
   return null
 }
 
-// exposes "what is under the screen centre" for the palette
-function CenterProbe({ probe }) {
-  const { camera, scene, controls } = useThree()
-  useEffect(() => {
-    probe.current = () => {
-      const rc = new THREE.Raycaster()
-      rc.setFromCamera(new THREE.Vector2(0, 0), camera)
-      const hits = rc.intersectObjects(scene.children, true).filter(h => h.object.visible && h.object.isMesh &&
-        !h.object.material?.transparent)
-      if (hits.length && hits[0].distance < 400) return fromView(hits[0].point)
-      return controls ? fromView(controls.target) : fromView(new THREE.Vector3())
-    }
-  }, [camera, scene, controls])
-  return null
-}
-
-// ------------------------------------------------------------------ the scene
-export default function Scene({ view, bundle, layers, showColl, showGeom, selectedId, onPick, onCommitTransform,
-                                 gizmoMode, focus, probe, flyEnabled, newColl, showNewColl }) {
-  const registry = useRef(new Map())
+// ------------------------------------------------------------------ the level: gameplay things, models, routes, collision, gizmo
+export function LevelContent({ view, bundle, layers, showColl, showGeom, selectedIds, primaryId, onPick, onCommitTransform, onCommitGroup,
+                                gizmoMode, snap, newColl, showNewColl, isVisible, isLocked, registryRef, padOn }) {
+  const own = useRef(new Map())
+  const registry = registryRef || own
   const [, force] = useState(0)
   const register = (id, obj) => {
     if (obj) registry.current.set(id, obj); else registry.current.delete(id)
-    if (id === selectedId) force(x => x + 1)
+    if (selectedIds.has(id)) force(x => x + 1)
   }
-  const visible = view.list.filter(e => layers[e.cat])
-  const models = visible.filter(e => e.model && bundle.models[e.model] && !bundle.models[e.model].missing)
-  const things = visible.filter(e => !(e.model && bundle.models[e.model] && !bundle.models[e.model].missing))
-  const sel = selectedId ? view.ents.get(selectedId) : null
-  const selObj = sel ? registry.current.get(selectedId) : null
+  const visible = view.list.filter(e => layers[e.cat] && (!isVisible || isVisible(e)))
+  const hasModel = e => e.model && bundle.models[e.model] && !bundle.models[e.model].missing
+  const models = visible.filter(hasModel)
+  const things = visible.filter(e => !hasModel(e))
+  const sel = primaryId ? view.ents.get(primaryId) : null
+  const members = [...selectedIds].map(id => view.ents.get(id)).filter(e => e && e.ed && !e.deleted && registry.current.get(e.id))
   const dragging = useRef(false)
+  const single = members.length === 1 ? members[0] : null
+  const selObj = single ? registry.current.get(single.id) : null
+  const snapProps = { translationSnap: snap?.grid > 0 ? snap.grid : null, rotationSnap: snap?.angle > 0 ? snap.angle * Math.PI / 180 : null }
   return (
     <>
-      <color attach="background" args={['#1a2029']} />
-      <fog attach="fog" args={['#1a2029', 600, 3000]} />
-      <ambientLight intensity={0.85} />
-      <directionalLight position={[300, 500, 200]} intensity={0.75} />
-      <hemisphereLight args={['#d8e4f0', '#3a3022', 0.35]} />
       {models.map(e => (
         <ModelThing key={e.id} e={e} rec={bundle.models[e.model]} showGeom={showGeom} showColl={showColl}
-                    selected={e.id === selectedId} register={register} onPick={onPick} />
+                    selected={selectedIds.has(e.id)} register={register} onPick={isLocked && isLocked(e) ? undefined : onPick} />
       ))}
       {things.filter(e => e.cat !== 'model' && e.cat !== 'logic').map(e => (
-        <Thing key={e.id} e={e} selected={e.id === selectedId} register={register} onPick={onPick} />
+        <Thing key={e.id} e={e} selected={selectedIds.has(e.id)} register={register} onPick={isLocked && isLocked(e) ? undefined : onPick} />
       ))}
-      <Routes links={view.links} ents={view.ents} visible={layers.route} />
+      <RouteLines links={view.links} ents={view.ents} visible={layers.route} />
       <NewCollision sets={newColl} visible={showNewColl} />
-      {sel && selObj && sel.ed && !sel.deleted && (
-        <TransformControls object={selObj} mode={gizmoMode} size={0.8}
-          showX showY showZ
+      {single && selObj && gizmoMode !== 'select' && (
+        <TransformControls object={selObj} mode={gizmoMode} size={0.8} showX showY showZ {...snapProps}
           onMouseDown={() => { dragging.current = true }}
           onMouseUp={() => {
             dragging.current = false
             const o = selObj
-            if (gizmoMode === 'scale' && sel.size) {
-              const inner = o.children[0]
+            if (gizmoMode === 'scale' && single.size) {
               const s = o.scale
-              const size = [sel.size[0] * s.x, sel.size[1] * s.y, sel.size[2] * s.z].map(v => Math.max(0.05, Math.round(v * 100) / 100))
+              const size = [single.size[0] * s.x, single.size[1] * s.y, single.size[2] * s.z].map(v => Math.max(0.05, Math.round(v * 100) / 100))
               o.scale.set(1, 1, 1)
-              onCommitTransform(sel, null, null, size)
+              onCommitTransform(single, null, null, size)
             } else {
               o.scale.set(1, 1, 1)
-              onCommitTransform(sel, fromView(o.position), quatFromView(o.quaternion), null)
+              onCommitTransform(single, fromView(o.position), quatFromView(o.quaternion), null)
             }
           }} />
       )}
+      {members.length > 1 && (gizmoMode === 'translate' || gizmoMode === 'rotate') &&
+        <GroupGizmo ents={members} mode={gizmoMode} registry={registry} snap={snap} onCommit={onCommitGroup} />}
+      {padOn && <PadEdit members={members} mode={gizmoMode} registry={registry} snap={snap} padOn={padOn} onCommitGroup={onCommitGroup} onCommitTransform={onCommitTransform} />}
       {sel && (
         <Html position={toView(sel.pos).add(new THREE.Vector3(0, (sel.size ? sel.size[1] / 2 : 1.6) + 0.6, 0))}
               center style={{ pointerEvents: 'none' }}>
-          <div className="tag">{sel.name || sel.type}</div>
+          <div className="tag">{members.length > 1 ? `${members.length} selected` : sel.name || sel.type}</div>
         </Html>
       )}
-      <OrbitControls makeDefault enableDamping={false} maxDistance={3000} />
-      <CameraRig focus={focus} />
-      <FlyKeys enabled={flyEnabled} />
-      <CenterProbe probe={probe} />
     </>
   )
 }

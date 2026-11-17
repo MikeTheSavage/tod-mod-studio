@@ -12,7 +12,7 @@ from ._base import make_spec
 MOD = sys.modules[__name__]
 NAME = 'ghost'
 TITLE = 'Ghost Run'
-SUMMARY = 'Cross an area full of armed guards to a goal zone without killing anyone. One kill and it is over.'
+SUMMARY = 'Cross an area full of armed guards to a goal zone without killing anyone.'
 HOST_NEEDS = ['An open lane of free, flat ground from the start spot to the goal zone with room for up to 20 guards beside it.',
               'A free strip (76 x 10 m) for the spare placeholders (parked, disabled).',
               'Works in any new map or existing section with flat ground.']
@@ -26,20 +26,20 @@ SLOW = 99999.0
 _GUARDS_REL = [(-10.0, -2.0), (8.0, -1.0), (2.0, 6.0), (-14.0, 15.0), (10.0, 13.0), (-2.0, 20.0), (8.0, 27.0), (-10.0, 27.0)]
 
 PARAMS = [
-    P('goal', 'point', lambda h, p: h.pt(-2, 34), 'Goal zone', 'Centre of the goal zone the player must reach.', group='Placement'),
-    P('goal_width', 'float', 8.0, 'Goal zone width', 'East-west size of the goal zone.', min=2.0, max=40.0, unit='m', group='Placement'),
-    P('goal_length', 'float', 6.0, 'Goal zone length', 'North-south size of the goal zone.', min=2.0, max=40.0, unit='m', group='Placement'),
-    P('guards', 'points', lambda h, p: [h.pt(x, z) for x, z in _GUARDS_REL], 'Guard positions', 'Where the guards stand (x, y, z), 1 to 20. They hold their spots and shoot.', min_len=1, max_len=20, group='Placement'),
-    P('spare_region', 'rect', lambda h, p: list(h.rr(-38, 28, 38, 38)), 'Spare strip', 'Where the enemies that do not guard are parked (disabled).', group='Placement', advanced=True),
-    P('giver_npc_park', 'point', lambda h, p: h.pt(-14, -24), 'Parked task giver', 'Where the template task-giver character is parked.', group='Placement', advanced=True),
-    P('legacy_goal_rotation', 'bool', False, 'Keep the Mesa goal zone rotation', 'The template mission turns its goal zone by 90 degrees, so "Goal zone width" ran north-south and "length" east-west. Off (default): the zone is turned back to the world axes, width is east-west and length north-south as labelled. On: keep the Mesa layout (only the Mesa sample uses it, to stay identical to the shipped build).', group='Placement', advanced=True),
-    P('snap_to_free_ground', 'bool', True, 'Keep clear of obstacles', 'Move guards that fall inside a wall or prop to the nearest free ground.', group='Placement', advanced=True),
-    P('enemy_health', 'float', 0.3, 'Guard health', 'Health multiplier (1.0 = normal).', min=0.05, max=3.0, group='Settings'),
-    P('enemy_damage', 'float', 0.05, 'Guard damage', 'Damage multiplier (1.0 = normal).', min=0.0, max=3.0, group='Settings'),
-    P('text_go', 'text', 'Reach the goal without killing anyone', 'Objective text', 'The objective line.', group='Texts', max_len=60),
-    P('text_intro', 'text', 'Sneak or run, but do not kill anybody!', 'Intro text', 'Shown at the start.', group='Texts', max_len=60),
-    P('text_fail', 'text', 'You killed someone. A ghost leaves no bodies!', 'Failure text', 'Shown when the player kills a guard.', group='Texts', max_len=60),
-    P('text_done', 'text', 'Clean run!', 'Success text', 'Shown at the goal.', group='Texts', max_len=40),
+    P('goal', 'point', lambda h, p: h.pt(-2, 34), 'Goal zone', '', group='Placement'),
+    P('goal_width', 'float', 8.0, 'Goal zone width', '', min=2.0, max=40.0, unit='m', group='Placement'),
+    P('goal_length', 'float', 6.0, 'Goal zone length', '', min=2.0, max=40.0, unit='m', group='Placement'),
+    P('guards', 'points', lambda h, p: [h.pt(x, z) for x, z in _GUARDS_REL], 'Guard positions', '1 to 20 guards', min_len=1, max_len=20, group='Placement'),
+    P('spare_region', 'rect', lambda h, p: list(h.rr(-38, 28, 38, 38)), 'Spare strip', '', group='Placement', advanced=True),
+    P('giver_npc_park', 'point', lambda h, p: h.pt(-14, -24), 'Parked task giver', '', group='Placement', advanced=True),
+    P('legacy_goal_rotation', 'bool', False, 'Keep the Mesa goal zone rotation', '', group='Placement', advanced=True),
+    P('snap_to_free_ground', 'bool', True, 'Keep clear of obstacles', '', group='Placement', advanced=True),
+    P('enemy_health', 'float', 0.3, 'Guard health', '', min=0.05, max=3.0, group='Settings'),
+    P('enemy_damage', 'float', 0.05, 'Guard damage', '', min=0.0, max=3.0, group='Settings'),
+    P('text_go', 'text', 'Reach the goal without killing anyone', 'Objective text', '', group='Texts', max_len=60),
+    P('text_intro', 'text', 'Sneak or run, but do not kill anybody!', 'Intro text', '', group='Texts', max_len=60),
+    P('text_fail', 'text', 'You killed someone. A ghost leaves no bodies!', 'Failure text', '', group='Texts', max_len=60),
+    P('text_done', 'text', 'Clean run!', 'Success text', '', group='Texts', max_len=40),
 ]
 
 

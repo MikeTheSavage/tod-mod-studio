@@ -1,15 +1,13 @@
-"""Tests of the companion-tools integration (collision sets, recipe version 2, vendored core).
+"""Tests of the companion-tools integration (collision sets, recipe versions, old recipes).
 
   .venv\\Scripts\\python -m unittest discover -s backend/tests -v
 
-The build test uses a proof copy of the game, the folder named by env TODMS_PROOF (skipped when unset or absent): the
-same collision set built by Mod Studio's build.py stage C must give the bytes the shared core gives on the same base
-block.
+The build test uses a proof copy of the game in env TODMS_PROOF (skipped when unset): the same collision set built by Mod
+Studio's build.py stage C must give the bytes the shared core gives on the same base block.
 """
 import json
 import os
 import shutil
-import subprocess
 import sys
 import tempfile
 import unittest
@@ -18,21 +16,13 @@ from unittest.mock import patch
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, os.path.join(ROOT, 'backend'))
-PROOF = os.environ.get('TODMS_PROOF', '')   # a proof copy of the game: PROOF/game holds blocks.naz (read only)
+PROOF = os.environ.get('TODMS_PROOF', '/no-proof-copy')
 
 
 def piece():
     V = [[x, y, z] for x in (-500, -499) for y in (-140, -139) for z in (-2190, -2189)]
     return dict(verts=V, faces=[[0, 1, 3, 2], [4, 6, 7, 5], [0, 4, 5, 1], [2, 3, 7, 6], [0, 2, 6, 4], [1, 5, 7, 3]],
                 material='Stone', surface='0x02007C00')
-
-
-class TestVendored(unittest.TestCase):
-    @unittest.skipUnless(os.path.isdir(os.environ.get('TODCT_SRC', '')), 'needs the todct source (TODCT_SRC)')
-    def test_core_in_step(self):
-        r = subprocess.run([sys.executable, os.path.join(ROOT, 'scripts', 'vendor_companion.py'), '--check'],
-                           capture_output=True, text=True)
-        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
 
 
 class TestMods(unittest.TestCase):
@@ -63,15 +53,48 @@ class TestMods(unittest.TestCase):
         mods.export_mod(m['id'], p)
         m2 = mods.import_mod(p)
         self.assertEqual(len(m2['collision']), 1)
-        bad = dict(json.load(open(p)), version=4)          # recipe v3 (routes, missions, sections) is read now
+        bad = dict(json.load(open(p)), version=5)          # recipe v4 (models, textures) is read now; v5 is newer than this tool
         json.dump(bad, open(p, 'w'))
         with self.assertRaises(Exception):
             mods.import_mod(p)
         lst = {x['id']: x for x in mods.list_mods()}
         self.assertEqual(lst[m['id']]['collision_sets'], 1)
 
+    def test_old_recipe_with_asset_rows(self):
+        """A recipe of an older version carries replacement rows for a tool that is gone (the row layout is the old one): it imports, the rows are
+        ignored, the rest (level ops, collision) is kept."""
+        from todms import mods
+        from todct import collision as CO
+        s = CO.new_set('w', 'map09_jungle', [piece()], 'hull', source=dict(editor='old', actor='A'))
+        old = dict(format='todms-mod', version=2, id='x', name='old', author='a', description='', created='2026-10-20T00:00:00',
+                   updated='2026-10-20T00:00:00', view=None, data={}, collision=[s],
+                   level=[dict(op='move', entry='data_pc/overdose_the_game/overdose/shared/mainmap_map09_jungle.map',
+                               frag='f', node='0x00000001', pos=[1, 2, 3])],
+                   assets=dict(kind='todct-asset-overrides', rows={'data_models_x': {'u' + 'e': '/Game/X', 'kind': 'static', 'path': '/x'}}),
+                   source=dict(editor='old'))
+        p = os.path.join(self.home, 'old.todmod')
+        json.dump(old, open(p, 'w'))
+        m = mods.import_mod(p)
+        self.assertNotIn('assets', m)
+        self.assertEqual(len(m['collision']), 1)
+        self.assertEqual(len(m['level']), 1)
+        self.assertEqual(m['version'], 2)
+        row = {x['id']: x for x in mods.list_mods()}[m['id']]
+        self.assertEqual(row['collision_sets'], 1)
+        only_assets = dict(old, collision=[], level=[])
+        json.dump(only_assets, open(p, 'w'))
+        self.assertEqual(mods.import_mod(p)['version'], 1)
+        self.assertNotIn('assets', json.load(open(os.path.join(mods.lib_dir(), m['id'], 'mod.json'))))
 
-@unittest.skipUnless(PROOF and os.path.isdir(os.path.join(PROOF, 'game')), 'needs the proof copy (TODMS_PROOF)')
+    def test_old_settings_key_ignored(self):
+        from todms import workspace, paths
+        json.dump(dict(author='me', **{'old_key': 'C:/nothing'}), open(os.path.join(paths.user_dir(), 'settings.json'), 'w'))
+        ws = workspace.Workspace()
+        self.assertEqual(ws.settings.get('author'), 'me')
+        self.assertTrue(ws.status()['settings'])          # an unknown old key is just carried, nothing reads it
+
+
+@unittest.skipUnless(os.path.isdir(os.path.join(PROOF, 'game')), 'needs the proof copy')
 class TestBuildStageC(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()

@@ -48,7 +48,7 @@ class NewMaps(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.env = patch.dict(os.environ, TODMS_HOME=os.path.join(self.temp.name, 'home'),
-                              TODMS_CACHE=os.path.join(self.temp.name, 'cache'))
+                              TODMS_CACHE=os.path.join(self.temp.name, 'cache'), TODMS_SAVES=os.path.join(self.temp.name, 'saves'))
         self.env.start()
         self.folder = os.path.join(self.temp.name, 'game')
         os.makedirs(self.folder)
@@ -121,38 +121,24 @@ class NewMaps(unittest.TestCase):
         self.assertEqual(latest['teleports'][0]['orient'], [0, .70710678, 0, .70710678])
 
     @patch('todms.game.game_running', return_value=False)
-    def test_install_uninstall_order_and_backup(self, running):
+    def test_install_uninstall_go_through_the_pack_and_restore_the_config(self, running):
         p = self.built()
-        zip_at(Path(self.folder, game.MOD_ZIP), ['unrelated.map'])
-        mods.set_filesystem(self.folder, game.MOD_ZIP)
         before = Path(self.folder, 'configpc.txt').read_bytes()
         result = newmap.install(self.ws, p['id'])
         fs = game.filesystem_line(game.read_configpc(self.folder))
-        self.assertEqual(fs, [result['zip'], game.MOD_ZIP, 'hd_override.zip', 'blocks.naz', 'sounds.naz'])
+        self.assertEqual(fs, [game.PACK_ZIP, 'hd_override.zip', 'blocks.naz', 'sounds.naz'])
+        self.assertEqual(result['zip'], game.PACK_ZIP)
+        with zipfile.ZipFile(Path(self.folder, game.PACK_ZIP)) as z:
+            self.assertEqual(z.namelist(), ['a.submap'])
+        self.assertEqual(newmap.installed(self.folder)[p['id']]['params'], p['params'])           # the inputs a rebuild starts from
+        self.assertFalse([n for n in os.listdir(self.folder) if n.startswith('todms_newmap_')])
         newmap.install(self.ws, p['id'])
         self.assertEqual(game.filesystem_line(game.read_configpc(self.folder)), fs)
         self.assertTrue(Path(self.folder, 'configpc.txt.todms_backup').exists())
-        self.assertTrue(Path(self.folder, result['zip'] + '.todms_backup').exists())
         newmap.uninstall(self.ws, p['id'])
         self.assertEqual(Path(self.folder, 'configpc.txt').read_bytes(), before)
-        self.assertFalse(Path(self.folder, result['zip']).exists())
-        self.assertTrue(Path(self.folder, game.MOD_ZIP).exists())
-
-    @patch('todms.game.game_running', return_value=False)
-    def test_conflict_refused_both_directions(self, running):
-        p = self.built(['data_pc/a.submap'])
-        modzip = Path(self.folder, game.MOD_ZIP)
-        zip_at(modzip, ['data_pc/a.submap'])
-        before = Path(self.folder, 'configpc.txt').read_bytes()
-        with self.assertRaisesRegex(ValueError, 'same block'):
-            newmap.install(self.ws, p['id'])
-        self.assertEqual(Path(self.folder, 'configpc.txt').read_bytes(), before)
-        modzip.unlink()
-        newmap.install(self.ws, p['id'])
-        candidate = Path(self.temp.name, 'mod.zip')
-        zip_at(candidate, ['data_pc/a.submap'])
-        with self.assertRaisesRegex(ValueError, 'same block'):
-            newmap.check_mod_conflicts(self.folder, str(candidate))
+        self.assertFalse(Path(self.folder, game.PACK_ZIP).exists())
+        self.assertEqual(newmap.installed(self.folder), {})
 
     @patch('todms.game.game_running', return_value=False)
     def test_stale_and_modified_build_refused(self, running):

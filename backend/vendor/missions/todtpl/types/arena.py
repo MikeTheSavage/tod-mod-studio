@@ -12,7 +12,7 @@ from ._base import make_spec
 MOD = sys.modules[__name__]
 NAME = 'arena'
 TITLE = 'Shrinking Arena'
-SUMMARY = 'Survive a courtyard fight while three square rings of fire close in from the edge. Touching a burning ring fails the mission.'
+SUMMARY = 'Survive a courtyard fight while three square rings of fire close in from the edge.'
 HOST_NEEDS = ['A flat, free SQUARE area of about 80 x 80 m (the outer ring edge) around the arena centre; rings are drawn over it and fire emitters are placed on its ground.',
               'The player must be able to stand in the middle (within the innermost ring edge). Obstacles inside the rings are fine but burn with the rest.',
               'Works in any new map or existing section with a big flat square.']
@@ -35,25 +35,25 @@ BOX_H = 8.0
 WARN = 8.0
 
 PARAMS = [
-    P('center', 'point', lambda h, p: [h.cx, None, h.cz], 'Arena centre', 'Centre of the arena (x, y, z). The rings are squares around it.', group='Placement'),
-    P('outer_edge', 'float', lambda h, p: 40.0 * h.scale, 'Outer radius', 'Half-width in metres of the outermost ring edge (the arena\'s outer wall).', min=10.0, max=200.0, unit='m', group='Placement'),
-    P('ring_edges', 'floats', lambda h, p: [28.0 * h.scale, 20.0 * h.scale, 13.0 * h.scale], 'Ring inner edges', 'Inner edge (half-width from the centre, metres) of ring 1, 2 and 3. Ring 1 burns first and is the widest; they must shrink.', min_len=3, max_len=3, group='Placement'),
-    P('wave_centres', 'points', lambda h, p: [h.pt(-8, 4), h.pt(9, -4), h.pt(0, 9)], 'Wave positions', 'Centre of each of the three groups of four bandits.', min_len=3, max_len=3, group='Placement'),
-    P('spare_region', 'rect', lambda h, p: list(h.rr(-38, 28, 38, 38)), 'Spare strip', 'Where the enemies that do not fight are parked (disabled).', group='Placement', advanced=True),
-    P('park', 'point', lambda h, p: h.pt(-60, 55, None), 'Parking spot', 'Where the template\'s Downtown walk-in boxes are parked (disabled).', group='Placement', advanced=True),
-    P('giver_npc_park', 'point', lambda h, p: h.pt(-24, -6), 'Parked task giver', 'Where the template task-giver character is parked.', group='Placement', advanced=True),
-    P('snap_to_free_ground', 'bool', True, 'Keep clear of obstacles', 'Move bandits that fall inside a wall or prop to the nearest free ground.', group='Placement', advanced=True),
-    P('kills', 'int', 12, 'Kills that end it', 'Killing this many bandits also wins (12 bandits arrive).', min=1, max=12, group='Settings'),
-    P('countdown', 'float', 105.0, 'Survive time', 'Seconds to survive; when the clock runs out the mission is a success.', min=20.0, max=900.0, unit='s', group='Settings'),
-    P('ring_times', 'floats', [25.0, 50.0, 75.0], 'Ring times', 'Seconds after the start at which ring 1, 2, 3 turn deadly (the fire starts 8 s before).', min_len=3, max_len=3, group='Settings'),
-    P('wave_delays', 'floats', [0.0, 18.0, 36.0], 'Wave delays', 'Seconds after the start at which each wave arrives.', min_len=3, max_len=3, group='Settings'),
-    P('fail_delay', 'float', 1.5, 'Burn delay', 'Seconds between touching a live ring and MISSION FAILED.', min=0.0, max=10.0, unit='s', group='Settings', advanced=True),
-    P('enemy_health', 'float', 0.3, 'Bandit health', 'Health multiplier (1.0 = normal).', min=0.05, max=3.0, group='Settings'),
-    P('enemy_damage', 'float', 0.3, 'Bandit damage', 'Damage multiplier (1.0 = normal).', min=0.0, max=3.0, group='Settings'),
-    P('text_kills', 'text', lambda h, p: 'Survive the fire rings or kill all %d bandits' % p['kills'], 'Objective text', 'The objective line.', group='Texts', max_len=70),
-    P('text_ring', 'text', 'The outer ring is on fire! Move toward the middle!', 'Ring warning', 'Shown when a ring is about to burn.', group='Texts', max_len=60),
-    P('text_survived', 'text', 'You outlasted the fire!', 'Success text', 'Shown when the clock runs out.', group='Texts', max_len=40),
-    P('text_burnt', 'text', 'You touched the fire! The ring burns you down.', 'Burn text', 'Shown when a ring burns the player.', group='Texts', max_len=60),
+    P('center', 'point', lambda h, p: [h.cx, None, h.cz], 'Arena centre', '', group='Placement'),
+    P('outer_edge', 'float', lambda h, p: 40.0 * h.scale, 'Outer radius', '', min=10.0, max=200.0, unit='m', group='Placement'),
+    P('ring_edges', 'floats', lambda h, p: [28.0 * h.scale, 20.0 * h.scale, 13.0 * h.scale], 'Ring inner edges', 'Each ring smaller than the last', min_len=3, max_len=3, group='Placement'),
+    P('wave_centres', 'points', lambda h, p: [h.pt(-8, 4), h.pt(9, -4), h.pt(0, 9)], 'Wave positions', '', min_len=3, max_len=3, group='Placement'),
+    P('spare_region', 'rect', lambda h, p: list(h.rr(-38, 28, 38, 38)), 'Spare strip', '', group='Placement', advanced=True),
+    P('park', 'point', lambda h, p: h.pt(-60, 55, None), 'Parking spot', '', group='Placement', advanced=True),
+    P('giver_npc_park', 'point', lambda h, p: h.pt(-24, -6), 'Parked task giver', '', group='Placement', advanced=True),
+    P('snap_to_free_ground', 'bool', True, 'Keep clear of obstacles', '', group='Placement', advanced=True),
+    P('kills', 'int', 12, 'Kills that end it', '', min=1, max=12, group='Settings'),
+    P('countdown', 'float', 105.0, 'Survive time', '', min=20.0, max=900.0, unit='s', group='Settings'),
+    P('ring_times', 'floats', [25.0, 50.0, 75.0], 'Ring times', '', min_len=3, max_len=3, group='Settings'),
+    P('wave_delays', 'floats', [0.0, 18.0, 36.0], 'Wave delays', '', min_len=3, max_len=3, group='Settings'),
+    P('fail_delay', 'float', 1.5, 'Burn delay', '', min=0.0, max=10.0, unit='s', group='Settings', advanced=True),
+    P('enemy_health', 'float', 0.3, 'Bandit health', '', min=0.05, max=3.0, group='Settings'),
+    P('enemy_damage', 'float', 0.3, 'Bandit damage', '', min=0.0, max=3.0, group='Settings'),
+    P('text_kills', 'text', lambda h, p: 'Survive the fire rings or kill all %d bandits' % p['kills'], 'Objective text', '', group='Texts', max_len=70),
+    P('text_ring', 'text', 'The outer ring is on fire! Move toward the middle!', 'Ring warning', '', group='Texts', max_len=60),
+    P('text_survived', 'text', 'You outlasted the fire!', 'Success text', '', group='Texts', max_len=40),
+    P('text_burnt', 'text', 'You touched the fire! The ring burns you down.', 'Burn text', '', group='Texts', max_len=60),
 ]
 
 
