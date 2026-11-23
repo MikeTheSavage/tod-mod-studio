@@ -122,6 +122,13 @@ def vehicles_read(ws):
                      'one adds the property record.')
 
 
+def _sane_vehicle_value(name, v):
+    """A number the car code cannot divide by or run away with: finite everywhere, and a car mass above zero."""
+    if v != v or v in (float('inf'), float('-inf')):
+        return False
+    return not (name.endswith('.Mass') and v <= 0)
+
+
 def vehicles_ops(ws, values):
     import vehtool as vt
     import fragtool as ft
@@ -129,6 +136,8 @@ def vehicles_ops(ws, values):
     for n, v in values.items():
         if n not in vt.TUN:
             raise KeyError('unknown vehicle value %s' % n)
+        if _num(v) and not _sane_vehicle_value(n, v):
+            raise ValueError('%s = %s would break the car' % (n, v))
         blocks, frag, sel, prop, note, dflt = vt.TUN[n]
         for e in blocks:
             per.setdefault(_full(e), []).append(dict(op='set', fragment=frag, entity=sel, prop=prop, value=v))

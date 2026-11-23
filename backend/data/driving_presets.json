@@ -1,0 +1,304 @@
+{
+ "format": "todms-driving-preset",
+ "version": 1,
+ "note": "Built-in driving presets of TOD Mod Studio. type: per vehicle row, mul/add act on the shipped value of that vehicle, set is absolute. car: shared by all cars, set only. restore: true = remove every driving value (back to the game).",
+ "classes": {
+  "cars": [
+   "Sedan",
+   "ModernSedan",
+   "Taxi",
+   "PoliceCar",
+   "SedanRusty",
+   "Conquistador",
+   "ElCamino",
+   "StationWagon"
+  ],
+  "vans": [
+   "Pickup",
+   "Pickup_Truck",
+   "57Pickup",
+   "4x4Pickup",
+   "Truck",
+   "VanHeavy",
+   "VanUrban",
+   "VanAngel"
+  ],
+  "heavy": [
+   "BigTruck",
+   "BigTruckFlatnose",
+   "BigTruckMoralez",
+   "Bus",
+   "MilitaryTruck",
+   "Cranetruck",
+   "Tractor",
+   "BurritoCart",
+   "Forklift"
+  ]
+ },
+ "fields": {
+  "type": {
+   "Mass": {
+    "lo": 100,
+    "hi": 20000,
+    "unit": "kg",
+    "tip": "Weight of the car for driving: heavier speeds up and brakes slower"
+   },
+   "drag_coeff": {
+    "lo": 1,
+    "hi": 200,
+    "tip": "Air drag: higher means a lower top speed"
+   },
+   "BrakeForce": {
+    "lo": 1000,
+    "hi": 100000,
+    "unit": "N",
+    "tip": "Brake power: higher stops shorter (S brakes with two thirds of it)"
+   },
+   "cornering_stiffness": {
+    "lo": 0,
+    "hi": 3,
+    "tip": "How fast steering fades with speed: lower keeps grip, higher breaks away sooner"
+   },
+   "lateral_slide_speed": {
+    "lo": 1,
+    "hi": 60,
+    "unit": "m/s",
+    "tip": "Slowest speed a slide or a handbrake spin can start"
+   },
+   "front_slide_factor": {
+    "lo": 0,
+    "hi": 2,
+    "tip": "How much the nose follows the tail in a slide"
+   },
+   "brake_slide_factor": {
+    "lo": 0,
+    "hi": 8,
+    "tip": "How far the tail swings when you brake in a turn"
+   },
+   "brake_front_slide_factor": {
+    "lo": 0,
+    "hi": 2,
+    "tip": "How much the nose follows the tail when braking in a turn"
+   },
+   "slide_factor": {
+    "lo": 0,
+    "hi": 8,
+    "tip": "How sideways the tail goes in a slide (0 = never slides)"
+   },
+   "control_speed": {
+    "lo": 0,
+    "hi": 100,
+    "tip": "How fast a slide builds and heads for a spin-out"
+   },
+   "time_to_slide_factor": {
+    "lo": 0.1,
+    "hi": 30,
+    "tip": "How long a slide lasts before the car spins out"
+   },
+   "handbrake_boost": {
+    "lo": 0,
+    "hi": 5,
+    "tip": "Extra kick of the handbrake spin (0 = none)"
+   },
+   "spinning_linear_friction": {
+    "lo": 0,
+    "hi": 500,
+    "tip": "Speed lost while the car is spinning: lower keeps it sliding"
+   },
+   "spinning_angular_friction": {
+    "lo": 0,
+    "hi": 50,
+    "tip": "How quickly a spin dies out: higher straightens up sooner"
+   },
+   "crash_linear_friction": {
+    "lo": 0,
+    "hi": 500,
+    "tip": "Speed lost after a crash"
+   },
+   "crash_angular_friction": {
+    "lo": 0,
+    "hi": 50,
+    "tip": "How quickly a crash spin dies out"
+   }
+  },
+  "car": {
+   "max_engine_force": {
+    "lo": 1000,
+    "hi": 100000,
+    "unit": "N",
+    "tip": "Engine push for every car"
+   },
+   "max_reverse_force": {
+    "lo": 500,
+    "hi": 100000,
+    "unit": "N",
+    "tip": "Reverse push for every car"
+   },
+   "rolling_res": {
+    "lo": 10,
+    "hi": 2000,
+    "tip": "Rolling resistance: higher means a lower top speed"
+   },
+   "max_turn": {
+    "lo": 0.1,
+    "hi": 1.4,
+    "unit": "rad",
+    "tip": "Full steering lock"
+   },
+   "turn_rate": {
+    "lo": 0.02,
+    "hi": 0.8,
+    "unit": "rad/step",
+    "tip": "How fast the wheels turn (a step is 0.04 s)"
+   },
+   "slide_angle": {
+    "lo": 0.02,
+    "hi": 1,
+    "unit": "rad",
+    "tip": "How much steering has to be lost before a slide starts: lower slides sooner"
+   },
+   "powerslide_minimum_turnrate": {
+    "lo": 0,
+    "hi": 1,
+    "tip": "Steering amount above which a slide builds"
+   },
+   "sideways_slide_resistance": {
+    "lo": 0.3,
+    "hi": 0.995,
+    "tip": "How long a braking slide lasts once you straighten up"
+   },
+   "standard_sideways_slide_resistance": {
+    "lo": 0.1,
+    "hi": 0.995,
+    "tip": "How long a slide lasts once you straighten up: higher drifts out slowly"
+   },
+   "sideways_static_resistance": {
+    "lo": 0.01,
+    "hi": 2,
+    "unit": "m/s",
+    "tip": "Sideways speed below which a slide ends"
+   }
+  }
+ },
+ "tipsOnly": {
+  "collision_mass": "Weight in crashes: heavier shoves others harder",
+  "WheelRadius": "Wheel size; also how close to the ground counts as touching",
+  "Inertial_Length": "Size of the box the car turns around: longer turns slower",
+  "Inertial_Width": "Size of the box the car turns around",
+  "Inertial_Height": "Size of the box the car turns around",
+  "spring_k": "Body bounce in the picture only; no effect on driving",
+  "spring_damping": "Body bounce in the picture only; no effect on driving",
+  "stiffness": "Body bounce in the picture only; no effect on driving",
+  "Health": "Damage the car takes before it blows up",
+  "static_brake_resistance": "Braking below this speed stops the car dead",
+  "rolling_static_threshold": "Coasting below this speed stops the car dead",
+  "burn_out_speed": "How long a burnout (brake and gas) can last"
+ },
+ "presets": [
+  {
+   "id": "drift",
+   "name": "Drift",
+   "tip": "Loose tail, quick steering, a handbrake that throws the car sideways, and it stays catchable",
+   "type": {
+    "cornering_stiffness": {
+     "mul": 1.25
+    },
+    "lateral_slide_speed": {
+     "mul": 0.55
+    },
+    "slide_factor": {
+     "mul": 3
+    },
+    "front_slide_factor": {
+     "mul": 2
+    },
+    "control_speed": {
+     "mul": 0.6
+    },
+    "time_to_slide_factor": {
+     "mul": 6
+    },
+    "handbrake_boost": {
+     "mul": 1.5
+    }
+   },
+   "car": {
+    "turn_rate": {
+     "set": 0.25
+    },
+    "slide_angle": {
+     "set": 0.1
+    },
+    "standard_sideways_slide_resistance": {
+     "set": 0.85
+    }
+   }
+  },
+  {
+   "id": "arcade",
+   "name": "Grip",
+   "tip": "Sticks to the road, steers at any speed, hard to spin",
+   "type": {
+    "cornering_stiffness": {
+     "mul": 0.7
+    },
+    "lateral_slide_speed": {
+     "mul": 1.6
+    },
+    "slide_factor": {
+     "mul": 0.6
+    },
+    "time_to_slide_factor": {
+     "mul": 2
+    },
+    "spinning_angular_friction": {
+     "mul": 1.5
+    },
+    "BrakeForce": {
+     "mul": 1.3
+    }
+   },
+   "car": {
+    "turn_rate": {
+     "set": 0.22
+    }
+   }
+  },
+  {
+   "id": "heavy",
+   "name": "Heavy",
+   "tip": "Weighty: slower to move and stop, wide and lazy in a slide",
+   "type": {
+    "Mass": {
+     "mul": 1.4
+    },
+    "BrakeForce": {
+     "mul": 0.9
+    },
+    "cornering_stiffness": {
+     "mul": 1.1
+    },
+    "slide_factor": {
+     "mul": 1.3
+    },
+    "time_to_slide_factor": {
+     "mul": 0.8
+    }
+   },
+   "car": {
+    "turn_rate": {
+     "set": 0.12
+    },
+    "standard_sideways_slide_resistance": {
+     "set": 0.75
+    }
+   }
+  },
+  {
+   "id": "vanilla",
+   "name": "Vanilla",
+   "tip": "The values the game shipped with",
+   "restore": true
+  }
+ ]
+}

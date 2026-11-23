@@ -50,3 +50,10 @@
 .pgstart { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; }
 .pgstart .box { pointer-events: auto; padding: 14px 18px; background: rgba(10, 13, 17, .78); color: #fff; border-radius: var(--r-md); border: 1px solid rgba(255, 255, 255, .15); font-size: calc(13px * var(--ts, 1)); display: flex; flex-direction: column; gap: 8px; align-items: center; }
 @keyframes pgrise { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-34px); opacity: 0; } }
+/* driving presets menu */
+.dpm .item.dprow { gap: 4px; }
+.dpm .dpn { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dpm .dprow .ico { width: 24px; height: 24px; padding: 0; line-height: 1; }
+.dpm .dpsave { display: flex; gap: 6px; padding: 8px 4px 2px; margin-top: 6px; border-top: 1px solid var(--line); }
+.dpm .dpsave input { flex: 1; min-width: 0; height: 28px; }
+.dpm .seg { width: 100%; flex-wrap: wrap; }

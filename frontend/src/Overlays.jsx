@@ -14,6 +14,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { Html, Line } from '@react-three/drei'
 import * as THREE from 'three'
 import { toView, quatToView, quatFromYaw, facingQuat } from './coords.js'
+import { isClick } from './camdrag.js'
 
 const BOX = new THREE.BoxGeometry(1, 1, 1)
 const EDGES = new THREE.EdgesGeometry(BOX)
@@ -87,7 +88,7 @@ function One({ o, api, tick, onPick }) {
   const cz = o.pos ? o.pos[2] : o.rect ? (o.rect[1] + o.rect[3]) / 2 : o.corners ? o.corners[0][1] : 0
   const gy = useGround(api, cx, cz, need, tick)
   const base = o.pos?.[1] ?? o.y ?? gy ?? o.ground ?? 0
-  const pick = o.pickable === false || !onPick ? undefined : ev => { ev.stopPropagation(); onPick(o.id, ev) }
+  const pick = o.pickable === false || !onPick ? undefined : ev => { if (!isClick(ev)) return; ev.stopPropagation(); onPick(o.id, ev) }
   const ud = { overlay: true, oid: o.id }
   const op = o.opacity ?? 0.25
   const label = (o.always || sel) && o.label

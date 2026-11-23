@@ -47,14 +47,28 @@ def _b64png(img, size=None):
 
 
 # ------------------------------------------------------------------------------------------------ analyze
+def clean_path(path):
+    """A path as people paste it: quotes (Copy as path), a file:// address, stray spaces."""
+    p = str(path or '').strip().strip('"').strip("'").strip()
+    if p.lower().startswith('file:///'):
+        from urllib.parse import unquote
+        p = unquote(p[8:])
+    return os.path.expandvars(os.path.expanduser(p))
+
+
 def analyze(path, progress=None):
     from todct import meshtex, modelimport as MI, texture as TX
+    path = clean_path(path)
     if not os.path.isfile(path):
         raise ImportError_('that file does not exist')
     try:
         scene = meshtex.read(path)
-    except (meshtex.MeshTexError, ValueError, KeyError, IndexError) as e:
-        raise ImportError_('the file could not be read: %s' % e)
+    except meshtex.MeshTexError as e:
+        raise ImportError_(str(e))
+    except MemoryError:
+        raise ImportError_('the file is too big to open')
+    except Exception:                                          # noqa: BLE001  (never show an exception text)
+        raise ImportError_('the file could not be read')
     data = MI.scene_to_bytes(scene)
     sha = assetstore.put(data)
     st = scene.stats()
@@ -71,6 +85,7 @@ def analyze(path, progress=None):
     mats = sorted({(p.mat.get('name') or 'material') for p in scene.parts})
     return dict(sha=sha, file=os.path.basename(path), name=os.path.splitext(os.path.basename(path))[0], stats=st, extent=[round(float(x), 4) for x in ext],
                 images=imgs, materials=mats, suggest=dict(up=up, mirror='z'), reference_m=MI.REFERENCE_FIGURE_M,
+                warnings=list(getattr(scene, 'warnings', [])),
                 textured=any(p.UV is not None and p.mat.get('image') is not None for p in scene.parts))
 
 

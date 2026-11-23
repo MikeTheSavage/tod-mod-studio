@@ -265,6 +265,13 @@ def me_count(meshes):
 def swap_rules(old_info, baked):
     """The M6 swap rules for a replacement -> list of (level, text). Warnings, never refusals (only M1/M2 refuse, in the importer)."""
     out = []
+    if getattr(baked, 'by_pivot', None):                       # a vehicle from the PSP game: every part is replaced, see todms.cccveh
+        omn, omx = old_info['min'], old_info['max']
+        nmn, nmx = np.asarray(baked.stats['min']), np.asarray(baked.stats['max'])
+        big = [a for a in range(3) if (omx - omn)[a] > 1e-6 and (nmx - nmn)[a] > (omx - omn)[a] * 1.10 + 1e-6]
+        if big:
+            out.append(('warn', 'Bigger than the original by more than 10 %% (%s)' % ', '.join('xyz'[a] for a in big)))
+        return out
     if len(old_info['mesh_pivots']) > 1:
         out.append(('warn', 'The model has %d parts with meshes: only the first is replaced, the rest keep their old meshes' % len(old_info['mesh_pivots'])))
     if baked.stats['submeshes'] != old_info['lod0']:
@@ -357,18 +364,27 @@ def apply_block(ws, entry, raw, tjobs, mjobs):
                 if k.tm.encode(m_old) != it['rec'][:len(k.tm.encode(m_old))]:
                     raise AssetError('%s does not round-trip before the edit' % j['target'])
                 m_old = k.tm.decode(it['rec'], 0, len(it['rec']))
-                spec = replace_spec(m_old, baked, names, j.get('shapes'), j.get('keep_collision', True))
+                vehicle = getattr(baked, 'by_pivot', None)
+                if vehicle:
+                    from . import cccveh
+                    spec = cccveh.replace_spec(m_old, baked, names, j.get('shapes'), j.get('keep_collision', True))
+                else:
+                    spec = replace_spec(m_old, baked, names, j.get('shapes'), j.get('keep_collision', True))
                 tree = k.mw.build_tree(spec, derive=True)
                 rec = _encode_tree(tree)
                 oi = old_model_info(m_old)
-                rb = readback(rec, baked, oi['mesh_pivots'][0], oi['spec']['pivots'][oi['mesh_pivots'][0]]['pos'])
+                if vehicle:
+                    rb = cccveh.readback(rec, baked)
+                else:
+                    rb = readback(rec, baked, oi['mesh_pivots'][0], oi['spec']['pivots'][oi['mesh_pivots'][0]]['pos'])
                 rep['models'].append(dict(id=j['id'], mode='replace', name=it['name'], record_bytes=len(rec), old_record_bytes=len(it['rec']), readback=rb,
                                           vertices=baked.stats['vertices'], triangles=baked.stats['triangles'],
                                           textures=[dict(name=n, w=t['w'], h=t['h'], fmt=t['fmt'], payload=len(t['payload']))
                                                     for n, t in zip(names, baked.textures)]))
                 it['rec'] = rec
                 changed.add(hits[0])
-                swapped.append((it['name'], oi['mesh_pivots'][0]))
+                if not vehicle:
+                    swapped.append((it['name'], oi['mesh_pivots'][0]))
         recs.write_into(b)
         cur = b.serialize()
         # lighting phase 2: the baked lighting of the replaced models is fitted to their new meshes (each model on its own; a model that

@@ -269,6 +269,29 @@ A changed value shows its old number crossed out, and <b>Use the default</b> put
 <p>Your changes belong to the mod you are working on. A few things (such as field of view) are built into the game's
 program itself; the app lists those but cannot change them.</p>
 
+<h3 id="s-driving">Driving presets and your own driving feel</h3>
+<p>In <b>Vehicles</b>, the <b>Presets</b> button changes how cars drive in one click. First choose where it applies: <b>This vehicle</b> (the row you picked),
+a group (<b>Cars</b>, <b>Vans</b>, <b>Trucks</b>) or <b>All cars</b>. Then choose a preset:</p>
+<ul>
+  <li><b>Drift:</b> a loose tail that slides at city speeds, quick steering, a handbrake that throws the car sideways, and a slide you can hold without spinning out;</li>
+  <li><b>Grip:</b> the car sticks to the road, steers at any speed and is hard to spin;</li>
+  <li><b>Heavy:</b> weighty, slower to move and stop, wide and lazy in a slide;</li>
+  <li><b>Vanilla:</b> puts the driving values of that vehicle or group back to the game's own.</li>
+</ul>
+<p>A preset only writes ordinary numbers into your mod, so you can keep tuning them in the table or with the sliders, undo them, and build and install as usual.
+Some values (steering speed, how gently a slide ends) are shared by every car, so they are only set when you apply to <b>All cars</b>.
+Cars driven by the game's own people (police, traffic) use the same values, so they drive the new way too. The body leaning in the picture is not changed by any preset.</p>
+<p>To keep your own feel, change values on a vehicle, open <b>Presets</b>, type a name and press <b>Save</b>. It appears under <b>My presets</b> and works on any vehicle.
+The arrow next to it saves a small file you can give to other people; <b>Import</b> opens one. Point at any column title for what the value does.
+The five that matter most for drifting:</p>
+<ul>
+  <li><b>Slide start speed:</b> lower it so the slide begins at normal driving speed;</li>
+  <li><b>Slide limit:</b> how sideways the tail goes (1 is nearly straight, 3 is a real drift);</li>
+  <li><b>Spin-out threshold:</b> raise it to hold a slide for longer before the car spins;</li>
+  <li><b>Slide recovery:</b> lower it so the slide builds and ends more slowly;</li>
+  <li><b>Sideways slide</b> (in <b>Car handling</b>): higher means the car eases out of a slide instead of snapping straight.</li>
+</ul>
+
 <h2 id="playground"><span class="n">10</span>Tune previews and the Playground</h2>
 <p>Each group in Game data has a live picture of what your numbers do, so you can judge a change before you put it in the game:</p>
 <ul>
@@ -288,6 +311,8 @@ It uses your changed values and the controller or the keyboard. It is a rough mo
 </ul>
 <p>Set the direction (which way is up), the scale (the screen can size it to match the original or to the height of Ram) and where the model's origin sits. The app reduces the model to what the game can load, bakes its pictures, and builds a simple collision shape (hull, box or pieces) if you want one.
 The <b>Limits</b> panel on the screen shows how close you are to the game's limits for models and pictures. Characters cannot be replaced, and a model that TOD HD or another mod already replaced is marked: yours goes on top of it.</p>
+<p><b>From Blender.</b> Switch on <b>Send from Blender</b> in <span class="tab">Settings</span>, then press <b>Blender add-on</b> (there, on the Assets screen or here) and save the file. In Blender open Edit &rarr; Preferences &rarr; Add-ons and use <b>Install</b> (Blender 2.79) or <b>Install from Disk</b> (2.8 and later, including 4.2 and 5.x, where it appears under the add-on list's arrow menu); pick the file and switch the add-on on. In the 3D view press N: the <b>TOD Mod Studio</b> tab has <b>Send to Mod Studio</b>. Select your objects, press it, and the model opens on this screen.
+Leave the add-on's <b>Port</b> at 0 and it finds the running Mod Studio itself; type the number shown in Settings only if it cannot. Textures that do not come across (a file path from another computer) fall back to the material's colour and the screen says so. A glTF file saved with Draco or meshopt compression cannot be read: export it again with compression off.</p>
 <p>For a whole city or district, use the <b>Large scene</b> button at the top right of this screen (see <a href="#district">Bringing in a whole district from your own 3D file</a>).</p>
 
 <h2 id="textures"><span class="n">12</span>Textures</h2>
@@ -377,7 +402,10 @@ If your drives differ the app tells you how much a full copy costs and asks firs
     links.</td></tr>
   <tr><td><span class="tab">Mission logic</span></td><td>See a mission's triggers as cards: <b>IF</b> this happens,
     <b>DO</b> that. Change what fires a trigger and what it does, or add a ready-made one (go to a point, kill N
-    enemies, timer, spawn a group, camera cut, objective text). The graph's cards say new, edited or start in words as well as colour.</td></tr>
+    enemies, timer, spawn a group, camera cut, objective text). The graph's cards say new, edited or start in words as well as colour.
+    The list also holds the sections of each map. In a section, <b>Car enters box</b> makes a box that fires when you drive a car into it (the game's
+    own parking easter egg works the same way); give it a line of text (pick one of the game's or type your own), points, a gun or pickups, and click
+    <b>Pin</b> to set its place on the map. <b>Go to a point</b> is the same box for walking in: a car driven through it is ignored.</td></tr>
   <tr><td><span class="tab">Sections</span></td><td>The loading zones between parts of a map. <b>Fix teleport</b>
     turns a few zones that jump you across the border into ones you simply walk through.</td></tr>
   <tr><td><span class="tab">Test saves</span></td><td>Make a save file that starts you right where you want to test,

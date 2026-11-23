@@ -253,6 +253,7 @@ def bake(scene, params, ref=None, with_payload=True, progress=None):
     if not parts:
         raise ImportError_('nothing is left after the reduction')
     out = Baked()
+    out.warnings.extend(getattr(scene, 'warnings', []))
     keys, slots = [], {}
     for q in parts:
         k = _slot_key(q)
@@ -455,7 +456,7 @@ def preview_glb(baked, with_textures=True, tint=None):
 
 # ---------------------------------------------------------------------------------------------- scene blobs
 def scene_to_bytes(scene):
-    arrs, meta = {}, dict(source=scene.source, parts=[], images=[])
+    arrs, meta = {}, dict(source=scene.source, parts=[], images=[], warnings=list(getattr(scene, 'warnings', [])))
     for i, p in enumerate(scene.parts):
         arrs['P%d' % i] = p.P.astype(np.float32)
         arrs['T%d' % i] = p.tris.astype(np.int32)
@@ -481,7 +482,7 @@ def scene_from_bytes(data):
         parts.append(MT.Part(pm['name'], z['P%d' % i], z['N%d' % i] if 'N%d' % i in z else None, z['U%d' % i] if 'U%d' % i in z else None,
                              z['T%d' % i].astype(np.int64), pm['mat']))
     images = [dict(name=im['name'], data=bytes(z['I%d' % i])) for i, im in enumerate(meta['images'])]
-    return MT.Scene(parts, images, meta['source'])
+    return MT.Scene(parts, images, meta['source'], meta.get('warnings'))
 
 
 def sha_of(data):

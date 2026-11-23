@@ -137,6 +137,20 @@ export function addOpFrom(tpl, entry, at, { uid = newUid(), scale = 1, prefix } 
     pos: r3(at.pos), rot, set, view }
 }
 
+// An enemy is added as a whole fighter (body, weapon, a short path); `group: 'enemy'` tells the build to place it that way.
+// The engine lowers a placeholder by ENEMY_DROP at its first frame, so the stored height is the floor plus that.
+export const ENEMY_DROP = 1.07
+export const enemySet = (row, extra = {}) => ({ Model: row.id, AISubType: row.ai, FactionID: row.side, Real_Active_Texture_Set: row.looks?.[0]?.id ?? 0, ...extra })
+export function enemyOp(tpl, entry, at, row, { uid = newUid(), prefix = 'TODMS_enemy', weapon = 0, set = {} } = {}) {
+  const st = enemySet(row, { FactionID: 9, WeaponSubType: weapon, ...set })
+  const rot = at.rot ? qnorm(at.rot) : at.yaw ? quatFromYaw(at.yaw) : [0, 0, 0, 1]
+  const pos = r3([at.pos[0], at.pos[1] + ENEMY_DROP, at.pos[2]])
+  return { op: 'add', uid, entry, template: { entry: tpl.entry, frag: tpl.frag, node: tpl.node }, deep: true, group: 'enemy',
+    name: `${prefix}_${uid}`, pos, rot, set: st,
+    view: { type: 'character_placeholder(CharacterPlaceHolder)', cat: 'character', sub: { Model: st.Model, AISubType: st.AISubType, FactionID: st.FactionID, Real_Active_Texture_Set: st.Real_Active_Texture_Set, WeaponSubType: weapon },
+      kindLabel: 'Enemy', name: row.name } }
+}
+
 // ---- prefabs: the selection relative to its own origin (centre on the ground plane, lowest point as height 0)
 export function prefabFromEntities(ents, name) {
   const list = ents.filter(e => !e.deleted)

@@ -9,6 +9,7 @@ import * as THREE from 'three'
 import { toView, fromView } from './coords.js'
 import { scatterStamp, rng, snapXZ } from './editing.js'
 import { t } from './i18n.js'
+import { CLICK_PX, tracker } from './camdrag.js'
 
 export const RAM_HEIGHT = 1.8
 
@@ -35,7 +36,7 @@ function useClicks(onClick, deps) {
     const pu = e => {
       if (e.button !== 0 || !down) return
       const d = Math.hypot(e.clientX - down[0], e.clientY - down[1]); down = null
-      if (d < 5) onClick(e)
+      if (d <= CLICK_PX && tracker.travel() <= CLICK_PX) onClick(e)
     }
     el.addEventListener('pointerdown', pd); el.addEventListener('pointerup', pu)
     return () => { el.removeEventListener('pointerdown', pd); el.removeEventListener('pointerup', pu) }

@@ -1,3 +1,4 @@
+import { pollBlender } from './blenderInbox.js'
 import React, { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from 'react'
 import { get, post, runJob, jobsStore } from './api.js'
 import { useProject, emptyProject } from './project.js'
@@ -139,6 +140,11 @@ function Main() {
   // live meters and the Problems list: the screens register their project, the feed asks the backend
   const kind = kindOfScreen(screen)
   useEffect(() => { registerProject('level', project.id || null, project) }, [project])
+  useEffect(() => {                     // models sent from Blender open in the model import screen
+    if (!status?.settings?.blender_bridge) return
+    const t = setInterval(() => pollBlender(() => setScreen('import')), 1500)
+    return () => clearInterval(t)
+  }, [status?.settings?.blender_bridge])
   useEffect(() => { setGo(setScreen); if (new URLSearchParams(location.search).get('open') === 'problems') setProblemsOpen(true) }, [])
   const pdata = useFeed(kind, !!status?.ready && !frActive)
   // autosave: the unsaved mod goes to the backend a few seconds after each change; the next start restores it

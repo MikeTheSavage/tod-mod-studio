@@ -33,6 +33,7 @@ import fragedit as fe
 import fragtool as ft
 import submaptool as smt
 
+from . import characters, names
 from . import level as lv
 
 BLOCK_BITS = lv.BLOCK_BITS
@@ -227,8 +228,12 @@ def stage_b(ws, entry, raw, adds, T, report, uid_nodes):
         m = _graft(dst, src, nodes, sn, T, used, bits, seed=op.get('seed', 4000 + ai))
         root = m[sn]
         sets = dict(op.get('set') or {})
+        grp = op.get('group')
         if op.get('name'):
             sets['name'] = op['name']
+        if grp == 'enemy':                                 # the user's settings belong to the fighter, not to its Folder
+            fighter = sets
+            sets = {'name': sets.pop('name')} if 'name' in sets else {}
         for p, v in sets.items():
             dst.set_prop(root, p, ft.value_in(dst, p, v), note=False)
         wp = tuple(op['pos']) if op.get('pos') is not None else tuple(src.world(sn, fe.IDENT)[0])
@@ -236,6 +241,8 @@ def stage_b(ws, entry, raw, adds, T, report, uid_nodes):
         Lc = fe.compose(fe.inverse(owner), (wp, wq))
         dst.set_prop(root, fe.P_POS, [tf.f32(x) + 0.0 for x in Lc[0]], note=False)
         dst.set_prop(root, fe.P_ORIENT, [tf.f32(x) + 0.0 for x in fe.qnorm(fe.qconj(Lc[1]))], note=False)
+        if grp == 'enemy':
+            _enemy_group(dst, src, nodes, m, op, fighter, Lc)
         uid_nodes[op.get('uid')] = (last, root)
         grafted.append(dict(uid=op.get('uid'), template='%s:%s:%s' % (te['entry'].split('/')[-1], snm.split('/')[-1],
                                                                        te['node']),
@@ -249,6 +256,39 @@ def stage_b(ws, entry, raw, adds, T, report, uid_nodes):
         raise BuildError('%s: %s' % (entry.split('/')[-1], e))
     report['stage_b'] = dict(grafted=grafted, checks={k: v for k, v in vr.items() if k != 'grafted'})
     return new
+
+
+def _enemy_group(dst, src, nodes, m, op, fighter, Lc):
+    """An enemy added as a group (the Downtown patrol Folder: fighter + weapon + a short path). A Folder has no transform in the engine, so the
+    fighter and its path carry the position (the fighter 1.07 m above the floor, as the engine lowers it again at its first frame)."""
+    kinds = {n: (src.type_of(n) or '') for n in nodes}
+    chars = [n for n in nodes if kinds[n].startswith('character_placeholder')]
+    weps = [n for n in nodes if kinds[n].startswith('weapon_placeholder')]
+    paths = [n for n in nodes if kinds[n].startswith('Pathtype')]
+    if len(chars) != 1:
+        raise BuildError('the enemy template holds %d fighters, expected 1' % len(chars))
+    pos = [tf.f32(x) + 0.0 for x in Lc[0]]
+    quat = [tf.f32(x) + 0.0 for x in fe.qnorm(fe.qconj(Lc[1]))]
+    c = m[chars[0]]
+    weapon = fighter.pop('WeaponSubType', op.get('weapon'))
+    for p, v in fighter.items():
+        dst.set_prop(c, p, ft.value_in(dst, p, v), note=False)
+    dst.set_prop(c, fe.P_POS, pos, note=False)
+    dst.set_prop(c, fe.P_ORIENT, quat, note=False)
+    for w in weps:
+        dst.set_prop(m[w], fe.P_POS, [0.0, 0.0, 0.0], note=False)
+        dst.set_prop(m[w], fe.P_ORIENT, [0.0, 0.0, 0.0, 1.0], note=False)
+        if weapon is not None:
+            dst.set_prop(m[w], 'WeaponSubType', ft.value_in(dst, 'WeaponSubType', int(weapon)), note=False)
+    for pth in paths:
+        dst.set_prop(m[pth], fe.P_POS, pos, note=False)
+        dst.set_prop(m[pth], fe.P_ORIENT, [0.0, 0.0, 0.0, 1.0], note=False)
+    pat = [list(map(float, p)) for p in (op.get('patrol') or [[0, 2], [0, 4], [0, 6]])]
+    pat = (pat + [pat[-1]] * 3)[:3]
+    tps = [n for n in nodes if kinds[n] == 'TrackPoint']
+    tps = sorted(tps, key=lambda n: nodes.index(n))
+    for n, (dx, dz) in zip(tps, pat):
+        dst.set_prop(m[n], fe.P_POS, [tf.f32(dx) + 0.0, 0.0, tf.f32(dz) + 0.0], note=False)
 
 
 def _graft(dst, src, nodes, src_root, T, used, bits, seed):
@@ -385,10 +425,16 @@ def build(ws, level_ops, frag_ops_by_entry, out_dir, zip_name, progress=None, co
         brep = dict(entry=entry, base_archive=src, base_sha256=sha(base), save_safe=True)
         plain = [o for o in ops if o['op'] != 'add']
         adds = [o for o in ops if o['op'] == 'add']
+        bodies = characters.missing(ws, entry, base, characters.needed(ops).get(entry, ()))
+        if bodies:                                    # a character body the block does not carry yet: register it (an add), copy its mesh after
+            adds = characters.resource_ops(ws, entry, bodies) + adds
+            brep['character_models'] = [dict(model=n, name=names.character_name(n)) for n in bodies]
         raw = stage_a(entry, base, plain, T, brep)
         uid_nodes = {}
         if adds:
             raw = stage_b(ws, entry, raw, adds, T, brep, uid_nodes)
+        if bodies:
+            raw = characters.copy_assets(ws, entry, raw, bodies, brep)
         r1 = ft.roundtrip_block(raw, ext, T)
         if r1['fail'] or not r1['block_identical']:
             raise BuildError('%s: the rebuilt block does not round-trip: %s' % (entry, r1['fail'][:3]))
@@ -405,7 +451,18 @@ def build(ws, level_ops, frag_ops_by_entry, out_dir, zip_name, progress=None, co
     if collision:
         outs = stage_c(ws, collision, outs, rep, progress)
     if part_b and any(part_b.values()):
-        outs = stage_d(ws, part_b, outs, rep, collision, progress)
+        from . import sectext
+        try:
+            m_ops, text_edits = sectext.resolve(part_b.get('missions') or [])
+        except sectext.TextError as e:
+            raise BuildError(str(e))
+        outs = stage_d(ws, dict(part_b, missions=m_ops), outs, rep, collision, progress)
+        if text_edits:
+            try:
+                outs = sorted(list(outs) + sectext.blocks(ws, text_edits, progress))
+            except sectext.TextError as e:
+                raise BuildError(str(e))
+            rep['texts'] = [dict(row=e['ordinal'], text=e['value']) for e in text_edits]
     zp = os.path.join(out_dir, zip_name)
     if outs:
         rep['zip'] = ft.write_zip(zp, outs, naz_for_mtime=ws.game.naz)

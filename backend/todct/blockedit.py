@@ -148,6 +148,9 @@ class BlockInfo:
             lf, nxt, _ = smt.last_fragment(self.b, self.nodemap_entry)
         except smt.Fail as e:
             raise BuildError('%s: %s' % (self.entry.split('/')[-1], e))
+        if lf not in self.by_name:
+            raise BuildError('%s cannot take new entities: the fragment it instantiates last (%s) is a shared script, not a part of the '
+                             'block' % (self.entry.split('/')[-1], lf.split('/')[-1]))
         n = self.instances(lf)
         if n != 1:
             raise BuildError('%s cannot take new entities save-safely: the fragment it instantiates last (%s) is a '

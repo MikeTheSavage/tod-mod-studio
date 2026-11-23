@@ -26,7 +26,7 @@ class UserLibTest(unittest.TestCase):
 
     def test_empty_library_has_every_key(self):
         d = server.h_userlib_get({}, {})
-        self.assertEqual(d, {'prefabs': [], 'shortcuts': {}, 'scatter': {}, 'clipboard': {}})
+        self.assertEqual(d, {'prefabs': [], 'shortcuts': {}, 'scatter': {}, 'clipboard': {}, 'driving': {}})
 
     def test_save_and_read_back(self):
         pre = [{'id': 'p1', 'name': 'Crate pile', 'items': [{'dpos': [0, 0, 0]}]}]

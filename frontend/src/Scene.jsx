@@ -6,6 +6,7 @@ import { toView, quatToView, fromView, quatFromView, quatFromYaw } from './coord
 import { catColor, cbOn } from './view.js'
 import { loadModel } from './models.js'
 import { padState, getCfg } from './pad/padstore.js'
+import { isClick, changed } from './camdrag.js'
 import { curve, lookStep, flyStep } from './pad/padlogic.js'
 
 const ONE = new THREE.Vector3(1, 1, 1)
@@ -62,7 +63,7 @@ function Thing({ e, selected, register, onPick }) {
   useEffect(() => { register(e.id, ref.current); return () => register(e.id, null) }, [e.id])
   const off = e.deleted || e.off
   const yOffset = e.cat === 'character' ? 0.9 : e.cat === 'vehicle' ? 0.75 : e.cat === 'marker' ? 0.8 : 0
-  const click = ev => { if (!onPick) return; ev.stopPropagation(); onPick(e.id, ev) }
+  const click = ev => { if (!onPick || !isClick(ev)) return; ev.stopPropagation(); onPick(e.id, ev) }
   return (
     <group ref={ref} position={toView(e.pos)} quaternion={quatToView(e.rot)} userData={{ eid: e.id }}>
       {isVolume(e) ? (
@@ -94,7 +95,7 @@ export function ModelThing({ e, rec, showGeom, showColl, selected, register, onP
     const b = new THREE.Box3().setFromObject(render)
     return b.isEmpty() ? null : b
   }, [render])
-  const click = ev => { if (!onPick) return; ev.stopPropagation(); onPick(e.id, ev) }
+  const click = ev => { if (!onPick || !isClick(ev)) return; ev.stopPropagation(); onPick(e.id, ev) }
   return (
     <group ref={ref} position={toView(e.pos)} quaternion={quatToView(e.rot)} userData={{ eid: e.id }}>
       {render && <group position={[0, e.isNew && e.cat !== 'model' && box ? -box.min.y : 0, 0]}><primitive object={render} visible={showGeom && !e.deleted} onClick={click} /></group>}
@@ -187,12 +188,13 @@ function GroupGizmo({ ents, mode, registry, snap, onCommit }) {
         start.current = { inv: pivot.current.matrix.clone().invert(),
           members: objs().map(([, o]) => [o, new THREE.Matrix4().compose(o.position, o.quaternion, ONE)]) }
       }}
-      onObjectChange={follow}
+      onObjectChange={() => { if (start.current) start.current.moved = true; follow() }}
       onMouseUp={() => {
+        const moved = start.current?.moved
         const moves = objs().map(([e, o]) => ({ e, pos: fromView(o.position), rot: quatFromView(o.quaternion) }))
         start.current = null
         if (pivot.current) { pivot.current.quaternion.identity(); pivot.current.scale.set(1, 1, 1) }
-        onCommit(moves)
+        if (moved) onCommit(moves)
       }} />}
   </>
 }
@@ -292,7 +294,7 @@ export function LevelContent({ view, bundle, layers, showColl, showGeom, selecte
   const things = visible.filter(e => !hasModel(e))
   const sel = primaryId ? view.ents.get(primaryId) : null
   const members = [...selectedIds].map(id => view.ents.get(id)).filter(e => e && e.ed && !e.deleted && registry.current.get(e.id))
-  const dragging = useRef(false)
+  const dragging = useRef(false), from0 = useRef(null)
   const single = members.length === 1 ? members[0] : null
   const selObj = single ? registry.current.get(single.id) : null
   const snapProps = { translationSnap: snap?.grid > 0 ? snap.grid : null, rotationSnap: snap?.angle > 0 ? snap.angle * Math.PI / 180 : null }
@@ -309,10 +311,11 @@ export function LevelContent({ view, bundle, layers, showColl, showGeom, selecte
       <NewCollision sets={newColl} visible={showNewColl} />
       {single && selObj && gizmoMode !== 'select' && (
         <TransformControls object={selObj} mode={gizmoMode} size={0.8} showX showY showZ {...snapProps}
-          onMouseDown={() => { dragging.current = true }}
+          onMouseDown={() => { dragging.current = true; from0.current = [...selObj.position.toArray(), ...selObj.quaternion.toArray(), ...selObj.scale.toArray()] }}
           onMouseUp={() => {
             dragging.current = false
             const o = selObj
+            if (!changed(from0.current, [...o.position.toArray(), ...o.quaternion.toArray(), ...o.scale.toArray()], 1e-5)) return   // a press on the gizmo that moved nothing changes nothing
             if (gizmoMode === 'scale' && single.size) {
               const s = o.scale
               const size = [single.size[0] * s.x, single.size[1] * s.y, single.size[2] * s.z].map(v => Math.max(0.05, Math.round(v * 100) / 100))

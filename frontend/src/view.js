@@ -77,7 +77,10 @@ export function buildView(bundle, ops, modelFor) {
         const s = [...(c.size || [1, 1, 1])]
         s[['width', 'height', 'length'].indexOf(o.prop)] = o.value
         c.size = s
-      } else c.sub = { ...(c.sub || {}), [o.prop]: o.value }
+      } else {
+        c.sub = { ...(c.sub || {}), [o.prop]: o.value }
+        if (o.prop === 'Model' && c.cat === 'character' && modelFor) c.model = modelFor('character', c.sub) || c.model   // the changed body shows at once
+      }
       c.props = { ...(c.props || {}), [o.prop]: o.value }
     } else if (o.op === 'delete') {
       c.deleted = o.mode || 'retire'

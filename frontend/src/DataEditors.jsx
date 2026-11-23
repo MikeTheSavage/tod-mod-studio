@@ -3,6 +3,8 @@ import { get } from './api.js'
 import { Seg, Switch, RangeField, ChangeBar } from './ui.jsx'
 import { nice } from './labels.js'
 import { WeaponPreview, VehiclePreview, MovesPreview, CameraPreview } from './tune/Previews.jsx'
+import DrivePresets from './tune/DrivePresets.jsx'
+import { shippedIndex, tipOf } from './tune/presets.js'
 import './tune/tune.css'
 import { t } from './i18n.js'
 
@@ -81,6 +83,12 @@ export default function DataEditors({ project, commit, go }) {
     const lo = Math.min(0, ...all), hi = Math.max(...all) * 1.5 || 1
     return { min: lo, max: Math.max(hi, def ?? 0) }
   }
+  const shipped = useMemo(() => (d && ed === 'vehicles' ? shippedIndex(d) : NONE), [d, ed])
+  const setVehicleVals = next => {
+    const data2 = { ...(project.data || {}), vehicles: next }
+    if (!Object.keys(next).length) delete data2.vehicles
+    commit({ ...project, data: data2 })
+  }
   const changedIn = g => g.fields.filter(x => x.key in vals).length
 
   const rows = d ? d.groups.filter(g => (!f || tidy(g.group).toLowerCase().includes(f) || (!table && g.fields.some(x => (x.label + x.key).toLowerCase().includes(f)))) && (!onlyChanged || changedIn(g) > 0)) : []
@@ -102,6 +110,7 @@ export default function DataEditors({ project, commit, go }) {
         <Seg large value={ed} onChange={setEd} options={EDITORS.map(([k, l]) => ({ value: k, label: l + ((project.data || {})[k] ? ` (${Object.keys(project.data[k]).length})` : '') }))} />
         <button className={'sm' + (ed === 'playground' ? ' primary' : '')} onClick={() => setEd('playground')} title={t('try_weapons_cars_and_the_camera')}>{t('playground')}</button>
         <div style={{ flex: 1 }} />
+        {ed === 'vehicles' && d && <DrivePresets shipped={shipped} vals={vals} row={sel ? plain(sel.group) : null} setVals={setVehicleVals} />}
         {ed !== 'playground' && <>
           <input style={{ width: 180 }} placeholder={`Find a ${noun}…`} aria-label={t('find')} value={filter} onChange={e => setFilter(e.target.value)} />
           <label className="check" style={{ margin: 0, fontSize: 12.5 }}><Switch label={t('only_changed')} on={onlyChanged} onChange={setOnlyChanged} />{' '}{t('only_changed')}</label></>}
@@ -118,7 +127,7 @@ export default function DataEditors({ project, commit, go }) {
           {d && table && <div className="gd" role="table" aria-label={ed === 'weapons' ? 'Weapons' : 'Vehicles'} aria-rowcount={rows.length + 1} style={{ gridTemplateColumns: cols, minWidth: 'max-content' }}>
             <div role="row" style={{ display: 'contents' }}>
             <div className="c h" role="columnheader" style={{ borderRight: '1px solid var(--line)', left: 0, zIndex: 3 }}>{ed === 'weapons' ? 'Weapon' : 'Vehicle'}</div>
-            {table.map(l => <div key={l} className="c h r" role="columnheader" title={l}>{nice(l)}</div>)}
+            {table.map(l => <div key={l} className="c h r" role="columnheader" title={(ed === 'vehicles' && tipOf(l)) || l}>{nice(l)}</div>)}
             </div>
             {rows.map(g => {
               const on = sel && sel.group === g.group
@@ -129,7 +138,7 @@ export default function DataEditors({ project, commit, go }) {
                   const x = g.fields.find(f => f.label === label)
                   if (!x) return <div key={label} role="cell" className={'c r' + (on ? ' row-sel' : '')} />
                   const changed = x.key in vals
-                  return <div key={x.key} role="cell" className={'c r' + (on ? ' row-sel' : '')} title={x.label} onClick={() => setSelRow(g.group)}>
+                  return <div key={x.key} role="cell" className={'c r' + (on ? ' row-sel' : '')} title={(ed === 'vehicles' && tipOf(x.label)) || x.label} onClick={() => setSelRow(g.group)}>
                     {typeof x.value === 'boolean'
                       ? <input type="checkbox" aria-label={nice(x.label)} checked={!!(changed ? vals[x.key] : x.value)} onChange={e => setVal(x.key, e.target.checked, x.value)} />
                       : <Cell label={`${tidy(g.group)} ${nice(x.label)}`} value={changed ? vals[x.key] : x.value} was={x.value} changed={changed} onCommit={n => setVal(x.key, n, x.value)} />}
@@ -178,7 +187,7 @@ export default function DataEditors({ project, commit, go }) {
             {sel.fields.filter(x => typeof x.value !== 'boolean').map(x => {
               const changed = x.key in vals, v = changed ? vals[x.key] : x.value
               const r = typeof x.value === 'number' ? rangeOf(x.label, x.value) : {}
-              return <RangeField key={x.key} label={nice(x.label)} tip={x.label} value={v} def={x.value} changed={changed} min={r.min} max={r.max} digits={6}
+              return <RangeField key={x.key} label={nice(x.label)} tip={(ed === 'vehicles' && tipOf(x.label)) || x.label} value={v} def={x.value} changed={changed} min={r.min} max={r.max} digits={6}
                 step={Number.isInteger(x.value) ? 1 : undefined} onChange={n => setVal(x.key, n, x.value)} onReset={() => setVal(x.key, null, x.value)} />
             })}
             {sel.fields.filter(x => typeof x.value === 'boolean').map(x => <label key={x.key} className="check" title={x.label}><Switch label={nice(x.label)} on={!!(x.key in vals ? vals[x.key] : x.value)} onChange={b => setVal(x.key, b, x.value)} /> {nice(x.label)}</label>)}

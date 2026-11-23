@@ -9,6 +9,7 @@ import { useUi } from './uistore.js'
 import { DEFAULT_PREFS, SCALE_MIN, SCALE_MAX, TEXT_SIZES } from './uiprefs.js'
 import { LANGUAGES } from './i18n.js'
 import { t as tr } from './i18n.js'
+import { saveAddon } from './blenderInbox.js'
 
 // The games Mod Studio knows: yours, and the private test copies it made (they share the big files with yours).
 function Installs({ status }) {
@@ -205,8 +206,17 @@ export default function Settings({ status, refresh, openFirstRun, onUpdate }) {
             <div><div style={{ fontWeight: 500 }}>{tr('deleting_an_object_keeps_old_saves')}</div>
               {s.save_safe_delete === false && <div className="warn small">{tr('off_old_saves_may_break')}</div>}</div></div>
           <label style={{ marginTop: 12 }}>{tr('author_name_for_your_mods')}{' '}<input defaultValue={s.author || ''} onBlur={e => set('author', e.target.value)} /></label>
+          <label style={{ marginTop: 12 }}>{tr('chili_con_carnage_data')}{' '}<input defaultValue={s.ccc_folder || ''} placeholder={tr('folder')} onBlur={e => set('ccc_folder', e.target.value)} /></label>
         </section>
         <Online s={s} set={set} onUpdate={onUpdate || (() => {})} />
+        <section className="card" aria-label={tr('blender')}>
+          <h3>{tr('blender')}</h3>
+          <div className="row" style={{ alignItems: 'flex-start', gap: 12 }} title={tr('send_from_blender_tip')}>
+            <Switch label={tr('send_from_blender')} on={!!s.blender_bridge} onChange={v => set('blender_bridge', v)} />
+            <div className="grow" style={{ fontWeight: 500 }}>{tr('send_from_blender')}</div>
+            {s.blender_bridge && <span className="mono small" title={tr('blender_port_tip')}>{tr('blender_port')} {location.port}</span>}
+            <button onClick={() => saveAddon(ui.say)} title={tr('blender_add_on_tip')}>{tr('blender_add_on')}</button></div>
+        </section>
         <Report />
         <section className="card">
           <h3>{tr('cache')}</h3>

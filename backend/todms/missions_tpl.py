@@ -126,6 +126,17 @@ def check_project(project):
     mids = [m.get('id') for m in project.get('missions') or []]
     if any(not i for i in mids) or len(set(mids)) != len(mids):
         raise ValueError('every mission needs its own name')
+    from . import characters
+    for m in project.get('missions') or []:
+        eb = m.get('enemy_body')
+        if eb in (None, '', 'template'):
+            continue
+        try:
+            ok = characters.row(int(eb)) is not None and characters.row(int(eb))['placeable']
+        except (TypeError, ValueError):
+            ok = False
+        if not ok:
+            raise ValueError('the enemy body of "%s" cannot be placed' % m['id'])
 
 
 def get_project(pid):
@@ -368,6 +379,43 @@ def compose(entries, pins=None, alloc=None, extra_maps=None, carry=None):
     return lp, idmap, hostmap
 
 
+def enemy_bodies(snaps, idmap):
+    """{library mission id: character body number} for the missions whose project asks for one (`enemy_body` on the mission, beside `params`:
+    the template library never sees it; build_set applies it afterwards to the finished mission block)."""
+    out = {}
+    for lid, (pid, mid) in idmap.items():
+        for m in (snaps.get(pid, {}).get('project', {}).get('missions') or []):
+            if m.get('id') == mid and m.get('enemy_body') not in (None, '', 'template'):
+                out[lid] = int(m['enemy_body'])
+    return out
+
+
+def apply_bodies(ws, merged, manifest, bodies):
+    """Rewrite the merged archive so the named missions' enemies wear the chosen body (todms.characters.retag_block on each mission block)."""
+    import zipfile
+    from . import characters
+    from todtpl import tpl_env
+    ft = tpl_env.get().ft
+    with zipfile.ZipFile(merged) as z:
+        entries = {n: z.read(n) for n in z.namelist()}
+    done = {}
+    for m in manifest['missions']:
+        n = bodies.get(m['id'])
+        if n is None:
+            continue
+        name = next((k for k in entries if k.lower().endswith('/' + m['block'].lower())), None)
+        if name is None:
+            raise ValueError('the block of %s is not in the built archive' % m['id'])
+        rep = {}
+        entries[name] = characters.retag_block(ws, name, entries[name], n, rep)
+        done[m['id']] = rep
+    rp = ft.write_zip(merged, sorted(entries.items()))
+    import hashlib
+    with open(merged, 'rb') as f:
+        h = hashlib.sha256(f.read()).hexdigest()
+    return dict(sha256=h, bytes=rp['zip_bytes'], done=done)
+
+
 def display_name(snaps, pid, mid):
     name = snaps.get(pid, {}).get('name') or pid
     return '%s / %s' % (name, mid) if len(snaps) > 1 else mid
@@ -600,6 +648,7 @@ def build_set(ws, ents, pins, out_dir, progress=None, pid=None, extra_chain=(), 
         from todtpl import tpl_build
         wanted = {}
         lp, idmap, hostmap = compose(ents, pins, alloc, extra_maps, carry=wanted)
+        bodies = enemy_bodies(snaps, idmap)
         chain = list(extra_chain) + chain_paths(ws)
         if overlay_entries:
             lp['options'] = dict(lp.get('options') or {}, overlay_entries=list(overlay_entries))
@@ -624,6 +673,11 @@ def build_set(ws, ents, pins, out_dir, progress=None, pid=None, extra_chain=(), 
         for sub in ('map', 'text'):
             shutil.rmtree(os.path.join(out_dir, sub), ignore_errors=True)
         manifest = json.load(open(res['manifest'], encoding='utf-8'))
+        if bodies:
+            try:
+                mrep.update(apply_bodies(ws, merged, manifest, bodies))
+            except (ValueError, KeyError) as e:
+                return dict(ok=False, messages=[dict(level='error', where='project', text='Enemy body: %s' % e)])
         if wanted:                             # a project-level key that the build did not receive must fail loudly, never vanish
             try:
                 used = json.load(open(os.path.join(out_dir, 'params_used.json'), encoding='utf-8'))

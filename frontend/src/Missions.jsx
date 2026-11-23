@@ -4,11 +4,12 @@
 // action, retarget it, disable a trigger, add a trigger from a template, and check the build with missiontool's lint.
 // The edits are the mod's "missions" ops.
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { get, runJob } from './api.js'
+import { get, post, runJob } from './api.js'
 import { short, describeMission, newId } from './partb.js'
 import View3D from './View3D.jsx'
 import { useBundle, pickOfBlock, boundsOf, CONTEXT_LAYERS } from './levelLoad.js'
 import { t as tr } from './i18n.js'
+import { boxOf, clampView, moved, wheelFactor, zoomAt } from './graphview.js'
 
 const M10 = 'data_pc/overdose_the_game/overdose/shared/mm010_ernestocruz.mission'
 const CW = 300, ROWH = 15, HEAD = 34, GAPX = 90, GAPY = 26
@@ -39,23 +40,39 @@ export default function Missions({ status, project, commit }) {
   const [check, setCheck] = useState(null)
   const [prop, setProp] = useState('')
   const [val, setVal] = useState('')
-  const [tpl, setTpl] = useState({ template: 'go_to_point', name: 'CB_GoTo', pos: '-495, -139, -2185', size: '6, 4, 6', yaw: 0,
-    objective: 'MM010_GetToAirstrip_OBJ', action: '', text: '', count: 3, seconds: 5, target: '', camera: '', hold: 3 })
+  const [tpl, setTpl] = useState({ template: 'go_to_point', name: 'CB_GoTo', pos: '', size: '6, 4, 6', yaw: 0,
+    objective: 'MM010_GetToAirstrip_OBJ', action: '', text: '', count: 3, seconds: 5, target: '', camera: '', hold: 3,
+    ap: '', weapon: '', ammo: '', pickups: [] })
+  const [texts, setTexts] = useState([])
+  const [guns, setGuns] = useState({})
+  const [pinning, setPinning] = useState(false)
   const ops = project.missions || []
   const setOps = o => commit({ ...project, missions: o })
   const [view, setView] = useState(() => ({ x: 20, y: 20, s: new URLSearchParams(location.search).get('edited') ? 1.9 : 0.8 }))
-  const drag = useRef(null)
+  const drag = useRef(null), justPanned = useRef(false)
+  const [panning, setPanning] = useState(false)
   const [showMap, setShowMap] = useState(() => new URLSearchParams(location.search).get('showmap') === '1')
   const [focus3, setFocus3] = useState(null)
 
-  useEffect(() => { get('/api/catalog').then(setCatalog).catch(e => setMsg(e.message)) }, [])
+  useEffect(() => { get('/api/catalog').then(c => {
+    setCatalog(c)
+    const want = new URLSearchParams(location.search).get('block')
+    const hit = want && (c.maps || []).flatMap(m => [...m.sections, ...m.missions]).find(x => short(x.entry) === want)
+    if (hit) setEntry(hit.entry)
+  }).catch(e => setMsg(e.message)) }, [])
+  useEffect(() => {
+    post('/api/missions/texts', {}).then(r => setTexts(r.texts || [])).catch(() => {})
+    get('/api/enums').then(r => setGuns(r.WeaponSubType || {})).catch(() => {})
+  }, [])
   const missions = useMemo(() => (catalog?.maps || []).flatMap(m => m.missions.map(x => ({ ...x, map: m.title }))), [catalog])
+  const loadId = useRef(0)
   const load = async (lint) => {
+    const id = ++loadId.current                              // an older answer never replaces a newer pick
     try {
       const g = await runJob('/api/missions/graph', { entry, ops, lint: !!lint }, j => setBusy(j.message || 'Reading the mission'))
-      setGraph(g)
-    } catch (e) { setMsg(e.message) }
-    setBusy(null)
+      if (id === loadId.current) setGraph(g)
+    } catch (e) { if (id === loadId.current) setMsg(e.message) }
+    if (id === loadId.current) setBusy(null)
   }
   useEffect(() => { load(true) }, [entry, JSON.stringify(ops)])
 
@@ -118,16 +135,31 @@ export default function Missions({ status, project, commit }) {
     setOps([...ops.filter(o => !(o.op === 'retarget' && o.action === sel.node)), { op: 'retarget', entry, frag: selT.frag, action: sel.node, target: name, who: 3 }])
   }
   const disable = () => { if (selT && !selT.new) setOps([...ops, { op: 'disable_trigger', entry, frag: selT.frag, node: selT.node }]) }
+  const textValue = v => {                                  // a line of the game (its number) or the user's own words
+    const s = String(v ?? '').trim()
+    if (!s) return null
+    const hit = texts.find(x => x.text === s)
+    return hit ? hit.i : /^\d+$/.test(s) ? Number(s) : s
+  }
   const addTrigger = () => {
     const T = graph?.enums?.TEMPLATES?.[tpl.template] || {}
     const params = {}
-    for (const k of ['objective', 'count', 'seconds', 'target', 'camera', 'hold', 'text']) if (tpl[k] !== '' && tpl[k] != null) params[k] = isNaN(Number(tpl[k])) || k === 'objective' || k === 'target' || k === 'camera' ? tpl[k] : Number(tpl[k])
-    if (tpl.action) params.action = tpl.action
+    for (const k of T.needs || []) if (tpl[k] !== '' && tpl[k] != null) params[k] = isNaN(Number(tpl[k])) || k === 'objective' || k === 'target' || k === 'camera' ? tpl[k] : Number(tpl[k])
+    if (T.box && tpl.template === 'camera_cut' && tpl.hold !== '') params.hold = Number(tpl.hold)
+    const textVal = textValue(tpl.text)
+    if (textVal != null) params.text = textVal
+    if (Number(tpl.ap) > 0) params.ap = Number(tpl.ap)
+    if (tpl.weapon !== '') { params.weapon = Number(tpl.weapon); params.ammo = Number(tpl.ammo) || 30 }
+    if (tpl.pickups.length) params.pickups = tpl.pickups
+    if (tpl.action && tpl.template !== 'car_enters') params.action = tpl.action
     const o = { op: 'add_trigger', id: newId('trg'), entry, template: tpl.template, name: tpl.name || undefined, params }
-    if (['go_to_point', 'spawn_group', 'camera_cut', 'objective_text'].includes(tpl.template)) {
-      o.pos = tpl.pos.split(',').map(Number); o.size = tpl.size.split(',').map(Number); o.yaw = Number(tpl.yaw) || 0
+    if (T.box) {
+      const pos = String(tpl.pos).split(',').map(Number), size = String(tpl.size).split(',').map(Number)
+      if (pos.length !== 3 || pos.some(v => !isFinite(v) || String(tpl.pos).trim() === '')) { setMsg(tr('pick_a_place_on_the_map')); return }
+      o.pos = pos; o.size = size.length === 3 && size.every(v => isFinite(v) && v > 0) ? size : [6, 4, 6]; o.yaw = Number(tpl.yaw) || 0
     }
     if (T.needs) for (const k of T.needs) if (params[k] == null && !(k === 'objective' && params.action && !params.action.includes('objective'))) { setMsg(`${T.label} needs ${k}`); return }
+    if (tpl.template === 'car_enters' && !(params.text != null || params.ap || params.weapon != null || params.pickups)) { setMsg(tr('choose_a_text_a_reward_or_both')); return }
     setOps([...ops, o])
   }
   const runCheck = async () => {
@@ -136,28 +168,60 @@ export default function Missions({ status, project, commit }) {
     catch (e) { setMsg(e.message) }
     setBusy(null)
   }
-  const wheel = e => { const f = e.deltaY < 0 ? 1.12 : 1 / 1.12; setView(v => ({ ...v, s: Math.min(2.5, Math.max(0.15, v.s * f)) })) }
-  const down = e => { drag.current = { x: e.clientX, y: e.clientY, vx: view.x, vy: view.y } }
-  const move = e => { if (drag.current) setView(v => ({ ...v, x: drag.current.vx + e.clientX - drag.current.x, y: drag.current.vy + e.clientY - drag.current.y })) }
-  const up = () => { drag.current = null }
+  // pan with a press-and-drag anywhere on the graph (the pointer is captured, so leaving the box never drops it),
+  // zoom with the wheel around the cursor; a press that did not move still clicks the card under it
+  const svgRef = useRef(null)
+  const box = useMemo(() => boxOf(pos, CW), [pos])
+  const fit = v => { const r = svgRef.current?.getBoundingClientRect(); return clampView(v, box, r ? r.width : 0, r ? r.height : 0) }
+  useEffect(() => {
+    const el = svgRef.current
+    if (!el) return
+    const onWheel = e => {
+      e.preventDefault()
+      const r = el.getBoundingClientRect()
+      setView(v => fit(zoomAt(v, wheelFactor(e), e.clientX - r.left, e.clientY - r.top)))
+    }
+    el.addEventListener('wheel', onWheel, { passive: false })
+    return () => el.removeEventListener('wheel', onWheel)
+  }, [box])
+  const down = e => { if (e.button === 0 || e.button === 1) drag.current = { id: e.pointerId, x: e.clientX, y: e.clientY, vx: view.x, vy: view.y, on: false } }
+  const move = e => {
+    const d = drag.current
+    if (!d || d.id !== e.pointerId) return
+    if (!d.on) { if (!moved(d, { x: e.clientX, y: e.clientY })) return; d.on = true; try { svgRef.current.setPointerCapture(e.pointerId) } catch { /* the pointer is gone */ } setPanning(true) }
+    const nx = d.vx + e.clientX - d.x, ny = d.vy + e.clientY - d.y
+    setView(v => fit({ ...v, x: nx, y: ny }))
+  }
+  const up = e => {
+    const d = drag.current
+    if (!d || (e && d.id !== e.pointerId)) return
+    drag.current = null
+    if (d.on) { justPanned.current = true; setTimeout(() => { justPanned.current = false }, 0); try { svgRef.current.releasePointerCapture(d.id) } catch { /* already released */ } }
+    setPanning(false)
+  }
+  const noClickAfterPan = e => { if (justPanned.current) { e.stopPropagation(); e.preventDefault() } }
   const props = sel?.kind === 'trigger' ? ['TriggerOn', 'ConditionsNeeded', 'Reactivate', 'ReactivateDelay', 'flags', 'name', 'width', 'height', 'length']
     : sel?.kind === 'cond' ? ['TrueOn', 'ActivatorType', 'SpecificActivator', 'IntervalTrue', 'TrigAmount', 'APBonus']
     : sel?.kind === 'act' ? ['ActionType', 'TargetName', 'ActivateWho', 'Delay', 'FeedbackText', 'ActivationTime', 'Do_What', 'APBonus'] : []
   const lint = graph?.lint
+  const TT = graph?.enums?.TEMPLATES?.[tpl.template] || {}
 
   return (
     <div className="editor mgraph" style={{ gridTemplateColumns: '1fr 360px' }}>
       <div className="viewport" style={{ background: 'var(--vp)' }}>
         <div className="toolbar">
-          <select value={entry} onChange={e => { setEntry(e.target.value); setSel(null) }}>
-            {missions.map(m => <option key={m.entry} value={m.entry}>{m.title} ({short(m.entry)})</option>)}
-            {!missions.length && <option value={M10}>{tr('mm010_ernesto_cruz')}</option>}</select>
+          <select value={entry} onChange={e => { setEntry(e.target.value); setSel(null); setTpl(t => ({ ...t, pos: '' })) }} aria-label={tr('block')}>
+            {(catalog?.maps || []).map(m => <optgroup key={m.id} label={m.title}>
+              {m.sections.map(x => <option key={x.entry} value={x.entry}>{x.title}</option>)}
+              {m.missions.map(x => <option key={x.entry} value={x.entry}>{x.title} ({short(x.entry)})</option>)}
+            </optgroup>)}
+            {!catalog && <option value={M10}>{tr('mm010_ernesto_cruz')}</option>}</select>
           <button onClick={() => setOnlyEdited(false)} className={!onlyEdited ? 'on' : ''}>{tr('all_triggers')}{trig.length})</button>
           <button onClick={() => setOnlyEdited(true)} className={onlyEdited ? 'on' : ''}>{tr('edited')}{editedIds.size})</button>
           <button onClick={() => setShowMap(!showMap)} className={showMap ? 'on' : ''} aria-pressed={showMap} title={tr('where_the_triggers_are_on_the')}>{tr('map')}</button>
           <span className="lbl" title={tr('green_new_yellow_rewired_or_edited')}>{tr('drag_to_pan_wheel_to_zoom')}{rewiring && <b>{' '}{tr('click_the_trigger_that_should_fire')}{' '}{rewiring.node}.</b>}</span>
         </div>
-        <svg style={{ position: "absolute", top: 34, left: 0, width: "100%", height: showMap ? "calc(55% - 34px)" : "calc(100% - 34px)" }} onWheel={wheel} onMouseDown={down} onMouseMove={move} onMouseUp={up} onMouseLeave={up}>
+        <svg ref={svgRef} className={panning ? 'panning' : undefined} style={{ position: "absolute", top: 34, left: 0, width: "100%", height: showMap ? "calc(55% - 34px)" : "calc(100% - 34px)" }} onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} onClickCapture={noClickAfterPan}>
           <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="#8fb3ff" /></marker></defs>
           <g transform={`translate(${view.x},${view.y}) scale(${view.s})`}>
             {(graph?.edges || []).map((e, i) => {
@@ -177,9 +241,9 @@ export default function Missions({ status, project, commit }) {
               return <g key={t.id} transform={`translate(${p.x},${p.y})`}>
                 <rect width={CW} height={p.h} rx={6} fill={fill} stroke={stroke} strokeWidth={edited || t.new ? 2.5 : 1.2}
                   onClick={ev => { ev.stopPropagation(); clickCard(t, 'trigger', t.node) }} />
-                <text x={8} y={15} fill="#e8eef7" fontSize={12} fontWeight="bold">{(t.name || t.node).slice(0, t.new || edited || (graph.starts || []).includes(t.id) ? 30 : 38)}{t.disabled ? ' (disabled)' : ''}</text>
-                {(t.new || edited || (graph.starts || []).includes(t.id)) && <text x={CW - 8} y={13} textAnchor="end" fill={stroke} fontSize={9} fontWeight="bold">{t.new ? 'NEW' : edited ? 'EDITED' : 'START'}</text>}
-                <text x={8} y={28} fill="#9fb0c4" fontSize={10}>{t.cls}{t.base} {String(t.trigger_on || '').slice(0, 26)}{t.reactivate ? ' re-arms' : ''}</text>
+                <text x={8} y={15} fill="#e8eef7" fontSize={12} fontWeight="bold" pointerEvents="none">{(t.name || t.node).slice(0, t.new || edited || (graph.starts || []).includes(t.id) ? 30 : 38)}{t.disabled ? ' (disabled)' : ''}</text>
+                {(t.new || edited || (graph.starts || []).includes(t.id)) && <text x={CW - 8} y={13} textAnchor="end" fill={stroke} fontSize={9} fontWeight="bold" pointerEvents="none">{t.new ? 'NEW' : edited ? 'EDITED' : 'START'}</text>}
+                <text x={8} y={28} fill="#9fb0c4" fontSize={10} pointerEvents="none">{t.cls}{t.base} {String(t.trigger_on || '').slice(0, 26)}{t.reactivate ? ' re-arms' : ''}</text>
                 {t.conditions.map((c, i) => <text key={c.node} x={10} y={HEAD + i * ROWH + 10} fontSize={10}
                   fill={sel?.node === c.node ? '#ffffff' : '#7fd1ff'} onClick={ev => { ev.stopPropagation(); clickCard(t, 'cond', c.node) }}>{tr('if')}{' '}{String(c.event).slice(0, 30)}{c.activator ? ' by ' + String(c.activator).split(' ').slice(0, 3).join(' ') : ''}</text>)}
                 {t.actions.map((a, i) => <text key={a.node} x={10 + (a.depth || 0) * 8} y={HEAD + (t.conditions.length + i) * ROWH + 10} fontSize={10}
@@ -192,6 +256,7 @@ export default function Missions({ status, project, commit }) {
         </svg>
         {showMap && <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: '45%', display: 'flex', borderTop: '1px solid var(--line)' }}>
           <View3D defaultMode="top" bundle={lvl.bundle} view={lvl.view} layers={CONTEXT_LAYERS} overlays={overlays} focus={focus3 || mapFocus}
+            onGround={pinning ? (p, ev, geometry) => { setTpl(t => ({ ...t, pos: [p[0], geometry ? p[1] + (Number(String(t.size).split(',')[1]) || 4) / 2 : p[1], p[2]].map(v => Math.round(v * 100) / 100).join(', ') })); setPinning(false) } : undefined}
             onPickOverlay={id => { const t = byId[id]; if (t) { setSel({ tid: id, kind: 'trigger', node: t.node }); setFocus3({ pos: t.pos, dist: 40 }) } }}>
             {(lvl.busy || lvl.err) && <span className="floatpanel" style={{ left: 12, top: 12 }}>{lvl.busy ? lvl.busy + '…' : 'No map'}</span>}
           </View3D></div>}
@@ -215,14 +280,36 @@ export default function Missions({ status, project, commit }) {
         </section>
         <section className="box">
           <h3>{tr('new_trigger_from_a_template')}</h3>
-          <div className="row"><select value={tpl.template} onChange={e => setTpl({ ...tpl, template: e.target.value })}>
+          <div className="row"><select value={tpl.template} title={graph?.enums?.TEMPLATES?.[tpl.template]?.help} onChange={e => setTpl({ ...tpl, template: e.target.value })}>
             {Object.entries(graph?.enums?.TEMPLATES || {}).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}</select></div>
-          <p className="muted">{graph?.enums?.TEMPLATES?.[tpl.template]?.help}</p>
-          {['name', 'pos', 'size', 'yaw', 'objective', 'text', 'count', 'seconds', 'target', 'camera', 'hold'].map(k =>
+          <label className="kv">{tr('name')}<input value={tpl.name} onChange={e => setTpl({ ...tpl, name: e.target.value })} /></label>
+          {TT.box && <>
+            <label className="kv">{tr('position')}<span className="row" style={{ gap: 4 }}>
+              <input value={tpl.pos} placeholder="x, y, z" onChange={e => setTpl({ ...tpl, pos: e.target.value })} />
+              <button className={pinning ? 'on' : ''} aria-pressed={pinning} title={tr('click_the_map_to_set_the_position')}
+                onClick={() => { setShowMap(true); setPinning(!pinning) }}>{tr('pin')}</button></span></label>
+            <label className="kv">{tr('size')}<input value={tpl.size} onChange={e => setTpl({ ...tpl, size: e.target.value })} title={tr('width_height_length')} /></label>
+            <label className="kv">{tr('turn_368e80')}<input value={tpl.yaw} onChange={e => setTpl({ ...tpl, yaw: e.target.value })} /></label>
+          </>}
+          {(TT.needs || []).filter(k => k !== 'objective' || !tpl.action || tpl.action.includes('objective')).map(k =>
             <label key={k} className="kv">{k}<input value={tpl[k]} onChange={e => setTpl({ ...tpl, [k]: e.target.value })} /></label>)}
-          <label className="kv">{tr('action')}<select value={tpl.action} onChange={e => setTpl({ ...tpl, action: e.target.value })}>
-            <option value="">{tr('template_default')}{' '}{graph?.enums?.TEMPLATES?.[tpl.template]?.action})</option>
-            {(graph?.enums?.ACTION_KINDS || []).map(a => <option key={a}>{a}</option>)}</select></label>
+          {tpl.template === 'camera_cut' && <label className="kv">{tr('hold')}<input value={tpl.hold} onChange={e => setTpl({ ...tpl, hold: e.target.value })} /></label>}
+          {TT.box && <>
+            <label className="kv">{tr('text')}<input list="mtexts" value={tpl.text} onChange={e => setTpl({ ...tpl, text: e.target.value })} title={tr('your_own_words_or_a_line_of_the_game')} />
+              <datalist id="mtexts">{texts.map(x => <option key={x.i} value={x.text} />)}</datalist></label>
+            <label className="kv">{tr('points_4b2a6a')}<input value={tpl.ap} onChange={e => setTpl({ ...tpl, ap: e.target.value })} /></label>
+            <label className="kv">{tr('gun')}<span className="row" style={{ gap: 4 }}>
+              <select value={tpl.weapon} onChange={e => setTpl({ ...tpl, weapon: e.target.value })}><option value="">-</option>
+                {Object.entries(guns).map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select>
+              <input value={tpl.ammo} placeholder={tr('ammo')} style={{ width: 56 }} onChange={e => setTpl({ ...tpl, ammo: e.target.value })} /></span></label>
+            <div className="chips" role="group" aria-label={tr('pickups')}>
+              {(graph?.enums?.REWARDS || []).map(r => <button key={r.id} className={tpl.pickups.includes(r.id) ? 'on' : ''} aria-pressed={tpl.pickups.includes(r.id)}
+                onClick={() => setTpl({ ...tpl, pickups: tpl.pickups.includes(r.id) ? tpl.pickups.filter(x => x !== r.id) : [...tpl.pickups, r.id] })}>{r.label}</button>)}
+            </div>
+          </>}
+          {tpl.template !== 'car_enters' && <label className="kv">{tr('action')}<select value={tpl.action} onChange={e => setTpl({ ...tpl, action: e.target.value })}>
+            <option value="">{tr('template_default')}{' '}{TT.action})</option>
+            {(graph?.enums?.ACTION_KINDS || []).map(a => <option key={a}>{a}</option>)}</select></label>}
           <button onClick={addTrigger}>{tr('add_trigger')}</button>
         </section>
         <section className="box">

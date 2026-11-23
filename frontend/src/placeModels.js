@@ -1,4 +1,5 @@
 // Which game model shows an added pickup, weapon, vehicle or enemy (the live preview), picked from its Kind.
+import { charRow } from './names.js'
 const G = '/data/models/collectables/goodies/', W = '/data/models/collectables/weapons/', V = '/data/models/vehicles/'
 const GOODIE = [['medium_health', 'pickup_oneshot_health_small'], ['large_health', 'pickup_oneshot_health_big'], ['permhealth', 'pickup_permanent_health'],
   ['combotime', 'pickup_oneshot_timeextend'], ['godmode', 'pickup_oneshot_armour'], ['medium', 'pickup_mediumracebonus'], ['large', 'pickup_largeracebonus'],
@@ -17,6 +18,12 @@ const VEHICLE = [['dirtbike', 'dirtbike/bike'], ['forklift', 'forklift/vehicle']
   ['van', 'van_urban/vehicle'], ['station', 'stationwagon/vehicle'], ['modern', 'sedan_modernstandard/vehicle'], ['taxi', 'sedan_modernstandard/vehicle'],
   ['police', 'sedan_modernstandard/vehicle'], ['conquista', 'conquistador/vehicle'], ['sedan', 'sedan_74_standard/vehicle']]
 
+// the body of a character placeholder: the game's character model of its `Model` number (the pedestrian body when unknown)
+export function characterModelPath(n) {
+  const p = charRow(n)?.paths?.[0]
+  return p ? '/data' + p.toLowerCase() : '/data/characters/civil/civil.model'
+}
+
 const pick = (table, name, dflt) => (table.find(([k]) => name.includes(k)) || [0, dflt])[1]
 
 // -> lower-case model path, or null when the kind has no model (boxes)
@@ -25,6 +32,6 @@ export function modelPathFor(cat, sub, enums) {
   if (cat === 'pickup') return G + pick(GOODIE, nm('GoodieSubType'), 'pickup') + '.model'
   if (cat === 'weapon') { const f = pick(WEAPON, nm('WeaponSubType'), 'default_weapon'); return W + f + '/' + f + '.model' }
   if (cat === 'vehicle') return V + pick(VEHICLE, nm('VehicleSubType'), 'sedan_74_standard/vehicle') + '.model'
-  if (cat === 'character') return '/data/characters/gangster/gangster.model'
+  if (cat === 'character') return characterModelPath(sub?.Model)
   return null
 }

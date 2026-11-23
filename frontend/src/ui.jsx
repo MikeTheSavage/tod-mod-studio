@@ -1,5 +1,7 @@
 // Shared interface parts: icons, menus, switch, number fields with ranges, the pipeline bar, check rows, toast and dialog.
-import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
+import React, { createContext, useCallback, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
+import { menuPlace } from './menuplace.js'
 import { rumble } from './pad/padstore.js'
 import { t } from './i18n.js'
 
@@ -64,19 +66,29 @@ export function UIProvider({ children }) {
 export function Menu({ label, className = '', buttonClass = '', title, right, children, open: openProp, setOpen: setOpenProp, disabled, menuStyle }) {
   const [openLocal, setOpenLocal] = useState(false)
   const open = openProp ?? openLocal, setOpen = setOpenProp ?? setOpenLocal
-  const ref = useRef(null)
+  const ref = useRef(null), menuRef = useRef(null)
+  const [pos, setPos] = useState(null)
+  // the popover is drawn in the page body, fixed under its button, so no toolbar, meter strip, drawer or clipped parent can cover it
+  const place = useCallback(() => {
+    const b = ref.current, m = menuRef.current
+    if (!b) return
+    setPos(menuPlace(b.getBoundingClientRect(), m ? m.offsetWidth : 0, !!right, window.innerWidth, window.innerHeight))
+  }, [right])
+  useLayoutEffect(() => { if (open) place() }, [open, place, children])
   useEffect(() => {
     if (!open) return
-    const down = e => { if (ref.current && !ref.current.contains(e.target)) setOpen(false) }
+    const down = e => { if (ref.current && !ref.current.contains(e.target) && !(menuRef.current && menuRef.current.contains(e.target))) setOpen(false) }
     const key = e => { if (e.key === 'Escape') setOpen(false) }
     window.addEventListener('mousedown', down)
     window.addEventListener('keydown', key)
-    return () => { window.removeEventListener('mousedown', down); window.removeEventListener('keydown', key) }
-  }, [open])
+    window.addEventListener('resize', place)
+    window.addEventListener('scroll', place, true)
+    return () => { window.removeEventListener('mousedown', down); window.removeEventListener('keydown', key); window.removeEventListener('resize', place); window.removeEventListener('scroll', place, true) }
+  }, [open, place])
   return (
     <div className={'menuwrap ' + className} ref={ref}>
       <button className={buttonClass} title={title} aria-label={typeof label !== 'string' && title ? title : undefined} disabled={disabled} aria-haspopup="menu" aria-expanded={open} onClick={() => setOpen(!open)}>{label}</button>
-      {open && <div className={'menu' + (right ? ' right' : '')} role="menu" style={menuStyle}>{typeof children === 'function' ? children(() => setOpen(false)) : children}</div>}
+      {open && createPortal(<div ref={menuRef} className={'menu' + (right ? ' right' : '')} role="menu" style={{ ...menuStyle, ...(pos || { visibility: 'hidden' }) }}>{typeof children === 'function' ? children(() => setOpen(false)) : children}</div>, document.body)}
     </div>
   )
 }

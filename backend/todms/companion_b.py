@@ -94,6 +94,15 @@ def mission_graph(ws, entry, ops=None, lint=False, progress=None):
     return out
 
 
+def feedback_texts(ws):
+    """The lines a feedback text can show (uk_Objective.txt, by ordinal): what 'Show text' picks from. -> [{i, text}]"""
+    k = ('texts', _key(ws, ['data_pc/overdose_the_game/overdose/shared/overdose.main']))
+    if k not in _cache:
+        from . import sectext
+        _cache[k] = sectext.shipped_lines(ws)
+    return _cache[k]
+
+
 # ---------------------------------------------------------------------------------------------- sections
 def sections_catalog(ws, group=None, entries=None, ops=None, progress=None):
     NV, MS, SC, ED, BE = _core()
@@ -147,6 +156,16 @@ def check(ws, mod, kinds=('nav', 'missions', 'sections'), progress=None):
     if progress:
         progress('building and verifying (%s)' % ', '.join(kinds))
     kw = {k: (mod.get(k) or []) if k in kinds else [] for k in ('nav', 'missions', 'sections')}
+    from . import sectext
+    text_lines = []
+    try:
+        kw['missions'], edits = sectext.resolve(kw['missions'])
+        if edits:
+            sectext.blocks(ws, edits)
+            text_lines = [dict(area='texts', level='ok', text='text row %d: "%s"' % (e['ordinal'], e['value'])) for e in edits]
+    except sectext.TextError as e:
+        text_lines = [dict(area='texts', level='error', text=str(e))]
+        kw['missions'] = []
     out, rep = ED.build(_read(ws), collision_sets=mod.get('collision') or [], **kw)
     lines = []
     for k in ('nav', 'missions', 'sections'):
@@ -170,6 +189,7 @@ def check(ws, mod, kinds=('nav', 'missions', 'sections'), progress=None):
                               text='%s: %s existing nodes keep their index, %d new node(s) appended%s' % (
                                   b['entry'].split('/')[-1], ri.get('existing_nodes', '?'), len(ri.get('new_nodes') or []),
                                   '; ' + b['appended']['literal_clash_check'] if b.get('appended') else '')))
+    lines += text_lines
     for n in rep.get('notes') or []:
         lines.append(dict(area='note', level='ok', text=n))
     if rep.get('error'):

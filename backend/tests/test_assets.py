@@ -243,6 +243,15 @@ class TestImporter(unittest.TestCase):
         self.assertEqual(len(s.images), 1)
         self.assertAlmostEqual(float(s.parts[0].UV[0][1]), 1.0)                     # OBJ v is flipped to the game's v-down
 
+    def test_obj_with_a_plain_colour_material_bakes(self):
+        from todct import meshtex, modelimport as MI
+        d = self.t.name
+        open(os.path.join(d, 'c.mtl'), 'w').write('newmtl red\nKd 0.9 0.1 0.1\nd 1.0\n')
+        open(os.path.join(d, 'c.obj'), 'w').write('mtllib c.mtl\nv 0 0 0\nv 1 0 0\nv 1 1 0\nv 0 1 0\nusemtl red\nf 1 2 3 4\n')
+        s = meshtex.read(os.path.join(d, 'c.obj'))
+        self.assertEqual(len(s.parts[0].mat['color']), 4)                          # RGB + the MTL's d, not five values
+        MI.bake(s, {}, with_payload=True)
+
     def test_transform_axes_scale_origin(self):
         from todct import meshtex, modelimport as MI
         s = meshtex.read(self.glb)

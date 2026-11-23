@@ -178,7 +178,7 @@ input[type=number].num, input.num { text-align: left; }
 
 /* menus (popovers) */
 .menuwrap { position: relative; display: inline-block; }
-.menu { position: absolute; top: 34px; left: 0; z-index: 30; min-width: 220px; max-width: 360px; max-height: 420px; overflow: auto; padding: 8px; border: 1px solid var(--line-strong); border-radius: var(--r-lg); background: var(--surface-2); box-shadow: var(--shadow-2); white-space: normal; }
+.menu { position: fixed; top: 34px; left: 0; z-index: 80; min-width: 220px; max-width: 360px; max-height: 420px; overflow: auto; padding: 8px; border: 1px solid var(--line-strong); border-radius: var(--r-lg); background: var(--surface-2); box-shadow: var(--shadow-2); white-space: normal; }
 .menu.right { left: auto; right: 0; }
 .menu .grp { font-size: calc(11px * var(--ts, 1)); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--text-3); padding: 8px 8px 4px; }
 .menu .item { display: flex; align-items: center; gap: 8px; height: 30px; padding: 0 8px; border-radius: var(--r-sm); cursor: pointer; font-weight: 500; }
@@ -361,6 +361,8 @@ table.sets tr.sel td { background: var(--sel-soft); } table.sets tr { cursor: po
 .assets img { border-radius: 3px; background: var(--surface-3); display: block; }
 details > summary { cursor: pointer; }
 .sections svg, .routes svg, .mgraph svg { max-width: 100%; }
+.mgraph svg { user-select: none; -webkit-user-select: none; touch-action: none; cursor: grab; } .mgraph svg.panning { cursor: grabbing; }
+.mgraph .viewport > .toolbar .lbl { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 0 1 auto; }
 
 /* settings */
 .settings { max-width: 880px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
@@ -726,3 +728,9 @@ html[data-input=pad] [data-pad-ctx]:focus, [data-pad-ctx]:focus { outline: none 
 .trow.sel { background: var(--sel-soft); }
 .cardbox { display: flex; flex-direction: column; gap: 6px; }
 .cardbox label { display: flex; flex-direction: column; gap: 2px; font-size: calc(11.5px * var(--ts, 1)); color: var(--text-3); }
+.pick .pickbtn { width: 100%; display: flex; align-items: center; gap: 6px; text-align: left; padding: 0 8px; background: var(--bg); }
+.pick .pickbtn .nm { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pick .pickbtn .car { color: var(--text-3); font-size: 10px; }
+.pick .menu { max-height: 320px; width: max-content; max-width: 340px; }
+.pick .menu .item { height: 28px; }
+.pick .pthumb { width: 22px; height: 22px; flex: none; border-radius: 3px; object-fit: cover; background: var(--surface-3); }

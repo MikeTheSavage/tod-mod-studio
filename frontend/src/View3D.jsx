@@ -16,6 +16,7 @@ import { padState, getCfg, getMode, rumble, setUi, usePad } from './pad/padstore
 import { registerView } from './pad/PadHost.jsx'
 import { curve, flyStep, lookStep } from './pad/padlogic.js'
 import { t as tr } from './i18n.js'
+import { isClick } from './camdrag.js'
 
 const TAN = Math.tan(55 * Math.PI / 360)
 const EMPTY = new Set()
@@ -248,6 +249,7 @@ function GroundClick({ onGround, planeY }) {
   const { camera } = useThree()
   const ref = useRef()
   const f = ev => {
+    if (!isClick(ev)) return
     const first = ev.intersections.find(i => i.object.visible && i.object.isMesh && !i.object.material?.transparent && !i.object.userData.overlay && !i.object.userData.ghost)
     onGround(fromView((first || ev).point), ev, !!first)
   }
@@ -301,7 +303,7 @@ export default function View3D({
   useEffect(() => { if (apiRef) apiRef.current = api.current })
   useEffect(() => { try { window.__v3 = api.current } catch { /* no window */ } }, [])
 
-  // rubber band: plain drag in the Select tool, or Shift + drag
+  // rubber band: Shift + drag in the Select tool (a plain drag moves the camera, it never selects)
   const down = useRef(null)
   const sel = useRef({}); sel.current = { selectables, onBoxSelect, boxSelect, placing, tool }
   useEffect(() => {
@@ -311,7 +313,7 @@ export default function View3D({
     const pd = e => {
       const s = sel.current
       if (e.button !== 0 || s.placing || s.tool || !s.onBoxSelect || e.target.closest?.('.v3mode,button,input,select')) return
-      if (!((s.boxSelect && !e.altKey) || e.shiftKey)) return
+      if (!e.shiftKey) return          // only Shift + drag boxes; a plain drag is always the camera
       const c = api.current.controls
       down.current = { p: rect(e), additive: e.shiftKey || e.ctrlKey, was: c ? c.enabled : true }
       if (c) c.enabled = false
@@ -382,7 +384,7 @@ export default function View3D({
   return (
     <div ref={wrap} className={'vp v3d ' + className} style={style} tabIndex={0} data-pad-ctx="view" aria-label={tr('3d_view')} onMouseEnter={() => { fly.current = true }} onMouseLeave={() => { fly.current = false }}>
       <Canvas linear flat camera={{ fov: 55, near: 0.2, far: 8000, position: [50, 50, 50] }} gl={{ antialias: true }}
-              onPointerMissed={ev => { if (ev.type === 'click' && !placing && !tool) onMissed?.(ev) }}>
+              onPointerMissed={ev => { if (ev.type === 'click' && isClick(ev) && !placing && !tool) onMissed?.(ev) }}>
         <Suspense fallback={null}>
           <color attach="background" args={[bg]} />
           {!ortho && <fog attach="fog" args={[bg, 600, 3000]} />}

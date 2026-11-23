@@ -13,6 +13,8 @@ import Snapshots from './Snapshots.jsx'
 import { useStore, registerProject, setOpen as openProblems, useJump } from './problemsStore.js'
 import { useAutosave, loadAutosave } from './autosave.js'
 import { t as tr } from './i18n.js'
+import Picker from './Picker.jsx'
+import { useNames } from './names.js'
 
 const short = e => (e || '').split('/').pop()
 const round = v => Math.round(v * 100) / 100
@@ -150,6 +152,7 @@ function hostOverlays({ geom, loaders, others, items, active, g }) {
 
 // ---------------------------------------------------------------- the page
 export default function MissionTemplates({ status, go }) {
+  const nm = useNames()
   const ui = useUI()
   const pstore = useStore()
   const [meta, setMeta] = useState({ projects: [], samples: [], types: [], status: null })
@@ -260,6 +263,7 @@ export default function MissionTemplates({ status, go }) {
     return b ? { bounds: b, y: ground } : null
   }, [frameKey, !!geom])
   const setParam = (key, value) => edit({ ...project, missions: project.missions.map(m => m.id === sel ? { ...m, params: { ...m.params, [key]: value } } : m) })
+  const setBody = v => edit({ ...project, missions: project.missions.map(m => m.id === sel ? { ...m, enemy_body: v === 'template' ? undefined : v } : m) })
   const resetParam = key => edit({ ...project, missions: project.missions.map(m => { if (m.id !== sel) return m; const p = { ...m.params }; delete p[key]; return { ...m, params: p } }) })
   const place = ([x, z]) => {
     if (areaPick) {
@@ -546,6 +550,10 @@ export default function MissionTemplates({ status, go }) {
                 <div><div style={{ fontSize: 12, color: 'var(--text-2)', marginBottom: 4 }}>{tr('mission_name')}</div>
                   <input aria-label={tr('mission_name')} value={mission.params?.name ?? vals.name ?? ''} onChange={e => setParam('name', e.target.value)} /></div>
                 {mainParams.filter(p => p.key !== 'name').map(renderField)}
+                {sc.params.some(p => p.key === 'enemy_health') && nm && <div className="kvrow" style={{ alignItems: 'center' }}><span>{tr('enemy_body')}</span>
+                  <Picker label={tr('enemy_body')} width={210} value={mission.enemy_body ?? 'template'}
+                    options={[{ id: 'template', name: tr('as_the_template') }, ...nm.characters.filter(r => r.placeable && r.group === 'enemy').map(r => ({ id: r.id, name: r.name, tip: 'model ' + r.id + ' · ' + r.file }))]}
+                    onChange={setBody} /></div>}
                 {advParams.length > 0 && <Advanced title={tr('advanced')} note={advSet ? `${advParams.length} more, ${advSet} changed` : `${advParams.length} more, all on default`}>
                   {groups.filter(g => advParams.some(p => p.group === g)).map(g => <div key={g}><h4>{g === 'Placement' ? 'Exact positions' : g}</h4>{advParams.filter(p => p.group === g).map(renderField)}</div>)}
                 </Advanced>}

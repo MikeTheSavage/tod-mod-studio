@@ -3,6 +3,8 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { post, runJob } from './api.js'
 import { jumpTo } from './problemsStore.js'
+import { saveAddon } from './blenderInbox.js'
+import { useUI } from './ui.jsx'
 import AssetPreview from './AssetPreview.jsx'
 import { want, warm, onCard, cardUrl, isDone } from './cards.js'
 import { vpColor } from './theme.js'
@@ -27,6 +29,7 @@ export default function Assets({ status, theme }) {
   const [job, setJob] = useState(null)
   const [msg, setMsg] = useState(null)
   const [ver, setVer] = useState(0)
+  const ui = useUI()
   const body = useMemo(() => {
     const [tmin, tmax] = (f.tris || '').split('-')
     return { q: f.q, cat: f.cat, map: f.map, band: f.band, tris_min: tmin || undefined, tris_max: tmax || undefined, sort: f.sort,
@@ -62,6 +65,7 @@ export default function Assets({ status, theme }) {
           <select value={f.sort} onChange={e => set('sort', e.target.value)} aria-label={tr('sort')} title={tr('sort')}>{SORTS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}</select>
           <span className="muted small nowrap">{data.count.toLocaleString()}{' '}{tr('of')}{' '}{data.total.toLocaleString()}</span>
           <button className="ghost sm" onClick={scan} disabled={!!job} title={tr('count_the_models_again')}>{tr('rescan')}</button>
+          <button className="ghost sm" onClick={() => saveAddon(ui.say)} title={tr('blender_add_on_tip')}>{tr('blender_add_on')}</button>
         </div>
         <div className="cat-small">
           <select value={f.cat} onChange={e => set('cat', e.target.value)} aria-label={tr('category')}><option value="">{tr('all_categories')}</option>

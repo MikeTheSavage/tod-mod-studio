@@ -1,4 +1,4 @@
-"""The per-user editor library: prefabs, keyboard shortcuts, scatter presets and the copy buffer.
+"""The per-user editor library: prefabs, keyboard shortcuts, scatter presets, driving presets and the copy buffer.
 
 One small JSON file in the user folder (never part of a mod, never game data). Every key has a fixed shape so a bad
 file or a bad request can never put the editor into a state it cannot read back."""
@@ -9,7 +9,7 @@ from . import paths
 
 FILE = 'userlib.json'
 MAX_BYTES = 4 * 1024 * 1024
-SHAPES = {'prefabs': list, 'shortcuts': dict, 'scatter': dict, 'clipboard': dict}
+SHAPES = {'prefabs': list, 'shortcuts': dict, 'scatter': dict, 'clipboard': dict, 'driving': dict}
 
 
 def _path():

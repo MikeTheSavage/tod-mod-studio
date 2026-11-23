@@ -8,6 +8,7 @@ import { Meter, MeterStrip } from './Meters.jsx'
 import { useStore, useJump } from './problemsStore.js'
 import { t as tr } from './i18n.js'
 import LargeScene from './scene/LargeScene.jsx'
+import { inbox, saveAddon } from './blenderInbox.js'
 
 const DEF = { up: 'y', mirror: 'z', yaw: 0, scale: 1, origin: 'bottom', reduce: 1, max_tex: 512, tex_format: 'auto', double_sided: true,
   collision: { mode: 'hull', material: 'Stone', max_pieces: 24 }, keep_collision: true }
@@ -33,6 +34,7 @@ export default function ImportModel({ project, commit, go }) {
   const [scan, setScan] = useState(false)
   const [tick, setTick] = useState(0)
   const seq = useRef(0)
+  const [ccc, setCcc] = useState([])                  // vehicles of the game data folder set in Settings
   const [big, setBig] = useState(() => new URLSearchParams(location.search).get('mode') === 'scene')
   const models = project.models || []
 
@@ -45,11 +47,29 @@ export default function ImportModel({ project, commit, go }) {
       setParams({ ...DEF, up: r.suggest?.up || 'y', mirror: r.suggest?.mirror || 'z', origin: mode === 'replace' ? 'match' : 'bottom' })
     } catch (e) { setErr(e.message) }
   }
+  // a model sent from Blender opens here
+  const openRef = useRef(null)
+  openRef.current = open
+  useEffect(() => {
+    const take = () => { const it = inbox.take(); if (it) { setPath(it.path); openRef.current(it.path); take() } }
+    take()
+    return inbox.subscribe(take)
+  }, [])
+  useEffect(() => { post('/api/ccc/vehicles', {}).then(r => setCcc(r.vehicles || [])).catch(() => {}) }, [])
+  const openCcc = async (id) => {
+    setErr(null)
+    try {
+      const r = await post('/api/ccc/analyze', { id })
+      setFile(r); setName(r.name); setEditing(null); setPv(null); setMode('replace')
+      setParams({ ...DEF, ccc: true, mirror: '', origin: 'none' })
+    } catch (e) { setErr(e.message) }
+  }
   // screenshot / deep-link hooks: ?file=<path>&mode=replace&target=<model path>&scale=..
   useEffect(() => {
     const u = new URLSearchParams(location.search)
     if (u.get('mode') === 'replace') setMode('replace')
     if (u.get('target')) setTarget({ path: u.get('target'), name: u.get('target').split('/').pop().replace('.model', '') })
+    if (u.get('ccc')) openCcc(u.get('ccc'))
     if (u.get('file')) open(u.get('file')).then(() => { if (u.get('scale')) setParams(p => ({ ...p, scale: Number(u.get('scale')) })) })
   }, [])
 
@@ -126,6 +146,9 @@ export default function ImportModel({ project, commit, go }) {
         <input style={{ width: 300 }} placeholder={tr('path_of_a_glb_gltf_or')} aria-label={tr('model_file')} value={path} onChange={e => setPath(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && open(path)} />
         <button onClick={() => open(path || null)} title={tr('choose_a_file')}>{tr('choose_78b7c9')}{'…'}</button>
+        <button className="ghost" onClick={() => saveAddon(ui.say)} title={tr('blender_add_on_tip')}>{tr('blender_add_on')}</button>
+        {ccc.length > 0 && <select style={{ width: 190 }} aria-label={tr('from_chili_con_carnage')} title={tr('from_chili_con_carnage')} value="" onChange={e => e.target.value && openCcc(e.target.value)}>
+          <option value="">{tr('from_chili_con_carnage')}</option>{ccc.map(v => <option key={v.id} value={v.id}>{v.name}</option>)}</select>}
         <span className="vsep" />
         <Seg value={mode} onChange={m => { setMode(m); set('origin', m === 'replace' ? 'match' : 'bottom'); setEditing(null) }}
           options={[{ value: 'new', label: tr('new_model') }, { value: 'replace', label: tr('replace_a_game_model') }]} />
@@ -174,7 +197,7 @@ export default function ImportModel({ project, commit, go }) {
         </div>
         <div style={{ flex: 1, minWidth: 0, position: 'relative', background: 'var(--vp)' }}>
           {pv ? <ModelCanvas url={pv.url} ghost={orig?.mesh ? { name: target?.path, rec: orig.mesh } : null} />
-            : <div className="empty">{file ? (mode === 'replace' && !target ? 'Pick the game model on the right.' : busy ? 'Building the preview…' : (err || '')) : 'Choose a model file.'}</div>}
+            : <div className="empty">{file ? (mode === 'replace' && !target ? 'Pick the game model on the right.' : busy ? 'Building the preview…' : (err || '')) : (err || 'Choose a model file.')}</div>}
           {pv && <div className="hint" style={{ position: 'absolute', left: 10, bottom: 8 }}>{orig ? 'Amber lines: the game model.' : ''}</div>}
           {err && pv && <div className="flash" style={{ position: 'absolute', left: 10, top: 8 }}>{err}</div>}
         </div>

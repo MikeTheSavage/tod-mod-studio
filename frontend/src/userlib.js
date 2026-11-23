@@ -1,4 +1,4 @@
-// The per-user editor library (prefabs, shortcuts, scatter presets, the copy buffer): the backend keeps it in the
+// The per-user editor library (prefabs, shortcuts, scatter presets, driving presets, the copy buffer): the backend keeps it in the
 // user folder; localStorage is only the fallback when the backend is not there (a plain browser preview).
 import { useEffect, useState } from 'react'
 import { get, post } from './api.js'
@@ -6,7 +6,7 @@ import { get, post } from './api.js'
 const LS = 'todms.userlib.v1'
 let cache = null, loading = null
 const subs = new Set()
-const SHAPES = { prefabs: [], shortcuts: {}, scatter: {}, clipboard: {} }
+const SHAPES = { prefabs: [], shortcuts: {}, scatter: {}, clipboard: {}, driving: {} }
 
 const fromLocal = () => { try { return { ...SHAPES, ...JSON.parse(localStorage.getItem(LS) || '{}') } } catch { return { ...SHAPES } } }
 const toLocal = v => { try { localStorage.setItem(LS, JSON.stringify(v)) } catch { /* private mode */ } }

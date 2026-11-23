@@ -7,6 +7,7 @@ import * as THREE from 'three'
 import { toView, quatToView, fromView, quatFromYaw, facingQuat } from './coords.js'
 import { loadModel } from './models.js'
 import { snapXZ } from './editing.js'
+import { CLICK_PX, tracker } from './camdrag.js'
 
 const BOX = new THREE.BoxGeometry(1, 1, 1)
 const DOT = new THREE.SphereGeometry(0.25, 8, 6)
@@ -84,7 +85,7 @@ export default function PlacementGhost({ placing, models, onPlace, snap = {}, ap
       const d = get(); put(null)
       if (api?.controls) api.controls.enabled = true
       const dragged = Math.hypot(e.clientX - d.x, e.clientY - d.y)
-      if (dragged < 5 || placing.facingDrag) {
+      if ((dragged <= CLICK_PX && tracker.travel() <= CLICK_PX) || placing.facingDrag) {
         const p = fromView(d.p)
         onPlace([p[0], p[1] + (placing.size ? placing.size[1] / 2 : 0), p[2]], yaw.current)
       }

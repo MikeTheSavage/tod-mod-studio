@@ -95,7 +95,7 @@ def validate_ops(kind, ops):
                 'set': ('entry', 'prop')},
         'missions': {'set': ('entry', 'prop'), 'rewire': ('entry', 'frag', 'action', 'to'),
                      'retarget': ('entry', 'frag', 'action', 'target'), 'add_trigger': ('id', 'entry', 'template'),
-                     'add_action': ('id', 'entry', 'root', 'action'), 'disable_trigger': ('entry', 'frag', 'node')},
+                     'add_action': ('id', 'entry', 'root', 'action'), 'add_vehicle': ('id', 'entry', 'pos'), 'disable_trigger': ('entry', 'frag', 'node')},
         'sections': {'set_teleport': ('entry', 'frag', 'node'), 'move_loader': ('entry', 'frag', 'node', 'pos'),
                      'add_section': ('id', 'source_submap', 'new_index', 'loader_in', 'loader_back')},
     }[kind]

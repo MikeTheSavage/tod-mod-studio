@@ -20,9 +20,14 @@ Mission ops (entry = full archive entry; frag = fragment; node '0x%08X'; new ent
                                                                     becomes that root; save-safe: no node created)
   {"op": "retarget", entry, frag, action, target: "Name", who: 3}  what the action acts on (TargetName/ActivateWho)
   {"op": "add_trigger", id, entry, template, name, pos, size, yaw, parent: {frag, node} | null, params: {...}}
-                     templates: go_to_point, kill_n, timer, spawn_group, camera_cut, objective_text
-                     params: objective, count, seconds, target, camera, hold, text, action (override), reactivate
+                     templates: go_to_point, car_enters, kill_n, timer, spawn_group, camera_cut, objective_text
+                     params: objective, count, seconds, target, camera, hold, text, action (override), reactivate,
+                             ap (points on firing), weapon + ammo (give a gun),
+                             pickups [goodie ids] (a disabled folder of pickups in the box, enabled when it fires)
+                     Every template works in a section (submap) as in a mission: the new nodes go after the block's last
+                     node and the position is a world position (a section's fragments hang under placed nodes).
   {"op": "add_action", id, entry, root: {frag, node} | id, action: kind, params}
+  {"op": "add_vehicle", id, entry, pos, yaw, sub_type}               a parked car the player can drive (a test aid for the box templates)
   {"op": "disable_trigger", entry, frag, node}                     root flag bit 0 (NODE_DISABLE): never fires until
                                                                     an Enable action (5) enables it; save-safe
 """
@@ -61,6 +66,8 @@ def fshort(f):
 # values point nowhere outside themselves; type strings the engine knows, so the creates load).
 M10 = 'data_pc/overdose_the_game/overdose/shared/mm010_ernestocruz.mission'
 M10F = '/data/Overdose_THE_GAME/Missions/MainMissions/MM010_ErnestoCruz.fragment'
+DT = 'data_pc/overdose_the_game/overdose/shared/submap01_map02_lostoros_downtown.submap'
+DTF = 'SUBMAP01_Map02_Roaming_GamePlay_Objects.fragment'
 SHARED = 'data_pc/overdose_the_game/overdose/shared/'
 PARTS = {
     'root_box': (M10, M10F, '0x00400205', 'Trigger_Root(CollisionBox): enter box (flags 0, like MM010_objective_update)'),
@@ -78,7 +85,17 @@ PARTS = {
     'act_enable': (M10, M10F, '0x004000DB', 'Trigger_Activate_Enable_Disable 5 (enable: spawns a group)'),
     'act_trig': (M10, M10F, '0x0040000C', 'Trigger_Activate_Trig_Noaction_Reactivate 10 (trig the target)'),
     'act_camera': (M10, M10F, '0x0040022D', 'Trigger_Activate_Camera 32 (cut to camera node)'),
+    # the parking egg of Los Toros Downtown (docs/subsystem_mission_scripting.md, "Submap box triggers")
+    'cond_vehicle': (DT, DTF, '0x003024C0', 'Trigger_Condition_Vehicle TrueOn 11 (a vehicle driven by the player enters the volume)'),
+    'act_text': (DT, DTF, '0x003024C1', 'Trigger_Activate_Objective 79 + UseFeedbackText (a feedback text, no objective)'),
+    'act_weapon': (M10, M10F, '0x004001BD', 'Trigger_Activate_Weapons 51 (give Weapon_Type + Ammo_Amount to the player)'),
+    'folder': (DT, DTF, '0x003024C7', 'Folder, disabled (flags 1): Enable_Disable 5 spawns the placeholders inside'),
+    'goodie': (DT, DTF, '0x003024C8', 'goodie_placeholder (a pickup; GoodieSubType says which)'),
+    'car': (DT, 'SUBMAP01_Map02_Traffic.fragment', '0x00300A79', 'vehicle_placeholder of Downtown (the car the new-map recipe parks in a working section)'),
 }
+# The place that is proven to run what hangs under it, per section: the new-map recipe hangs its loader boxes and cars there and they work
+# in the game (docs/subsystem_mission_scripting.md 23). Others fall back to the folder that holds most of the section's triggers.
+KNOWN_PARENTS = {'submap01_map02_lostoros_downtown.submap': ('SUBMAP01_Map02_LosToros_Downtown.fragment', 'SUBMAP01_Map02_Geometry')}
 ACTIONS = {          # action kind -> (part, sets from params)
     'complete_objective': ('act_obj_complete', lambda p: {'TargetName': p['objective']}),
     'activate_objective': ('act_obj_activate', lambda p: {'TargetName': p['objective']}),
@@ -89,10 +106,15 @@ ACTIONS = {          # action kind -> (part, sets from params)
     'trig': ('act_trig', lambda p: {'TargetName': p['target'], 'ActivateWho': 3}),
     'camera_cut': ('act_camera', lambda p: dict({'TargetName': p['camera']},
                                                 **({'ActivationTime': float(p['hold'])} if p.get('hold') is not None else {}))),
+    'show_text': ('act_text', lambda p: {'FeedbackText': int(p['text']), 'StayTime': float(p.get('stay') or 5.0)}),
+    'give_weapon': ('act_weapon', lambda p: {'Weapon_Type': int(p['weapon']), 'Ammo_Amount': int(p.get('ammo') or 30),
+                                             'SwitchToNewWeapon': bool(p.get('switch'))}),
 }
 TEMPLATES = collections.OrderedDict([
     ('go_to_point', dict(label='Go to a point', root='root_box', cond='cond_enter', action='complete_objective',
                          needs=['objective'], help='A box; when Ram enters it, the action runs (default: complete an objective).')),
+    ('car_enters', dict(label='Car enters box', root='root_box', cond='cond_vehicle', action='show_text', needs=[], optional_main=True,
+                       help='A box; when Ram drives a car into it: text, points, a gun, pickups (like the Downtown parking egg).')),
     ('kill_n', dict(label='Kill N enemies', root='root_logical', cond='cond_kill', action='complete_objective',
                     needs=['count', 'objective'], help='Fires after N enemy kills (logic event 9, TrigAmount = N).')),
     ('timer', dict(label='Timer', root='root_node', cond='cond_timer', action='trig', needs=['seconds', 'target'],
@@ -148,6 +170,10 @@ def graph(entry, raw, with_context=True):
     if with_context:
         B.add_context(context(entry))
     G = mt().graph(B)
+    try:
+        bi = BE.BlockInfo(entry, ev)
+    except Exception:                                    # noqa: BLE001  (positions stay local to their fragment)
+        bi = None
     trig = collections.OrderedDict()
     name_to_ids = collections.defaultdict(list)
     for f in G:
@@ -173,7 +199,7 @@ def graph(entry, raw, with_context=True):
                     walk(a.get('then') or [], depth + 1)
             walk(t.get('do') or [], 0)
             rec = dict(id=tid, frag=fr, node=t['node'], name=t.get('name') or '', cls=t['cls'], base=t.get('base'),
-                       path=t.get('path'), pos=t.get('world_pos'), box=t.get('box_whl'), radius=t.get('radius'),
+                       path=t.get('path'), pos=_world_pos(bi, f['fragment'], t), box=t.get('box_whl'), radius=t.get('radius'),
                        trigger_on=t.get('TriggerOn'), needed=t.get('ConditionsNeeded'), reactivate=t.get('Reactivate'),
                        reactivate_delay=t.get('ReactivateDelay'), start_mission=t.get('Start_Mission'),
                        conditions=conds, actions=acts, new=any(m[0] == t['node'] for m in moved))
@@ -198,6 +224,19 @@ def graph(entry, raw, with_context=True):
     starts = [tid for tid, t in trig.items() if any(c['code'] == 6 for c in t['conditions'])]
     return dict(kind='todct-mission-graph', version=1, entry=entry, block=short(entry), triggers=list(trig.values()),
                 edges=edges, starts=starts, literal_linked=moved, enums=enum_tables())
+
+
+def _world_pos(bi, frag, t):
+    """The root's place in the world: its fragment's owner (a section's fragments hang under placed nodes, which missiontool
+    leaves out; a mission's owner is the origin) composed with the position inside the fragment, as the builder does."""
+    pos = t.get('world_pos')
+    if bi is None:
+        return pos
+    try:
+        W = bi.world(frag, BE.node_id(t['node']))
+        return [round(float(x), 4) for x in W[0]]
+    except Exception:                                    # noqa: BLE001
+        return pos
 
 
 def _int(s):
@@ -261,9 +300,11 @@ def enum_tables():
     if isinstance(act, dict):
         out['ACTION'] = {cls: {str(a): (b[0] if isinstance(b, (list, tuple)) else str(b)) for a, b in d.items()}
                          for cls, d in act.items() if isinstance(d, dict)}
-    out['TEMPLATES'] = {k: dict(label=v['label'], needs=v['needs'], help=v['help'], action=v['action'])
+    out['TEMPLATES'] = {k: dict(label=v['label'], needs=v['needs'], help=v['help'], action=v['action'],
+                                box=v['root'] == 'root_box')
                         for k, v in TEMPLATES.items()}
     out['ACTION_KINDS'] = list(ACTIONS)
+    out['REWARDS'] = REWARDS
     return out
 
 
@@ -352,9 +393,10 @@ def add_to_builder(B, ops, read=None):
                 if p.get(k) in (None, ''):
                     raise MissionError('template %s needs %s' % (o['template'], k))
             rid = o['id']
+            nm = o.get('name') or rid
             root_sets = {}
+            sz = [float(x) for x in (o.get('size') or [4.0, 4.0, 4.0])]
             if T['root'] == 'root_box':
-                sz = [float(x) for x in (o.get('size') or [4.0, 4.0, 4.0])]
                 root_sets.update(width=sz[0], height=sz[1], length=sz[2])
             if p.get('reactivate') is not None:
                 root_sets['Reactivate'] = bool(p['reactivate'])
@@ -363,28 +405,170 @@ def add_to_builder(B, ops, read=None):
             pos = o.get('pos')
             if T['root'] == 'root_box' and pos is None:
                 raise MissionError('template %s needs a position' % o['template'])
-            B.append(e, rid, _part(T['root']), parent=_ref(e, o.get('parent')), name=o.get('name') or rid,
+            acts = plan_actions(o)
+            if not acts and not p.get('ap'):
+                raise MissionError('template %s needs something to do (a text, points, a weapon or pickups)' % o['template'])
+            parent = o.get('parent')
+            if parent is None and read is not None:
+                parent = section_container(e, read)
+            B.append(e, rid, _part(T['root']), parent=_ref(e, parent), name=nm,
                      pos=pos, rot=_yawq(o.get('yaw')) if T['root'] == 'root_box' else None, sets=root_sets, order=1)
             csets = {}
             if T['cond'] == 'cond_timer':
                 csets['IntervalTrue'] = float(p['seconds'])
             if T['cond'] == 'cond_kill':
                 csets['TrigAmount'] = int(p['count'])
-            B.append(e, rid + '_cond', _part(T['cond']), parent=('new', rid), name='Condition_' + (o.get('name') or rid),
+            if p.get('ap'):
+                csets['APBonus'] = int(p['ap'])
+            B.append(e, rid + '_cond', _part(T['cond']), parent=('new', rid), name='Condition_' + nm,
                      sets=csets, order=1, pos=pos)
-            kind = p.get('action') or T['action']
-            part, asets = _action_sets(kind, p)
-            B.append(e, rid + '_act', _part(part), parent=('new', rid), name='Activate_' + (o.get('name') or rid),
-                     sets=asets, order=2, pos=pos)
-            notes.append('%s: new trigger %s (%s): root + condition + action %s, appended after the block\'s last '
-                         'node' % (short(e), rid, o['template'], kind))
+            order = 2
+            for ai, (kind, ap_, suffix) in enumerate(acts):
+                if kind == 'pickups':
+                    _pickups(B, e, rid, nm, ap_, pos, sz, o.get('yaw'), parent)
+                    kind, ap_ = 'enable', {'target': nm + '_Goodies'}
+                part, asets = _action_sets(kind, ap_)
+                B.append(e, rid + suffix, _part(part), parent=('new', rid), name='Activate_' + nm + (suffix if ai else ''),
+                         sets=asets, order=order, pos=pos)
+                order += 1
+            notes.append("%s: new trigger %s (%s): root + condition + %s, appended after the block's last "
+                         "node" % (short(e), rid, o['template'], ' + '.join(k for k, _, _ in acts) or 'no action'))
+        elif op == 'add_vehicle':
+            parent = o.get('parent') or (section_container(e, read) if read is not None else None)
+            sets = {} if o.get('sub_type') is None else {'VehicleSubType': int(o['sub_type'])}
+            B.append(e, o['id'], _part('car'), parent=_ref(e, parent), name=o.get('name') or o['id'], pos=o['pos'],
+                     rot=_yawq(o.get('yaw')), sets=sets, order=1)
+            notes.append('%s: a car at %s' % (short(e), o['pos']))
         elif op == 'add_action':
-            part, asets = _action_sets(o['action'], o.get('params') or {})
+            kind, params = o['action'], dict(o.get('params') or {})
+            if kind == 'pickups':
+                if not isinstance(o['root'], str):
+                    raise MissionError('pickups are added to a new trigger of the same mod, not to a shipped one')
+                _pickups(B, e, o['id'], params.get('name') or o['id'], params, o.get('pos'), o.get('size') or [4, 4, 4], o.get('yaw'))
+                kind, params = 'enable', {'target': (params.get('name') or o['id']) + '_Goodies'}
+            part, asets = _action_sets(kind, params)
             B.append(e, o['id'], _part(part), parent=_ref(e, o['root']), name=(o.get('params') or {}).get('name') or o['id'],
                      sets=asets, order=int(o.get('order') or 100))
         else:
             raise MissionError('unknown mission op %r' % op)
     return notes
+
+
+def section_container(entry, read):
+    """Where a new trigger of a section should hang: the folder that already holds most of the section's trigger roots, in a fragment
+    that is placed once and sits at the origin (the egg's `easter` folder in Downtown). The fragment instantiated last (where new nodes
+    are appended) can hang under a placed model far away, and the engine does not run triggers there. -> {frag, node} or None."""
+    if not entry.endswith('.submap'):
+        return None
+    ft, fe, tf, tb, smt = BE.mods()
+    bi = BE.BlockInfo(entry, read(entry))
+    known = KNOWN_PARENTS.get(entry.split('/')[-1].lower())
+    if known:
+        for _k, nm in bi.frs:
+            if fshort(nm).lower() == known[0].lower():
+                doc = bi.doc(nm)
+                for n in doc.created_ids():
+                    if doc.get(n, fe.P_NAME) == known[1] and bi.instances(nm) == 1:
+                        return dict(frag=nm, node=BE.hx(n))
+    best = None
+    for _k, nm in bi.frs:
+        try:
+            if bi.instances(nm) != 1:
+                continue
+            doc = bi.doc(nm)
+            ids = set(doc.created_ids())
+            cnt = collections.Counter()
+            for n in ids:
+                if (doc.type_of(n) or '').startswith('Trigger_Root'):
+                    par = doc.get(n, fe.P_PARENT)
+                    if par in ids:
+                        cnt[par] += 1
+            for par, c in cnt.most_common():
+                W = doc.world(par, bi.owner(nm))
+                if all(abs(v) < 1e-3 for v in W[0]) and abs(abs(W[1][3]) - 1.0) < 1e-4:
+                    cand = (c, nm, par)
+                    best = max(best, cand) if best else cand
+                    break
+        except Exception:                                # noqa: BLE001
+            continue
+    return dict(frag=best[1], node=BE.hx(best[2])) if best else None
+
+
+def plan_actions(o):
+    """What an add_trigger fires, in order: [(action kind, params, node suffix)]. The template's own action first (a template
+    that can do without one, like Car enters box, skips it when no text was given), then a text, a weapon and the pickups."""
+    T = TEMPLATES[o['template']]
+    p = dict(o.get('params') or {})
+    out = []
+    kind = p.get('action') or T['action']
+    if not (kind == 'show_text' and p.get('text') in (None, '')):
+        out.append((kind, p, '_act'))
+    if p.get('text') not in (None, '') and kind not in ('show_text', 'objective_text'):
+        out.append(('show_text', p, '_text'))
+    if p.get('weapon') not in (None, '') and kind != 'give_weapon':
+        out.append(('give_weapon', p, '_weapon'))
+    if p.get('pickups'):
+        out.append(('pickups', p, '_pickups'))
+    return out
+
+
+# pickups a reward can show (goodie_placeholder.GoodieSubType: tools/loco GOODIES, the ones that give something at once)
+REWARDS = [dict(id=8, label='Rewind'), dict(id=0, label='Medium health'), dict(id=1, label='Large health'),
+           dict(id=20, label='Small score'), dict(id=21, label='Large score'), dict(id=9, label='Golden gun'),
+           dict(id=3, label='Combo time'), dict(id=2, label='Health upgrade'), dict(id=18, label='Stamina upgrade'),
+           dict(id=19, label='Weapon upgrade')]
+PICKUP_GAP = 1.6                    # metres between the pickups of one reward
+PICKUP_LIFT = 0.7                   # a pickup floats this high above the floor of its box (the egg: 0.66)
+
+
+def _pickups(B, entry, rid, name, params, pos, size, yaw, parent=None):
+    """A disabled folder (flags 1, named <name>_Goodies) with one goodie placeholder per id in a row across the box; an
+    Enable action on the trigger spawns them (how the parking egg shows its rewind and weapon)."""
+    ids = [int(x) for x in params.get('pickups') or []]
+    if not ids:
+        raise MissionError('pickups: no pickup chosen')
+    if pos is None:
+        raise MissionError('pickups need the position of the box')
+    sz = [float(x) for x in (size or [4.0, 4.0, 4.0])]
+    fid = rid + '_folder'
+    B.append(entry, fid, _part('folder'), parent=_ref(entry, parent), name=name + '_Goodies', order=3)
+    h = math.radians(float(yaw or 0.0))
+    for i, g in enumerate(ids):
+        dx = (i - (len(ids) - 1) / 2.0) * PICKUP_GAP
+        wp = [pos[0] + dx * math.cos(h), pos[1] - sz[1] / 2.0 + PICKUP_LIFT, pos[2] - dx * math.sin(h)]
+        B.append(entry, '%s_goodie%d' % (rid, i), _part('goodie'), parent=('new', fid), name='%s_Goodie%d' % (name, i + 1),
+                 sets={'GoodieSubType': g}, pos=wp, order=i + 1)
+
+
+def nodes_added(o):
+    """How many nodes an op adds to its block (the ledger's live count of nodes per block)."""
+    if o.get('op') == 'add_trigger':
+        try:
+            acts = plan_actions(o)
+        except (KeyError, TypeError):
+            acts = []
+        n = 2 + len(acts)
+        ids = (o.get('params') or {}).get('pickups') or []
+        return n + ((1 + len(ids)) if ids else 0)
+    if o.get('op') == 'add_vehicle':
+        return 1
+    if o.get('op') == 'add_action':
+        ids = (o.get('params') or {}).get('pickups') or []
+        return 1 + ((1 + len(ids)) if o.get('action') == 'pickups' and ids else 0)
+    return 0
+
+
+def _folder_goodies(entry, raw, name):
+    """GoodieSubType of the pickups inside the folder called `name` (engine view of the built block)."""
+    ev, _ = BE.engine_view(raw, entry)
+    B = mblock(ev, entry)
+    out = []
+    for _k, _nm, d in B.frags:
+        for n in d.created_ids():
+            if d.type_of(n) == 'Folder' and (mt().props(d, n).get('name') or '') == name:
+                for c in d.children(n):
+                    out.append(int(mt().props(d, c).get('GoodieSubType', -1)))
+    return out
 
 
 def _new_set(B, uid, sets):
@@ -431,6 +615,16 @@ def verify(entry, ops, raw_before, raw_after):
                                                 ['%s %s -> %s' % (a['short'], a['code'], a.get('target')) for a in t['actions']])
                 if o.get('pos') is not None and t.get('pos'):
                     ok = ok and all(abs(a - b) < 1e-3 for a, b in zip(t['pos'], o['pos']))
+            want = plan_actions(o)
+            if new and want:
+                got = [a['short'] for a in new[0]['actions']]
+                ok = ok and len(got) == len(want)
+                d += ' (%d action(s) as planned)' % len(want) if len(got) == len(want) else ' (planned %d action(s), found %d)' % (len(want), len(got))
+            ids = [int(x) for x in (o.get('params') or {}).get('pickups') or []]
+            if ids:
+                kids = _folder_goodies(entry, raw_after, (o.get('name') or o['id']) + '_Goodies')
+                ok = ok and kids == ids
+                d += '; folder holds pickups %s' % (kids,)
             checks.append(('PASS' if ok else 'FAIL', 'add_trigger %s: %s' % (o['id'], d or 'not found')))
         elif o['op'] == 'set' and o.get('node'):
             checks.append(('PASS', 'set %s.%s = %r' % (o['node'], o['prop'], o['value'])))
@@ -501,21 +695,38 @@ def preview(g, ops):
         elif op == 'add_trigger':
             T = TEMPLATES.get(o['template']) or {}
             p = dict(o.get('params') or {})
-            kind = p.get('action') or T.get('action')
             cond = {'cond_enter': (1, '1 actor enters the root volume'), 'cond_kill': (9, '9 an enemy killed'),
                     'cond_timer': (14, '14 true at once / after IntervalTrue s'),
+                    'cond_vehicle': (11, '11 vehicle enter (via vehicle conditions)'),
                     'cond_start': (6, '6 mission start')}.get(T.get('cond'), (None, '?'))
             root_cls = {'root_box': '(CollisionBox)', 'root_node': '(Node)', 'root_logical': '(NodeLogical)'}.get(T.get('root'), '')
             tid = 'new|%s' % o['id']
-            part = ACTIONS.get(kind, (None,))[0] or ''
-            tgt = p.get('objective') or p.get('target') or p.get('camera')
-            trig[tid] = dict(id=tid, frag='(new)', node=o['id'], name=o.get('name') or o['id'], cls='Trigger_Root',
+            nm = o.get('name') or o['id']
+            try:
+                planned = plan_actions(o)
+            except KeyError:
+                planned = []
+            rows = []
+            for kind, ap_, suffix in planned:
+                tgt = p.get('objective') or p.get('target') or p.get('camera')
+                if kind == 'pickups':
+                    kind, tgt = 'enable', nm + '_Goodies'
+                elif kind == 'show_text':
+                    tgt = 'text %s' % p.get('text')
+                elif kind == 'give_weapon':
+                    tgt = 'gun %s x%s' % (p.get('weapon'), p.get('ammo') or 30)
+                rows.append(dict(node=o['id'] + suffix, name=kind, cls=ACTIONS.get(kind, ('',))[0], short=kind, code=None, does=kind,
+                                 target=tgt, target_name=tgt, who=3, delay=p.get('delay'), depth=0, args={}))
+            extra = {k: p[k] for k in ('count', 'seconds') if k in p}
+            if p.get('ap'):
+                extra['APBonus'] = p['ap']
+            trig[tid] = dict(id=tid, frag='(new)', node=o['id'], name=nm, cls='Trigger_Root',
                              base=root_cls, pos=o.get('pos'), box=o.get('size'), trigger_on='0 all conditions met (AND)',
                              new=True, conditions=[dict(node=o['id'] + '_cond', name='Condition', cls='Trigger_Condition',
-                                                        code=cond[0], event=cond[1], activator='0 the player',
-                                                        extra={k: p[k] for k in ('count', 'seconds') if k in p})],
-                             actions=[dict(node=o['id'] + '_act', name=kind, cls=part, short=kind, code=None, does=kind,
-                                           target=tgt, target_name=tgt, who=3, delay=p.get('delay'), depth=0, args={})])
+                                                        code=cond[0], event=cond[1],
+                                                        activator='0 the player',
+                                                        extra=extra)],
+                             actions=rows)
         elif op == 'add_action':
             rid = ('new|%s' % o['root']) if isinstance(o['root'], str) else '%s|%s' % (fshort(o['root']['frag']), o['root']['node'])
             t = trig.get(rid)

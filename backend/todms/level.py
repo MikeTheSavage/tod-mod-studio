@@ -94,7 +94,7 @@ def categorize(t, get):
 
 
 SUBTYPE_PROPS = ('GoodieSubType', 'WeaponSubType', 'VehicleSubType', 'AISubType', 'FactionID', 'ObjectSubType',
-                 'CollisionFlags', 'Model', 'Respawnable', 'IsVIP')
+                 'CollisionFlags', 'Model', 'Real_Active_Texture_Set', 'Respawnable', 'IsVIP')
 
 
 def norm_model(path):

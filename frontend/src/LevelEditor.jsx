@@ -11,7 +11,9 @@ import { CATS, catColor, CAT_LABEL, GAMEPLAY, buildView, addableBlocks, keyOf } 
 import { opsMove, opsSet, opsDelete, opsRestore, newUid, describeOp } from './project.js'
 import { r3, yawDeg, quatFromYaw } from './coords.js'
 import Properties from './Properties.jsx'
-import { modelPathFor } from './placeModels.js'
+import { modelPathFor, characterModelPath } from './placeModels.js'
+import Picker from './Picker.jsx'
+import { useNames, charName, charRow, entityTitle, entityTip, prettyRaw } from './names.js'
 import { importedPalette, opForPlacing } from './importedModels.js'
 import { Menu, Seg, CheckRow, UndoRedo, useUI } from './ui.jsx'
 import { MeterStrip } from './Meters.jsx'
@@ -39,7 +41,7 @@ const KIND_SETS = {
 const PALETTE_BY = Object.fromEntries(PALETTE.map(p => [p[0], p]))
 const ADD_GROUPS = [
   { title: tr('things_to_pick_up'), items: ['pickup', 'weapon'] },
-  { title: tr('characters_and_vehicles'), items: ['enemy', 'vehicle'] },
+  { title: tr('vehicles_bd1c3a'), items: ['vehicle'] },
   { title: tr('invisible_helpers'), items: ['trigger', 'wall', 'navblock', 'trackpoint'] },
 ]
 const ADD_HINT = { pickup: 'health, score', trigger: 'starts something', wall: 'blocks the player', navblock: 'blocks enemies', trackpoint: 'enemy path' }
@@ -92,6 +94,18 @@ export default function LevelEditor({ status, project, commit, replace, undo, re
 
   useEffect(() => { get('/api/catalog').then(setCatalog).catch(e => setErr(e.message)) }, [])
   useEffect(() => { get('/api/enums').then(setEnums).catch(() => {}) }, [])
+  const nm = useNames()
+  // the same enums with readable names, for every list and picker (the raw ones only pick the preview model)
+  const enumsRead = useMemo(() => {
+    if (!enums) return enums
+    const out = { ...enums }
+    const map = (k, f) => { if (enums[k]) out[k] = Object.fromEntries(Object.keys(enums[k]).map(v => [v, f(v, enums[k][v])])) }
+    map('GoodieSubType', (v, raw) => nm?.goodies?.[v] ?? prettyRaw(raw))
+    map('WeaponSubType', (v, raw) => nm?.weapons?.[v] ?? prettyRaw(raw))
+    map('VehicleSubType', (v, raw) => nm?.vehicles?.[v] ?? prettyRaw(raw))
+    if (nm) out.Model = Object.fromEntries(nm.characters.filter(r => r.placeable && r.group === 'enemy').map(r => [r.id, r.name]))
+    return out
+  }, [enums, nm])
 
   const map = catalog?.maps.find(m => m.id === pick.map)
 
@@ -121,7 +135,7 @@ export default function LevelEditor({ status, project, commit, replace, undo, re
 
   useEffect(() => { if (pick.map && catalog && !bundle) open(pick) }, [catalog])
 
-  const modelFor = useCallback((cat, sub) => modelPathFor(cat, sub, enums), [enums])
+  const modelFor = useCallback((cat, sub) => modelPathFor(cat, sub, enums), [enums, nm])
   const view = useMemo(() => buildView(bundle, project.level, modelFor), [bundle, project.level, modelFor])
   // live preview: fetch the mesh of every added object (and of the item being placed) that the open blocks do not hold
   const asked = useRef(new Set())
@@ -193,6 +207,7 @@ export default function LevelEditor({ status, project, commit, replace, undo, re
   }
   const onCommitGroup = moves => commitMoves(settle(moves))
   const setProp = (e, prop, value) => commitLevel(withLabel(opsSet(project.level, e.target, prop, value), e))
+  const setProps = (e, obj) => commitLevel(withLabel(Object.entries(obj).reduce((ops, [k, v]) => opsSet(ops, e.target, k, v), project.level), e))
   const setPos = (e, pos, rot) => commitLevel(withLabel(opsMove(project.level, e.target, pos, rot || e.rot), e))
   const delMode = status.settings?.save_safe_delete === false ? 'remove' : 'retire'
   const delMany = ents => {
@@ -229,6 +244,7 @@ export default function LevelEditor({ status, project, commit, replace, undo, re
 
   const lastAdd = useRef(null)                        // what the controller's X adds again: the last Add choice
   const addKind = kind => {
+    if (kind === 'enemy') { addEnemy(lastEnemy); return }
     lastAdd.current = { kind }
     const p = PALETTE.find(x => x[0] === kind)
     const tpl = templates[kind]
@@ -237,6 +253,17 @@ export default function LevelEditor({ status, project, commit, replace, undo, re
     const size = ks ? [ks.width, ks.height, ks.length] : null
     setSelectedId(null); setTool(null)
     setPlacing({ kind, label: p[1], model: size ? null : modelPathFor(p[2], tpl.sub, enums), size })
+  }
+  const [lastEnemy, setLastEnemy] = useState(() => { try { return Number(localStorage.getItem('todms.lastEnemy')) || 27 } catch { return 27 } })
+  const enemyRows = useMemo(() => (nm?.characters || []).filter(r => r.placeable && r.group === 'enemy'), [nm])
+  const addEnemy = id => {
+    const r = charRow(id)
+    const tpl = templates.enemy
+    if (!r || !tpl) { ui.say(tr('no_enemy_template_in_the_open'), 'bad'); return }
+    setLastEnemy(r.id); try { localStorage.setItem('todms.lastEnemy', String(r.id)) } catch { /* private window */ }
+    lastAdd.current = { kind: 'enemy', enemy: r.id }
+    setSelectedId(null); setTool(null)
+    setPlacing({ kind: 'enemy', label: r.name, model: characterModelPath(r.id), enemy: r.id })
   }
   const addImported = m => {
     lastAdd.current = { imported: m }
@@ -286,6 +313,15 @@ export default function LevelEditor({ status, project, commit, replace, undo, re
     if (placing.kind === 'model') {
       setPlacing(null)
       if (templates.model) addFrom(templates.model, 'model', 'model', 'section', pos, { modelres: placing.modelres }, { model: placing.model }, yaw)
+      return
+    }
+    if (placing.kind === 'enemy') {
+      const tpl = templates.enemy, row = charRow(placing.enemy), entry = tpl && targetFor('mission')
+      setPlacing(null)
+      if (!tpl || !row || !entry) { noRoom(); return }
+      const op = ED.enemyOp(tpl, entry, { pos, yaw }, row, { weapon: 4 })
+      commitLevel([...project.level, op])
+      setSelectedId('new:' + op.uid)
       return
     }
     const p = PALETTE_BY[placing.kind], tpl = templates[placing.kind]
@@ -357,7 +393,7 @@ export default function LevelEditor({ status, project, commit, replace, undo, re
   }
 
   // ---- scatter brush: one stroke = one commit
-  const SCAT_KINDS = [['pickup', 'Pickups', 'GoodieSubType'], ['weapon', 'Weapons', 'WeaponSubType'], ['enemy', 'Enemies', null], ['vehicle', 'Vehicles', 'VehicleSubType']]
+  const SCAT_KINDS = [['pickup', 'Pickups', 'GoodieSubType'], ['weapon', 'Weapons', 'WeaponSubType'], ['enemy', 'Enemies', 'Model'], ['vehicle', 'Vehicles', 'VehicleSubType']]
   const scatterSources = [...SCAT_KINDS.map(([id, lb, subKey]) => ({ id, label: lb, subKey, ok: !!templates[id] })), { id: 'selection', label: tr('selection'), ok: editEnts.length > 0 }]
   const onScatter = stamps => {
     const srcs = scatChosen.filter(id => scatterSources.find(s => s.id === id)?.ok)
@@ -375,6 +411,11 @@ export default function LevelEditor({ status, project, commit, replace, undo, re
       const pk = PALETTE_BY[id], tpl = templates[id]
       const entry = targetFor(pk[3])
       if (!tpl || !entry) continue
+      if (id === 'enemy') {
+        const row = charRow(scatSubs.enemy ?? lastEnemy)
+        if (row) ops.push(ED.enemyOp(tpl, entry, { pos: s.pos, yaw: s.yaw }, row, { prefix: 'TODMS_scatter', weapon: 4 }))
+        continue
+      }
       const subKey = SCAT_KINDS.find(k => k[0] === id)[2]
       const set = { ...(KIND_SETS[id] || {}), ...(subKey && scatSubs[id] != null ? { [subKey]: scatSubs[id] } : {}) }
       const sub = subKey && scatSubs[id] != null ? { ...(tpl.sub || {}), [subKey]: scatSubs[id] } : tpl.sub
@@ -415,6 +456,7 @@ export default function LevelEditor({ status, project, commit, replace, undo, re
     if (placing) { setPlacing(null); return }
     const l = lastAdd.current
     if (l?.imported) { addImported(l.imported); return }
+    if (l?.enemy != null) { addEnemy(l.enemy); return }
     const kind = l?.kind || PALETTE.map(p => p[0]).find(k => templates[k])
     if (kind) addKind(kind)
   }
@@ -556,6 +598,15 @@ export default function LevelEditor({ status, project, commit, replace, undo, re
                 <span className="swatch" style={{ background: catColor(PALETTE_BY[k][2]) }} /><span>{PALETTE_BY[k][1]}</span></div>)}</div>
           })}
           {(() => {
+            const q = addQ.toLowerCase()
+            const items = enemyRows.filter(r => !q || (r.name + ' ' + r.id + ' ' + r.file + ' enemy').toLowerCase().includes(q))
+            if (!items.length) return null
+            return <div><div className="grp">{tr('enemies')}</div>
+              {items.map(r => <div key={r.id} role="menuitem" className={'item' + (templates.enemy ? '' : ' off')} title={templates.enemy ? 'model ' + r.id + ' · ' + r.file : 'Not available in this section'}
+                onClick={() => { if (!templates.enemy) return; close(); setAddQ(''); addEnemy(r.id) }}>
+                <span className="swatch" style={{ background: catColor('character') }} /><span>{r.name}</span></div>)}</div>
+          })()}
+          {(() => {
             const items = imported.filter(m => m.name.toLowerCase().includes(addQ.toLowerCase()))
             if (!items.length) return null
             const ok = !!templates.model && addable.some(a => a.ok)
@@ -645,7 +696,7 @@ export default function LevelEditor({ status, project, commit, replace, undo, re
                 <button className={'ico' + (isLocked(e) ? ' on' : '')} aria-label={isLocked(e) ? 'Unlock' : 'Lock'} title={isLocked(e) ? 'Unlock' : 'Lock'}
                   onClick={ev => { ev.stopPropagation(); const l = new Set(locked); l.has(e.id) ? l.delete(e.id) : l.add(e.id); setLocked(l) }}>{isLocked(e) ? '▣' : '□'}</button>
                 <span className="swatch" style={{ background: catColor(e.cat) }} />
-                <span className="nm">{e.name || (e.type || '').replace(/\(.*\)/, '') || (e.model || '').split('/').pop()}</span>
+                <span className="nm" title={entityTip(e)}>{entityTitle(e, (e.type || '').replace(/\(.*\)/, '') || (e.model || '').split('/').pop())}</span>
                 {e.off && <span className="ty" title={tr('disabled_at_load_a_trigger_switches')}>{tr('off_da7a68')}</span>}
                 <span className="ty">{KIND_NAME[e.cat] || CAT_LABEL[e.cat]}</span>
               </div>))}
@@ -668,8 +719,9 @@ export default function LevelEditor({ status, project, commit, replace, undo, re
             boxSelect={gizmo === 'select'} selectables={selectables} onBoxSelect={onBoxSelect} apiRef={viewApi}
             notes={ED.notesOf(project)} onNote={() => setTab('spots')}
             onPadStep={padStep} onPadAdd={padAdd} onPadMode={padMode} padInfo={{ modeName: PAD_NAMES[gizmo] }}>
-            {placing && <div className="floatpanel" style={{ left: 12, right: 12, top: 12, margin: '0 auto', width: 'fit-content' }}><b>{placing.label}</b>{pad ? <><span><b>{tr('a')}</b>{' '}{tr('place')}</span><span><b>{tr('lb_rb')}</b>{' '}{tr('turn')}</span><span><b>{tr('b')}</b>{' '}{tr('cancel_4fd065')}</span></> : <><span>{tr('click_to_place')}</span><span><b>{tr('r')}</b>{' '}{tr('or')}{' '}<b>{tr('shift_wheel')}</b>{' '}{tr('turn')}</span><span><b>{tr('esc')}</b>{' '}{tr('cancel_4fd065')}</span></>}</div>}
-            {tool === 'scatter' && <ScatterHud cfg={scat} setCfg={setScat} sources={scatterSources} chosen={scatChosen} setChosen={setScatChosen} subs={scatSubs} setSubs={setScatSubs} enums={enums} onClose={() => setTool(null)} />}
+            {placing && <div className="floatpanel" style={{ left: 12, right: 12, top: 12, margin: '0 auto', width: 'fit-content' }}>{placing.kind === 'enemy' ? <Picker label={tr('enemy')} width={190} value={placing.enemy}
+              options={enemyRows.map(r => ({ id: r.id, name: r.name, tip: 'model ' + r.id + ' · ' + r.file }))} onChange={id => addEnemy(id)} /> : <b>{placing.label}</b>}{pad ? <><span><b>{tr('a')}</b>{' '}{tr('place')}</span><span><b>{tr('lb_rb')}</b>{' '}{tr('turn')}</span><span><b>{tr('b')}</b>{' '}{tr('cancel_4fd065')}</span></> : <><span>{tr('click_to_place')}</span><span><b>{tr('r')}</b>{' '}{tr('or')}{' '}<b>{tr('shift_wheel')}</b>{' '}{tr('turn')}</span><span><b>{tr('esc')}</b>{' '}{tr('cancel_4fd065')}</span></>}</div>}
+            {tool === 'scatter' && <ScatterHud cfg={scat} setCfg={setScat} sources={scatterSources} chosen={scatChosen} setChosen={setScatChosen} subs={scatSubs} setSubs={setScatSubs} enums={enumsRead} onClose={() => setTool(null)} />}
             {(tool === 'ruler' || tool === 'figure') && <div className="floatpanel" style={{ left: 12, right: 12, top: 12, margin: '0 auto', width: 'fit-content' }}><b>{tool === 'ruler' ? 'Ruler' : 'Scale figure'}</b><span>{tr('click_to')}{' '}{tool === 'ruler' ? 'add a point' : 'place the figure'}</span><span><b>{tr('esc')}</b>{' '}{tr('done')}</span></div>}
             {busy && <div className="busy">{busy}{'…'}</div>}
             {err && <div className="error" onClick={() => setErr(null)}>{err}</div>}
@@ -697,7 +749,7 @@ export default function LevelEditor({ status, project, commit, replace, undo, re
             <SelectionPanel ents={selEnts} enums={enums} project={project} actions={{ focus: focusSel, move: moveBy, turn: turnBy, align: alignTo, distribute: spread,
               setProp: setOnAll, layer: id => assignLayer(editEnts, id), drop: dropDown, sameModel, prefab: () => { savePrefab(''); setTab('prefabs') }, copy: copySel, duplicate: () => duplicate(), del: () => delMany(selEnts) }} />
           ) : sel ? (
-            <Properties e={sel} enums={enums} setProp={setProp} setPos={setPos} onDelete={() => del(sel)}
+            <Properties e={sel} enums={enumsRead} setProp={setProp} setMulti={setProps} setPos={setPos} onDelete={() => del(sel)}
                         onRestore={() => restore(sel)} onDuplicate={() => duplicate(sel)} addable={addable}
                         onFocus={() => setFocus({ pos: sel.pos, dist: 15 })} setSaveSpot={setSaveSpot} testHere={spot => testActions.run({ spot })} />
           ) : (
@@ -709,7 +761,7 @@ export default function LevelEditor({ status, project, commit, replace, undo, re
           )}
         </div>
       </div>
-      {findOpen && <FindReplace view={view} enums={enums} onApply={applyReplace} onClose={() => setFindOpen(false)} />}
+      {findOpen && <FindReplace view={view} enums={enumsRead} onApply={applyReplace} onClose={() => setFindOpen(false)} />}
     </div>
   )
 }

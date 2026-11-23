@@ -137,7 +137,11 @@ def bake_model(ws, m, doc=None, progress=None):
         it = recs.items[hit[0]]
         old_info = assetedit.old_model_info(k.tm.decode(it['rec'], 0, len(it['rec'])))
         ref = (old_info['min'], old_info['max'])
-    baked = MI.bake(scene, params, ref=ref, progress=progress)
+    if params.get('ccc'):
+        from . import cccveh
+        baked = cccveh.bake(scene, params, old_info, ref=ref, progress=progress)
+    else:
+        baked = MI.bake(scene, params, ref=ref, progress=progress)
     return baked, old_info, ref
 
 

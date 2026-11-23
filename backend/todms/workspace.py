@@ -11,7 +11,7 @@ import uuid
 from . import paths, ledger
 
 SETTINGS_FILE = 'settings.json'
-LEVEL_VERSION = 5          # bump when the level JSON layout changes (old cache entries are rebuilt)
+LEVEL_VERSION = 6          # bump when the level JSON layout changes (old cache entries are rebuilt)
 ASSET_VERSION = 2
 
 

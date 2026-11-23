@@ -4,6 +4,8 @@ import { CAT_LABEL, catColor } from './view.js'
 import { yawDeg, quatFromYaw } from './coords.js'
 import { Advanced, Switch } from './ui.jsx'
 import { t } from './i18n.js'
+import Picker from './Picker.jsx'
+import { useNames, charRow } from './names.js'
 
 const FLAG_BITS = [[1, 'Solid'], [2, 'BulletProof'], [4, 'Opaque'], [8, 'CameraBlock'], [16, 'Trigger'], [32, 'NavBlock'],
   [64, 'Physics'], [128, 'ActivateTriggers']]
@@ -31,7 +33,7 @@ function Text({ value, onCommit, label }) {
 
 const Axis = ({ i, name, children }) => <label className="axis" style={{ margin: 0 }}><span style={{ color: AX[i] }}>{name}</span>{children}</label>
 
-export default function Properties({ e, enums, setProp, setPos, onDelete, onRestore, onDuplicate, onFocus, setSaveSpot, testHere }) {
+export default function Properties({ e, enums, setProp, setMulti, setPos, onDelete, onRestore, onDuplicate, onFocus, setSaveSpot, testHere }) {
   const [props, setProps] = useState(null)
   const [showAll, setShowAll] = useState(false)
   useEffect(() => {
@@ -44,6 +46,16 @@ export default function Properties({ e, enums, setProp, setPos, onDelete, onRest
   const flags = sub.CollisionFlags
   const yaw = yawDeg(e.rot)
   const subKeys = ['GoodieSubType', 'WeaponSubType', 'VehicleSubType'].filter(k => sub[k] != null)
+  const nm = useNames()
+  const isChar = e.cat === 'character' && sub.Model != null && !!nm
+  const row = isChar ? charRow(sub.Model) : null
+  const bodyOpts = isChar ? [...nm.characters.filter(r => r.placeable && (r.group === 'enemy')).map(r => ({ id: r.id, name: r.name, group: t('enemies'), tip: 'model ' + r.id + ' · ' + r.file })),
+    ...nm.characters.filter(r => r.placeable && r.group !== 'enemy').map(r => ({ id: r.id, name: r.name, group: t('people'), tip: 'model ' + r.id + ' · ' + r.file })),
+    ...(row && !row.placeable ? [{ id: row.id, name: row.name, group: '', tip: 'model ' + row.id }] : [])] : []
+  const lookOpts = row ? row.looks.map(l => ({ id: l.id, name: l.name, tip: 'texture set ' + l.id })) : []
+  const aiOpts = isChar ? Object.entries(nm.ai).map(([k, v]) => ({ id: Number(k), name: v, tip: 'behaviour ' + k })) : []
+  const sideOpts = isChar ? Object.entries(nm.factions).filter(([k]) => nm.sides.includes(Number(k)) || Number(k) === sub.FactionID).map(([k, v]) => ({ id: Number(k), name: v, tip: 'side ' + k })) : []
+  const weapOpts = isChar ? Object.entries(nm.weapons).map(([k, v]) => ({ id: Number(k), name: v, tip: 'weapon ' + k })) : []
   const advCount = (flags != null ? 1 : 0) + 1
   const title = e.name || (e.type || '').replace(/\(.*\)/, '')
   return (
@@ -64,6 +76,13 @@ export default function Properties({ e, enums, setProp, setPos, onDelete, onRest
         <fieldset disabled={ro || !!e.deleted} style={{ border: 0, padding: 0, margin: 0, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 8 }}>
           <div className="prow">
             <div className="k">{t('name')}</div><Text label={t('name')} value={e.name} onCommit={v => setProp(e, 'name', v)} />
+            {isChar && <>
+              <div className="k">{t('body')}</div><Picker label={t('body')} value={sub.Model} options={bodyOpts} onChange={id => setMulti(e, { Model: id, Real_Active_Texture_Set: charRow(id)?.looks?.[0]?.id ?? 0 })} />
+              <div className="k">{t('look')}</div><Picker label={t('look')} value={sub.Real_Active_Texture_Set ?? 0} options={lookOpts} onChange={id => setProp(e, 'Real_Active_Texture_Set', id)} />
+              <div className="k">{t('behaviour')}</div><Picker label={t('behaviour')} value={sub.AISubType} options={aiOpts} onChange={id => setProp(e, 'AISubType', id)} />
+              <div className="k">{t('side')}</div><Picker label={t('side')} value={sub.FactionID} options={sideOpts} onChange={id => setProp(e, 'FactionID', id)} />
+              {e.isNew && e.op?.group === 'enemy' && <><div className="k">{t('weapon')}</div><Picker label={t('weapon')} value={sub.WeaponSubType ?? 0} options={weapOpts} onChange={id => setProp(e, 'WeaponSubType', id)} /></>}
+            </>}
             {subKeys.map(k => <React.Fragment key={k}><div className="k">{k.replace('SubType', '').replace('Goodie', 'Kind')}</div>
               <select aria-label={k} value={String(sub[k])} onChange={ev => setProp(e, k, parseInt(ev.target.value))}>
                 {Object.entries(enums[k] || { [sub[k]]: String(sub[k]) }).map(([v, n]) => <option key={v} value={v}>{n}</option>)}

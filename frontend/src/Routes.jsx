@@ -12,6 +12,7 @@ import { useUi } from './uistore.js'
 import { toView, fromView, quatToView } from './coords.js'
 import { buildView } from './view.js'
 import { ModelThing } from './Scene.jsx'
+import { isClick, changed } from './camdrag.js'
 import { KIND_COLOR, KIND_MARK, kindColor, KIND_LABEL, short, navMove, navInsert, navRemove, navReorder, navLink, navSet, describeNav,
   newId, isNew } from './partb.js'
 import { t } from './i18n.js'
@@ -247,7 +248,7 @@ export default function Routes({ status, project, commit }) {
 function View({ routes, ri, pi, pi2, pick, bundle, issues, focus, onDrag, target }) {
   const view = useMemo(() => bundle ? buildView(bundle, []) : null, [bundle])
   const models = view ? view.list.filter(e => e.model && bundle.models[e.model] && !bundle.models[e.model].missing) : []
-  const selRef = useRef()
+  const selRef = useRef(), from0 = useRef(null)
   const [selObj, setSelObj] = useState(null)
   const sel = ri != null && pi != null ? routes[ri]?.points[pi] : null
   useEffect(() => { setSelObj(selRef.current || null) }, [sel?.node, ri])
@@ -263,7 +264,8 @@ function View({ routes, ri, pi, pi2, pick, bundle, issues, focus, onDrag, target
       geometry={SPHERE} scale={0.8} material={mat('#ff3b3b', 0.8)} />)}
     {sel && <group ref={selRef} position={toView(sel.pos)} />}
     {sel && selObj && <TransformControls object={selObj} mode="translate" size={0.8}
-      onMouseUp={() => onDrag(fromView(selObj.position))} />}
+      onMouseDown={() => { from0.current = selObj.position.toArray() }}
+      onMouseUp={() => { if (changed(from0.current, selObj.position.toArray(), 1e-5)) onDrag(fromView(selObj.position)) }} />}
     {sel && <Html position={toView(sel.pos).add(new THREE.Vector3(0, 2, 0))} center style={{ pointerEvents: 'none' }}>
       <div className="tag">{sel.node}{sel.new ? ' (new)' : ''}</div></Html>}
     <OrbitControls makeDefault enableDamping={false} maxDistance={3000} />
@@ -303,7 +305,7 @@ function RouteDraw({ r, i, sel, pi, pi2, pick }) {
     return <>{r.points.map((b, j) => {
       const o = b.orient || [0, 0, 0, 1]
       const q = b.new ? quatToView(o) : quatToView([-o[0], -o[1], -o[2], o[3]])
-      return <group key={j} position={toView(b.pos)} quaternion={q} onClick={ev => { ev.stopPropagation(); pick(i, j, ev) }}>
+      return <group key={j} position={toView(b.pos)} quaternion={q} onClick={ev => { if (!isClick(ev)) return; ev.stopPropagation(); pick(i, j, ev) }}>
         <mesh geometry={BOX} scale={b.size.map(Number)} material={mat(b.new ? '#3cff8a' : c, j === pi && sel ? 0.5 : 0.22)} />
       </group>
     })}</>
@@ -337,6 +339,6 @@ function RouteDraw({ r, i, sel, pi, pi2, pick }) {
     </React.Fragment>)}
     {r.points.map((p, j) => <mesh key={p.node} position={toView(p.pos).add(new THREE.Vector3(0, 0.3, 0))} geometry={POINT_GEO[mark.shape] || SPHERE}
       scale={sel && (j === pi || j === pi2) ? 1.8 : 1} material={mat(p.new ? '#3cff8a' : sel && j === pi ? '#ffffff' : sel && j === pi2 ? '#ffe66d' : c)}
-      onClick={ev => { ev.stopPropagation(); pick(i, j, ev) }} />)}
+      onClick={ev => { if (!isClick(ev)) return; ev.stopPropagation(); pick(i, j, ev) }} />)}
   </>
 }

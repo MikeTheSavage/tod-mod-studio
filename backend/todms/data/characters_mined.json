@@ -1,0 +1,1421 @@
+{
+ "0": {
+  "blocks": {
+   "intermission_after_breakintosafe.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_breakintosafe.mission",
+    "frag": "IM050_Default_Data.fragment",
+    "node": "0x00400659",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_longshirt.model"
+   },
+   "intermission_after_getthetrucks.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_getthetrucks.mission",
+    "frag": "IM030_Default_Data.fragment",
+    "node": "0x00400252",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_longshirt.model"
+   },
+   "intermission_after_marco.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_marco.mission",
+    "frag": "IM010_Default_Data.fragment",
+    "node": "0x004002A0",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_longshirt.model"
+   },
+   "intermission_after_tommy.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_tommy.mission",
+    "frag": "IM010_Default_Data.fragment",
+    "node": "0x004002A0",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_longshirt.model"
+   },
+   "mm050_escortthetrucks.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm050_escortthetrucks.mission",
+    "frag": "MM050_Default_Data.fragment",
+    "node": "0x001015CA",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_longshirt.model"
+   },
+   "mm055_ambush.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm055_ambush.mission",
+    "frag": "MM055_Default_Data.fragment",
+    "node": "0x0010160C",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_longshirt.model"
+   },
+   "mm058_escape.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm058_escape.mission",
+    "frag": "MM058_Default_Data.fragment",
+    "node": "0x00400486",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_longshirt.model"
+   },
+   "mm066_brakeintosafe.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm066_brakeintosafe.mission",
+    "frag": "MM066_Default_Data.fragment",
+    "node": "0x001016E0",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_longshirt.model"
+   },
+   "mm070_elvezcardealer.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm070_elvezcardealer.mission",
+    "frag": "MM070_Default_Data.fragment",
+    "node": "0x00101729",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_longshirt.model"
+   },
+   "mm075_hacienda.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm075_hacienda.mission",
+    "frag": "MM075_Default_Data.fragment",
+    "node": "0x004005BF",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_longshirt.model"
+   },
+   "subm_03_rottenmeat.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_03_rottenmeat.mission",
+    "frag": "SubM_03_Default_Data.fragment",
+    "node": "0x00102047",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_longshirt.model"
+   },
+   "subm_19_harb_tower_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_19_harb_tower_kill.mission",
+    "frag": "SubM_19_Default_Data.fragment",
+    "node": "0x0010235D",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_longshirt.model"
+   },
+   "subm_20_down_javper_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_20_down_javper_kill.mission",
+    "frag": "SubM_20_Default_Data.fragment",
+    "node": "0x001026DA",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_longshirt.model"
+   },
+   "subm_25_harb_movcarg_racekill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_25_harb_movcarg_racekill.mission",
+    "frag": "SubM_25_Default_Data.fragment",
+    "node": "0x00400092",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_longshirt.model"
+   },
+   "subm_26_harb_druboa_killsteal.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_26_harb_druboa_killsteal.mission",
+    "frag": "SubM_26_Default_Data.fragment",
+    "node": "0x004003EC",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_longshirt.model"
+   },
+   "subm_27_down_frevir_escort.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_27_down_frevir_escort.mission",
+    "frag": "SubM_27_Default_Data.fragment",
+    "node": "0x001023DD",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_longshirt.model"
+   },
+   "subm_31_harb_consho_race.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_31_harb_consho_race.mission",
+    "frag": "SubM_31_Default_Data.fragment",
+    "node": "0x00102428",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_longshirt.model"
+   },
+   "subm_39_indu_move_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_39_indu_move_kill.mission",
+    "frag": "SubM_39_Default_Data.fragment",
+    "node": "0x0010247C",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_longshirt.model"
+   },
+   "subm_41_harb_move_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_41_harb_move_kill.mission",
+    "frag": "SubM_41_Default_Data.fragment",
+    "node": "0x001024C4",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_longshirt.model"
+   },
+   "subm_44_harb_move_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_44_harb_move_kill.mission",
+    "frag": "SubM_44_Default_Data.fragment",
+    "node": "0x00102509",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_longshirt.model"
+   },
+   "tutorial_01.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/tutorial_01.mission",
+    "frag": "Tutor01_Default_Data.fragment",
+    "node": "0x00400775",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_longshirt.model"
+   }
+  },
+  "paths": [
+   "/characters/cezar_morales_badguy/cm_badguy_longshirt.model"
+  ],
+  "textures": {
+   "0": 20,
+   "1": 50,
+   "2": 56,
+   "3": 44,
+   "4": 36,
+   "5": 52,
+   "6": 37,
+   "7": 24,
+   "8": 68,
+   "9": 12
+  },
+  "uses": {
+   "0|11": 4,
+   "0|6": 2,
+   "0|9": 102,
+   "10|9": 3,
+   "12|9": 123,
+   "13|9": 5,
+   "17|9": 7,
+   "1|9": 42,
+   "2|9": 47,
+   "3|10": 4,
+   "3|9": 52,
+   "8|1": 7,
+   "9|6": 1
+  }
+ },
+ "1": {
+  "blocks": {
+   "mm055_ambush.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm055_ambush.mission",
+    "frag": "MM055_Default_Data.fragment",
+    "node": "0x0010160B",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_shortshirt.model"
+   },
+   "mm058_escape.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm058_escape.mission",
+    "frag": "MM058_Default_Data.fragment",
+    "node": "0x00400485",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_shortshirt.model"
+   },
+   "mm061_elmachobarmeeting.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm061_elmachobarmeeting.mission",
+    "frag": "MM061_Default_Data.fragment",
+    "node": "0x0010169F",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_shortshirt.model"
+   },
+   "mm066_brakeintosafe.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm066_brakeintosafe.mission",
+    "frag": "MM066_Default_Data.fragment",
+    "node": "0x001016E1",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_shortshirt.model"
+   },
+   "mm070_elvezcardealer.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm070_elvezcardealer.mission",
+    "frag": "MM070_Default_Data.fragment",
+    "node": "0x0010172A",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_shortshirt.model"
+   },
+   "mm075_hacienda.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm075_hacienda.mission",
+    "frag": "MM075_Default_Data.fragment",
+    "node": "0x004005C0",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_shortshirt.model"
+   },
+   "subm_03_rottenmeat.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_03_rottenmeat.mission",
+    "frag": "SubM_03_Default_Data.fragment",
+    "node": "0x00102046",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_shortshirt.model"
+   },
+   "subm_09_indu_bacbat_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_09_indu_bacbat_kill.mission",
+    "frag": "SubM_09_Default_Data.fragment",
+    "node": "0x0010217D",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_shortshirt.model"
+   },
+   "subm_12_indu_mulral02_race.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_12_indu_mulral02_race.mission",
+    "frag": "SubM_12_Default_Data.fragment",
+    "node": "0x004001BE",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_shortshirt.model"
+   },
+   "subm_18_indu_7gates02_race.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_18_indu_7gates02_race.mission",
+    "frag": "SubM_18_Default_Data.fragment",
+    "node": "0x0010288E",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_shortshirt.model"
+   },
+   "subm_19_harb_tower_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_19_harb_tower_kill.mission",
+    "frag": "SubM_19_Default_Data.fragment",
+    "node": "0x0010235C",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_shortshirt.model"
+   },
+   "subm_20_down_javper_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_20_down_javper_kill.mission",
+    "frag": "SubM_20_Default_Data.fragment",
+    "node": "0x001026D9",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_shortshirt.model"
+   },
+   "subm_27_down_frevir_escort.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_27_down_frevir_escort.mission",
+    "frag": "SubM_27_Default_Data.fragment",
+    "node": "0x001023DC",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_shortshirt.model"
+   },
+   "subm_31_harb_consho_race.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_31_harb_consho_race.mission",
+    "frag": "SubM_31_Default_Data.fragment",
+    "node": "0x00102427",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_shortshirt.model"
+   },
+   "subm_39_indu_move_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_39_indu_move_kill.mission",
+    "frag": "SubM_39_Default_Data.fragment",
+    "node": "0x0010247D",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_shortshirt.model"
+   },
+   "subm_41_harb_move_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_41_harb_move_kill.mission",
+    "frag": "SubM_41_Default_Data.fragment",
+    "node": "0x001024C3",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_shortshirt.model"
+   },
+   "subm_44_harb_move_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_44_harb_move_kill.mission",
+    "frag": "SubM_44_Default_Data.fragment",
+    "node": "0x00102508",
+    "path": "/characters/cezar_morales_badguy/cm_badguy_shortshirt.model"
+   }
+  },
+  "paths": [
+   "/characters/cezar_morales_badguy/cm_badguy_shortshirt.model"
+  ],
+  "textures": {
+   "0": 43,
+   "1": 50,
+   "2": 48,
+   "3": 45,
+   "4": 35,
+   "5": 22,
+   "6": 18,
+   "8": 2
+  },
+  "uses": {
+   "0|11": 3,
+   "0|9": 94,
+   "12|9": 42,
+   "13|9": 55,
+   "17|9": 6,
+   "1|9": 27,
+   "2|9": 4,
+   "3|13": 1,
+   "3|8": 1,
+   "3|9": 30
+  }
+ },
+ "10": {
+  "blocks": {
+   "mm010_ernestocruz.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm010_ernestocruz.mission",
+    "frag": "MM010_Default_Data.fragment",
+    "node": "0x001013FD",
+    "path": "/characters/ernesto/ernesto.model"
+   }
+  },
+  "paths": [
+   "/characters/ernesto/ernesto.model"
+  ],
+  "textures": {},
+  "uses": {}
+ },
+ "11": {
+  "blocks": {
+   "gameover_intermission.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/gameover_intermission.mission",
+    "frag": "IMGO_Default_Data.fragment",
+    "node": "0x004008AE",
+    "path": "/characters/hooker/hooker.model"
+   },
+   "intermission_after_escape.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_escape.mission",
+    "frag": "IM040_Default_Data.fragment",
+    "node": "0x0040035C",
+    "path": "/characters/hooker/hooker.model"
+   },
+   "intermission_after_getthecar.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_getthecar.mission",
+    "frag": "IM020_Default_Data.fragment",
+    "node": "0x00400405",
+    "path": "/characters/hooker/hooker.model"
+   },
+   "intermission_after_getthetrucks.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_getthetrucks.mission",
+    "frag": "IM030_Default_Data.fragment",
+    "node": "0x00400253",
+    "path": "/characters/hooker/hooker.model"
+   },
+   "intermission_after_jungle.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_jungle.mission",
+    "frag": "IM080_Default_Data.fragment",
+    "node": "0x004006A1",
+    "path": "/characters/hooker/hooker.model"
+   },
+   "intermission_after_marco.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_marco.mission",
+    "frag": "IM010_Default_Data.fragment",
+    "node": "0x004002A1",
+    "path": "/characters/hooker/hooker.model"
+   },
+   "intermission_after_tommy.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_tommy.mission",
+    "frag": "IM010_Default_Data.fragment",
+    "node": "0x004002A1",
+    "path": "/characters/hooker/hooker.model"
+   },
+   "mm020_contactmarco.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm020_contactmarco.mission",
+    "frag": "MM020_Default_Data.fragment",
+    "node": "0x00400426",
+    "path": "/characters/hooker/hooker.model"
+   },
+   "mm061_elmachobarmeeting.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm061_elmachobarmeeting.mission",
+    "frag": "MM061_Default_Data.fragment",
+    "node": "0x001016A0",
+    "path": "/characters/hooker/hooker.model"
+   },
+   "subm_02_down_buybur_steal.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_02_down_buybur_steal.mission",
+    "frag": "SubM_02_Default_Data.fragment",
+    "node": "0x00102474",
+    "path": "/characters/hooker/hooker.model"
+   },
+   "subm_04_down_somsal_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_04_down_somsal_kill.mission",
+    "frag": "SubM_04_Default_Data.fragment",
+    "node": "0x0010207A",
+    "path": "/characters/hooker/hooker.model"
+   },
+   "subm_08_down_7gates01_race.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_08_down_7gates01_race.mission",
+    "frag": "SubM_08_Default_Data.fragment",
+    "node": "0x00400CDE",
+    "path": "/characters/hooker/hooker.model"
+   },
+   "subm_11_down_shodow_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_11_down_shodow_kill.mission",
+    "frag": "SubM_11_Default_Data.fragment",
+    "node": "0x00102806",
+    "path": "/characters/hooker/hooker.model"
+   },
+   "subm_20_down_javper_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_20_down_javper_kill.mission",
+    "frag": "SubM_20_Default_Data.fragment",
+    "node": "0x001026D8",
+    "path": "/characters/hooker/hooker.model"
+   },
+   "subm_21_down_mulral03_race.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_21_down_mulral03_race.mission",
+    "frag": "SubM_21_Default_Data.fragment",
+    "node": "0x0040054F",
+    "path": "/characters/hooker/hooker.model"
+   },
+   "subm_29_down_scadea_escort.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_29_down_scadea_escort.mission",
+    "frag": "SubM_29_Default_Data.fragment",
+    "node": "0x004008AF",
+    "path": "/characters/hooker/hooker.model"
+   },
+   "subm_37_down_move_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_37_down_move_kill.mission",
+    "frag": "SubM_37_Default_Data.fragment",
+    "node": "0x00102474",
+    "path": "/characters/hooker/hooker.model"
+   },
+   "subm_44_harb_move_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_44_harb_move_kill.mission",
+    "frag": "SubM_44_Default_Data.fragment",
+    "node": "0x0010250A",
+    "path": "/characters/hooker/hooker.model"
+   }
+  },
+  "paths": [
+   "/characters/hooker/hooker.model"
+  ],
+  "textures": {
+   "0": 1,
+   "2": 1,
+   "3": 1
+  },
+  "uses": {
+   "3|6": 1,
+   "8|6": 1,
+   "9|6": 1
+  }
+ },
+ "12": {
+  "blocks": {
+   "mm120_runawaytrain.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm120_runawaytrain.mission",
+    "frag": "MM120_Default_data.fragment",
+    "node": "0x00101926",
+    "path": "/characters/johnson/johnson.model"
+   }
+  },
+  "paths": [
+   "/characters/johnson/johnson.model"
+  ],
+  "textures": {
+   "0": 6
+  },
+  "uses": {
+   "0|9": 4,
+   "1|10": 1,
+   "3|9": 1
+  }
+ },
+ "13": {
+  "blocks": {
+   "gameover_intermission.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/gameover_intermission.mission",
+    "frag": "IMGO_Default_Data.fragment",
+    "node": "0x004008B0",
+    "path": "/characters/marco/marco.model"
+   },
+   "intermission_after_breakintosafe.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_breakintosafe.mission",
+    "frag": "IM050_Default_Data.fragment",
+    "node": "0x00102D96",
+    "path": "/characters/marco/marco.model"
+   },
+   "intermission_after_bridge.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_bridge.mission",
+    "frag": "IM070_Default_Data.fragment",
+    "node": "0x0040047C",
+    "path": "/characters/marco/marco.model"
+   },
+   "intermission_after_elvez.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_elvez.mission",
+    "frag": "IM060_Default_Data.fragment",
+    "node": "0x001000F4",
+    "path": "/characters/marco/marco.model"
+   },
+   "intermission_after_escape.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_escape.mission",
+    "frag": "IM040_Default_Data.fragment",
+    "node": "0x0040035F",
+    "path": "/characters/marco/marco.model"
+   },
+   "intermission_after_getthecar.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_getthecar.mission",
+    "frag": "IM020_Default_Data.fragment",
+    "node": "0x00400406",
+    "path": "/characters/marco/marco.model"
+   },
+   "intermission_after_getthetrucks.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_getthetrucks.mission",
+    "frag": "IM030_Default_Data.fragment",
+    "node": "0x00400255",
+    "path": "/characters/marco/marco.model"
+   },
+   "intermission_after_jungle.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_jungle.mission",
+    "frag": "IM080_Default_Data.fragment",
+    "node": "0x004006A3",
+    "path": "/characters/marco/marco.model"
+   },
+   "intermission_after_marco.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_marco.mission",
+    "frag": "IM010_Default_Data.fragment",
+    "node": "0x001027BE",
+    "path": "/characters/marco/marco.model"
+   },
+   "intermission_after_tommy.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_tommy.mission",
+    "frag": "IM010_Default_Data.fragment",
+    "node": "0x001027BE",
+    "path": "/characters/marco/marco.model"
+   },
+   "mm013_tommycruz.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm013_tommycruz.mission",
+    "frag": "MM013_Default_Data.fragment",
+    "node": "0x0010125A",
+    "path": "/characters/marco/marco.model"
+   },
+   "mm020_contactmarco.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm020_contactmarco.mission",
+    "frag": "MM020_Default_Data.fragment",
+    "node": "0x00400427",
+    "path": "/characters/marco/marco.model"
+   }
+  },
+  "paths": [
+   "/characters/marco/marco.model"
+  ],
+  "textures": {
+   "0": 11
+  },
+  "uses": {
+   "3|10": 2,
+   "4|10": 1,
+   "8|10": 1,
+   "8|8": 7
+  }
+ },
+ "14": {
+  "blocks": {
+   "mm080_highwaybridge.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm080_highwaybridge.mission",
+    "frag": "MM080_Default_Data.fragment",
+    "node": "0x00102A95",
+    "path": "/characters/mendez/mendez.model"
+   }
+  },
+  "paths": [
+   "/characters/mendez/mendez.model"
+  ],
+  "textures": {
+   "0": 1
+  },
+  "uses": {
+   "3|9": 1
+  }
+ },
+ "15": {
+  "blocks": {
+   "mm010_ernestocruz.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm010_ernestocruz.mission",
+    "frag": "MM010_Default_Data.fragment",
+    "node": "0x001013FC",
+    "path": "/characters/military/soldier.model"
+   },
+   "mm080_highwaybridge.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm080_highwaybridge.mission",
+    "frag": "MM080_Default_Data.fragment",
+    "node": "0x00102A93",
+    "path": "/characters/military/soldier.model"
+   },
+   "mm090_getmilitaryinfo.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm090_getmilitaryinfo.mission",
+    "frag": "MM090_Default_Data.fragment",
+    "node": "0x001017D3",
+    "path": "/characters/military/soldier.model"
+   },
+   "mm092_escapejungle.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm092_escapejungle.mission",
+    "frag": "MM092_Default_Data.fragment",
+    "node": "0x0010180C",
+    "path": "/characters/military/soldier.model"
+   }
+  },
+  "paths": [
+   "/characters/military/soldier.model"
+  ],
+  "textures": {
+   "0": 130,
+   "1": 84,
+   "2": 41
+  },
+  "uses": {
+   "0|9": 50,
+   "16|9": 111,
+   "1|9": 39,
+   "2|9": 5,
+   "3|9": 50
+  }
+ },
+ "16": {
+  "blocks": {
+   "mm090_getmilitaryinfo.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm090_getmilitaryinfo.mission",
+    "frag": "MM090_Default_Data.fragment",
+    "node": "0x001017D4",
+    "path": "/characters/military/montanez.model"
+   }
+  },
+  "paths": [
+   "/characters/military/montanez.model"
+  ],
+  "textures": {
+   "0": 1
+  },
+  "uses": {
+   "22|9": 1
+  }
+ },
+ "18": {
+  "blocks": {
+   "mm013_tommycruz.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm013_tommycruz.mission",
+    "frag": "MM013_Default_Data.fragment",
+    "node": "0x00101259",
+    "path": "/characters/action_tommy/action_tommy.model"
+   }
+  },
+  "paths": [
+   "/characters/action_tommy/action_tommy.model"
+  ],
+  "textures": {},
+  "uses": {}
+ },
+ "2": {
+  "blocks": {
+   "intermission_after_getthecar.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_getthecar.mission",
+    "frag": "IM020_Default_Data.fragment",
+    "node": "0x00400404",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_small.model"
+   },
+   "mm013_tommycruz.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm013_tommycruz.mission",
+    "frag": "MM013_Default_Data.fragment",
+    "node": "0x00101258",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_small.model"
+   },
+   "mm020_contactmarco.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm020_contactmarco.mission",
+    "frag": "MM020_Default_Data.fragment",
+    "node": "0x00400425",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_small.model"
+   },
+   "mm030_smashthestash.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm030_smashthestash.mission",
+    "frag": "mm030_default_data.fragment",
+    "node": "0x001014FF",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_small.model"
+   },
+   "mm032_getthecar.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm032_getthecar.mission",
+    "frag": "MM032_Default_Data.fragment",
+    "node": "0x00101542",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_small.model"
+   },
+   "mm040_getthetrucks.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm040_getthetrucks.mission",
+    "frag": "MM040_Default_Data.fragment",
+    "node": "0x00400666",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_small.model"
+   },
+   "mm050_escortthetrucks.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm050_escortthetrucks.mission",
+    "frag": "MM050_Default_Data.fragment",
+    "node": "0x001015C9",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_small.model"
+   },
+   "mm061_elmachobarmeeting.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm061_elmachobarmeeting.mission",
+    "frag": "MM061_Default_Data.fragment",
+    "node": "0x0010169E",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_small.model"
+   },
+   "subm_04_down_somsal_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_04_down_somsal_kill.mission",
+    "frag": "SubM_04_Default_Data.fragment",
+    "node": "0x00102079",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_small.model"
+   },
+   "subm_05_down_teqsal_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_05_down_teqsal_kill.mission",
+    "frag": "SubM_05_Default_Data.fragment",
+    "node": "0x0010207E",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_small.model"
+   },
+   "subm_09_indu_bacbat_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_09_indu_bacbat_kill.mission",
+    "frag": "SubM_09_Default_Data.fragment",
+    "node": "0x0010217C",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_small.model"
+   },
+   "subm_10_down_mex_sho_gunkill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_10_down_mex_sho_gunkill.mission",
+    "frag": "SubM_10_Default_Data.fragment",
+    "node": "0x001021CA",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_small.model"
+   },
+   "subm_11_down_shodow_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_11_down_shodow_kill.mission",
+    "frag": "SubM_11_Default_Data.fragment",
+    "node": "0x00102805",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_small.model"
+   },
+   "subm_15_harb_pictru_racekill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_15_harb_pictru_racekill.mission",
+    "frag": "SubM_15_Default_Data.fragment",
+    "node": "0x001022A2",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_small.model"
+   },
+   "subm_34_down_carvstop_racekill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_34_down_carvstop_racekill.mission",
+    "frag": "SubM_34_Default_Data.fragment",
+    "node": "0x0010246F",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_small.model"
+   },
+   "subm_37_down_move_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_37_down_move_kill.mission",
+    "frag": "SubM_37_Default_Data.fragment",
+    "node": "0x00102473",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_small.model"
+   },
+   "subm_40_harb_move_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_40_harb_move_kill.mission",
+    "frag": "SubM_40_Default_Data.fragment",
+    "node": "0x00102481",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_small.model"
+   }
+  },
+  "paths": [
+   "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_small.model"
+  ],
+  "textures": {
+   "0": 107,
+   "1": 101,
+   "2": 88,
+   "3": 5
+  },
+  "uses": {
+   "0|9": 73,
+   "10|9": 9,
+   "11|9": 139,
+   "16|9": 1,
+   "1|9": 32,
+   "2|9": 15,
+   "3|9": 32
+  }
+ },
+ "21": {
+  "blocks": {
+   "submap01_map08_hacienda.submap": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/submap01_map08_hacienda.submap",
+    "frag": "SUBMAP01_Map08_Hacienda.fragment",
+    "node": "0x0030000C",
+    "path": "/characters/elvez/elvez.model"
+   }
+  },
+  "paths": [
+   "/characters/elvez/elvez.model"
+  ],
+  "textures": {
+   "0": 1
+  },
+  "uses": {
+   "20|9": 1
+  }
+ },
+ "22": {
+  "blocks": {
+   "mm075_hacienda.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm075_hacienda.mission",
+    "frag": "MM075_Default_Data.fragment",
+    "node": "0x004005C1",
+    "path": "/characters/elvez_guard/elvez_guard.model"
+   },
+   "subm_13_down_endmal_steal.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_13_down_endmal_steal.mission",
+    "frag": "SubM_13_Default_Data.fragment",
+    "node": "0x00102663",
+    "path": "/characters/elvez_guard/elvez_guard.model"
+   },
+   "subm_17_down_coldeb02_killsteal.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_17_down_coldeb02_killsteal.mission",
+    "frag": "SubM_17_Default_Data.fragment",
+    "node": "0x0040083E",
+    "path": "/characters/elvez_guard/elvez_guard.model"
+   }
+  },
+  "paths": [
+   "/characters/elvez_guard/elvez_guard.model"
+  ],
+  "textures": {
+   "0": 6,
+   "1": 5,
+   "2": 5,
+   "3": 6
+  },
+  "uses": {
+   "10|9": 1,
+   "14|9": 12,
+   "21|9": 9
+  }
+ },
+ "23": {
+  "blocks": {
+   "overdose.main": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/overdose.main",
+    "frag": "ModelDict.fragment",
+    "node": "0x00100EF2",
+    "path": "/characters/civil/civil.model"
+   }
+  },
+  "paths": [
+   "/characters/civil/civil.model"
+  ],
+  "textures": {
+   "0": 145,
+   "1": 46,
+   "10": 15,
+   "12": 11,
+   "13": 1,
+   "14": 1,
+   "15": 77,
+   "16": 110,
+   "17": 67,
+   "18": 1,
+   "2": 26,
+   "3": 30,
+   "4": 59,
+   "5": 87,
+   "6": 5,
+   "7": 1,
+   "8": 5,
+   "9": 9
+  },
+  "uses": {
+   "0|0": 1,
+   "0|10": 11,
+   "0|14": 52,
+   "0|9": 24,
+   "10|13": 1,
+   "11|14": 13,
+   "11|6": 13,
+   "16|9": 30,
+   "17|9": 1,
+   "1|10": 4,
+   "1|14": 66,
+   "1|9": 8,
+   "2|9": 2,
+   "3|10": 3,
+   "3|14": 11,
+   "3|29": 6,
+   "3|6": 2,
+   "3|9": 13,
+   "4|10": 1,
+   "8|8": 391,
+   "9|6": 43
+  }
+ },
+ "24": {
+  "blocks": {
+   "mm080_highwaybridge.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm080_highwaybridge.mission",
+    "frag": "MM080_Default_Data.fragment",
+    "node": "0x00102A94",
+    "path": "/characters/mexican_police/mexican_police.model"
+   }
+  },
+  "paths": [
+   "/characters/mexican_police/mexican_police.model"
+  ],
+  "textures": {
+   "0": 9
+  },
+  "uses": {
+   "0|9": 1,
+   "1|9": 2,
+   "3|9": 6
+  }
+ },
+ "27": {
+  "blocks": {
+   "mm110_deahqvault.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm110_deahqvault.mission",
+    "frag": "MM110_Default_Data.fragment",
+    "node": "0x001018AF",
+    "path": "/characters/gangster/gangster.model"
+   },
+   "subm_01_indu_liktak_steal.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_01_indu_liktak_steal.mission",
+    "frag": "SubM_01_Default_Data.fragment",
+    "node": "0x004006A6",
+    "path": "/characters/gangster/gangster.model"
+   },
+   "subm_02_down_buybur_steal.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_02_down_buybur_steal.mission",
+    "frag": "SubM_02_Default_Data.fragment",
+    "node": "0x00102473",
+    "path": "/characters/gangster/gangster.model"
+   },
+   "subm_13_down_endmal_steal.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_13_down_endmal_steal.mission",
+    "frag": "SubM_13_Default_Data.fragment",
+    "node": "0x00102662",
+    "path": "/characters/gangster/gangster.model"
+   },
+   "subm_16_down_coldeb_killsteal.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_16_down_coldeb_killsteal.mission",
+    "frag": "SubM_16_Default_Data.fragment",
+    "node": "0x00400B8E",
+    "path": "/characters/gangster/gangster.model"
+   },
+   "subm_17_down_coldeb02_killsteal.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_17_down_coldeb02_killsteal.mission",
+    "frag": "SubM_17_Default_Data.fragment",
+    "node": "0x0040083D",
+    "path": "/characters/gangster/gangster.model"
+   },
+   "subm_25_harb_movcarg_racekill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_25_harb_movcarg_racekill.mission",
+    "frag": "SubM_25_Default_Data.fragment",
+    "node": "0x00400093",
+    "path": "/characters/gangster/gangster.model"
+   },
+   "subm_26_harb_druboa_killsteal.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_26_harb_druboa_killsteal.mission",
+    "frag": "SubM_26_Default_Data.fragment",
+    "node": "0x004003EB",
+    "path": "/characters/gangster/gangster.model"
+   },
+   "subm_29_down_scadea_escort.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_29_down_scadea_escort.mission",
+    "frag": "SubM_29_Default_Data.fragment",
+    "node": "0x004008AC",
+    "path": "/characters/gangster/gangster.model"
+   },
+   "subm_33_harb_mulral04_race.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_33_harb_mulral04_race.mission",
+    "frag": "SubM_33_Default_Data.fragment",
+    "node": "0x00400161",
+    "path": "/characters/gangster/gangster.model"
+   },
+   "subm_38_down_move_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_38_down_move_kill.mission",
+    "frag": "SubM_38_Default_Data.fragment",
+    "node": "0x00102479",
+    "path": "/characters/gangster/gangster.model"
+   }
+  },
+  "paths": [
+   "/characters/gangster/gangster.model"
+  ],
+  "textures": {
+   "0": 74,
+   "1": 60,
+   "2": 48,
+   "3": 44
+  },
+  "uses": {
+   "0|9": 197,
+   "11|9": 6,
+   "3|9": 23
+  }
+ },
+ "28": {
+  "blocks": {
+   "intermission_after_bridge.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_bridge.mission",
+    "frag": "IM070_Default_Data.fragment",
+    "node": "0x0040047B",
+    "path": "/characters/girl/girl.model"
+   },
+   "subm_10_down_mex_sho_gunkill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_10_down_mex_sho_gunkill.mission",
+    "frag": "SubM_10_Default_Data.fragment",
+    "node": "0x001021CB",
+    "path": "/characters/girl/girl.model"
+   },
+   "subm_21_down_mulral03_race.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_21_down_mulral03_race.mission",
+    "frag": "SubM_21_Default_Data.fragment",
+    "node": "0x0040054E",
+    "path": "/characters/girl/girl.model"
+   },
+   "subm_29_down_scadea_escort.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_29_down_scadea_escort.mission",
+    "frag": "SubM_29_Default_Data.fragment",
+    "node": "0x004008AD",
+    "path": "/characters/girl/girl.model"
+   }
+  },
+  "paths": [
+   "/characters/girl/girl.model"
+  ],
+  "textures": {},
+  "uses": {}
+ },
+ "29": {
+  "blocks": {
+   "mm030_smashthestash.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm030_smashthestash.mission",
+    "frag": "mm030_default_data.fragment",
+    "node": "0x00101500",
+    "path": "/characters/old_lady/old_lady.model"
+   },
+   "mm032_getthecar.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm032_getthecar.mission",
+    "frag": "MM032_Default_Data.fragment",
+    "node": "0x00101543",
+    "path": "/characters/old_lady/old_lady.model"
+   },
+   "mm080_highwaybridge.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm080_highwaybridge.mission",
+    "frag": "MM080_Default_Data.fragment",
+    "node": "0x00102A96",
+    "path": "/characters/old_lady/old_lady.model"
+   },
+   "subm_07_indu_mulral01_race.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_07_indu_mulral01_race.mission",
+    "frag": "SubM_07_Default_Data.fragment",
+    "node": "0x001026A2",
+    "path": "/characters/old_lady/old_lady.model"
+   },
+   "subm_08_down_7gates01_race.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_08_down_7gates01_race.mission",
+    "frag": "SubM_08_Default_Data.fragment",
+    "node": "0x00400CDF",
+    "path": "/characters/old_lady/old_lady.model"
+   },
+   "subm_29_down_scadea_escort.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_29_down_scadea_escort.mission",
+    "frag": "SubM_29_Default_Data.fragment",
+    "node": "0x004008AE",
+    "path": "/characters/old_lady/old_lady.model"
+   },
+   "subm_37_down_move_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_37_down_move_kill.mission",
+    "frag": "SubM_37_Default_Data.fragment",
+    "node": "0x00102475",
+    "path": "/characters/old_lady/old_lady.model"
+   },
+   "subm_39_indu_move_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_39_indu_move_kill.mission",
+    "frag": "SubM_39_Default_Data.fragment",
+    "node": "0x0010247E",
+    "path": "/characters/old_lady/old_lady.model"
+   }
+  },
+  "paths": [
+   "/characters/old_lady/old_lady.model"
+  ],
+  "textures": {
+   "1": 1
+  },
+  "uses": {
+   "3|9": 1
+  }
+ },
+ "3": {
+  "blocks": {
+   "gameover_intermission.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/gameover_intermission.mission",
+    "frag": "IMGO_Default_Data.fragment",
+    "node": "0x004008AF",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_tall.model"
+   },
+   "intermission_after_elvez.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_elvez.mission",
+    "frag": "IM060_Default_Data.fragment",
+    "node": "0x001000F5",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_tall.model"
+   },
+   "intermission_after_escape.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_escape.mission",
+    "frag": "IM040_Default_Data.fragment",
+    "node": "0x0040035E",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_tall.model"
+   },
+   "intermission_after_getthecar.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_getthecar.mission",
+    "frag": "IM020_Default_Data.fragment",
+    "node": "0x00400403",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_tall.model"
+   },
+   "intermission_after_jungle.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/intermission_after_jungle.mission",
+    "frag": "IM080_Default_Data.fragment",
+    "node": "0x004006A2",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_tall.model"
+   },
+   "mm013_tommycruz.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm013_tommycruz.mission",
+    "frag": "MM013_Default_Data.fragment",
+    "node": "0x00101257",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_tall.model"
+   },
+   "mm020_contactmarco.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm020_contactmarco.mission",
+    "frag": "MM020_Default_Data.fragment",
+    "node": "0x00400424",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_tall.model"
+   },
+   "mm030_smashthestash.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm030_smashthestash.mission",
+    "frag": "mm030_default_data.fragment",
+    "node": "0x001014FE",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_tall.model"
+   },
+   "mm032_getthecar.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm032_getthecar.mission",
+    "frag": "MM032_Default_Data.fragment",
+    "node": "0x00101541",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_tall.model"
+   },
+   "mm040_getthetrucks.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm040_getthetrucks.mission",
+    "frag": "MM040_Default_Data.fragment",
+    "node": "0x00400665",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_tall.model"
+   },
+   "mm050_escortthetrucks.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm050_escortthetrucks.mission",
+    "frag": "MM050_Default_Data.fragment",
+    "node": "0x001015C8",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_tall.model"
+   },
+   "mm061_elmachobarmeeting.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm061_elmachobarmeeting.mission",
+    "frag": "MM061_Default_Data.fragment",
+    "node": "0x0010169D",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_tall.model"
+   },
+   "subm_04_down_somsal_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_04_down_somsal_kill.mission",
+    "frag": "SubM_04_Default_Data.fragment",
+    "node": "0x00102078",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_tall.model"
+   },
+   "subm_05_down_teqsal_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_05_down_teqsal_kill.mission",
+    "frag": "SubM_05_Default_Data.fragment",
+    "node": "0x0010207D",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_tall.model"
+   },
+   "subm_09_indu_bacbat_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_09_indu_bacbat_kill.mission",
+    "frag": "SubM_09_Default_Data.fragment",
+    "node": "0x0010217B",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_tall.model"
+   },
+   "subm_10_down_mex_sho_gunkill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_10_down_mex_sho_gunkill.mission",
+    "frag": "SubM_10_Default_Data.fragment",
+    "node": "0x001021C9",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_tall.model"
+   },
+   "subm_11_down_shodow_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_11_down_shodow_kill.mission",
+    "frag": "SubM_11_Default_Data.fragment",
+    "node": "0x00102804",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_tall.model"
+   },
+   "subm_15_harb_pictru_racekill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_15_harb_pictru_racekill.mission",
+    "frag": "SubM_15_Default_Data.fragment",
+    "node": "0x001022A1",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_tall.model"
+   },
+   "subm_27_down_frevir_escort.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_27_down_frevir_escort.mission",
+    "frag": "SubM_27_Default_Data.fragment",
+    "node": "0x001023DB",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_tall.model"
+   },
+   "subm_34_down_carvstop_racekill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_34_down_carvstop_racekill.mission",
+    "frag": "SubM_34_Default_Data.fragment",
+    "node": "0x0010246E",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_tall.model"
+   },
+   "subm_37_down_move_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_37_down_move_kill.mission",
+    "frag": "SubM_37_Default_Data.fragment",
+    "node": "0x00102472",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_tall.model"
+   },
+   "subm_38_down_move_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_38_down_move_kill.mission",
+    "frag": "SubM_38_Default_Data.fragment",
+    "node": "0x00102478",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_tall.model"
+   },
+   "subm_40_harb_move_kill.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/subm_40_harb_move_kill.mission",
+    "frag": "SubM_40_Default_Data.fragment",
+    "node": "0x00102482",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_tall.model"
+   }
+  },
+  "paths": [
+   "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_tall.model"
+  ],
+  "textures": {
+   "0": 93,
+   "1": 83,
+   "2": 78,
+   "3": 53,
+   "4": 1,
+   "5": 1,
+   "6": 3
+  },
+  "uses": {
+   "0|9": 66,
+   "10|9": 131,
+   "11|9": 5,
+   "16|9": 2,
+   "1|9": 40,
+   "2|9": 22,
+   "3|9": 40,
+   "4|10": 1,
+   "6|9": 2,
+   "8|10": 2,
+   "8|11": 1
+  }
+ },
+ "30": {
+  "blocks": {
+   "mm100_gettothedeahq.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm100_gettothedeahq.mission",
+    "frag": "MM100_Default_Data.fragment",
+    "node": "0x00101846",
+    "path": "/characters/dea/dea_outlaw.model"
+   },
+   "mm110_deahqvault.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm110_deahqvault.mission",
+    "frag": "MM110_Default_Data.fragment",
+    "node": "0x001018AE",
+    "path": "/characters/dea/dea_outlaw.model"
+   },
+   "mm120_runawaytrain.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm120_runawaytrain.mission",
+    "frag": "MM120_Default_data.fragment",
+    "node": "0x00101927",
+    "path": "/characters/dea/dea_outlaw.model"
+   }
+  },
+  "paths": [
+   "/characters/dea/dea_outlaw.model"
+  ],
+  "textures": {
+   "0": 43,
+   "1": 59
+  },
+  "uses": {
+   "0|9": 7,
+   "17|9": 36,
+   "18|9": 10,
+   "1|9": 39,
+   "2|9": 1,
+   "3|9": 9
+  }
+ },
+ "31": {
+  "blocks": {
+   "mm032_getthecar.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm032_getthecar.mission",
+    "frag": "MM032_Default_Data.fragment",
+    "node": "0x00101544",
+    "path": "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_boss.model"
+   }
+  },
+  "paths": [
+   "/characters/virgillo_brothers_badguy/virgillo_brothers_badguy_boss.model"
+  ],
+  "textures": {
+   "0": 1
+  },
+  "uses": {
+   "6|9": 1
+  }
+ },
+ "4": {
+  "blocks": {
+   "submap02_map04_lostoros_train_harbour.submap": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/submap02_map04_lostoros_train_harbour.submap",
+    "frag": "SUBMAP02_Map04_Default_Data.fragment",
+    "node": "0x00102B90",
+    "path": "/characters/angel/angel.model"
+   },
+   "submap03_map02_lostoros_downtown.submap": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/submap03_map02_lostoros_downtown.submap",
+    "frag": "SUBMAP03_Map02_Default_Data.fragment",
+    "node": "0x00102BD0",
+    "path": "/characters/angel/angel.model"
+   }
+  },
+  "paths": [
+   "/characters/angel/angel.model"
+  ],
+  "textures": {
+   "0": 11
+  },
+  "uses": {
+   "3|10": 2,
+   "3|29": 1,
+   "8|1": 1,
+   "8|10": 7
+  }
+ },
+ "5": {
+  "blocks": {
+   "submap01_map01_dea_hq_us_border.submap": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/submap01_map01_dea_hq_us_border.submap",
+    "frag": "SUBMAP01_Map01_Default_Data.fragment",
+    "node": "0x00102670",
+    "path": "/characters/border_police/border_police.model"
+   }
+  },
+  "paths": [
+   "/characters/border_police/border_police.model"
+  ],
+  "textures": {
+   "0": 46
+  },
+  "uses": {
+   "15|9": 28,
+   "1|9": 8,
+   "21|9": 1,
+   "3|9": 9
+  }
+ },
+ "6": {
+  "blocks": {
+   "mm066_brakeintosafe.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm066_brakeintosafe.mission",
+    "frag": "MM066_Default_Data.fragment",
+    "node": "0x001016E2",
+    "path": "/characters/cezar_morales/cezar_morales.model"
+   }
+  },
+  "paths": [
+   "/characters/cezar_morales/cezar_morales.model"
+  ],
+  "textures": {
+   "0": 5
+  },
+  "uses": {
+   "3|9": 4,
+   "5|9": 1
+  }
+ },
+ "9": {
+  "blocks": {
+   "mm010_ernestocruz.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm010_ernestocruz.mission",
+    "frag": "MM010_Default_Data.fragment",
+    "node": "0x001013FE",
+    "path": "/characters/dea/dea_taskforce.model"
+   },
+   "mm055_ambush.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm055_ambush.mission",
+    "frag": "MM055_Default_Data.fragment",
+    "node": "0x0010160D",
+    "path": "/characters/dea/dea_taskforce.model"
+   },
+   "mm100_gettothedeahq.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm100_gettothedeahq.mission",
+    "frag": "MM100_Default_Data.fragment",
+    "node": "0x00101845",
+    "path": "/characters/dea/dea_taskforce.model"
+   },
+   "mm110_deahqvault.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm110_deahqvault.mission",
+    "frag": "MM110_Default_Data.fragment",
+    "node": "0x001018AD",
+    "path": "/characters/dea/dea_taskforce.model"
+   },
+   "mm120_runawaytrain.mission": {
+    "entry": "data_pc/overdose_the_game/overdose/shared/mm120_runawaytrain.mission",
+    "frag": "MM120_Default_data.fragment",
+    "node": "0x00101925",
+    "path": "/characters/dea/dea_taskforce.model"
+   }
+  },
+  "paths": [
+   "/characters/dea/dea_taskforce.model"
+  ],
+  "textures": {
+   "0": 128,
+   "1": 15,
+   "2": 15
+  },
+  "uses": {
+   "0|0": 2,
+   "0|10": 5,
+   "0|9": 2,
+   "17|10": 3,
+   "17|9": 82,
+   "18|9": 11,
+   "1|10": 7,
+   "1|9": 30,
+   "2|9": 1,
+   "3|10": 1,
+   "3|29": 1,
+   "3|9": 13
+  }
+ }
+}

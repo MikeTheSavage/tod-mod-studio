@@ -151,10 +151,15 @@ def h_setup(q, body):
 
 def h_settings(q, body):
     w = ws()
-    for k in ('build_on_installed', 'save_safe_delete', 'author', 'online', 'community_url', 'update_url', 'update_auto'):
+    for k in ('build_on_installed', 'save_safe_delete', 'author', 'online', 'community_url', 'update_url', 'update_auto', 'blender_bridge', 'ccc_folder'):
         if k in body:
             w.settings[k] = body[k].strip() if isinstance(body[k], str) else body[k]
     w.save_settings()
+    if 'blender_bridge' in body:
+        from . import blender
+        blender.announce(PORT[0], bool(w.settings.get('blender_bridge')))
+        if not w.settings.get('blender_bridge'):
+            blender.clear()
     return w.status()
 
 
@@ -225,6 +230,16 @@ def h_ram_moves(q, body):
     return w.jobs.start('ram', ramanim.build, w)
 
 
+ENEMY_GROUP = dict(entry='data_pc/overdose_the_game/overdose/shared/submap01_map02_lostoros_downtown.submap',
+                   frag='Police_Assault_MissionStructure_03.fragment', node='0x00300E08')
+
+
+def h_names(q, body):
+    """The shared name table: characters, behaviours, sides, weapons, pickups, vehicles."""
+    from . import names
+    return names.all_names()
+
+
 def h_templates(q, body):
     """Palette templates: for each kind the first suitable entity in the given blocks (then known blocks)."""
     w = need_game()
@@ -243,6 +258,14 @@ def h_templates(q, body):
     fallback = ['data_pc/overdose_the_game/overdose/shared/mm092_escapejungle.mission',
                 'data_pc/overdose_the_game/overdose/shared/submap01_map02_lostoros_downtown.submap']
     out = {}
+    try:                                # an enemy is added as a whole fighter (body + weapon + short path), the shipped Downtown patrol
+        e = ENEMY_GROUP['entry']
+        L = w.level_json(e)
+        frag = next(f['name'] for f in L['fragments'] if f['name'].endswith(ENEMY_GROUP['frag']))
+        out['enemy'] = dict(entry=e, frag=frag, node=ENEMY_GROUP['node'], type='Folder', name='Enemy', group='enemy',
+                            sub=dict(Model=23, AISubType=0, FactionID=9))
+    except Exception:
+        pass
     for e in entries + [x for x in fallback if x not in entries]:
         try:
             L = w.level_json(e)
@@ -626,6 +649,8 @@ def _dialog(kind, suggest=None):
         r = WINDOW.create_file_dialog(webview.OPEN_DIALOG, file_types=('Meshes (*.glb;*.gltf;*.obj)', 'All files (*.*)'))
     elif kind == 'image':
         r = WINDOW.create_file_dialog(webview.OPEN_DIALOG, file_types=('Pictures (*.png;*.jpg;*.jpeg;*.bmp;*.tga;*.dds)', 'All files (*.*)'))
+    elif kind == 'addon':
+        r = WINDOW.create_file_dialog(webview.SAVE_DIALOG, save_filename=suggest or 'tod_mod_studio.py', file_types=('Blender add-on (*.py)', 'All files (*.*)'))
     elif kind == 'save':
         r = WINDOW.create_file_dialog(webview.SAVE_DIALOG, save_filename=suggest or 'mod.todmod',
                                       file_types=('TOD Mod Studio mod (*.todmod)', 'All files (*.*)'))
@@ -764,6 +789,12 @@ def h_missions_graph(q, body):
     from . import companion_b as CB
     w = need_game()
     return w.jobs.start('missions', CB.mission_graph, w, body['entry'], body.get('ops'), bool(body.get('lint')))
+
+
+def h_missions_texts(q, body):
+    from . import companion_b as CB
+    w = need_game()
+    return w.jobs.run_sync(lambda progress=None: dict(texts=CB.feedback_texts(w)))
 
 
 def h_sections_catalog(q, body):
@@ -1243,6 +1274,12 @@ def _apierr(fn):
         raise ApiError(400, str(e).strip("'\""))
     except ValueError as e:
         raise ApiError(400, str(e))
+    except MemoryError:
+        raise ApiError(400, 'the model is too big to process')
+    except Exception:                                          # noqa: BLE001  (the screen shows one plain line, never an exception text)
+        import traceback
+        traceback.print_exc()
+        raise ApiError(400, 'this model could not be processed')
 
 
 def h_import_analyze(q, body):
@@ -1251,6 +1288,16 @@ def h_import_analyze(q, body):
     if not path:
         return dict(cancelled=True)
     return _apierr(lambda: imports.analyze(path))
+
+
+def h_ccc_vehicles(q, body):
+    from . import cccveh
+    return cccveh.listing(ws().settings)
+
+
+def h_ccc_analyze(q, body):
+    from . import cccveh
+    return _apierr(lambda: cccveh.analyze(ws().settings, body.get('id')))
 
 
 def h_import_preview(q, body):
@@ -1269,6 +1316,38 @@ def h_models_imported(q, body):
     from . import imports
     w = need_game()
     return dict(models=w.jobs.run_sync(lambda progress=None: imports.imported_records(w, body.get('models'))))
+
+
+def h_blender_pending(q, body):
+    from . import blender
+    w = ws()
+    if not w.settings.get('blender_bridge'):
+        return dict(on=False, items=[])
+    return dict(on=True, items=blender.pending())
+
+
+def h_blender_addon(q, body):
+    from . import blender
+    path = body.get('path') or _dialog('addon', 'tod_mod_studio.py')
+    if not path:
+        return dict(cancelled=True)
+    if os.path.isdir(path):
+        path = os.path.join(path, 'tod_mod_studio.py')
+    with open(path, 'wb') as f:
+        f.write(blender.addon_text())
+    return dict(path=path)
+
+
+def h_blender_ping(q, body):
+    return dict(ok=True, on=bool(ws().settings.get('blender_bridge')))
+
+
+def h_blender_send(q, body):
+    from . import blender
+    try:
+        return blender.receive(ws().settings, body)
+    except blender.BridgeError as e:
+        raise ApiError(e.code, str(e))
 
 
 def h_models_search(q, body):
@@ -1374,12 +1453,12 @@ def h_scene_send(q, body):
     return _scene_job('scene-send', lambda m, progress: m.send(body['sid'], body.get('params'), body.get('target') or {}, progress))
 
 
-GET = {'/api/world/atlas': h_world_atlas, '/api/starters': h_starters, '/api/newmap/allocation': h_newmap_allocation, '/api/newmap/hosts': h_newmap_hosts, '/api/newmap/links': h_newmap_links, '/api/startup/files': h_open_files, '/api/variant': h_variant, '/api/profiles': h_profiles, '/api/userlib': h_userlib_get, '/api/testgame': h_test_status, '/api/testgame/log': h_test_log, '/api/bisect': h_bisect, '/api/autosave': h_autosave_get, '/api/projsnaps': h_projsnaps_get, '/api/backups': h_backups, '/api/snapshots': h_snapshots, '/api/limits': h_limits, '/api/missiontpl': h_missiontpl, '/api/newmaps': h_newmaps, '/api/status': h_status, '/api/overview': h_overview, '/api/catalog': h_catalog, '/api/entity': h_entity, '/api/mods': h_mods,
-       '/api/mods/get': h_mod_get, '/api/saves': h_saves, '/api/enums': h_enums,
+GET = {'/api/blender/ping': h_blender_ping, '/api/world/atlas': h_world_atlas, '/api/starters': h_starters, '/api/newmap/allocation': h_newmap_allocation, '/api/newmap/hosts': h_newmap_hosts, '/api/newmap/links': h_newmap_links, '/api/startup/files': h_open_files, '/api/variant': h_variant, '/api/profiles': h_profiles, '/api/userlib': h_userlib_get, '/api/testgame': h_test_status, '/api/testgame/log': h_test_log, '/api/bisect': h_bisect, '/api/autosave': h_autosave_get, '/api/projsnaps': h_projsnaps_get, '/api/backups': h_backups, '/api/snapshots': h_snapshots, '/api/limits': h_limits, '/api/missiontpl': h_missiontpl, '/api/newmaps': h_newmaps, '/api/status': h_status, '/api/overview': h_overview, '/api/catalog': h_catalog, '/api/entity': h_entity, '/api/mods': h_mods,
+       '/api/mods/get': h_mod_get, '/api/saves': h_saves, '/api/enums': h_enums, '/api/names': h_names,
        '/api/token': h_token, '/api/companion/catalog': h_comp_catalog}
 POST = {'/api/scene/open': h_scene_open, '/api/scene/overview': h_scene_overview, '/api/scene/count': h_scene_count, '/api/scene/sample': h_scene_sample, '/api/scene/glb': h_scene_glb, '/api/scene/report': h_scene_report, '/api/scene/send': h_scene_send, '/api/starters/open': h_starter_open, '/api/mods/conflicts': h_mod_conflicts, '/api/mods/inspect': h_mod_inspect, '/api/collections/export': h_collection_export, '/api/pieces/sources': h_piece_sources, '/api/pieces/export': h_piece_export, '/api/profiles': h_profile_action, '/api/community': h_community, '/api/update': h_update, '/api/report': h_report, '/api/userlib': h_userlib_set, '/api/testgame/run': h_test_run, '/api/testgame/plan': h_test_plan, '/api/testgame/stop': h_test_stop, '/api/testgame/keep': h_test_keep,
         '/api/testgame/remove': h_test_remove, '/api/saves/missions': h_test_missions, '/api/support/bundle': h_support, '/api/bisect': h_bisect_act, '/api/import/analyze': h_import_analyze, '/api/import/preview': h_import_preview, '/api/import/entry': h_import_entry,
-        '/api/models/imported': h_models_imported, '/api/models/search': h_models_search,
+        '/api/blender/send': h_blender_send, '/api/blender/pending': h_blender_pending, '/api/blender/addon': h_blender_addon, '/api/ccc/vehicles': h_ccc_vehicles, '/api/ccc/analyze': h_ccc_analyze, '/api/models/imported': h_models_imported, '/api/models/search': h_models_search,
         '/api/textures/rows': h_tex_rows, '/api/textures/build': h_tex_build, '/api/textures/info': h_tex_info,
         '/api/textures/thumbs': h_tex_thumbs, '/api/textures/upload': h_tex_upload, '/api/textures/render': h_tex_render,
         '/api/ledger': h_ledger, '/api/problems': h_problems, '/api/autosave': h_autosave, '/api/projsnaps': h_projsnaps, '/api/pack/rebuild': h_pack_rebuild, '/api/restore/vanilla': h_vanilla, '/api/verify': h_verify, '/api/verify/repair': h_verify_repair,
@@ -1395,7 +1474,7 @@ POST = {'/api/scene/open': h_scene_open, '/api/scene/overview': h_scene_overview
         '/api/catalogue/rows': h_cat_rows, '/api/catalogue/scan': h_cat_scan, '/api/catalogue/model': h_cat_model,
         '/api/catalogue/card': h_cat_card, '/api/catalogue/clips': h_cat_clips, '/api/catalogue/skin': h_cat_skin,
         '/api/catalogue/clip': h_cat_clip,
-        '/api/routes/model': h_routes_model, '/api/missions/graph': h_missions_graph,
+        '/api/routes/model': h_routes_model, '/api/missions/graph': h_missions_graph, '/api/missions/texts': h_missions_texts,
         '/api/sections/catalog': h_sections_catalog, '/api/sections/fix': h_sections_fix,
         '/api/sections/split': h_sections_split, '/api/partb/check': h_partb_check}
 
@@ -1461,7 +1540,12 @@ class Handler(BaseHTTPRequestHandler):
         return self._file(paths.WEB, rel)
 
     def do_POST(self):
-        if self.headers.get('X-TODMS-Token') != TOKEN:
+        if urllib.parse.urlparse(self.path).path == '/api/blender/send':
+            # the add-on of Blender: no page token, but never from a web page, only to this host, only with its own header
+            host = (self.headers.get('Host') or '').split(':')[0]
+            if self.headers.get('Origin') or self.headers.get('X-TODMS-Bridge') != '1' or host not in ('127.0.0.1', 'localhost'):
+                return self._send(403, dict(error='not allowed'))
+        elif self.headers.get('X-TODMS-Token') != TOKEN:
             return self._send(403, dict(error='bad token'))
         n = int(self.headers.get('Content-Length') or 0)
         try:
@@ -1479,8 +1563,18 @@ class Handler(BaseHTTPRequestHandler):
         self._send(200, open(p, 'rb').read(), ctype)
 
 
+PORT = [0]
+
+
 def serve(port=0):
     srv = ThreadingHTTPServer(('127.0.0.1', port), Handler)
+    PORT[0] = srv.server_address[1]
+    try:
+        from . import blender
+        with open(os.path.join(paths.user_dir(), 'settings.json')) as f:
+            blender.announce(PORT[0], bool(json.load(f).get('blender_bridge')))
+    except Exception:                                          # noqa: BLE001
+        pass
     srv.daemon_threads = True
     t = threading.Thread(target=srv.serve_forever, daemon=True)
     t.start()

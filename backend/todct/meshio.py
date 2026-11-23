@@ -20,60 +20,135 @@ COMP = {5120: np.int8, 5121: np.uint8, 5122: np.int16, 5123: np.uint16, 5125: np
 NCOMP = {'SCALAR': 1, 'VEC2': 2, 'VEC3': 3, 'VEC4': 4, 'MAT4': 16}
 
 
+BS = chr(92)
+
+
 class MeshError(ValueError):
     pass
 
 
 # ---------------------------------------------------------------------------------------------- glTF read
+# extensions a file can REQUIRE that this reader cannot honour (the geometry would be missing or wrong)
+UNSUPPORTED_REQUIRED = {
+    'KHR_draco_mesh_compression': 'the file uses Draco compression; export it again with compression off',
+    'EXT_meshopt_compression': 'the file uses meshopt compression; export it again with compression off',
+}
+
+
 def _load_gltf(path):
-    with open(path, 'rb') as f:
-        data = f.read()
+    try:
+        with open(path, 'rb') as f:
+            data = f.read()
+    except OSError:
+        raise MeshError('the file could not be opened')
     bin_chunk = None
     if data[:4] == b'glTF':
+        if len(data) < 20:
+            raise MeshError('the file is cut short')
         _, ver, total = struct.unpack_from('<III', data, 0)
+        if ver != 2:
+            raise MeshError('only glTF version 2 files can be read')
         off = 12
         js = None
-        while off < total:
+        total = min(total, len(data))
+        while off + 8 <= total:
             ln, typ = struct.unpack_from('<II', data, off)
             chunk = data[off + 8: off + 8 + ln]
             if typ == 0x4E4F534A:
-                js = json.loads(chunk.decode('utf-8'))
-            elif typ == 0x004E4942:
+                try:
+                    js = json.loads(chunk.decode('utf-8').rstrip('\x00 \t\r\n'))
+                except ValueError:
+                    raise MeshError('the file is damaged')
+            elif typ == 0x004E4942 and bin_chunk is None:
                 bin_chunk = chunk
             off += 8 + ln
         if js is None:
-            raise MeshError('%s: no JSON chunk' % path)
+            raise MeshError('the file is damaged')
     else:
-        js = json.loads(data.decode('utf-8'))
+        try:
+            js = json.loads(data.decode('utf-8-sig').rstrip('\x00 \t\r\n'))
+        except ValueError:
+            raise MeshError('the file is not a glTF file')
+    if not isinstance(js, dict) or 'asset' not in js and 'meshes' not in js:
+        raise MeshError('the file is not a glTF file')
+    if str((js.get('asset') or {}).get('version', '2')).split('.')[0] == '1':
+        raise MeshError('only glTF version 2 files can be read')
+    for e in js.get('extensionsRequired') or []:
+        if e in UNSUPPORTED_REQUIRED:
+            raise MeshError(UNSUPPORTED_REQUIRED[e])
+    for m in js.get('meshes', []):
+        for p in m.get('primitives', []):
+            if 'KHR_draco_mesh_compression' in (p.get('extensions') or {}):
+                raise MeshError(UNSUPPORTED_REQUIRED['KHR_draco_mesh_compression'])
+    from urllib.parse import unquote
     buffers = []
     for i, b in enumerate(js.get('buffers', [])):
         uri = b.get('uri')
         if uri is None:
             buffers.append(bin_chunk)
         elif uri.startswith('data:'):
-            buffers.append(base64.b64decode(uri.split(',', 1)[1]))
+            try:
+                buffers.append(base64.b64decode(uri.split(',', 1)[1]))
+            except Exception:                                  # noqa: BLE001
+                raise MeshError('the file is damaged')
         else:
-            with open(os.path.join(os.path.dirname(path), uri), 'rb') as f:
-                buffers.append(f.read())
+            fn = os.path.join(os.path.dirname(os.path.abspath(path)), unquote(uri).replace(BS, '/'))
+            if not os.path.exists(fn):                          # a name that was never percent-encoded
+                alt = os.path.join(os.path.dirname(os.path.abspath(path)), uri.replace(BS, '/'))
+                fn = alt if os.path.exists(alt) else fn
+            try:
+                with open(fn, 'rb') as f:
+                    buffers.append(f.read())
+            except OSError:
+                raise MeshError('the data file %s is missing; keep it next to the .gltf' % os.path.basename(unquote(uri).replace(BS, '/')))
     return js, buffers
 
 
 def _accessor(js, buffers, i):
+    try:
+        return _accessor_(js, buffers, i)
+    except MeshError:
+        raise
+    except (KeyError, IndexError, TypeError, ValueError, struct.error):
+        raise MeshError('the file is damaged')
+
+
+def _accessor_(js, buffers, i):
     a = js['accessors'][i]
-    bv = js['bufferViews'][a['bufferView']]
-    buf = buffers[bv['buffer']]
     dt = np.dtype(COMP[a['componentType']])
     nc = NCOMP[a['type']]
-    off = bv.get('byteOffset', 0) + a.get('byteOffset', 0)
-    stride = bv.get('byteStride')
     cnt = a['count']
-    if stride and stride != dt.itemsize * nc:
-        rows = [np.frombuffer(buf, dtype=dt, count=nc, offset=off + k * stride) for k in range(cnt)]
-        arr = np.array(rows)
+    if 'bufferView' not in a:
+        arr = np.zeros((cnt, nc), dtype=dt)
     else:
-        arr = np.frombuffer(buf, dtype=dt, count=cnt * nc, offset=off).reshape(cnt, nc)
-    if a.get('normalized'):
-        arr = arr.astype(np.float64) / np.iinfo(dt).max
+        bv = js['bufferViews'][a['bufferView']]
+        buf = buffers[bv['buffer']]
+        if buf is None:
+            raise MeshError('the file has no data block')
+        off = bv.get('byteOffset', 0) + a.get('byteOffset', 0)
+        stride = bv.get('byteStride') or dt.itemsize * nc
+        if cnt == 0:
+            arr = np.zeros((0, nc), dtype=dt)
+        else:
+            need = off + stride * (cnt - 1) + dt.itemsize * nc
+            if need > len(buf):
+                raise MeshError('the file is cut short')
+            if stride == dt.itemsize * nc:
+                arr = np.frombuffer(buf, dtype=dt, count=cnt * nc, offset=off).reshape(cnt, nc)
+            else:
+                raw = np.frombuffer(buf, dtype=np.uint8, count=stride * (cnt - 1) + dt.itemsize * nc, offset=off)
+                arr = np.lib.stride_tricks.as_strided(raw, shape=(cnt, dt.itemsize * nc), strides=(stride, 1)).copy().view(dt).reshape(cnt, nc)
+    sp = a.get('sparse')
+    if sp and sp.get('count'):
+        arr = np.array(arr)
+        ib, vb = sp['indices'], sp['values']
+        idt = np.dtype(COMP[ib['componentType']])
+        ibv, vbv = js['bufferViews'][ib['bufferView']], js['bufferViews'][vb['bufferView']]
+        ix = np.frombuffer(buffers[ibv['buffer']], dtype=idt, count=sp['count'], offset=ibv.get('byteOffset', 0) + ib.get('byteOffset', 0))
+        vv = np.frombuffer(buffers[vbv['buffer']], dtype=dt, count=sp['count'] * nc, offset=vbv.get('byteOffset', 0) + vb.get('byteOffset', 0)).reshape(-1, nc)
+        arr[ix.astype(np.int64)] = vv
+    if a.get('normalized') and dt.kind in 'iu':
+        arr = np.maximum(arr.astype(np.float64) / np.iinfo(dt).max, -1.0)
     return arr
 
 

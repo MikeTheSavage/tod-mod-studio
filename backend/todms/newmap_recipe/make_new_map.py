@@ -1090,6 +1090,58 @@ def gen_spec(params, out='.'):
     return spec, manifest
 
 
+class _ArchiveWS:
+    """What todms.characters / todms.build need of a workspace, read from the game archives the recipe already runs on."""
+
+    def __init__(self):
+        self.T = ft.types()
+        self._main = None
+
+    def read_block(self, entry):
+        return ft.archive().read(ft.resolve_entry(entry)), 'blocks.naz'
+
+    def main_lookup(self, short):
+        if self._main is None:
+            b = tb.Block(ft.archive().read(ft.resolve_entry(MAIN_ENTRY)), '.main')
+            frs, _ = ft.fragments(b)
+            self._main = {nm.replace(chr(92), '/').split('/')[-1].lower(): (nm, b.payloads[k]) for k, nm in frs}
+        return self._main.get(short)
+
+
+MAIN_ENTRY = 'data_pc/overdose_the_game/overdose/shared/overdose.main'
+
+
+def ensure_bodies(params, real, mans, entries, checks):
+    """Every enemy body (`model`) the recipe places must be drawable in the block it goes into: the block gets the body's registering node and
+    mesh from the shipped block that has it (todms.characters). Bodies 20 and 23 live in overdose.main."""
+    from todms import characters, build as B
+    want = {}
+    for m, mm in zip(real, mans):
+        entry = mm['submap_block'] if m.get('nodes_in', 'map') == 'submap' else mm['map_block']
+        for e in (m.get('enemies') or []) + (m.get('dotd_enemies') or []):
+            if e.get('template') != 'mission':
+                want.setdefault(entry, set()).add(int(e.get('model', 23)))
+    for e in params.get('existing_enemies', []):
+        want.setdefault(e['block'], set()).add(int(e.get('model', 23)))
+    ws = _ArchiveWS()
+    for blk, models in want.items():
+        key = next((k for k in entries if k == blk or k.endswith('/' + blk)), None)
+        if key is None:
+            continue
+        for n in sorted(models):
+            r = characters.row(n)
+            if r is None or not r['placeable']:
+                raise RecipeError('enemy model %s cannot be placed' % n)
+        need = characters.missing(ws, key, entries[key], models)
+        if not need:
+            continue
+        rp = {}
+        raw = B.stage_b(ws, key, entries[key], characters.resource_ops(ws, key, need), ws.T, rp, {})
+        entries[key] = characters.copy_assets(ws, key, raw, need, rp)
+        checks.append(dict(check='enemy bodies in %s' % key.split('/')[-1], result='PASS',
+                           evidence='registered %s; copied %s' % ([characters.row(n)['name'] for n in need], rp.get('character_assets'))))
+
+
 _modelcache = {}
 
 
@@ -1834,6 +1886,7 @@ def build(params, out, collision=True, check_only=False):
         zin = zipfile.ZipFile(zname)
         entries = {n: zin.read(n) for n in zin.namelist()}
         zin.close()
+        ensure_bodies(params, real, manifest['maps'], entries, checks)
         ctx_hosts = []
         for m, mm in zip(real, manifest['maps']):
             sets = []

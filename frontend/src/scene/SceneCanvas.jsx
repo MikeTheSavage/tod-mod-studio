@@ -5,6 +5,7 @@ import { OrbitControls, Html } from '@react-three/drei'
 import * as THREE from 'three'
 import { Figure, Fit, useGlb } from '../AssetView.jsx'
 import { vpColor } from '../theme.js'
+import { isClick } from '../camdrag.js'
 
 function paint(scene) {
   const o = scene.clone(true)
@@ -46,7 +47,7 @@ export default function SceneCanvas({ url, scale = 1, figure = true, pick, child
   }, [obj])
   const fitBox = useMemo(() => box && new THREE.Box3(box.min.clone().multiplyScalar(scale), box.max.clone().multiplyScalar(scale)), [box, scale])
   const click = e => {
-    if (!pick) return
+    if (!pick || !isClick(e)) return
     e.stopPropagation()
     pick.onPoint(e.point.clone().divideScalar(scale).toArray())
   }
@@ -56,7 +57,7 @@ export default function SceneCanvas({ url, scale = 1, figure = true, pick, child
       <ambientLight intensity={0.85} />
       <directionalLight position={[40, 80, 30]} intensity={0.8} />
       <Suspense fallback={null}>
-        {obj && <group scale={[scale, scale, scale]}><primitive object={obj} onPointerDown={pick ? click : undefined} /></group>}
+        {obj && <group scale={[scale, scale, scale]}><primitive object={obj} onClick={pick ? click : undefined} /></group>}
       </Suspense>
       {figure && fig && <group position={[fig.x * scale, fig.y * scale, fig.z * scale]}><Figure x={0} /></group>}
       {pick && (pick.points || []).map((p, i) => <Marker key={i} p={[p[0] * scale, p[1] * scale, p[2] * scale]} size={Math.max(0.12, 0.3 * Math.min(scale, 1))} />)}

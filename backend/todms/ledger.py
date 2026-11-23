@@ -106,6 +106,20 @@ def installed_ops(ws, skip_id=None):
     return ops, coll, ids
 
 
+def installed_mission_ops(ws, skip_id=None):
+    """The mission-logic ops of the mods installed in the game folder (the current mod is left out)."""
+    from . import mods
+    if not ws.game:
+        return []
+    out = []
+    for i in [i for i in (mods.installed_state(ws).get('mods') or []) if i != skip_id]:
+        try:
+            out += mods.get_mod(i).get('missions') or []
+        except Exception:
+            continue
+    return out
+
+
 def installed_assets(ws, skip_id=None):
     """-> (models, textures) of the mods installed in the game folder (the current mod is left out)."""
     from . import mods
@@ -143,11 +157,17 @@ def _fill(row, used, parts=None, items=None, mode='live', reason=None):
 
 
 # ------------------------------------------------------------------------------------------------ the live meters
-def _blocks_with_adds(ops):
+def _blocks_with_adds(ops, mission_ops=()):
     out = {}
     for o in ops:
         if o.get('op') == 'add' and o.get('entry'):
             out[o['entry']] = out.get(o['entry'], 0) + 1
+    if mission_ops:
+        from todct import missions as MS
+        for o in mission_ops:
+            n = MS.nodes_added(o)
+            if n and o.get('entry'):
+                out[o['entry']] = out.get(o['entry'], 0) + n
     return out
 
 
@@ -157,19 +177,20 @@ def _is_car(o):
     return o.get('op') == 'add' and v.get('cat') == 'vehicle' and t.startswith('vehicle_placeholder') and o.get('pos')
 
 
-def meter_nodes(ws, pkg_ops, ops, heavy):
+def meter_nodes(ws, pkg_ops, ops, heavy, pkg_m=(), m_ops=()):
     """L1: per block, vanilla nodes + added by the installed mods + added by this project. One node per added object until a Check measures
     the real count (a template can bring a small subtree)."""
     row = _row_base('L1')
-    a, b = _blocks_with_adds(pkg_ops), _blocks_with_adds(ops)
+    a, b = _blocks_with_adds(pkg_ops, pkg_m), _blocks_with_adds(ops, m_ops)
     measured = (heavy or {}).get('L1') or {}
+    mm = _blocks_with_adds([], m_ops)
     items = []
     for e in sorted(set(a) | set(b)):
         try:
             v = baseline(ws, e)['nodes']
         except Exception:
             continue
-        proj = measured.get(e, b.get(e, 0))
+        proj = measured[e] + mm.get(e, 0) if e in measured else b.get(e, 0)      # a Check measures the level adds; mission nodes are counted live
         items.append(dict(label=e.split('/')[-1], entry=e, vanilla=v, packages=a.get(e, 0), project=proj, used=v + a.get(e, 0) + proj,
                           jump=dict(screen='level', entry=e)))
     if not items:
@@ -554,6 +575,8 @@ def compute(ws, kind=None, project=None, pid=None, heavy=None):
     pkg_ops, pkg_coll, pkg_ids = installed_ops(ws, skip_id=pid if kind == 'level' else None)
     pkg_models, pkg_texts = installed_assets(ws, skip_id=pid if kind == 'level' else None)
     ops = (project or {}).get('level') or [] if kind == 'level' else []
+    m_ops = (project or {}).get('missions') or [] if kind == 'level' else []
+    pkg_m = installed_mission_ops(ws, skip_id=pid if kind == 'level' else None)
     coll = (project or {}).get('collision') or [] if kind == 'level' else []
     def safe(lids, fn, *args):
         try:
@@ -570,7 +593,7 @@ def compute(ws, kind=None, project=None, pid=None, heavy=None):
         except Exception:
             gen = None
     for lids, fn, args in (
-            (['L1'], meter_nodes, (ws, pkg_ops, ops, heavy)),
+            (['L1'], meter_nodes, (ws, pkg_ops, ops, heavy, pkg_m, m_ops)),
             (['L4'], meter_cars, (ws, pkg_ops, ops)),
             (['L15', 'L15_index'], meter_collision, (coll, pkg_coll)),
             (['L16_pos', 'L16_box'], meter_ranges, (pkg_ops, ops)),
